@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_combine" value="name:sn;datatype:int,name:names;datatype:string,name:matno;datatype:string,name:code;datatype:string,name:unit;datatype:int,name:score;datatype:string,name:grade;datatype:string,name:points;datatype:string" />
+	<infoitem key="UD_cosreg" value="name:sn;datatype:int,name:names;datatype:string,name:matno;datatype:string,name:title;datatype:string,name:code;datatype:string,name:unit;datatype:int" />
+	<infoitem key="UD_newme" value="name:Programme;datatype:string,name:unit;datatype:int,name:semester;datatype:int,name:code;datatype:string,name:title;datatype:string" />
+	<infoitem key="UD_reCourses" value="name:S/n;datatype:int,name:Programme;datatype:string,name:unit;datatype:int,name:semester;datatype:int,name:code;datatype:string,name:title;datatype:string" />
+	<infoitem key="UD_restudents" value="name:sn;datatype:int,name:names;datatype:string,name:matno;datatype:string,name:dept;datatype:string,name:year;datatype:int,name:images;datatype:string,name:session;datatype:string,name:status;datatype:int,name:stat;datatype:int,name:Withdrwan;datatype:string" />
+</info>
