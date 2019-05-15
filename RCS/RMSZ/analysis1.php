@@ -36,7 +36,7 @@ $session = $_POST['session'];
 
 
 //		$query= mysqli_query($conn,"SELECT * FROM course 
-//		WHERE programme='$programme' && semester	='$semester'&& sessions = '$session'") or  die (mysqli_error());
+//		WHERE dept_id='$programme' && semester	='$semester'&& sessions = '$session'") or  die (mysqli_error());
 	
     switch ($semester) {
         case "1":
@@ -129,7 +129,7 @@ echo "Analyasis of Result";
 	
 	<?php 
 	$cc = mysqli_query($conn,"SELECT *
-FROM `course` WHERE Programme = '$programme' && semester = '$semester' && sessions = '$session'") or die(mysqli_error());
+FROM `course` WHERE dept_id = '$programme' && semester = '$semester' && sessions = '$session'") or die(mysqli_error());
 $n = 0;
 $f = 0;
 while($row = mysqli_fetch_assoc($cc)){
@@ -156,7 +156,7 @@ $n++;
 		//$code = $row['unit'];
 		?></td>
 		
-		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'A' && code = '$code' &&  programme = '$programme' && semester = '$semester' && session = '$session' && stat = '0'");
+		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'A' && code = '$code' &&  dept_id='$programme' && semester = '$semester' && session = '$session' && stat = '0'");
 		$numr = mysqli_num_rows($a);
 		echo $numr; 
 		$tt = $numr;
@@ -167,7 +167,7 @@ $n++;
 		$smfp = (0+$mfp);
 		$pass = $numr;
 		?></td>
-		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'AB' && code = '$code' &&  programme = '$programme' && semester = '$semester' && session = '$session' && stat = '0'");
+		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'AB' && code = '$code' &&  dept_id='$programme' && semester = '$semester' && session = '$session' && stat = '0'");
 		$numr = mysqli_num_rows($a);
 		echo $numr;
 		$tt = $tt + $numr;
@@ -178,7 +178,7 @@ $n++;
 		$smfp = ($smfp+$mfp);
 		$pass = ($numr + $pass);
 		?></td>
-		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'B' && code = '$code' &&  programme = '$programme' && semester = '$semester' && session = '$session' && stat = '0'");
+		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'B' && code = '$code' &&  dept_id='$programme' && semester = '$semester' && session = '$session' && stat = '0'");
 		$numr = mysqli_num_rows($a);
 		echo $numr;
 		$tt = $tt + $numr;
@@ -189,7 +189,7 @@ $n++;
 		$smfp = ($smfp+$mfp);
 		$pass = ($numr + $pass);
 		?></td>
-		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'BC' && code = '$code' &&  programme = '$programme' && semester = '$semester' && session = '$session' && stat = '0'");
+		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'BC' && code = '$code' &&  dept_id='$programme' && semester = '$semester' && session = '$session' && stat = '0'");
 		$numr = mysqli_num_rows($a);
 		echo $numr;
 		$tt = $tt + $numr;
@@ -200,7 +200,7 @@ $n++;
 		$smfp = ($smfp+$mfp);
 		$pass = ($numr + $pass);
 		?></td>
-		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'C' && code = '$code' &&  programme = '$programme' && semester = '$semester' && session = '$session' && stat = '0'");
+		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'C' && code = '$code' &&  dept_id='$programme' && semester = '$semester' && session = '$session' && stat = '0'");
 		$numr = mysqli_num_rows($a);
 		echo $numr;
 		$tt = $tt + $numr;
@@ -211,7 +211,7 @@ $n++;
 		$smfp = ($smfp+$mfp);
 		$pass = ($numr + $pass);
 		?></td>
-		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'CD' && code = '$code' &&  programme = '$programme' && semester = '$semester' && session = '$session' && stat = '0'");
+		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'CD' && code = '$code' &&  dept_id='$programme' && semester = '$semester' && session = '$session' && stat = '0'");
 		$numr = mysqli_num_rows($a);
 		echo $numr;
 		$tt = $tt + $numr;
@@ -222,7 +222,7 @@ $n++;
 		$smfp = ($smfp+$mfp);
 		$pass = ($numr + $pass);
 		?></td>
-		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'D' && code = '$code' &&  programme = '$programme' && semester = '$semester' && session = '$session' && stat = '0'");
+		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'D' && code = '$code' &&  dept_id='$programme' && semester = '$semester' && session = '$session' && stat = '0'");
 		$numr = mysqli_num_rows($a);
 		echo $numr;
 		$tt = $tt + $numr;
@@ -233,7 +233,7 @@ $n++;
 		$smfp = ($smfp+$mfp);
 		$pass = ($numr + $pass);
 		?></td>
-		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'E' && code = '$code' &&  programme = '$programme' && semester = '$semester' && session = '$session' && stat = '0'");
+		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'E' && code = '$code' &&  dept_id='$programme' && semester = '$semester' && session = '$session' && stat = '0'");
 		$numr = mysqli_num_rows($a);
 		echo $numr;
 		$tt = $tt + $numr;
@@ -244,7 +244,7 @@ $n++;
 		$smfp = ($smfp+$mfp);
 		$pass = ($numr + $pass);
 		?></td>
-		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'F' && code = '$code' &&  programme = '$programme' && semester = '$semester' && session = '$session' && stat = '0'");
+		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'F' && code = '$code' &&  dept_id='$programme' && semester = '$semester' && session = '$session' && stat = '0'");
 		$numr = mysqli_num_rows($a);
 		$f = ((mysqli_num_rows($a))+($f));
 		echo $numr;
@@ -257,32 +257,32 @@ $n++;
 //		$pass = ($numr + $pass);
 //		$ver = (($smfp - ($tt*($mean *$mean))/($tt - 1));
 		?></td>
-		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'EM' && code = '$code' &&  programme = '$programme' && semester = '$semester' && session = '$session' && stat = '0'");
+		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'EM' && code = '$code' &&  dept_id='$programme' && semester = '$semester' && session = '$session' && stat = '0'");
 		$numr = mysqli_num_rows($a);
 		echo $numr;
 		$tt = $tt + $numr;
 		?></td>
-		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'AE' && code = '$code' &&  programme = '$programme' && semester = '$semester' && session = '$session' && stat = '0'");
+		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'AE' && code = '$code' &&  dept_id='$programme' && semester = '$semester' && session = '$session' && stat = '0'");
 		$numr = mysqli_num_rows($a);
 		echo $numr;
 		$tt = $tt + $numr;
 		?></td>
-		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'ABS' && code = '$code' &&  programme = '$programme' && semester = '$semester' && session = '$session' && stat = '0'");
+		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'ABS' && code = '$code' &&  dept_id='$programme' && semester = '$semester' && session = '$session' && stat = '0'");
 		$numr = mysqli_num_rows($a);
 		echo $numr;
 		$tt = $tt + $numr;
 		?></td>
-		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'PI' && code = '$code' &&  programme = '$programme' && semester = '$semester' && session = '$session' && stat = '0'");
+		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'PI' && code = '$code' &&  dept_id='$programme' && semester = '$semester' && session = '$session' && stat = '0'");
 		$numr = mysqli_num_rows($a);
 		echo $numr;
 		$tt = $tt + $numr;
 		?></td>
-		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'MS' && code = '$code' &&  programme = '$programme' && semester = '$semester' && session = '$session' && stat = '0'");
+		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'MS' && code = '$code' &&  dept_id='$programme' && semester = '$semester' && session = '$session' && stat = '0'");
 		$numr = mysqli_num_rows($a);
 		echo $numr;
 		$tt = $tt + $numr;
 		?></td>
-		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'NR' && code = '$code' &&  programme = '$programme' && semester = '$semester' && session = '$session' && stat = '0'");
+		<td class="auto-style2" style="height: 17px"><?php $a = mysqli_query($conn,"SELECT * FROM `results` WHERE grade = 'NR' && code = '$code' &&  dept_id='$programme' && semester = '$semester' && session = '$session' && stat = '0'");
 		$numr = mysqli_num_rows($a);
 		echo $numr;
 		$tt = $tt + $numr;
@@ -328,7 +328,7 @@ echo 0;
 <table border="1" align="center" cellpadding="0" cellspacing="1" style="font-size:12px; width: 90%; border:thin; border-collapse:collapse">
 <tr>
 <td>*The Mean and standard Deviation are calculated for the Total Number of Students that scored actual marks in the Exams<br/>
-*The total Number of Students is <?php echo $tt;?>
+*The total Number of Students is <?php echo @$tt;?>
 <br><br>LEGEND</td>
 </tr>
 </table>

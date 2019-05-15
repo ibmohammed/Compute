@@ -89,20 +89,35 @@ if(@$_SESSION['usercomfirmed'] == True){
        $return_result = students_data($_SESSION['usercomfirmed'],$logs);
         $data = mysqli_fetch_assoc($return_result);
 
+        
+        
+        $return_dept = departmentss(@$data['dept_id'], $logs);
+        $schlid = mysqli_fetch_assoc($return_dept);
+        //$schlid = $result1->fetch_array();
+        $return_schl = schoolss(@$schlid['schl_id'], $logs);
+        $clgid = mysqli_fetch_assoc($return_schl);
+        //$clgid = $result2->fetch_array();
+        $return_college = collegess(@$clgid['college_id'], $logs);
+        $clg = mysqli_fetch_assoc($return_college);
+        //$clg = $result3->fetch_array();
+
+
         ?>
       <div class="w3-card w3-round w3-white">
         <div class="w3-container" style="font-size:small">
          <h4 class="w3-center">My Profile</h4>
           <?php echo $data['names'];
                     $_SESSION['MM_Username'] = $data['matno'];
-                    $_SESSION['programme'] = $data['dept'];
+                    $_SESSION['programme'] = $data['dept_id'];
                     $_SESSION['matricno'] = $data['matno'];
                     $_SESSION['session'] = $data['session'];
           ?>
          <hr>
 
          <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i><?php echo $data['matno'];?></p>
-         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?php echo $data['dept'];?></p>
+         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?php echo $clg['college'];?></p>
+         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?php echo $clgid['school'];?></p>
+         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?php echo $schlid['name'];?></p>
          <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> <?php echo $data['session'];?></p>
         </div>
 

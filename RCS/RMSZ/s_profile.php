@@ -85,8 +85,19 @@ if(@$_SESSION['staffcomfirmed'] == True){
         echo "<a href='logins.php'> Back</a>";
         exit();
       }
-        $return_result = staff_data(@$_SESSION['staffcomfirmed'],$logs);
+        $return_result = staff_data(@$_SESSION['staffcomfirmed'], $logs);
         $data = mysqli_fetch_assoc($return_result);
+        
+        $return_dept = departmentss(@$data['dept_id'], $logs);
+        $schlid = mysqli_fetch_assoc($return_dept);
+        //$schlid = $result1->fetch_array();
+        $return_schl = schoolss(@$schlid['schl_id'], $logs);
+        $clgid = mysqli_fetch_assoc($return_schl);
+        //$clgid = $result2->fetch_array();
+        $return_college = collegess(@$clgid['college_id'], $logs);
+        $clg = mysqli_fetch_assoc($return_college);
+        //$clg = $result3->fetch_array();
+
 
         ?>
       <div class="w3-card w3-round w3-white">
@@ -94,7 +105,7 @@ if(@$_SESSION['staffcomfirmed'] == True){
          <h4 class="w3-center">My Profile</h4>
           <?php echo $data['names'];
                     $_SESSION['MM_Username'] = $data['number'];
-                    $_SESSION['programme'] = $data['dept'];
+                    $_SESSION['programme'] = $data['dept_id'];
                     $_SESSION['number'] = $data['number'];
                     $_SESSION['id_staff'] = $data['id'];
                     //$_SESSION['session'] = $data['session'];
@@ -102,7 +113,9 @@ if(@$_SESSION['staffcomfirmed'] == True){
          <hr>
 
          <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i><?php echo $data['number'];?></p>
-         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?php echo $data['dept'];?></p>
+         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?php echo $clg['college'];?></p>
+         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?php echo $clgid['school'];?></p>
+         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?php echo $schlid['name'];?></p>
          <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> <?php echo @$data['session'];?></p>
         </div>
 
@@ -272,7 +285,10 @@ if(@$_SESSION['staffcomfirmed'] == True){
 						
 			<?php 
 			$in = 0;
-			while($col = mysqli_fetch_assoc($msqls)){ $in++;?>
+      while($col = mysqli_fetch_assoc($msqls)){ $in++;
+      
+      
+      ?>
 				<tr>
 				<td colspan="4">
 					<form name="form<?php echo $in;?>" method="post" action="">
@@ -283,7 +299,7 @@ if(@$_SESSION['staffcomfirmed'] == True){
 										&nbsp;&nbsp;<input type="text" value="<?php echo $col['unit'];?>" style="width:40px; font-size:8pt" disabled="disabled">
 										<input type="hidden" value="<?php echo $col['semester'];?>" name="semester"> 
 										<input type="hidden" value="<?php echo $col['sessions'];?>" name="session">
-										<input type="hidden" value="<?php echo $col['Programme'];?>" name="programme">
+										<input type="hidden" value="<?php echo $col['dept_id'];?>" name="dept_id">
 										<input type="hidden" value="<?php echo $col['code'];?>" name="code">
 
 								</div>

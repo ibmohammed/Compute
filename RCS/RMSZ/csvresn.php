@@ -196,13 +196,13 @@ else
 
 if(isset($_POST['Submitf'])){
 
-$programme=$_POST['programme'];
+$programme=$_POST['dept_id'];
 $ncode=$_POST['code'];
 $programme = mysqli_escape_string($conn,$programme);
 
 
 $myqry = "SELECT * FROM entered WHERE code='GNS 101'
- && programme='National Diploma in Public Administration' && semester='1' && session='2017/2018'";
+ && dept_id='$programme' && semester='1' && session='2017/2018'";
 $chh = mysqli_query($conn, $myqry) or die(mysqli_error($conn));
 //mysqli_num_rows()
 
@@ -215,7 +215,7 @@ $chh = mysqli_query($conn, $myqry) or die(mysqli_error($conn));
  {
 		// view result 
 $rec = "SELECT * FROM `results` WHERE code='".$_POST['code']."'
- && programme='".$_POST['programme']."' && semester='".$_POST['semester']."' && session='".$_POST['session']."'";
+ && dept_id='".$_POST['dept_id']."' && semester='".$_POST['semester']."' && session='".$_POST['session']."'";
 $clue = mysqli_query($conn, $rec) or die(mysqli_error($conn));
 ?>
 <!-- -->
@@ -261,7 +261,7 @@ else
 	$semester=$_POST['semester'];
 
 $crss = mysqli_query($conn,"SELECT * FROM `course` WHERE 
-`Programme` = '$programme' && `semester` = '$semester' && `sessions` = '$session' ") 
+`dept_id` = '$programme' && `semester` = '$semester' && `sessions` = '$session' ") 
 or die(mysqli_error($conn));
 
 

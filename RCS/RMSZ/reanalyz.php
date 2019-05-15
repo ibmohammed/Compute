@@ -30,7 +30,7 @@ $atw = 0;
 $pass = 0;
 $abs = 0;
 $msql=mysqli_query($conn,"SELECT * FROM `studentsnm` 
-WHERE dept ='$programme' && year='$year' 
+WHERE dept_id ='$programme' && year='$year' 
 && Withdrwan ='0'  ORDER BY length(matno),matno ASC") or 
 die(mysqli_error());
 
@@ -41,7 +41,7 @@ $n= $n+1;
 
 
 $matnos = $col['matno'];
-		$sql= mysqli_query($conn,"SELECT * FROM results WHERE programme='$programme' && 
+		$sql= mysqli_query($conn,"SELECT * FROM results WHERE dept_id='$programme' && 
 		semester='$semester'  && matric_no='$matnos'") or die (mysqli_error());
 	
 		$unit=0;
@@ -72,11 +72,11 @@ $atw++;
 
 }
 //	echo $gpa.'<br>';
-$mysql= mysqli_query($conn,"SELECT * FROM results WHERE programme='$programme' &&  matric_no='$matnos'") or 
+$mysql= mysqli_query($conn,"SELECT * FROM results WHERE dept_id='$programme' &&  matric_no='$matnos'") or 
 		die (mysqli_error());
 
 	$qq = mysqli_query($conn,"SELECT SUM(unit) AS vaule_sum FROM course 
-		WHERE programme='$programme' && semester ='$semester' && sessions = '$session'");
+		WHERE dept_id='$programme' && semester ='$semester' && sessions = '$session'");
 		$uu = mysqli_fetch_assoc($qq);
 		$unn = $uu['vaule_sum'];
 		
@@ -143,19 +143,16 @@ if($rem>=1){
 	} 
 
 
-
-
-
-	
 	
 }
 
+if (@$n!=0)
+{
 
-	$pp = number_format((($pass /$n) * 100),2);
-	$ptw = number_format((($atw/$n) * 100),2);
-	$pabs = number_format((($abs/$n) * 100),2);
-	
-
+	$pp = number_format(((@$pass /@$n) * 100),2);
+	$ptw = number_format(((@$atw/@$n) * 100),2);
+	$pabs = number_format(((@$abs/@$n) * 100),2);
+}	
 
 	?>
 <h3 align="center">Result Summary</h3>
@@ -169,42 +166,53 @@ if($rem>=1){
 	<tr>
 		<td style="width: 266px"><strong>Number of Students that Passed:</strong></td>
 		<td style="width: 31px" class="auto-style1"><strong>&nbsp;<?php echo $pass;
+		if(@$numrow!=0)
+		{
 		$rr = number_format((($pass/$numrow)*100),2);
-		
+	}
 		?></strong></td>
-		<td style="width: 87px" class="auto-style1">&nbsp;<strong><?php echo '%'.$rr;?></strong></td>
+		<td style="width: 87px" class="auto-style1">&nbsp;<strong><?php echo '%'.@$rr;?></strong></td>
 	</tr>
 	<tr>
 	<?php 
 	$co = (($numrow) - ($pass) - ($abs) - ($atw));
+	if (@$n!=0)
+	{
 	$pf = number_format((($co /$n) * 100),2);
-	?>
+	}?>
 		<td style="width: 266px; height: 25px"><strong>Number of Students with CO:</strong></td>
 		<td style="width: 31px; height: 25px" class="auto-style1"><strong>&nbsp;<?php echo $co;
-		$ccc = number_format((($co/$numrow)*100),2);
-		
+		if(@$numrow!=0)
+		{
+			$ccc = number_format((($co/$numrow)*100),2);
+		}
 		?></strong></td>
-		<td style="width: 87px; height: 25px" class="auto-style1">&nbsp;<strong><?php echo '%'.$ccc;?></strong></td>
+		<td style="width: 87px; height: 25px" class="auto-style1">&nbsp;<strong><?php echo '%'.@$ccc;?></strong></td>
 	</tr>
 	<tr>
 		<td style="width: 266px"><strong>Number of Students Abesnt with Excuse:</strong></td>
-		<td style="width: 31px" class="auto-style1"><strong>&nbsp;<?php echo $abs;
-		$abss =number_format((($abs/$numrow)*100),2);
-		
+		<td style="width: 31px" class="auto-style1"><strong>&nbsp;<?php echo @$abs;
+		if(@$numrow!=0)
+		{
+			$abss =number_format((($abs/$numrow)*100),2);
+		}
 		?></strong></td>
-		<td style="width: 87px" class="auto-style1">&nbsp;<strong><?php echo '%'. $abss;?></strong></td>
+		<td style="width: 87px" class="auto-style1">&nbsp;<strong><?php echo '%'.@$abss;?></strong></td>
 	</tr>
 	<tr>
 		<td style="width: 266px; height: 25px;"><strong>Number of Students ATW:</strong></td>
 		
 				
-		<td style="width: 31px; height: 25px;" class="auto-style1"><strong>&nbsp;<?php echo $atw;
+		<td style="width: 31px; height: 25px;" class="auto-style1"><strong>&nbsp;<?php echo @$atw;
 		
-		$atww = number_format((($atw/$numrow)*100),2);
+		if(@$numrow!=0)
+		{
+			$atww = number_format((($atw/$numrow)*100),2);
+		}
 		?></strong></td>
 		
 				
-		<td style="width: 87px; height: 25px;" class="auto-style1">&nbsp;<strong><?php echo '%'.$atww;?></strong></td>
+		<td style="width: 87px; height: 25px;" class="auto-style1">&nbsp;<strong><?php echo '%'.@$atww;?></strong></td>
 	</tr>
 </table>
 

@@ -78,10 +78,10 @@ $mn = mysqli_fetch_array($mtr);
             <td id="page3"><span style="color: #000000; font-size: 10px"><strong><big>Weighted Points</big></strong></span></td>
           </tr>
           <?php
-//	 $msq = mysql_query("SELECT *  FROM course WHERE programme LIKE '$course' AND semester = $sem",$db);
-$ssql = "SELECT *  FROM course WHERE	 `programme` LIKE '$course' AND
+//	 $msq = mysql_query("SELECT *  FROM course WHERE dept_id LIKE '$course' AND semester = $sem",$db);
+$ssql = "SELECT *  FROM course WHERE	 `dept_id` LIKE '$course' AND
 							 `semester` = $sem && `sessions` LIKE '$sess'";
-        $msq = mysqli_query($conn,$ssql) or die(mysql_error());
+        $msq = mysqli_query($conn,$ssql) or die(mysqli_error());
 
 	  $rsql = "SELECT * FROM results WHERE matric_no LIKE '$mat'   AND semester = $sem";
 $msql = mysqli_query($conn,$rsql)  or die(mysql_error());;

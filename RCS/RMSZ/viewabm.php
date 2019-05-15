@@ -26,7 +26,7 @@ $list=$_POST['list'];
  die("empty fields not allowed");
 	}
 		$query= mysqli_query($conn,"SELECT * FROM course WHERE 
-		programme='$programme' && semester	='$semester' && sessions = '$session'") or die (mysqli_error());
+		dept_id='$programme' && semester	='$semester' && sessions = '$session'") or die (mysqli_error());
 	
     switch ($semester) {
         case "1":
@@ -124,7 +124,7 @@ tbody {
 //$msql=mysqli_query($conn,"SELECT * FROM `studentsnm` WHERE dept ='$programme'&&  year='$year'  && Withdrwan ='0' ORDER BY  `matno` ASC LIMIT $start,$list");
 
 $msql=mysqli_query($conn,"SELECT * FROM `studentsnm` WHERE 
-dept ='$programme'&&  year='$year'  && Withdrwan ='0'
+dept_id ='$programme'&&  year='$year'  && Withdrwan ='0'
   ORDER BY length(matno),matno ASC") or die(mysqli_error());
 
 while ($col=mysqli_fetch_assoc($msql)){
@@ -138,7 +138,7 @@ while ($col=mysqli_fetch_assoc($msql)){
         <?php 
 		$matno = $col['matno'];
 		$sql= mysqli_query($conn,"SELECT * FROM results WHERE 
-		programme='$programme' && semester='$semester' && matric_no='$matno'") or die (mysqli_error());
+		dept_id='$programme' && semester='$semester' && matric_no='$matno'") or die (mysqli_error());
 		
 		
 		$unit=0;
@@ -207,7 +207,7 @@ while ($col=mysqli_fetch_assoc($msql)){
 		<div align="center">
           <?php 
 		$matno = $col['matno'];
-		$mysql= mysqli_query($conn,"SELECT * FROM results WHERE programme='$programme' &&  matric_no='$matno'");
+		$mysql= mysqli_query($conn,"SELECT * FROM results WHERE dept_id='$programme' &&  matric_no='$matno'");
 		
 	if(!$mysql){
 	die (mysqli_error());
@@ -216,7 +216,7 @@ while ($col=mysqli_fetch_assoc($msql)){
 	
 		  
 		$qq= mysqli_query($conn,"SELECT SUM(unit) AS vaule_sum FROM course 
-		WHERE programme='$programme' && semester ='$semester' && sessions = '$session'");
+		WHERE dept_id='$programme' && semester ='$semester' && sessions = '$session'");
 		$uu = mysqli_fetch_assoc($qq);
 		$unn = $uu['vaule_sum'];
 		
