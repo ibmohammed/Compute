@@ -3,7 +3,7 @@ $semester ==1;
 $sql= mysql_query("SELECT * FROM results WHERE programme='$programme' && matric_no='$matno' && semester <='$semester' && grade='F'");
 
 if(!$sql){
-die(mysql_error());
+die(mysqli_error());
 }
 
 /*

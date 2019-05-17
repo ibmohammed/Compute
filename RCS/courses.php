@@ -100,11 +100,11 @@ color: #0066FF;
 			</tr>
 			<?php
 
-			$ssql = "SELECT *  FROM course WHERE `dept_id` LIKE '$course'";
+			$ssql = "SELECT *  FROM course WHERE `prog_id` LIKE '$course'";
 
-			$msq = mysqli_query($conn,$ssql) or die(mysqli_error());
+			$msq = mysqli_query($conn, $ssql) or die(mysqli_error($logs));
 
-			//$rsql = "SELECT * FROM results WHERE matric_no LIKE '$mat'   AND semester = $sem";
+			//$rsql = "SELECT * FROM results WHERE matric_no LIKE '$mat' AND semester = $sem";
 			$rsql = "SELECT * FROM results WHERE matric_no LIKE '$mat'";
 			$msql = mysqli_query($conn,$rsql)  or die(mysqli_error());;
 			$snn = 0;

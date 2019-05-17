@@ -91,9 +91,13 @@ if(@$_SESSION['usercomfirmed'] == True){
 
         
         
-        $return_dept = departmentss(@$data['dept_id'], $logs);
+        $return_dept = programmes(@$data['prog_id'], $logs);
+        $dptid = mysqli_fetch_assoc($return_dept);
+        //$schlid = $result1->fetch_array();
+        $return_dept = departmentss(@$dptid['dept_id'], $logs);
         $schlid = mysqli_fetch_assoc($return_dept);
         //$schlid = $result1->fetch_array();
+
         $return_schl = schoolss(@$schlid['schl_id'], $logs);
         $clgid = mysqli_fetch_assoc($return_schl);
         //$clgid = $result2->fetch_array();
@@ -108,7 +112,7 @@ if(@$_SESSION['usercomfirmed'] == True){
          <h4 class="w3-center">My Profile</h4>
           <?php echo $data['names'];
                     $_SESSION['MM_Username'] = $data['matno'];
-                    $_SESSION['programme'] = $data['dept_id'];
+                    $_SESSION['programme'] = $data['prog_id'];
                     $_SESSION['matricno'] = $data['matno'];
                     $_SESSION['session'] = $data['session'];
           ?>

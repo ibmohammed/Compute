@@ -5,28 +5,31 @@ FROM `dept`
 WHERE dep = '$programme' ") 
 or die (mysql_error());
 
-$fet = mysqli_fetch_assoc($csns);  ?>
+$fet = mysqli_fetch_assoc($csns);  
 
-		
+?>
 
 <table style="width: 100%; font-size:8pt; text-transform:uppercase" align="right">
-	<tr>
-		<td style="width: 35%"><div >
-	
-		<strong>College</strong>:&nbsp;<?php echo $fet['college'];?> 
-		<br/>
-		<strong>Session</strong>:&nbsp; <?php echo $session;?>
-		<br/>
-		<strong>Semester</strong>:&nbsp;<?php echo $semester.$first." Semester ";?> 
-		
-	</div>
+<tr>
+<td style="width: 35%"><div >
+<strong>College</strong>:&nbsp;<?php echo $clg['college']; //$fet['college'];?> 
+
+<br/>
+<strong>Session</strong>:&nbsp; <?php echo $session;?>
+<br/>
+<strong>Semester</strong>:&nbsp;<?php echo $semester.$first." Semester ";?> 
+
+</div>
 </td>
-		<td style="width: 15%">&nbsp;</td>
-		<td style="width: 15%">&nbsp;</td>
-		<td style="width: 35%"><div>
-		<strong>School</strong>:&nbsp; <?php echo $fet['school'];?>
-		<br/>
-			<strong>Programme</strong>:&nbsp; <?php echo $programme;?>
+<td style="width: 15%">&nbsp;</td>
+<td style="width: 15%">&nbsp;</td>
+<td style="width: 35%"><div>
+
+<strong>ScDepartment</strong>:&nbsp; <?php echo $schlid['name'];//$fet['school'];?>
+<br/>
+<strong>School</strong>:&nbsp; <?php echo $clgid['school'];//$fet['school'];?>
+<br/>
+	<strong>Programme</strong>:&nbsp; <?php echo $dptid['programme'];//$programme;?>
 		
 	</div>
 </td>

@@ -17,7 +17,7 @@ $programme=$_POST['programme'];
 	die("empty fields not allowed");
 	}
 	
-	$query= mysqli_query($conn,"SELECT * FROM course WHERE dept_id='$programme' && semester	='$semester'");
+	$query= mysqli_query($conn,"SELECT * FROM course WHERE prog_id='$programme' && semester	='$semester'");
 	if(!$query){
 	die (mysqli_error());
 	}
@@ -36,7 +36,7 @@ $programme=$_POST['programme'];
 $session=$_POST['session'];
 $year=$_POST['year'];
 $programme=$_POST['programme'];
-		$qry = mysqli_query($conn,"SELECT * FROM course WHERE dept_id='$programme' && semester	='$semester' && sessions = '$session'") or die (mysqli_error());
+		$qry = mysqli_query($conn,"SELECT * FROM course WHERE prog_id='$programme' && semester	='$semester' && sessions = '$session'") or die (mysqli_error());
 				?>
 				
 			<!--

@@ -27,7 +27,7 @@ $list=$_POST['list'];
 	die("empty fields not allowed");
 	}
 		$query= mysqli_query($conn,"SELECT * FROM course 
-    WHERE programme='$programme' && semester	='$semester' && sessions = '$session'") or die (mysqli_error());
+    WHERE prog_id='$programme' && semester	='$semester' && sessions = '$session'") or die (mysqli_error());
 	
     switch ($semester) {
         case "1":
@@ -87,9 +87,9 @@ tbody {
 
 
         
-	<table id="t1" border="1" align="center" cellpadding="0" cellspacing="1" style=" width: auto; border:thin; border-collapse:collapse">
+	<table id="t1" border="1" align="center" cellpadding="0" cellspacing="1" style=" width: 90%; border:thin; border-collapse:collapse">
   <thead>
-  <tr style="font-size:8pt;">
+  <tr style="font-size:9pt;">
     <td rowspan="2"><div align="center" style="font-weight: bold"><span><strong>S/N</strong></span></div></td>
     <td rowspan="2" ><div align="center" style="font-weight: bold"><span><strong>Matric_No</strong></span></div></td>
     <?php while($row=mysqli_fetch_assoc($query)){  ?>  
@@ -120,23 +120,23 @@ tbody {
 <?php $n = $start; 
 
 // delete the $start and $last variable to make all result appear
-//$msql=mysqli_query($conn,"SELECT * FROM `studentsnm` WHERE dept ='$programme'&&  year='$year'  && Withdrwan ='0' ORDER BY  `matno` ASC LIMIT $start,$list");
+//$msql=mysqli_query($conn,"SELECT * FROM `studentsnm` WHERE prog_id ='$programme'&&  year='$year'  && Withdrwan ='0' ORDER BY  `matno` ASC LIMIT $start,$list");
 
 $msql=mysqli_query($conn,"SELECT * FROM `studentsnm` WHERE 
-dept ='$programme'&&  year='$year'  && Withdrwan ='0'
+prog_id ='$programme'&&  year='$year'  && Withdrwan ='0'
   ORDER BY length(matno),matno ASC") or die(mysqli_error());
 
 while ($col=mysqli_fetch_assoc($msql)){
 $n= $n+1;
  ?>
  <tbody>
-      <tr style="font-size:7pt">
+      <tr style="font-size:10pt">
 	    <td><?php echo $n;?></td>
         <td><?php echo $col['matno'];?> &nbsp;</td>
         <?php 
 		$matno = $col['matno'];
 		$sql= mysqli_query($conn,"SELECT * FROM results WHERE 
-		programme='$programme' && semester='$semester' && matric_no='$matno'") or die (mysqli_error());
+		prog_id='$programme' && semester='$semester' && matric_no='$matno'") or die (mysqli_error($conn));
 		
 		
 		$unit=0;
@@ -147,7 +147,7 @@ $n= $n+1;
 		
 
   <td >
-		  <div align="center" style="font-size:7pt">
+		  <div align="center" style="font-size:10pt">
 		      
 		      
 		 <?php
@@ -207,12 +207,12 @@ $n= $n+1;
           <?php 
 		$matno = $col['matno'];
 		$mysql= mysqli_query($conn,"SELECT * FROM results 
-    WHERE programme='$programme' &&  matric_no='$matno'") or die (mysqli_error());
+    WHERE prog_id='$programme' &&  matric_no='$matno'") or die (mysqli_error());
 
 	
 		  
 		$qq= mysqli_query($conn,"SELECT SUM(unit) AS vaule_sum FROM course 
-		WHERE programme='$programme' && semester ='$semester' && sessions = '$session'");
+		WHERE prog_id='$programme' && semester ='$semester' && sessions = '$session'");
 		$uu = mysqli_fetch_assoc($qq);
 		$unn = $uu['vaule_sum'];
 		
@@ -306,14 +306,17 @@ $n= $n+1;
 			
 			 <?php include('dptcode.php') ;
             
-            
-            $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode' ") or die(mysqli_error());
+            $sq = "SELECT * FROM `departments` WHERE code = '$departmentcode'";
+
+$sq = mysqli_query($conn,$sq);
+$did = mysqli_fetch_assoc($sq);
+            $queri = mysqli_query($conn,"SELECT * FROM `programmes` WHERE dept_id LIKE '".$did['dept_id']."'") or die(mysqli_error($conn));
             
             while($pcd = mysqli_fetch_assoc($queri)){
             ?>
             
             
-              <option selected="selected"><?php echo $pcd['dep'];?></option>
+            <option value = "<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
               
               <?php }?>
               

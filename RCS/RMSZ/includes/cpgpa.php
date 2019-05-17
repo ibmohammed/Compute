@@ -546,7 +546,7 @@ $sql6= mysqli_query($conn,$ssql6);
 		}elseif($semester==1){
 		
 		
-	$ssql1 = "SELECT * FROM results WHERE programme='$programme' && semester='1'  && matric_no='$matno'";
+	$ssql1 = "SELECT * FROM results WHERE prog_id='$programme' && semester='1'  && matric_no='$matno'";
 $sql1= mysqli_query($conn,$ssql1);
 
 

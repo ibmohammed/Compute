@@ -30,9 +30,9 @@ $atw = 0;
 $pass = 0;
 $abs = 0;
 $msql=mysqli_query($conn,"SELECT * FROM `studentsnm` 
-WHERE dept_id ='$programme' && year='$year' 
+WHERE prog_id ='$programme' && year='$year' 
 && Withdrwan ='0'  ORDER BY length(matno),matno ASC") or 
-die(mysqli_error());
+die(mysqli_error($conn));
 
 $numrow = mysqli_num_rows($msql);
 
@@ -41,7 +41,7 @@ $n= $n+1;
 
 
 $matnos = $col['matno'];
-		$sql= mysqli_query($conn,"SELECT * FROM results WHERE dept_id='$programme' && 
+		$sql= mysqli_query($conn,"SELECT * FROM results WHERE prog_id='$programme' && 
 		semester='$semester'  && matric_no='$matnos'") or die (mysqli_error());
 	
 		$unit=0;
@@ -72,11 +72,11 @@ $atw++;
 
 }
 //	echo $gpa.'<br>';
-$mysql= mysqli_query($conn,"SELECT * FROM results WHERE dept_id='$programme' &&  matric_no='$matnos'") or 
+$mysql= mysqli_query($conn,"SELECT * FROM results WHERE prog_id='$programme' &&  matric_no='$matnos'") or 
 		die (mysqli_error());
 
 	$qq = mysqli_query($conn,"SELECT SUM(unit) AS vaule_sum FROM course 
-		WHERE dept_id='$programme' && semester ='$semester' && sessions = '$session'");
+		WHERE prog_id='$programme' && semester ='$semester' && sessions = '$session'");
 		$uu = mysqli_fetch_assoc($qq);
 		$unn = $uu['vaule_sum'];
 		

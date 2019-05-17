@@ -1,9 +1,9 @@
 <?php 
 if ($semester ==2){
-$ssql = "SELECT * FROM results WHERE dept_id='$programme' && semester='1'  && matric_no='$matno'";
+$ssql = "SELECT * FROM results WHERE prog_id='$programme' && semester='1'  && matric_no='$matno'";
 $sql1= mysqli_query($conn,$ssql) or die(mysqli_error());
 
-$ssql2 = "SELECT * FROM results WHERE dept_id='$programme' && semester='2'  && matric_no='$matno'";
+$ssql2 = "SELECT * FROM results WHERE prog_id='$programme' && semester='2'  && matric_no='$matno'";
 $sql2= mysqli_query($conn,$ssql2) or die(mysql_error());
 
 
@@ -59,14 +59,14 @@ $sql2= mysqli_query($conn,$ssql2) or die(mysql_error());
 			$ccgpa= number_format(($ccgp/$ccu),2);
 		
 		}elseif($semester==3){
-$ssql1 = "SELECT * FROM results WHERE dept_id='$programme' && semester='1'  && matric_no='$matno'";
+$ssql1 = "SELECT * FROM results WHERE prog_id='$programme' && semester='1'  && matric_no='$matno'";
 $sql1= mysqli_query($conn,$ssql1); 
 
-$ssql2 = "SELECT * FROM results WHERE dept_id='$programme' && semester='2'  && matric_no='$matno'";
+$ssql2 = "SELECT * FROM results WHERE prog_id='$programme' && semester='2'  && matric_no='$matno'";
 
 $sql2= mysqli_query($conn,$ssql2);
 
-$ssql3 = "SELECT * FROM results WHERE dept_id='$programme' && semester='3'  && matric_no='$matno'";
+$ssql3 = "SELECT * FROM results WHERE prog_id='$programme' && semester='3'  && matric_no='$matno'";
 
 $sql3= mysqli_query($conn,$ssql3);
 
@@ -142,15 +142,15 @@ while ($res3=mysqli_fetch_assoc($sql3)){
 			$ccgpa= number_format(($ccgp/$ccu),2);
 		
 		}elseif($semester==4){
-$ssql1 = "SELECT * FROM results WHERE dept_id='$programme' && semester='1'  && matric_no='$matno'";
+$ssql1 = "SELECT * FROM results WHERE prog_id='$programme' && semester='1'  && matric_no='$matno'";
 $sql1= mysqli_query($conn,$ssql1);
-$ssql2 = "SELECT * FROM results WHERE dept_id='$programme' && semester='2'  && matric_no='$matno'";
+$ssql2 = "SELECT * FROM results WHERE prog_id='$programme' && semester='2'  && matric_no='$matno'";
 $sql2= mysqli_query($conn,$ssql3);
 
-$ssql3 = "SELECT * FROM results WHERE dept_id='$programme' && semester='3'  && matric_no='$matno'";
+$ssql3 = "SELECT * FROM results WHERE prog_id='$programme' && semester='3'  && matric_no='$matno'";
 $sql3= mysqli_query($conn,$ssql3);
 
-$ssql4 = "SELECT * FROM results WHERE dept_id='$programme' && semester='4'  && matric_no='$matno'";
+$ssql4 = "SELECT * FROM results WHERE prog_id='$programme' && semester='4'  && matric_no='$matno'";
 $sql4= mysqli_query($conn,$ssql4);
 
 //first
@@ -249,19 +249,19 @@ if (($res1['grade']=="SICK")||($res1['grade']=="ABSE")||($res1['grade']=="PEND")
 		
 		
 		}elseif($semester==5){
-$ssql1 = "SELECT * FROM results WHERE dept_id='$programme' && semester='1'  && matric_no='$matno'";
+$ssql1 = "SELECT * FROM results WHERE prog_id='$programme' && semester='1'  && matric_no='$matno'";
 $sql1= mysqli_query($conn,$ssql1);
 
-$ssql2 = "SELECT * FROM results WHERE dept_id='$programme' && semester='2'  && matric_no='$matno'";
+$ssql2 = "SELECT * FROM results WHERE prog_id='$programme' && semester='2'  && matric_no='$matno'";
 $sql2= mysqli_query($conn,$ssql2);
 
-$ssql3 = "SELECT * FROM results WHERE dept_id='$programme' && semester='3'  && matric_no='$matno'";
+$ssql3 = "SELECT * FROM results WHERE prog_id='$programme' && semester='3'  && matric_no='$matno'";
 $sql3= mysqli_query($conn,$ssql3);
 
-$ssql4 = "SELECT * FROM results WHERE dept_id='$programme' && semester='4'  && matric_no='$matno'";
+$ssql4 = "SELECT * FROM results WHERE prog_id='$programme' && semester='4'  && matric_no='$matno'";
 $sql4= mysqli_query($conn,$ssql4);
 
-$ssql3 = "SELECT * FROM results WHERE dept_id='$programme' && semester='5'  && matric_no='$matno'";
+$ssql3 = "SELECT * FROM results WHERE prog_id='$programme' && semester='5'  && matric_no='$matno'";
 $sql5= mysqli_query($conn,$ssql5);
 
 //first
@@ -383,21 +383,21 @@ if (($res1['grade']=="SICK")||($res1['grade']=="ABSE")||($res1['grade']=="PEND")
 		
 		
 		}elseif($semester==6){
-$ssql1 = "SELECT * FROM results WHERE dept_id='$programme' && semester='1'  && matric_no='$matno'";
+$ssql1 = "SELECT * FROM results WHERE prog_id='$programme' && semester='1'  && matric_no='$matno'";
 $sql1= mysqli_query($conn,$ssql1);
 
-$ssql2 = "SELECT * FROM results WHERE dept_id='$programme' && semester='2'  && matric_no='$matno'";
+$ssql2 = "SELECT * FROM results WHERE prog_id='$programme' && semester='2'  && matric_no='$matno'";
 $sql2= mysqli_query($conn,$ssql3);
-$ssql3 = "SELECT * FROM results WHERE dept_id='$programme' && semester='3'  && matric_no='$matno'";
+$ssql3 = "SELECT * FROM results WHERE prog_id='$programme' && semester='3'  && matric_no='$matno'";
 $sql3= mysqli_query($conn,$ssql3);
 
-$ssql4 = "SELECT * FROM results WHERE dept_id='$programme' && semester='4'  && matric_no='$matno'";
+$ssql4 = "SELECT * FROM results WHERE prog_id='$programme' && semester='4'  && matric_no='$matno'";
 $sql4= mysqli_query($conn,$ssql4);
 
-$ssql5 = "SELECT * FROM results WHERE dept_id='$programme' && semester='5'  && matric_no='$matno'";
+$ssql5 = "SELECT * FROM results WHERE prog_id='$programme' && semester='5'  && matric_no='$matno'";
 $sql5= mysqli_query($conn,$ssql5);
 
-$ssql6 = "SELECT * FROM results WHERE dept_id='$programme' && semester='6'  && matric_no='$matno'";
+$ssql6 = "SELECT * FROM results WHERE prog_id='$programme' && semester='6'  && matric_no='$matno'";
 $sql6= mysqli_query($conn,$ssql5);
 
 
@@ -546,8 +546,11 @@ $sql6= mysqli_query($conn,$ssql5);
 		}elseif($semester==1){
 		
 		
-	$ssql1 = "SELECT * FROM results WHERE dept_id='$programme' && semester='1'  && matric_no='$matno'";
-$sql1= mysqli_query($conn,$ssql1);
+	$ssql1 = "SELECT * FROM results WHERE prog_id='$programme' && semester='1'  && matric_no='$matno'";
+$sql1= mysqli_query($conn, $ssql1);
+
+//if($sql1 !=TRUE) 
+//{ die(mysql_error($ssql1));}
 
 
 //first

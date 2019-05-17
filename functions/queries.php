@@ -66,7 +66,7 @@
 
               function calculate_gp($conn, $course, $sem, $mat)
               {
-                $gqry = "SELECT * FROM results WHERE dept_id='$course' && semester='$sem' && matric_no='$mat'";
+                $gqry = "SELECT * FROM results WHERE prog_id='$course' && semester='$sem' && matric_no='$mat'";
                 $sql= mysqli_query($conn,$gqry) or die (mysqli_error());
                 return $sql;
 
@@ -74,7 +74,7 @@
 
               function calculate_gp_all($conn, $course, $mat)
               {
-                $gqry = "SELECT * FROM results WHERE dept_id='$course' && matric_no='$mat'";
+                $gqry = "SELECT * FROM results WHERE prog_id='$course' && matric_no='$mat'";
             		$sql= mysqli_query($conn,$gqry) or die (mysqli_error());
                 return $sql;
 
@@ -200,6 +200,13 @@ $clg = $result3->fetch_assoc();
   return $clg;
 }
 
+
+function programmes($deptid, $lg) 
+{
+  $ssql = "SELECT * FROM `programmes` WHERE `prog_id` = '$deptid'";
+  $msq = mysqli_query($lg, $ssql) or die(mysqli_error());
+  return $msq;  
+}
 
 function departmentss($deptid, $lg) 
 {

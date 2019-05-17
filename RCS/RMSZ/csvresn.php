@@ -261,7 +261,7 @@ else
 	$semester=$_POST['semester'];
 
 $crss = mysqli_query($conn,"SELECT * FROM `course` WHERE 
-`dept_id` = '$programme' && `semester` = '$semester' && `sessions` = '$session' ") 
+`dept_id ` = '$programme' && `semester` = '$semester' && `sessions` = '$session' ") 
 or die(mysqli_error($conn));
 
 
