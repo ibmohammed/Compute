@@ -100,6 +100,8 @@ if(@$_SESSION['staffcomfirmed'] == True){
 
 
         ?>
+
+  
       <div class="w3-card w3-round w3-white">
         <div class="w3-container" style="font-size:small">
          <h4 class="w3-center">My Profile</h4>
@@ -166,19 +168,7 @@ if(@$_SESSION['staffcomfirmed'] == True){
       <div class="w3-card w3-round">
         <div class="w3-white">
 
-        <!--  <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> My Courses</button>
-          <div id="Demo1" class="w3-hide w3-container">
-            <p>
-              <ul>
-                <li><a href="stdprofile.php?Courses=1" src="">Semester 1</a></li>
-                <li><a href="stdprofile.php?Courses=2" src="">Semester 2</a></li>
-                <li><a href="stdprofile.php?Courses=3" src="">Semester 3</a></li>
-                <li><a href="stdprofile.php?Courses=4" src="">Semester 4</a></li>
-                <li><a href="stdprofile.php?Courses=0" src="">All Semester</a></li>
-              </ul>
-            </p>
-          </div>
-        -->
+       
           <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> Menu</button>
           <div id="Demo2" class="w3-hide w3-container">
             <p><p>
@@ -221,16 +211,6 @@ if(@$_SESSION['staffcomfirmed'] == True){
       <br>
 
 
-
-      <!-- Alert Box -->
-      <div class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
-        <span onclick="this.parentElement.style.display='none'" class="w3-button w3-theme-l3 w3-display-topright">
-          <i class="fa fa-remove"></i>
-        </span>
-        <p><strong>Put somthing in here </strong></p>
-        <!--<p>People are looking at your profile. Find out who.</p>-->
-      </div>
-
     <!-- End Left Column -->
     </div>
 
@@ -238,30 +218,7 @@ if(@$_SESSION['staffcomfirmed'] == True){
     <div class="w3-col m7">
 
 
-      <!-- Set Result -->
-        <?php if(isset($_POST['Submitf']))
-        {
-          ?>
-          <div class="w3-container w3-card w3-white w3-round w3-margin">
-            <br>
-            <!--<img src="/w3images/avatar5.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-            <span class="w3-right w3-opacity">16 min</span>-->
-            <?php
-          //if(isset($_GET['Results']))
-          //{
-              ?>
-            <h4>Import Results </h4><br>
-            <h6 class="w3-opacity"> </h6>
-            <hr class="w3-clear">
-        <?php
-             
-       		require_once('csvresn.php');
-	      ?>
-          </div>
-        <?php
-      }
-      ?>
-      <!-- End of Set Result -->
+      
 
       <div class="w3-row-padding">
         <div class="w3-col m12">
@@ -269,7 +226,7 @@ if(@$_SESSION['staffcomfirmed'] == True){
             <div class="w3-container w3-padding">
 
               <h4>Courses</h4>
-              <h6 class="w3-opacity">Latest Result</h6>
+              <h6 class="w3-opacity">Allocated Courses</h6>
               
               <?php
                            
@@ -299,8 +256,9 @@ if(@$_SESSION['staffcomfirmed'] == True){
 										&nbsp;&nbsp;<input type="text" value="<?php echo $col['unit'];?>" style="width:40px; font-size:8pt" disabled="disabled">
 										<input type="hidden" value="<?php echo $col['semester'];?>" name="semester"> 
 										<input type="hidden" value="<?php echo $col['sessions'];?>" name="session">
-										<input type="hidden" value="<?php echo $col['dept_id'];?>" name="dept_id">
+										<input type="hidden" value="<?php echo $col['prog_id'];?>" name="dept_id">
 										<input type="hidden" value="<?php echo $col['code'];?>" name="code">
+                    <!--&nbsp;&nbsp;<button style="width:70px; font-size:8pt" name="SubmitS"><?php //echo $col['code'];?></button>-->
 
 								</div>
 					</form>
@@ -323,6 +281,31 @@ if(@$_SESSION['staffcomfirmed'] == True){
           </div>
         </div>
       </div>
+
+<!-- Set Result -->
+<?php if(isset($_POST['Submitf']))
+        {
+          ?>
+          <div class="w3-container w3-card w3-white w3-round w3-margin">
+            <br>
+            <!--<img src="/w3images/avatar5.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
+            <span class="w3-right w3-opacity">16 min</span>-->
+            <?php
+          //if(isset($_GET['Results']))
+          //{
+              ?>
+            <h4>Import Results </h4><br>
+            <h6 class="w3-opacity"> </h6>
+            <hr class="w3-clear">
+        <?php
+             
+       		require_once('csvresn.php');
+	      ?>
+          </div>
+        <?php
+      }
+      ?>
+      <!-- End of Set Result -->
 
       <!-- Set Courses -->
       <?php if(@$_GET['Courses']==True){?>
@@ -391,10 +374,26 @@ if(@$_SESSION['staffcomfirmed'] == True){
     </div>
     <!-- End Grid -->
   </div>
+  <p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
   <!-- End Page Container -->
-  <br>
+  <br><p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
 </div>
 <br>
+
 <!-- Footer -->
 <footer class="w3-container w3-theme-d3 w3-padding-16">
   <h5>Footer</h5>

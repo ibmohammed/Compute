@@ -16,14 +16,14 @@ if(isset($_POST['Submit'])){
 				
 //get the course code Unit
 			$unitt ="SELECT unit FROM `course`  WHERE 
-	`code` = '$code' && `Programme`= '$prgrm' && `semester` = '$semst' && `sessions`= '$sesn'";
+	`code` = '$code' && `prog_id`= '$prgrm' && `semester` = '$semst' && `sessions`= '$sesn'";
 	$unt = mysqli_query($conn,$unitt)or die(mysqli_error());
 				$unitss =mysqli_fetch_assoc($unt);
 				
 				$cunits = $unitss['unit'];
 	// check if recordsexist			
 	$sqry = "SELECT * FROM `entered` WHERE 
-	`code` = '$code' && `programme`= '$prgrm' && `semester` = '$semst' && `session`= '$sesn'";
+	`code` = '$code' && `prog_id`= '$prgrm' && `semester` = '$semst' && `session`= '$sesn'";
 	$qqry = mysqli_query($conn,$sqry) or die(mysqli_error());
     $nmrws = mysqli_num_rows($qqry);
     
@@ -102,14 +102,14 @@ else{
 mysqli_query($conn,"DELETE FROM `entered` WHERE
      `code`= '$code' && 
      `unit` = '$cunits' && 
-     `programme` = '$prgrm' && 
+     `prog_id` = '$prgrm' && 
      `semester` = '$semst' && 
      `session` = '$sesn' ") or die(mysqli_error().'hhn');
 
 mysqli_query($conn,"DELETE FROM `results`  WHERE 
 `code`= '$code' && 
 `unit` = '$cunits' &&
-`programme` = '$prgrm' &&
+`prog_id` = '$prgrm' &&
 `semester` = '$semst' &&
  `session` = '$sesn'") or die (mysqli_error().'hh');
 
@@ -149,7 +149,7 @@ mysqli_query($conn,"DELETE FROM `results`  WHERE
 							
 											$point = $n[$grade1];
 											mysqli_query($conn,"INSERT IGNORE INTO `results`  
-											(`name`, `matric_no`, `code`, `unit`, `score`, `grade`, `points`,`programme`, `semester`, `session`) 
+											(`name`, `matric_no`, `code`, `unit`, `score`, `grade`, `points`,`prog_id`, `semester`, `session`) 
 											VALUES( 
 							                    '".addslashes($snames)."','".addslashes($data[0])."','".addslashes($code)."',
 							                    '".addslashes($cunits)."','".addslashes($data[1])."','".addslashes($grade1)."',
@@ -164,7 +164,7 @@ mysqli_query($conn,"DELETE FROM `results`  WHERE
 									fclose($handle);
 									echo "Successfully imported";
 									
-							 $qry = mysqli_query($conn,"INSERT INTO `entered` (`code`, `unit`, `programme`, `semester`, `session`)
+							 $qry = mysqli_query($conn,"INSERT INTO `entered` (`code`, `unit`, `prog_id`, `semester`, `session`)
 				    	 	VALUES ('$code', '$cunits', '$prgrm', '$semst', '$sesn')") or die(mysqli_error());
 				   
 				
@@ -202,8 +202,8 @@ $programme = mysqli_escape_string($conn,$programme);
 
 
 $myqry = "SELECT * FROM entered WHERE code='GNS 101'
- && dept_id='$programme' && semester='1' && session='2017/2018'";
-$chh = mysqli_query($conn, $myqry) or die(mysqli_error($conn));
+ && prog_id ='$programme' && semester='1' && session='2017/2018'";
+$chh = mysqli_query($conn, $myqry) or die(mysqli_error($conn).'999');
 //mysqli_num_rows()
 
 /*$myqry = "SELECT * FROM entered WHERE code='".$_POST['code']."'
@@ -215,7 +215,7 @@ $chh = mysqli_query($conn, $myqry) or die(mysqli_error($conn));
  {
 		// view result 
 $rec = "SELECT * FROM `results` WHERE code='".$_POST['code']."'
- && dept_id='".$_POST['dept_id']."' && semester='".$_POST['semester']."' && session='".$_POST['session']."'";
+ && prog_id='".$_POST['dept_id']."' && semester='".$_POST['semester']."' && session='".$_POST['session']."'";
 $clue = mysqli_query($conn, $rec) or die(mysqli_error($conn));
 ?>
 <!-- -->
@@ -261,8 +261,8 @@ else
 	$semester=$_POST['semester'];
 
 $crss = mysqli_query($conn,"SELECT * FROM `course` WHERE 
-`dept_id ` = '$programme' && `semester` = '$semester' && `sessions` = '$session' ") 
-or die(mysqli_error($conn));
+`prog_id` = '$programme' && `semester` = '$semester' && `sessions` = '$session' ") 
+or die(mysqli_error($conn).'llll');
 
 
 // comfirm if record entered 
@@ -279,8 +279,8 @@ or die(mysqli_error($conn));
 		<tr>
 			<td>Course Code:</td>
 			<td>&nbsp;<select name="ccodes">
-			<?php while($rows = mysqli_fetch_assoc($crss)){?>
 			<option selected="selected"><?php echo $_POST['code'];?></option>
+			<?php while($rows = mysqli_fetch_assoc($crss)){?>			
 			<option><?php echo $rows['code'];?></option>
 			<?php }?>
 			</select></td>
@@ -299,7 +299,7 @@ or die(mysqli_error($conn));
 </form>
  
 <?php
-exit;
+//exit();
  }
  
   }
