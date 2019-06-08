@@ -26,8 +26,17 @@ if (isset($_GET['accesscheck']))
 
 if(isset($_POST['Submit']))
 {
-	$loginUsername = $_POST['username'] ;
+	
+	$loginUsername = $_POST['username'];
+
+	//preg_replace("/[^a-zA-Z0-9\s]/", "", $string);
+	$loginUsername =  preg_replace("/[^a-zA-Z0-9\s]/", "", $loginUsername);
+	//$loginUsername = mysqli_real_escape_string($loginUsername);
+	
 	$password = $_POST['pasword'];
+	//$password = mysqli_real_escape_string($password);
+	$password =  preg_replace("/[^a-zA-Z0-9\s]/", "", $password);
+
 	$MM_fldUserAuthorization = "";
 	  $MM_redirectLoginSuccess = "index.php";
   	  $MM_redirectLoginSuccess2 = "s_profile.php";
@@ -35,23 +44,62 @@ if(isset($_POST['Submit']))
 	  $MM_redirecttoReferrer = true;
   
 
-	$sql = "SELECT id, username, password, progs,  status FROM  `logintbl` 
-	WHERE username='$loginUsername' AND password='$password'";
+	//$sql = "SELECT id, username, password, progs,  status FROM  `logintbl` 
+//	WHERE username =? AND password=?";
+
+//$result = mysqli_query($conn, $sql);
+//'$loginUsername'
+//'$password'
+
+
+//$stmt = mysqli_prepare($link, "SELECT District FROM City WHERE Name=?")
 	
-	$result = mysqli_query($conn, $sql);
-	$loginFoundUser = mysqli_num_rows($result);
-	$row = mysqli_fetch_assoc($result);
+	
+
+
+
+	$stmt = mysqli_prepare($conn, "SELECT id, username, password, progs,  status FROM  `logintbl` WHERE username =? AND password=?");
+	
+
+	
+	//$row = mysqli_fetch_assoc($result);
+
+  /* bind parameters for markers */
+  mysqli_stmt_bind_param($stmt, "ss", $loginUsername, $password);
+
+  /* execute query */
+  mysqli_stmt_execute($stmt);
+  mysqli_stmt_bind_result($stmt, $id, $uname, $pwrd, $prog, $status);
+  mysqli_stmt_store_result($stmt);
+  $loginFoundUser = mysqli_stmt_num_rows($stmt);
+  /* fetch value */
+  $row =  mysqli_stmt_fetch($stmt);
+  //$loginFoundUser = mysqli_num_rows($result);
+
+  
+  
+
 	
 	//$_SESSION['deptcode'] = ;
 	
-	if($row['status']== 0)
+	if($status == 0)
+	//if($row['status']== 0)
 	{
 		// admin user 
 		
-		$_SESSION['username'] = $row["username"];
-		$_SESSION['password'] = $row["password"];
-		$_SESSION['deptcode'] = $row['progs'];
-		$_SESSION['stid'] = $row['id'];
+		//$_SESSION['username'] = $row["username"];
+		//$_SESSION['password'] = $row["password"];
+		//$_SESSION['deptcode'] = $row['progs'];
+		//$_SESSION['stid'] = $row['id'];
+		
+		$_SESSION['username'] = $uname;
+		$_SESSION['password'] = $pwrd;
+		$_SESSION['deptcode'] = $prog;
+		$_SESSION['stid'] = $id;
+
+
+		//if($uname!=="")
+		//if (mysqli_stmt_num_rows($stmt) !== 0)
 		if ($loginFoundUser) 
 		{
 		
@@ -75,7 +123,7 @@ if(isset($_POST['Submit']))
 		else 
 		{
 			echo '<script type="text/javascript">
-			alert("incorrect login details");
+			alert("incorrect login details'.$uname.$pwrd.'");
 			location.replace("logins.php");
 			</script>';
 			
@@ -85,12 +133,17 @@ if(isset($_POST['Submit']))
 	else
 	{
 	//staff login 
-	
+/*	
 		$_SESSION['staffcomfirmed'] = $row["username"];
 		$_SESSION['password'] = $row["password"];
 		$_SESSION['deptcode'] = $row['progs'];
 		$_SESSION['stid'] = $row['id'];
-
+*/
+		$_SESSION['staffcomfirmed'] = $uname;
+		$_SESSION['password'] = $pwrd;
+		$_SESSION['deptcode'] = $prog;
+		$_SESSION['stid'] = $id;
+		
 		
 		if ($loginFoundUser) 
 		{
@@ -99,12 +152,17 @@ if(isset($_POST['Submit']))
 		
 			if($_POST['pasword'] == '0000')
 		    {
-		        $return_comfirm = login_scomfirm($_POST['username'], $_POST['pasword'],$logs);
-		
-		        $comfirm = mysqli_fetch_assoc($return_comfirm);
+			
+		        $return_comfirm = login_scomfirm($loginUsername, $password,$logs);
+				//$comfirm = mysqli_fetch_assoc($return_comfirm);
+				mysqli_stmt_execute($return_comfirm);
+       			mysqli_stmt_bind_result($return_comfirm, $id, $names, $number, $contact, $dept_id);
+       			mysqli_stmt_store_result($return_comfirm);
+
+
 		//echo ;
 		//      javascript function to comfirm new user entry
-		        echo '<p>Click the button to Comfirm that ('.$comfirm['names'].') is your name</p>';
+		        echo '<p>Click the button to Comfirm that ('.$names.') is your name</p>';
 		
 		      	echo '<button onclick="myFunction()">Comfirm</button>
 		        <p id="demo"></p>
@@ -130,8 +188,8 @@ if(isset($_POST['Submit']))
 		          document.getElementById("demo").innerHTML = txt;
 		        }
 		        </script>';
-		
-		          $_SESSION['comfirmstaff'] = $_POST['username'];
+				$_SESSION['comfirmstaff'] = $loginUsername;
+		          //$_SESSION['comfirmstaff'] = $_POST['username'];
 		          exit();
 	        }
 	        else

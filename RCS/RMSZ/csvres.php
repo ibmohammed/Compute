@@ -204,8 +204,8 @@ $programme = mysqli_escape_string($conn,$programme);
 	$semester=$_POST['semester'];
 
 $crss = mysqli_query($conn,"SELECT * FROM `course` WHERE 
-`Programme` = '$programme' && `semester` = '$semester' && `sessions` = '$session' ") 
-or die(mysqli_error());
+`prog_id` = '$programme' && `semester` = '$semester' && `sessions` = '$session' ") 
+or die(mysqli_error($conn));
 ?>
 
 

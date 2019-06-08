@@ -24,7 +24,7 @@ color: #0066FF;
 
 
 <?php
-$session = $mn['session'];
+//$session = $mn['session'];
 $sem = '';
 $semester = $sem;
 $programme = $course;

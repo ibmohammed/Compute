@@ -1,34 +1,48 @@
 <?php
          function students_login($username, $password, $lg) {
-           //require_once('connection.php');
-           $query = "SELECT * FROM nigerpol_consultdbsnw.students_log WHERE matric_no='".$username."' && password='".$password."'";
-           $result = mysqli_query($lg, $query)or die(mysqli_error($logs)."query error");
 
-          return $result;
+            //require_once('connection.php');
+            $query = "SELECT id, matric_no, password, status FROM nigerpol_consultdbsnw.students_log WHERE matric_no=? && password=?";
+            $stmt = mysqli_prepare($lg, $query) or die(mysqli_error($logs)."query error");
+            /* bind parameters for markers */
+            mysqli_stmt_bind_param($stmt, "ss", $username, $password);
+            /* execute query */
+            // mysqli_stmt_bind_result($stmt);
+            mysqli_stmt_store_result($stmt);
+            return $stmt;
+
+
+
+
+
            }
            
            // student login confirmation 
            
            function login_comfirm($username, $password,$lg) {
              //require_once('connection.php');
-             $query = "SELECT * FROM nigerpol_consultdbsnw.studentsnm WHERE matno='".$username."'";
-             $result_comfirm = mysqli_query($lg, $query)or die(mysqli_error($lg)."query error");
-             //function login_comfirm($username, $lg) {
-            // $query = "SELECT * FROM nigerpol_consultdbsnw.studentsnm WHERE matno='".$username."'";
-            // $result_comfirm = mysqli_query($lg, $query)or die(mysqli_error($logs)."query error");
-            return $result_comfirm;
+             $query = "SELECT sn, names, matno, prog_id, year, session, status FROM nigerpol_consultdbsnw.studentsnm WHERE matno=?";
+             $stmt = mysqli_prepare($lg, $query)or die(mysqli_error($lg)."query error");
+             mysqli_stmt_bind_param($stmt, "s", $username);
+            /* execute query */
+            // mysqli_stmt_bind_result($stmt);
+            mysqli_stmt_store_result($stmt);
+
+            return $stmt;
              }
              
              // staff login confirmation
              
   			 function login_scomfirm($username, $password,$lg) {
              //require_once('connection.php');
-             $query = "SELECT * FROM nigerpol_consultdbsnw.staff WHERE number='".$username."'";
-             $result_comfirm = mysqli_query($lg, $query)or die(mysqli_error($lg)."query error");
-             return $result_comfirm;
+             $query = "SELECT id, names, number, contact, dept_id FROM nigerpol_consultdbsnw.staff WHERE number=?";
+             $stmt = mysqli_prepare($lg, $query) or die(mysqli_error($lg)."query error");
+             mysqli_stmt_bind_param($stmt, "s", $username);
+            /* execute query */
+            // mysqli_stmt_bind_result($stmt);
+            mysqli_stmt_store_result($stmt);
+             return $stmt;
              }
-
-
 
            function students_data($username,$lg) {
              //require_once('connection.php');
@@ -127,13 +141,13 @@ try {
 
          function staff_alloc($departmentcode, $lg) {
            //require_once('connection.php');
-        	$qry = "SELECT * FROM `staff` WHERE `dept` = '$departmentcode'";
+        	$qry = "SELECT * FROM `staff` WHERE `dept_id` = '$departmentcode'";
 			$result = mysqli_query($lg, $qry) or die(mysqli_error($lg)."query error");
          	return $result;
            }
 // get all courses   
            function t_courses($course, $lg) {
-            $ssql = "SELECT *  FROM course WHERE `programme` LIKE '$course'";
+            $ssql = "SELECT *  FROM course WHERE `prog_id` LIKE '$course'";
 			$msq = mysqli_query($lg, $ssql) or die(mysqli_error());
 			return $msq;
            }

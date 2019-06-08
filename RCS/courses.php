@@ -23,9 +23,7 @@ color: #0066FF;
 -->
 </style>
 
-	<table  align="center">
-		<tr>
-		<td align="center" valign="top">
+	
 			<?php
 			$qry = "SELECT * FROM  `studentsnm`";
 			$sqm=mysqli_query($conn,$qry) or die(mysqli_error());
@@ -47,22 +45,7 @@ color: #0066FF;
 			<br/>
 
 			<table align="center" width="100%">
-				<!--<tr>
-					<td align="left" id="page" style="height: 24px"><b>MATRIC No.:</b> </td>
-					<td align="left" id="page2" style="height: 24px">
-						<span style="font-size: 16px">
-							<strong><?php echo $mn[2] ;?></strong>
-						</span>
-					</td>
-				</tr>
-				<tr align="left">
-					<td id="page">
-						<b><strong>NAME: </strong></b>
-					</td>
-					<td id="page2">
-						<span style="font-size: 16px"> <strong><?php echo $mn[1];?></strong> </span>
-					</td>
-				</tr>-->
+				
 				<tr>
 					<td colspan="2" align="center" id="page">
 						<!--
@@ -85,19 +68,26 @@ color: #0066FF;
 					</td>
 				</tr>
 			</table>
-			<table border="1" cellspacing="0" cellpadding="1" align="center">
+
+
+
+
+			<table class="table table-bordered" border="1" cellspacing="0" cellpadding="1" align="center">
+			<thead>
 			<tr>
-				<td id="page3"><span style="color: #000000; font-size: 10px"><strong><big>#</big></strong></span></td>
-				<td id="page3"><span style="color: #000000; font-size: 10px"><strong><big>Codes</big></strong></span></td>
-				<td id="page3"><span style="color: #000000; font-size: 10px"><strong><big> Course Names</big></strong></span></td>
-				<td id="page3"><span style="color: #000000; font-size: 10px"><strong><big>Unit</big></strong></span></td>
-				<td id="page3"><span style="color: #000000; font-size: 10px"><strong><big>Mark</big></strong></span></td>
-				<td id="page3"><span style="color: #000000; font-size: 10px"><big><strong>
-				Grade</strong></big></span></td>
-				<td id="page3"><span style="color: #000000; font-size: 10px"><strong><big>Points</big></strong></span></td>
-				<td id="page3"><span style="color: #000000; font-size: 10px"><strong><big>W Pts</big></strong></span></td>
-				<td id="page3"><span style="color: #000000; font-size: 10px"><strong><big>Sem</big></strong></span></td>
-			</tr>
+				<th id="page3"><big>#</big></th>
+				<th id="page3"><big>Codes</big></th>
+				<th id="page3"><big> Course Names</big></th>
+				<th id="page3"><big>Unit</big></th>
+				<th id="page3"><big>Mark</big></th>
+				<th id="page3"><big>Grade</strong></big></th>
+				<th id="page3"><big>Points</big></th>
+				<th id="page3"><big>W Pts</big></th>
+				<th id="page3"><big>Sem</big></th>
+			</tr> 
+			
+			</thead>
+			<tbody?
 			<?php
 
 			$ssql = "SELECT *  FROM course WHERE `prog_id` LIKE '$course'";
@@ -113,18 +103,18 @@ color: #0066FF;
 				$snn++;
 				?>
 			<tr>
-				<td id="page3"><span style="color: #000000; font-size: 10px"><strong><big><?php echo $snn;?></big></strong></span></td>
-				<td id="page4"><span style="font-size: 10px; color: #000000"><strong><?php echo $row['code'];?></strong></span></td>
-				<td id="page4"><span style="font-size: 10px; color: #000000"><strong><?php echo $row['title'];?></strong></span></td>
-				<td id="page4"><span style="font-size: 10px; color: #000000"><strong><?php echo $col['unit'];?></strong></span></td>
-				<td id="page4"><span style="font-size: 10px; color: #000000"><strong><?php echo $col['score']; ;?></strong></span></td>
-				<td id="page4"><span style="font-size: 10px; color: #000000"><strong><?php echo $col['grade']; ;?></strong></span></td>
-				<td id="page4"><span style="font-size: 10px; color: #000000"><strong><?php echo $col['points']; ;?></strong></span></td>
-				<td id="page4"><span style="font-size: 10px; color: #000000"><strong><?php echo $col['points']*$col['unit'];?></strong></span></td>
-				<td id="page4"><span style="font-size: 10px; color: #000000"><strong><?php echo $col['semester'];?></strong></span></td>
+				<td id="page3"><big><?php echo $snn;?></big></td>
+				<td id="page4"><?php echo $row['code'];?></td>
+				<td id="page4"><?php echo $row['title'];?></td>
+				<td id="page4"><?php echo $col['unit'];?></td>
+				<td id="page4"><?php echo $col['score'];?></td>
+				<td id="page4"><?php echo $col['grade'];?></td>
+				<td id="page4"><?php echo $col['points'];?></td>
+				<td id="page4"><?php echo $col['points']*$col['unit'];?></td>
+				<td id="page4"><?php echo $col['semester'];?></td>
 			</tr>
+			
 			<?php }?>
+			</tbody>
 			</table>
-		</td>
-	</tr>
-</table>
+		

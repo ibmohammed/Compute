@@ -19,21 +19,47 @@ if(isset($_POST['submit']))
     $_SESSION['sem'] = $qs["semester"];
     $_SESSION['sess'] = $qs["session"];
 
-    $return_result = students_login($_POST['username'], $_POST['password'],$logs);
-    $row = mysqli_fetch_array($return_result);
-    $_SESSION['stid'] = $row['id'];
-    if(mysqli_num_rows($return_result)!== 0)
+
+      $loginUsername = $_POST['username'];
+      // $loginUsername =  preg_replace("/[^a-zA-Z0-9\s]/", "", $loginUsername);
+
+      $password = $_POST['password'];
+      $password =  preg_replace("/[^a-zA-Z0-9\s]/", "", $password);
+
+
+
+      $return_result = students_login($loginUsername, $password,$logs);
+      mysqli_stmt_execute($return_result);
+      mysqli_stmt_bind_result($return_result, $id, $matric_no, $password, $status);
+      mysqli_stmt_store_result($return_result);
+      $loginFoundUser = mysqli_stmt_num_rows($return_result);
+
+
+      /* fetch value */
+      $row =  mysqli_stmt_fetch($return_result);
+      
+      
+
+      //$row = mysqli_fetch_array($return_result);
+
+      // $_SESSION['stid'] = $row['id'];
+    $_SESSION['stid'] = $id;
+
+    if($loginFoundUser !== 0)
+    //if(mysqli_num_rows($return_result)!== 0)
     {
 
 
-      if($_POST['password'] == '0000')
+      if($password == '0000')
       {
-        $return_comfirm = login_comfirm($_POST['username'], $_POST['password'],$logs);
-
-        $comfirm = mysqli_fetch_assoc($return_comfirm);
+        $return_comfirm = login_comfirm($loginUsername, $password,$logs);
+        mysqli_stmt_execute($return_comfirm);
+        mysqli_stmt_bind_result($return_comfirm, $sn, $names, $matno, $prog_id, $year, $session, $status);
+        mysqli_stmt_store_result($return_comfirm);
+       // $comfirm = mysqli_fetch_assoc($return_comfirm);
 //echo ;
 //      javascript function to comfirm new user entry
-        echo '<p>Click the button to Comfirm that ('.$comfirm['names'].') is your name</p>';
+        echo '<p>Click the button to Comfirm that ('.$names.') is your name</p>';
 
       	echo '<button onclick="myFunction()">Comfirm</button>
         <p id="demo"></p>
@@ -59,14 +85,15 @@ if(isset($_POST['submit']))
           document.getElementById("demo").innerHTML = txt;
         }
         </script>';
+        //$loginUsername, $password
 
-          $_SESSION['comfirmuser'] = $_POST['username'];
+          $_SESSION['comfirmuser'] = $loginUsername;
           exit();
         }
         else
         {
 
-        $_SESSION['usercomfirmed'] = $_POST['username'];
+        $_SESSION['usercomfirmed'] = $loginUsername;
         header("location:../stdprofile.php");
         }
   }

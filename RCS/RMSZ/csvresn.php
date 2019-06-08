@@ -201,8 +201,8 @@ $ncode=$_POST['code'];
 $programme = mysqli_escape_string($conn,$programme);
 
 
-$myqry = "SELECT * FROM entered WHERE code='GNS 101'
- && prog_id ='$programme' && semester='1' && session='2017/2018'";
+$myqry = "SELECT * FROM entered WHERE code='".$_POST['code']."'
+ && prog_id ='".$_POST['dept_id']."' && semester='.$_POST['semester']."' && session='".$_POST['session']."'";
 $chh = mysqli_query($conn, $myqry) or die(mysqli_error($conn).'999');
 //mysqli_num_rows()
 

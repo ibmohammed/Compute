@@ -24,7 +24,7 @@ a:hover {
 </head>
 
 <body>
-  <table  align="center">
+ 
 <style type="text/css">
 <!--
 .style1 {color: #FF0000}
@@ -35,9 +35,9 @@ a:hover {
 -->
 </style>
 
-         <tr>
-    <td align="center" valign="top">
+        
 
+        
      <?php
 //$mat = $_POST['matricno'];
 //$sess = $_POST['session'];
@@ -63,48 +63,54 @@ $mn = mysqli_fetch_array($mtr);
         ?>
 
 	
-      <table align="center" width="100%">
-<!---
--->
-        <table border="1" cellspacing="0" cellpadding="1" align="center">
-          <tr>
-            <td id="page3"><span style="color: #000000; font-size: 10px"><strong><big>Codes</big></strong></span></td>
-            <td id="page3"><span style="color: #000000; font-size: 10px"><strong><big> Course Names</big></strong></span></td>
-            <td id="page3"><span style="color: #000000; font-size: 10px"><strong><big>Unit</big></strong></span></td>
-            <td id="page3"><span style="color: #000000; font-size: 10px"><strong><big>Mark</big></strong></span></td>
-            <td id="page3"><span style="color: #000000; font-size: 10px"><big><strong>
-			Grade</strong></big></span></td>
-            <td id="page3"><span style="color: #000000; font-size: 10px"><strong><big>Points</big></strong></span></td>
-            <td id="page3"><span style="color: #000000; font-size: 10px"><strong><big>Weighted Points</big></strong></span></td>
-          </tr>
+      
+        <table class="table table-bordered" border="1" cellspacing="0" cellpadding="1" align="center">
+        <thead>
+         <tr>
+            <th id="page3"><big>Codes</big></th>
+            <th id="page3"><big> Course Names</big></th>
+            <th id="page3"><big>Unit</big></th>
+            <th id="page3"><big>Mark</big></th>
+            <th id="page3"><big>Grade</big></th>
+            <th id="page3"><big>Points</big></th>
+            <th id="page3"><big>Weighted Points</big></th>
+          </tr> 
+          </thead>
+          <tbody>
           <?php
-//	 $msq = mysql_query("SELECT *  FROM course WHERE dept_id LIKE '$course' AND semester = $sem",$db);
-$ssql = "SELECT *  FROM course WHERE	 `dept_id` LIKE '$course' AND
+//	 $msq = mysql_query("SELECT * FROM course WHERE dept_id LIKE '$course' AND semester = $sem",$db);
+$ssql = "SELECT *  FROM course WHERE	 `prog_id` LIKE '$course' AND
 							 `semester` = $sem && `sessions` LIKE '$sess'";
-        $msq = mysqli_query($conn,$ssql) or die(mysqli_error());
+        $msq = mysqli_query($conn,$ssql) or die(mysqli_error($conn));
 
 	  $rsql = "SELECT * FROM results WHERE matric_no LIKE '$mat'   AND semester = $sem";
 $msql = mysqli_query($conn,$rsql)  or die(mysql_error());;
 
 	  while (($row= mysqli_fetch_assoc($msq)) && ($col= mysqli_fetch_assoc($msql))){?>
           <tr>
-            <td id="page4"><span style="font-size: 10px; color: #000000"><strong><?php echo $row['code'];?></strong></span></td>
-            <td id="page4"><span style="font-size: 10px; color: #000000"><strong><?php echo $row['title'];?></strong></span></td>
-            <td id="page4"><span style="font-size: 10px; color: #000000"><strong><?php echo $col['unit'];?></strong></span></td>
-            <td id="page4"><span style="font-size: 10px; color: #000000"><strong><?php echo $col['score']; ;?></strong></span></td>
-            <td id="page4"><span style="font-size: 10px; color: #000000"><strong><?php echo $col['grade']; ;?></strong></span></td>
-            <td id="page4"><span style="font-size: 10px; color: #000000"><strong><?php echo $col['points']; ;?></strong></span></td>
-            <td id="page4"><span style="font-size: 10px; color: #000000"><strong><?php echo $col['points']*$col['unit']; ;?></strong></span></td>
+            <td id="page4"><?php echo $row['code'];?></td>
+            <td id="page4"><?php echo $row['title'];?></td>
+            <td id="page4"><?php echo $col['unit'];?></td>
+            <td id="page4"><?php echo $col['score']; ;?></td>
+            <td id="page4"><?php echo $col['grade']; ;?></td>
+            <td id="page4"><?php echo $col['points']; ;?></td>
+            <td id="page4"><?php echo $col['points']*$col['unit']; ;?></td>
           </tr>
           <?php }?>
+          </tbody>
         </table>
-        <table border="1" align="center" cellpadding="1" cellspacing="0" >
+
+        <hr>
+        <table class="table table-bordered" border="1" align="center" cellpadding="1" cellspacing="0" >
+          <thead>
           <tr>
-            <td id="page1"><span class="style3 style6"><strong>T C U &nbsp;</strong></span></td>
-            <td id="page1"><span class="style3 style6"><strong>T  P</strong></span></td>
-            <td id="page1"><span class="style3 style6"><strong>GPA</strong></span></td>
-            <td id="page1"><span class="style3 style6"><strong>CGPA&nbsp;</strong></span></td>
+            <th id="page1">T C U &nbsp;</th>
+            <th id="page1">T  P</th>
+            <th id="page1">GPA</th>
+            <th id="page1">CGPA&nbsp;</th>
           </tr>
+          </thead>
+        <tbody>
           <?php
 		$session = $mn['session'];
 		$semester = $sem;
@@ -142,7 +148,8 @@ $msql = mysqli_query($conn,$rsql)  or die(mysql_error());;
             <td id="page2"><span class="style3"><?php echo $gpa ;?></span></td>
             <td id="page2"><span class="style3"><?php echo $ccgpa;?></span></td>
           </tr>
-        </table></td>
-    </tr>
-</table>
+          <tbody>
+        </table>
+        
+       
   <?php //exit; ?>
