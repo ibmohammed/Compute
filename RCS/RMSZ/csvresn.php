@@ -198,11 +198,13 @@ if(isset($_POST['Submitf'])){
 
 $programme=$_POST['dept_id'];
 $ncode=$_POST['code'];
-$programme = mysqli_escape_string($conn,$programme);
+$programme = mysqli_escape_string($conn, $programme);
 
 
-$myqry = "SELECT * FROM entered WHERE code='".$_POST['code']."'
- && prog_id ='".$_POST['dept_id']."' && semester='.$_POST['semester']."' && session='".$_POST['session']."'";
+$myqry = "SELECT * FROM entered 
+WHERE 
+code='".$_POST['code']."' && prog_id ='".$_POST['dept_id']."' 
+&& semester='".$_POST['semester']."' && session='".$_POST['session']."'";
 $chh = mysqli_query($conn, $myqry) or die(mysqli_error($conn).'999');
 //mysqli_num_rows()
 
@@ -219,7 +221,7 @@ $rec = "SELECT * FROM `results` WHERE code='".$_POST['code']."'
 $clue = mysqli_query($conn, $rec) or die(mysqli_error($conn));
 ?>
 <!-- -->
-<table>
+<table class="table table-bordered">
 	<tr>
 		<th>#	</th>
 		<th>Names	</th>
@@ -272,13 +274,14 @@ or die(mysqli_error($conn).'llll');
 ?>
 
 
-<form id="form1" action="" enctype="multipart/form-data" method="post" name="form1">
-
-
-    <table style="width: 100%">
+<form id="form1" class="forms-sample" action="" enctype="multipart/form-data" method="post" name="form1">
+<div class="form-group">
+                      
+    <table class="table table-bordered" style="width: 100%">
 		<tr>
 			<td>Course Code:</td>
-			<td>&nbsp;<select name="ccodes">
+			<td>&nbsp;
+			<select name="ccodes" class="form-control" id="exampleSelectGender">
 			<option selected="selected"><?php echo $_POST['code'];?></option>
 			<?php while($rows = mysqli_fetch_assoc($crss)){?>			
 			<option><?php echo $rows['code'];?></option>
@@ -287,15 +290,31 @@ or die(mysqli_error($conn).'llll');
 		</tr>
 		<tr>
 			<td>Choose your file:</td>
-			<td>  <input name="csv" type="file" id="csv" /> </td>
+			<td>  
+			<!--<input name="csv" type="file" class="btn btn-gradient-primary" /> -->
+			<div class="form-group">
+				      <input type="file" name="img[]" class="file-upload-default">
+                      <div class="input-group col-xs-12">
+                        <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                        <span class="input-group-append">
+                          <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
+                        </span>
+                      </div>
+                    </div>	
+			                    
+		</td>
 		</tr>
+		
 	</table>
-
+	
 	<input name="programme" value="<?php echo $programme;?>" type="hidden"/>
 	<input name="session" value="<?php echo $session;?>" type="hidden"/>
 	<input name="semester" value="<?php echo $semester;?>" type="hidden"/>
 	
-	<input name="Submit" type="submit" value="Submit"> 
+	<input name="Submit" type="submit" value="Submit" class="btn btn-gradient-primary mr-2"> 
+	
+                     
+</div>
 </form>
  
 <?php
@@ -312,27 +331,30 @@ if (empty($_GET['csv'])) {
 
 
 <form action="" method="post" name="grade" id="grade">
-      <table style="text-align: left;color:blue;">
+      <table class="table table-bordered" style="text-align: left;color:blue;">
         <tr>
           <td style="height: 30px" ><span style="font-weight: bold; color: #000000">PROGRAMME:</span></td>
-          <td style="height: 30px" ><select name="programme" id="programme">
-         			<option selected="selected"></option>
-         			
-         			 <?php include('dptcode.php') ;
-            
-            
-            $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
-            
-            while($pcd = mysqli_fetch_assoc($queri)){
-            ?>
-            
-            
-              <option><?php echo $pcd['dep'];?></option>
-              
-              <?php }?>
-              
-             
-          </select> </td>
+ <td style="height: 30px" >
+
+		<div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+							<div class="col-sm-9">
+			<select class="form-control">
+				<?php include('dptcode.php') ;
+
+				$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
+				while($pcd = mysqli_fetch_assoc($queri)){
+				?>
+				<option><?php echo $pcd['dep'];?></option>
+				<?php }?>
+
+			</select>
+		</div>
+		</div>
+                        </div>
+                      </div>
+ </td>
         </tr>
         <tr>
           <td ><span style="font-weight: bold; color: #000000">SESSION:</span></td>

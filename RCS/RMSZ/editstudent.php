@@ -7,34 +7,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Untitled Document</title>
-<style type="text/css">
-<!--
-a:link {
-	color: #0033FF;
-}
-a:hover {
-	color: #0066FF;
-}
-.style1 {color: #000000}
-.style3 {color: #FF0000}
-.style2 {
-	color: #FFFFFF;
-	font-weight: bold;
-}
-.style4 {color: #000033}
-.style7 {color: #FFF; font-weight: bold; }
-.style8 {color: #FFF}
-.auto-style1 {
-	color: #FFFFFF;
-	font-weight: bold;
-	font-size: small;
-}
--->
-</style>
 </head>
 
 <body>
-  <div style="float:left; width:600px;">
+  
 	<?php 
 if(isset($_POST['Submit2'])){	
 $name = $_POST['names'];
@@ -268,11 +244,11 @@ $matno = $_GET['matno'];
     
     
     <form id="form2" name="form2" method="post" action="">
-          <table border="0">
+          <table  class="table table-bordered" >
             <tr>
-              <td style="height: 30px" ><strong>PROGRAMME:</strong></td>
-              <td style="height: 30px; width: 86px">
-                <select name="dept" id="dept">
+              <td ><strong>PROGRAMME:</strong></td>
+              <td>
+                <select name="dept" id="dept" class="form-control">
                 <?php include('dptcode.php') ;
             
             
@@ -293,9 +269,9 @@ $matno = $_GET['matno'];
             </tr>
             <tr>
               <td ><strong>YEAR:</strong></td>
-              <td style="width: 86px" >
-                <select name="year" id="year">
-                  <option selected="selected"></option>
+              <td>
+                <select name="year" id="year" class="form-control">
+                  <option selected="selected">Year</option>
 				  <option>9</option>
                   <option>10</option>
                   <option>11</option>
@@ -313,9 +289,9 @@ $matno = $_GET['matno'];
             </tr>
             <tr>
               <td ><strong>SESSION:</strong></td>
-              <td style="width: 86px" >
-                <select name="session" id="session">
-                  <option selected="selected"></option>
+              <td>
+                <select name="session" id="session" class="form-control">
+                  <option selected="selected">Sessions</option>
                   <option>2010/2011</option>
                   <option>2012/2013</option>
                   <option>2013/2014</option>
@@ -327,8 +303,9 @@ $matno = $_GET['matno'];
               </td>
             </tr>
           </table>
-                    <input type="submit" name="Submit" value="Submit" />
+          <br>
+                 <p>   <input type="submit" name="Submit" value="Submit" class="btn btn-gradient-primary mr-2" /></p>
                           </form>
-                          
-                          <a href="index.php?regs">Register Student</a>
-         </div>
+                         <br> 
+                         <p> <a href="index.php?regs">Register Student</a></p>
+                         <br>

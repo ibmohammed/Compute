@@ -22,62 +22,95 @@ if (!((isset($_SESSION['staffcomfirmed']))))
   }
 
 
-?>
-<!DOCTYPE html>
-<html>
-<title>NSPZ Student Profile</title>
-<meta charset="UTF-8">
-<meta http-equiv="Content-Type" content="text/html;" />
-<meta http-equiv="refresh" content="20; url='s_profile.php'" />
-<link rel="icon" href="../../images/img2A.jpg" type="image/x-jpg">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../../w3/w3.css">
-<link rel="stylesheet" href="../../w3/w3-theme-blue-grey.css">
-<link rel='stylesheet' href='../../w3/family.css'>
-<link rel="stylesheet" href="../../w3/font-awesome.min.css">
-<style>
-html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
-</style>
-<body class="w3-theme-l5">
+?><!DOCTYPE html>
+<html lang="en">
 
-<!-- Navbar -->
-<div class="w3-top">
- <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
-  <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-  <!--<a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><img src="images/img2A.jpg"></a>-->
-  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><img src="../../images/img2A.png"></a>
-<span style="font-size:12pt" >Niger State Polytechnic,<br/> Zungeru</span>
-  <div class="w3-dropdown-hover w3-hide-small" >
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>NSPZ Staff Profile</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
 
+  <!-- inject:css -->
+  <link rel="stylesheet" href="../../css/style.css">
+  <!-- endinject -->
 
-  </div>
+  <link rel="shortcut icon" href="../../imagess/favicon.png" />
+</head>
 
-  <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
-    <img src="../../w3images/user.png" class="w3-circle" style="height:23px;width:23px" alt="Avatar">
-<span style="color:gold"><?php
+<body>
+
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+
+    <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo" href="../../index.html"><img src="../../imagess/logo.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="../../imagess/logo-mini.svg" alt="logo"/></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-stretch">
+        <div class="search-field d-none d-md-block">
+          <form class="d-flex align-items-center h-100" action="#">
+            <div class="input-group">
+              <div class="input-group-prepend bg-transparent">
+                  <i class="input-group-text border-0 mdi mdi-magnify"></i>                
+              </div>
+              <input type="text" class="form-control bg-transparent border-0" placeholder="Search projects">
+            </div>
+          </form>
+        </div>
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <div class="nav-profile-img">
+                <img src="../../imagess/faces/face1.jpg" alt="image">
+                <span class="availability-status online"></span>             
+              </div>
+              <div class="nav-profile-text">
+                <p class="mb-1 text-black">
+                  <?php
 if(@$_SESSION['staffcomfirmed'] == True){
   echo $_SESSION['staffcomfirmed'];
 }
-?>(Staff) </span> </a><br>
- </div>
-</div>
-
-<!-- Navbar on small screens -->
-<div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
-  <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
-  <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
-  <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
-  <a href="#" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
-</div>
-<br>
-<!-- Page Container -->
-<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
-  <!-- The Grid -->
-  <div class="w3-row">
-    <!-- Left Column -->
-    <div class="w3-col m3">
-      <!-- Profile -->
-      
+?></p>
+              </div>
+            </a>
+            <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+              <a class="dropdown-item" href="#">
+                <i class="mdi mdi-cached mr-2 text-success"></i>
+                Activity Log
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">
+                <i class="mdi mdi-logout mr-2 text-primary"></i>
+                
+                Signout
+              </a>
+            </div>
+          </li>
+          <li class="nav-item nav-logout d-none d-lg-block">
+            <a class="nav-link" href="logout.php?logout1">
+              <i class="mdi mdi-power"></i>
+            </a>
+          </li>
+          <li class="nav-item nav-settings d-none d-lg-block">
+            <a class="nav-link" href="#">
+              <i class="mdi mdi-format-line-spacing"></i>
+            </a>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:../../partials/_sidebar.html -->
       <?php
       if(isset($_GET['Cancel']))
       {
@@ -91,6 +124,10 @@ if(@$_SESSION['staffcomfirmed'] == True){
         $return_dept = departmentss(@$data['dept_id'], $logs);
         $schlid = mysqli_fetch_assoc($return_dept);
         //$schlid = $result1->fetch_array();
+        
+        
+        
+        
         $return_schl = schoolss(@$schlid['schl_id'], $logs);
         $clgid = mysqli_fetch_assoc($return_schl);
         //$clgid = $result2->fetch_array();
@@ -101,29 +138,32 @@ if(@$_SESSION['staffcomfirmed'] == True){
 
         ?>
 
-  
-      <div class="w3-card w3-round w3-white">
-        <div class="w3-container" style="font-size:small">
-         <h4 class="w3-center">My Profile</h4>
-          <?php echo $data['names'];
+
+
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item nav-profile">
+            <a href="#" class="nav-link">
+              <div class="nav-profile-image">
+                <img src="../../imagess/faces/face1.jpg" alt="profile">
+                <span class="login-status online"></span> <!--change to offline or busy as needed-->              
+              </div>
+              <div class="nav-profile-text d-flex flex-column">
+                <span class="font-weight-bold mb-2" style="font-size:8pt">
+                <!--user name-->
+                <?php echo $data['names'];
+
                     $_SESSION['MM_Username'] = $data['number'];
                     $_SESSION['programme'] = $data['dept_id'];
                     $_SESSION['number'] = $data['number'];
                     $_SESSION['id_staff'] = $data['id'];
                     //$_SESSION['session'] = $data['session'];
           ?>
-         <hr>
+              </span>
 
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i><?php echo $data['number'];?></p>
-         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?php echo $clg['college'];?></p>
-         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?php echo $clgid['school'];?></p>
-         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?php echo $schlid['name'];?></p>
-         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> <?php echo @$data['session'];?></p>
-        </div>
+              <span class="text-secondary text-small">Staff</span>
 
-      </div>
-      <br>
-      <?php
+   <?php
       if(isset($_GET['Ok']))
       {
         echo   ' </div>
@@ -135,7 +175,7 @@ if(@$_SESSION['staffcomfirmed'] == True){
                   <div class="w3-container w3-padding">
                     <h4>Comfirmation</h4>';
 
-        echo "<a href='Login_v3/index.php'>Click here </a> if the Name, and Matric Number is not correct about you please verify your matric number and try login again  " ;
+        echo "<a href='../../Login_v3/index.php'>Click here </a> if the Name, and Matric Number is not correct about you please verify your matric number and try login again  " ;
 
              echo '
              </div>
@@ -164,129 +204,54 @@ if(@$_SESSION['staffcomfirmed'] == True){
         exit();
       }
     ?>
-      <!-- Accordion -->
-      <div class="w3-card w3-round">
-        <div class="w3-white">
 
-       
-          <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> Menu</button>
-          <div id="Demo2" class="w3-hide w3-container">
-            <p><p>
-              <ul>
-                <li><a href="s_profile.php?importscore=1" src="">Import Scores</a></li>
-                <li><a href="s_profile.php?Results=2" src="">Semester 2</a></li>
-                <li><a href="s_profile.php?Results=3" src="">Semester 3</a></li>
-                <li><a href="s_profile.php?Results=4" src="">Semester 4</a></li>
-                <!--<li><a href="stdprofile.php?Results=0" src="">All Semester</a></li>-->
-              </ul>
-            <p></p>
-          </div>
+              </div>
+              <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="s_profile.php">
+              <span class="menu-title">Dashboard</span>
+              <i class="mdi mdi-home menu-icon"></i>
+            </a>
+          </li>
 
-          <button onclick="myFunction('Demo4')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> <a href="../../Login_v3/logout.php?logout1">SignOut</a> </button>
-          <div id="Demo4" class="w3-hide w3-container">
-         <div class="w3-row-padding">
-         <br>
-           <div class="w3-half">
-             <img src="../../w3images/lights.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="../../w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/mountains.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="../../w3images/forest.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/../../w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/../../w3images/snow.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-         </div>
-          </div>
-        </div>
-      </div>
-      <br>
-
-
-    <!-- End Left Column -->
-    </div>
-
-    <!-- Middle Column -->
-    <div class="w3-col m7">
-
-
+        
+  <!--      
+    -->
+         
+          
+          
+          <li class="nav-item sidebar-actions">
+            <span class="nav-link">
+          
+            </span>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
       
-
-      <div class="w3-row-padding">
-        <div class="w3-col m12">
-          <div class="w3-card w3-round w3-white">
-            <div class="w3-container w3-padding">
-
-              <h4>Courses</h4>
-              <h6 class="w3-opacity">Allocated Courses</h6>
-              
-              <?php
-                           
-              //require_once('RCS/courses.php');
-				$msql = "SELECT * FROM `course` WHERE staff_id = '".$_SESSION['id_staff']."'";
-				$msqls = mysqli_query($logs, $msql);
-				?>
-	<h4 style="color:red">Courses Allocated to <?php echo @$_SESSION['names']." (".@$_SESSION['number'].")";?></h4>
-	
-		<div>
-			<table style="width:100%">
-				
-						
-			<?php 
-			$in = 0;
-      while($col = mysqli_fetch_assoc($msqls)){ $in++;
-      
-      
-      ?>
-				<tr>
-				<td colspan="4">
-					<form name="form<?php echo $in;?>" method="post" action="">
-								<div>
-									<?php echo $in;?>
-										&nbsp;&nbsp;<button style="width:70px; font-size:8pt" name="Submitf"><?php echo $col['code'];?></button>
-										&nbsp;&nbsp;<input type="text" value="<?php echo $col['title'];?>" style="width:250px; font-size:8pt" disabled="disabled">
-										&nbsp;&nbsp;<input type="text" value="<?php echo $col['unit'];?>" style="width:40px; font-size:8pt" disabled="disabled">
-										<input type="hidden" value="<?php echo $col['semester'];?>" name="semester"> 
-										<input type="hidden" value="<?php echo $col['sessions'];?>" name="session">
-										<input type="hidden" value="<?php echo $col['prog_id'];?>" name="dept_id">
-										<input type="hidden" value="<?php echo $col['code'];?>" name="code">
-                    <!--&nbsp;&nbsp;<button style="width:70px; font-size:8pt" name="SubmitS"><?php //echo $col['code'];?></button>-->
-
-								</div>
-					</form>
-				</td>
-				</tr>
-				<?php }?>
-			</table>
-			<br>
-		<div>
-			<!--<button name="Resets">Reset</button>--></div>
-		</div>
-	
-
-            
-           
-              <hr class="w3-clear">
+        <div class="content-wrapper">
 
 
-            </div>
-          </div>
-        </div>
-      </div>
 
-<!-- Set Result -->
+
+        <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+        <!--          <h4 class="card-title">Results</h4>-->
+                  <p class="card-description">
+                  <!--  Add class <code>.table-bordered</code>-->
+                  </p>
+
+
+<!-- input Result -->
 <?php if(isset($_POST['Submitf']))
         {
           ?>
-          <div class="w3-container w3-card w3-white w3-round w3-margin">
+          
             <br>
             <!--<img src="/w3images/avatar5.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
             <span class="w3-right w3-opacity">16 min</span>-->
@@ -301,132 +266,176 @@ if(@$_SESSION['staffcomfirmed'] == True){
              
        		require_once('csvresn.php');
 	      ?>
-          </div>
+         
         <?php
       }
       ?>
-      <!-- End of Set Result -->
+      <!-- End of input Result -->
+         
+                  
 
-      <!-- Set Courses -->
-      <?php if(@$_GET['Courses']==True){?>
-      <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-      <!--  <img src="/w3images/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-        <span class="w3-right w3-opacity">1 min</span>-->
+      
+     <!---dashboard -->
 
-        <h4>Courses  </h4><br>
-        <hr class="w3-clear">
-      </div>
-    <?php }?>
-      <!-- End of Set Courses -->
+       <div class="page-header">
+            <h3 class="page-title">
+              <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                <i class="mdi mdi-home"></i>                 
+              </span>
+              Dashboard
+            </h3>
+            <nav aria-label="breadcrumb">
+              <ul class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                  <span></span>Overview
+                  <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+                </li>
+              </ul>
+            </nav>
+          </div>
+         
+          <div class="row">
+
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-danger card-img-holder text-white">
+                <div class="card-body">
+                  <img src="../../imagess/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
+                  <h4 class="font-weight-normal mb-3">College
+                    <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                  </h4>
+                  <h3 class="mb-5"><?php echo $clg['college'];?></h3>
+                  <h6 class="card-text"></h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-info card-img-holder text-white">
+                <div class="card-body">
+                  <img src="../../imagess/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                  
+                  <h4 class="font-weight-normal mb-3">School 
+                    <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+                  </h4>
+                  <h3 class="mb-5"><?php echo $clgid['school'];?></h3>
+                  <h6 class="card-text"></h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-success card-img-holder text-white">
+                <div class="card-body">
+                  <img src="../../imagess/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                                    
+                  <h4 class="font-weight-normal mb-3">Department 
+                    <i class="mdi mdi-diamond mdi-24px float-right"></i>
+                  </h4>
+                  <h3 class="mb-5"><?php echo $schlid['name'];?></h3>
+                  <h6 class="card-text"></h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+     <!-- - End of Dashboard -->
 
 
+<!--- course allocation -->
 
-      <!-- End Middle Column -->
+       <h4>Courses</h4>
+                            
+              <?php
+                           
+              //require_once('RCS/courses.php');
+				$msql = "SELECT * FROM `course` WHERE staff_id = '".$_SESSION['id_staff']."'";
+				$msqls = mysqli_query($logs, $msql);
+				?>
+	<h4 style="color:red">Courses Allocated to <?php echo @$_SESSION['names']." (".@$_SESSION['number'].")";?></h4>
+	
+		<div>
+			<table  class="table table-bordered" style="width:100%">
+			
+      <thead>
+        <tr>
+        <th>#</th>  
+        <th>CourseCode</th>
+        <th>Course Tile</th>
+        <th>Course Unit</th>
+      </tr>
+      </thead>
+      <tbody>	
+						
+			<?php 
+			$in = 0;
+      while($col = mysqli_fetch_assoc($msqls)){ $in++;
+      
+      
+      ?>
+      	<form name="form<?php echo $in;?>" method="post" action="">
+				<tr>
+				
+				
+        <td>	<?php echo $in;?></td>
+        <td>	<button class="btn btn-gradient-primary mr-2" style="width:150px"  name="Submitf"><?php echo $col['code'];?></button></td>
+        <td>		<?php echo $col['title'];?></td>
+        <td>		<?php echo $col['unit'];?>
+										<input type="hidden" value="<?php echo $col['semester'];?>" name="semester"> 
+										<input type="hidden" value="<?php echo $col['sessions'];?>" name="session">
+										<input type="hidden" value="<?php echo $col['prog_id'];?>" name="dept_id">
+										<input type="hidden" value="<?php echo $col['code'];?>" name="code">
+                    <!--&nbsp;&nbsp;<button style="width:70px; font-size:8pt" name="SubmitS"><?php //echo $col['code'];?></button>-->
+
+					
+				</td>
+        </tr>
+        </form>
+        <?php }?>
+      </tbody>
+				
+			</table>
+      <br>
+            
+<!--- End of course allocation -->
+
+
+    
+      </div>  
+              </div>
+            </div>
+            </div>
+            </div>
+            </div>
     </div>
 
-    <!-- Right Column -->
 
-    <div class="w3-col m2">
-      <div class="w3-card w3-round w3-white w3-center">
 
-        <div class="w3-container">
-			<?php //require_once('RCS/calculate_gp.php') ?>
-
-          <p>Updates</p>
-          <!--<img src="/w3images/forest.jpg" alt="Forest" style="width:100%;">-->
-          <div class="w3-half">
-           <!-- <button class="w3-button w3-block w3-blue-grey w3-section" title="Accept"><i class="fa"><?php echo @$unit; ?></i></button>-->
+        <!-- content-wrapper ends -->
+        
+        <!-- partial:../../partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2017 <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap Dash</a>. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span>
           </div>
-        </div>
+        </footer>
+        <!-- partial -->
       </div>
-      <br>
-
-      <div class="w3-card w3-round w3-white w3-center">
-        <div class="w3-container">
-          <p>Scedules </p>
-          <!--<img src="/w3images/avatar6.png" alt="Avatar" style="width:50%"><br>-->
-          <div class="w3-half">
-            <!--<button class="w3-button w3-block w3-blue-grey w3-section" title="Decline"><i class="fa"><?php echo @$gp;?></i></button>-->
-          </div>
-          <div class="w3-row w3-opacity">
-
-
-          </div>
-        </div>
-      </div>
-      <br>
-
-      <div class="w3-card w3-round w3-white w3-center">
-        <div class="w3-container">
-          <p>Todo List</p>
-          <!--<img src="/w3images/avatar6.png" alt="Avatar" style="width:50%"><br>-->
-          <div class="w3-half">
-            <!--<button class="w3-button w3-block w3-blue-grey w3-section" title="Decline"><i class="fa"><?php echo @$gpa;?></i></button>-->
-          </div>
-          <div class="w3-row w3-opacity">
-
-
-          </div>
-        </div>
-      </div>
-      <br>
-      <!-- End Right Column -->
+      <!-- main-panel ends -->
     </div>
-    <!-- End Grid -->
+    <!-- page-body-wrapper ends -->
   </div>
-  <p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-  <!-- End Page Container -->
-  <br><p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-</div>
-<br>
-
-<!-- Footer -->
-<footer class="w3-container w3-theme-d3 w3-padding-16">
-  <h5>Footer</h5>
-</footer>
-
-<footer class="w3-container w3-theme-d5">
-  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-</footer>
-
-<script>
-// Accordion
-function myFunction(id) {
-  var x = document.getElementById(id);
-  if (x.className.indexOf("w3-show") == -1) {
-    x.className += " w3-show";
-    x.previousElementSibling.className += " w3-theme-d1";
-  } else {
-    x.className = x.className.replace("w3-show", "");
-    x.previousElementSibling.className =
-    x.previousElementSibling.className.replace(" w3-theme-d1", "");
-  }
-}
-
-// Used to toggle the menu on smaller screens when clicking on the menu button
-function openNav() {
-  var x = document.getElementById("navDemo");
-  if (x.className.indexOf("w3-show") == -1) {
-    x.className += " w3-show";
-  } else {
-    x.className = x.className.replace(" w3-show", "");
-  }
-}
-</script>
-
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="vendors/js/vendor.bundle.base.js"></script>
+  <script src="vendors/js/vendor.bundle.addons.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="js/off-canvas.js"></script>
+  <script src="js/misc.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <!-- End custom js for this page-->
 </body>
+
 </html>

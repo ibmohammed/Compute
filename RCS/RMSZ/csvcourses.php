@@ -99,10 +99,11 @@ $snm = mysqli_query($conn,"UPDATE `course` SET
 <form id="form1" action="" enctype="multipart/form-data" method="post" name="form1">
 
 
-    <table style="width: 60%">
+    <table class="table table-bordered" style="width: 60%">
 		<tr>
           <td style="height: 30px" ><span style="font-weight: bold; color: #000000">PROGRAMME:</span></td>
-          <td style="height: 30px" ><select name="programme" id="programme">
+		  <td style="height: 30px" >
+		  <select name="programme" id="programme" class="form-control">
          			<option selected="selected"></option>
          			
          			 <?php include('dptcode.php') ;
@@ -123,7 +124,8 @@ $snm = mysqli_query($conn,"UPDATE `course` SET
         </tr>
 		<tr>
 			<td><span style="font-weight: bold; color: #000000">SESSION:</span></td>
-			<td>  &nbsp;<select name="session">
+			<td>  
+				<select name="session" class="form-control">
           <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
                     <?php echo include('includes/sessions.php');?>
                     <option>2018/2019</option>
@@ -132,7 +134,7 @@ $snm = mysqli_query($conn,"UPDATE `course` SET
 		</tr>
 		<tr>
 			<td><span style="font-weight: bold; color: #000000">SEMESTER:</span></td>
-			<td>  <select name="semester">
+			<td>  <select name="semester" class="form-control">
             <option selected="selected"></option>
 			<option value="1">First Semester</option>
             <option value="2">Second Semester</option>

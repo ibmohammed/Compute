@@ -22,75 +22,105 @@ if (!((isset($_SESSION['usercomfirmed']))))
   }
 
 
-?>
-<!DOCTYPE html>
-<html>
-<title>NSPZ Student Profile</title>
-<meta charset="UTF-8">
-<meta http-equiv="Content-Type" content="text/html;" />
-<meta http-equiv="refresh" content="20; url='stdprofile.php'" />
-<link rel="icon" href="images/img2A.jpg" type="image/x-jpg">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="w3/w3.css">
-<link rel="stylesheet" href="w3/w3-theme-blue-grey.css">
-<link rel='stylesheet' href='w3/family.css'>
-<link rel="stylesheet" href="w3/font-awesome.min.css">
-<style>
-html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
-</style>
-<body class="w3-theme-l5">
+?><!DOCTYPE html>
+<html lang="en">
 
-<!-- Navbar -->
-<div class="w3-top">
- <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
-  <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-  <!--<a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><img src="images/img2A.jpg"></a>-->
-  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><img src="images/img2A.png"></a>
-<span style="font-size:12pt" >Niger State Polytechnic, <br>Zungeru</span>
-  <div class="w3-dropdown-hover w3-hide-small" >
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>NSPZ Student Profile</title>
+  <link rel="icon" href="images/img2A.jpg" type="image/x-jpg">
+  <!--<meta http-equiv="refresh" content="100; url='stdprofile.php'" />-->
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="imagess/favicon.png" />
+</head>
 
-
-  </div>
-
-  <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
-    <img src="w3images/user.png" class="w3-circle" style="height:23px;width:23px" alt="Avatar">
-<span style="color:gold"><?php
+<body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo" href="../../index.html"><img src="imagess/logo.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="imagess/logo-mini.svg" alt="logo"/></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-stretch">
+        <div class="search-field d-none d-md-block">
+          <form class="d-flex align-items-center h-100" action="#">
+            <div class="input-group">
+              <div class="input-group-prepend bg-transparent">
+                  <i class="input-group-text border-0 mdi mdi-magnify"></i>                
+              </div>
+              <input type="text" class="form-control bg-transparent border-0" placeholder="Search projects">
+            </div>
+          </form>
+        </div>
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <div class="nav-profile-img">
+                <img src="imagess/faces/face1.jpg" alt="image">
+                <span class="availability-status online"></span>             
+              </div>
+              <div class="nav-profile-text">
+                <p class="mb-1 text-black">
+                  <?php
 if(@$_SESSION['usercomfirmed'] == True){
   echo $_SESSION['usercomfirmed'];
 }
-?>(Student) </span> </a><br>
- </div>
-</div>
-
-<!-- Navbar on small screens -->
-<div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
-  <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
-  <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
-  <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
-  <a href="#" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
-</div>
-<br>
-<!-- Page Container -->
-<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
-  <!-- The Grid -->
-  <div class="w3-row">
-    <!-- Left Column -->
-    <div class="w3-col m3">
-      <!-- Profile -->
-      <?php
+?></p>
+              </div>
+            </a>
+            <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+              <a class="dropdown-item" href="#">
+                <i class="mdi mdi-cached mr-2 text-success"></i>
+                Activity Log
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="Login_v3/logout.php?logout">
+                <i class="mdi mdi-logout mr-2 text-primary"></i>
+               
+                Signout
+              </a>
+            </div>
+          </li>
+          <li class="nav-item nav-logout d-none d-lg-block">
+            <a class="nav-link" href="Login_v3/logout.php?logout">
+              <i class="mdi mdi-power"></i>
+            </a>
+          </li>
+          <li class="nav-item nav-settings d-none d-lg-block">
+            <a class="nav-link" href="#">
+              <i class="mdi mdi-format-line-spacing"></i>
+            </a>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:../../partials/_sidebar.html -->
+      <?php 
       if(isset($_GET['Cancel']))
       {
         echo "The Matric Number you entered is incorrect, please Check for the correct matric number and try again ";
         echo "<a href='Login_v3/index.php'> Back</a>";
         exit();
       }
-      ?>
-      <?php
        $return_result = students_data($_SESSION['usercomfirmed'],$logs);
         $data = mysqli_fetch_assoc($return_result);
 
-        
-        
         $return_dept = programmes(@$data['prog_id'], $logs);
         $dptid = mysqli_fetch_assoc($return_dept);
         //$schlid = $result1->fetch_array();
@@ -107,27 +137,33 @@ if(@$_SESSION['usercomfirmed'] == True){
 
 
         ?>
-      <div class="w3-card w3-round w3-white">
-        <div class="w3-container" style="font-size:small">
-         <h4 class="w3-center">My Profile</h4>
-          <?php echo $data['names'];
-                    $_SESSION['MM_Username'] = $data['matno'];
-                    $_SESSION['programme'] = $data['prog_id'];
-                    $_SESSION['matricno'] = $data['matno'];
-                    $_SESSION['session'] = $data['session'];
-          ?>
-         <hr>
 
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i><?php echo $data['matno'];?></p>
-         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?php echo $clg['college'];?></p>
-         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?php echo $clgid['school'];?></p>
-         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?php echo $schlid['name'];?></p>
-         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> <?php echo $data['session'];?></p>
-        </div>
 
-      </div>
-      <br>
-      <?php
+
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item nav-profile">
+            <a href="#" class="nav-link">
+              <div class="nav-profile-image">
+                <img src="imagess/faces/face1.jpg" alt="profile">
+                <span class="login-status online"></span> <!--change to offline or busy as needed-->              
+              </div>
+              <div class="nav-profile-text d-flex flex-column">
+                <span class="font-weight-bold mb-2" style="font-size:8pt">
+                <!--user name-->
+                <?php echo $data['names']; 
+                
+                $_SESSION['MM_Username'] = $data['matno'];
+                $_SESSION['programme'] = $data['prog_id'];
+                $_SESSION['matricno'] = $data['matno'];
+                $_SESSION['session'] = $data['session'];
+
+                ?>
+              </span>
+
+              <span class="text-secondary text-small">Student</span>
+
+<?php
       if(isset($_GET['Ok']))
       {
         echo   ' </div>
@@ -168,79 +204,112 @@ if(@$_SESSION['usercomfirmed'] == True){
         exit();
       }
     ?>
-      <!-- Accordion -->
-      <div class="w3-card w3-round">
-        <div class="w3-white">
 
-    
-          <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> My results</button>
-          <div id="Demo2" class="w3-hide w3-container">
-            <p><p>
-              <ul>
-                <li><a href="stdprofile.php?Results=1" src="">Semester 1</a></li>
-                <li><a href="stdprofile.php?Results=2" src="">Semester 2</a></li>
-                <li><a href="stdprofile.php?Results=3" src="">Semester 3</a></li>
-                <li><a href="stdprofile.php?Results=4" src="">Semester 4</a></li>
-                <!--<li><a href="stdprofile.php?Results=0" src="">All Semester</a></li>-->
+              </div>
+              <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="stdprofile.php">
+              <span class="menu-title">Dashboard</span>
+              <i class="mdi mdi-home menu-icon"></i>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <span class="menu-title">Semester Results</span>
+              <i class="menu-arrow"></i>
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="stdprofile.php?Results=1">First</a></li>
+                <li class="nav-item"> <a class="nav-link" href="stdprofile.php?Results=2">Second</a></li>
+                <li class="nav-item"> <a class="nav-link" href="stdprofile.php?Results=3">Third</a></li>
+                <li class="nav-item"> <a class="nav-link" href="stdprofile.php?Results=4">Fourth</a></li>
               </ul>
-            <p></p>
-          </div>
-
-          <button onclick="myFunction('Demo4')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> <a href="Login_v3/logout.php?logout">SignOut</a> </button>
-          <div id="Demo4" class="w3-hide w3-container">
-         <div class="w3-row-padding">
-         <br>
-           <div class="w3-half">
-             <img src="/w3images/lights.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/mountains.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/forest.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/snow.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-         </div>
-          </div>
-        </div>
-      </div>
-      <br>
-
-
+            </div>
+          </li>
 
      
 
-    <!-- End Left Column -->
-    </div>
+        <!--  <li class="nav-item">-->
+          <?php //echo $data['matno'];?>
+         <?php// echo $clg['college'];?>
+         <?php //echo $clgid['school'];?>
+         <?php //echo $schlid['name'];?>
+          <?php //echo $data['session'];?>
 
-    <!-- Middle Column -->
-    <div class="w3-col m7">
+          <?php 
+           $course = $_SESSION['programme'];
+           //  $sem =  $_GET['Results'];
+              $sess = $_SESSION['session'];
 
+             //$_SESSION['MM_Username'];
+             $mat = $_SESSION['matricno'];
 
-      <!-- Set Result -->
-        <?php if(@$_GET['Results']==True)
-        {
+          require_once('RCS/calculate_gp.php'); 
           ?>
-          <div class="w3-container w3-card w3-white w3-round w3-margin">
+         <!-- 
+            <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
+              <span class="menu-title">Result Cumulatives</span>
+              <i class="menu-arrow"></i>
+              <i class="mdi mdi-medical-bag menu-icon"></i>
+            </a>
+            <div class="collapse" id="general-pages">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item" style="font-weight:bold";> <a class="nav-link" href="#"> Total Course Unit:  <?php echo @$unit; ?></a></li>
+                <li class="nav-item" style="font-weight:bold"> <a class="nav-link" href="#"> Cumulative G P: <?php echo @$gp;?></a></li>
+                <li class="nav-item" style="font-weight:bold"> <a class="nav-link" href="#"> Cumulative G P A: <?php echo @$gpa;?></a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/samples/error-404.html"> 404 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/samples/error-500.html"> 500 </a></li>
+              </ul>
+              </div>
+          </li>
+    -->
+          <li class="nav-item sidebar-actions">
+            <span class="nav-link">
+          
+            </span>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+      
+        <div class="content-wrapper">
+
+
+
+
+        <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+        <!--          <h4 class="card-title">Results</h4>-->
+                  <p class="card-description">
+                  <!--  Add class <code>.table-bordered</code>-->
+                  </p>
+
+
+
+            <?php if(@$_GET["Results"] == True)
+        {
+          //echo hfhhfh;
+          ?>
+         
             <br>
-            <!--<img src="/w3images/avatar5.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-            <span class="w3-right w3-opacity">16 min</span>-->
-            <?php
-          if(isset($_GET['Results']))
+           
+    
+     <!-- semester result-->
+  <?php if(isset($_GET['Results']))
           {
               ?>
-            <h4>Results </h4><br>
-            <h6 class="w3-opacity"> <?php echo "Smester ". $_GET['Results']." ".$_SESSION['session']." "."Session"; ?></h6>
+            
+            <h6 class="w3-opacity"> <?php echo "Smester ". $_GET['Results']." <br>".$_SESSION['session']." "."Session"; ?></h6>
             <hr class="w3-clear">
-        <?php
+            <?php
               $course = $_SESSION['programme'];
               $sem =  $_GET['Results'];
               $sess = $_SESSION['session'];
@@ -250,22 +319,85 @@ if(@$_SESSION['usercomfirmed'] == True){
               $semester =  $_GET['Results'];
               require_once('RCS/indresult.php');
 
-            }
+          } ?>
 
-               ?>
+              <hr class="w3-clear">
+
+          <?php
+        }
+          ?>
+           
+       <!-- end of semester result-->
+
+
+      
+     <!---dashboard -->
+
+       <div class="page-header">
+            <h3 class="page-title">
+              <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                <i class="mdi mdi-home"></i>                 
+              </span>
+              Dashboard
+            </h3>
+            <nav aria-label="breadcrumb">
+              <ul class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                  <span></span>Overview
+                  <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+                </li>
+              </ul>
+            </nav>
           </div>
-        <?php
-      }
-      ?>
-      <!-- End of Set Result -->
 
-      <div class="w3-row-padding">
-        <div class="w3-col m12">
-          <div class="w3-card w3-round w3-white">
-            <div class="w3-container w3-padding">
+          <div class="row">
 
-              <h4>Courses</h4>
-              <h6 class="w3-opacity">Latest Result</h6>
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-danger card-img-holder text-white">
+                <div class="card-body">
+                  <img src="imagess/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
+                  <h4 class="font-weight-normal mb-3">Total Course Unit
+                    <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                  </h4>
+                  <h2 class="mb-5"><?php echo @$unit; ?></h2>
+                  <h6 class="card-text"></h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-info card-img-holder text-white">
+                <div class="card-body">
+                  <img src="imagess/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                  
+                  <h4 class="font-weight-normal mb-3">Cumulative G P: 
+                    <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+                  </h4>
+                  <h2 class="mb-5"><?php echo @$gp;?></h2>
+                  <h6 class="card-text"></h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-success card-img-holder text-white">
+                <div class="card-body">
+                  <img src="imagess/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                                    
+                  <h4 class="font-weight-normal mb-3">Cumulative G P A 
+                    <i class="mdi mdi-diamond mdi-24px float-right"></i>
+                  </h4>
+                  <h2 class="mb-5"><?php echo @$gpa;?></h2>
+                  <h6 class="card-text"></h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+     <!-- - End of Dashboard -->
+
+     <!-- All courses and result -->
+
+              <h4>My Courses and Results</h4>
+              
               <?php
               $course = $_SESSION['programme'];
             //  $sem =  $_GET['Results'];
@@ -277,121 +409,46 @@ if(@$_SESSION['usercomfirmed'] == True){
               require_once('RCS/courses.php');
 
               ?>
-            <!--  <p contenteditable="true" class="w3-border w3-padding">Status: Feeling Blue</p>
-              <button type="button" class="w3-button w3-theme"><i class="fa fa-pencil"></i>  Post</button>-->
-              <?php //include('HostelManagement/profile.php');?>
 
-              <hr class="w3-clear">
-
-
+<!-- End of All courses and result -->
+              </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
             </div>
+
+
+
+        <!-- content-wrapper ends -->
+        
+        <!-- partial:../../partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2017 <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap Dash</a>. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span>
           </div>
-        </div>
+        </footer>
+        <!-- partial -->
       </div>
-
-      <!-- Set Courses -->
-      <?php if(@$_GET['Courses']==True){?>
-      <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-      <!--  <img src="/w3images/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-        <span class="w3-right w3-opacity">1 min</span>-->
-
-        <h4>Courses  </h4><br>
-        <hr class="w3-clear">
-      </div>
-    <?php }?>
-      <!-- End of Set Courses -->
-
-
-
-      <!-- End Middle Column -->
+      <!-- main-panel ends -->
     </div>
-
-    <!-- Right Column -->
-
-    <div class="w3-col m2">
-      <div class="w3-card w3-round w3-white w3-center">
-
-        <div class="w3-container">
-<?php require_once('RCS/calculate_gp.php') ?>
-
-          <p>T C U</p>
-          <!--<img src="/w3images/forest.jpg" alt="Forest" style="width:100%;">-->
-          <div class="w3-half">
-            <button class="w3-button w3-block w3-blue-grey w3-section" title="Accept"><i class="fa"><?php echo @$unit; ?></i></button>
-          </div>
-        </div>
-      </div>
-      <br>
-
-      <div class="w3-card w3-round w3-white w3-center">
-        <div class="w3-container">
-          <p>G P </p>
-          <!--<img src="/w3images/avatar6.png" alt="Avatar" style="width:50%"><br>-->
-          <div class="w3-half">
-            <button class="w3-button w3-block w3-blue-grey w3-section" title="Decline"><i class="fa"><?php echo @$gp;?></i></button>
-          </div>
-          <div class="w3-row w3-opacity">
-
-
-          </div>
-        </div>
-      </div>
-      <br>
-
-      <div class="w3-card w3-round w3-white w3-center">
-        <div class="w3-container">
-          <p>G P A</p>
-          <!--<img src="/w3images/avatar6.png" alt="Avatar" style="width:50%"><br>-->
-          <div class="w3-half">
-            <button class="w3-button w3-block w3-blue-grey w3-section" title="Decline"><i class="fa"><?php echo @$gpa;?></i></button>
-          </div>
-          <div class="w3-row w3-opacity">
-
-
-          </div>
-        </div>
-      </div>
-      <br>
-      <!-- End Right Column -->
-    </div>
-    <!-- End Grid -->
+    <!-- page-body-wrapper ends -->
   </div>
-  <!-- End Page Container -->
-</div>
-<br>
-<!-- Footer -->
-<footer class="w3-container w3-theme-d3 w3-padding-16">
-  <h5>Footer</h5>
-</footer>
-
-<footer class="w3-container w3-theme-d5">
-  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-</footer>
-
-<script>
-// Accordion
-function myFunction(id) {
-  var x = document.getElementById(id);
-  if (x.className.indexOf("w3-show") == -1) {
-    x.className += " w3-show";
-    x.previousElementSibling.className += " w3-theme-d1";
-  } else {
-    x.className = x.className.replace("w3-show", "");
-    x.previousElementSibling.className =
-    x.previousElementSibling.className.replace(" w3-theme-d1", "");
-  }
-}
-
-// Used to toggle the menu on smaller screens when clicking on the menu button
-function openNav() {
-  var x = document.getElementById("navDemo");
-  if (x.className.indexOf("w3-show") == -1) {
-    x.className += " w3-show";
-  } else {
-    x.className = x.className.replace(" w3-show", "");
-  }
-}
-</script>
-
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="vendors/js/vendor.bundle.base.js"></script>
+  <script src="vendors/js/vendor.bundle.addons.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="js/off-canvas.js"></script>
+  <script src="js/misc.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <!-- End custom js for this page-->
 </body>
+
 </html>

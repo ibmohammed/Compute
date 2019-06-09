@@ -2,44 +2,11 @@
 <?php ini_set('display_errors', true); ?>
 
 <?php include("includes/header.php"); ?>    
-<style type="text/css">
-<!--
-.style1 {color: #FF0000}
--->
-</style>
-
-    
-
-<script type="text/JavaScript">
-<!--
-function MM_findObj(n, d) { //v4.01
-  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
-    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
-  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
-  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
-  if(!x && d.getElementById) x=d.getElementById(n); return x;
-}
-
-function MM_validateForm() { //v4.0
-  var i,p,q,nm,test,num,min,max,errors='',args=MM_validateForm.arguments;
-  for (i=0; i<(args.length-2); i+=3) { test=args[i+2]; val=MM_findObj(args[i]);
-    if (val) { nm=val.name; if ((val=val.value)!="") {
-      if (test.indexOf('isEmail')!=-1) { p=val.indexOf('@');
-        if (p<1 || p==(val.length-1)) errors+='- '+nm+' must contain an e-mail address.\n';
-      } else if (test!='R') { num = parseFloat(val);
-        if (isNaN(val)) errors+='- '+nm+' must contain a number.\n';
-        if (test.indexOf('inRange') != -1) { p=test.indexOf(':');
-          min=test.substring(8,p); max=test.substring(p+1);
-          if (num<min || max<num) errors+='- '+nm+' must contain a number between '+min+' and '+max+'.\n';
-    } } } else if (test.charAt(0) == 'R') errors += '- '+nm+' is required.\n'; }
-  } if (errors) alert('The following error(s) occurred:\n'+errors);
-  document.MM_returnValue = (errors == '');
-}
-//-->
-</script>
 
 
-<div style="width:650px;">
+
+
+
 <p><a href="index.php?addviewwdit">Edit Courses</a>
 <br></p>
 <?php 
@@ -73,7 +40,7 @@ VALUES ('$prog', '$unit', '$semester', '$code', '$title','$session')") or die(my
 
 
 ?>
-      <table border="1" style="font-size:11; width:800px; border:thin; border-collapse:collapse" cellpadding="0" cellspacing="1" >
+      <table class="table table-bordered" border="1" style="font-size:11; width:800px; border:thin; border-collapse:collapse" cellpadding="0" cellspacing="1" >
         <tr bgcolor="">
           <td style="height: 25px"><span style="font-weight: bold;">S/n</span></td>
           <td style="height: 25px"><span style="font-weight: bold;">Title</span></td>
@@ -117,17 +84,18 @@ sessions = '$session'") or die(mysqli_error());
                 </tr>
                 <tr>
                   <td ><span style="font-weight: bold">Course Title: </span></td>
-                  <td ><input name="title" value="" type="text" id="title" size="50"  placeholder="Course Title"/></td>
+                  <td ><input name="title" class="form-control" value="" type="text" id="title" size="50"  placeholder="Course Title"/></td>
                 </tr>
                 <tr>
                   <td ><span style="font-weight: bold">Course Code: </span></td>
                   <td ><span style="vertical-align: top;">
-                    <input name="code" id="code" value="" maxlength="9" placeholder="Course Code"/>
+                    <input name="code" class="form-control" id="code" value="" maxlength="9" placeholder="Course Code"/>
                   </span></td>
                 </tr>
                 <tr>
                   <td ><span style="font-weight: bold">Course Unit:</span></td>
-                  <td ><select name="unit" id="select2">
+                  <td >
+                    <select name="unit" id="select2" class="form-control">
                       <option>Choose Unit</option>
                       <option>0</option>
                       <option>1</option>
@@ -149,7 +117,7 @@ sessions = '$session'") or die(mysqli_error());
                 </tr>
               </table>
             <label>
-              <input name="Submit" type="submit" id="Submit" value="Add Course" />
+              <input class="btn btn-gradient-primary mr-2" name="Submit" type="submit" id="Submit" value="Add Course" />
               </label>
           </form></td>
         </tr>
@@ -192,18 +160,18 @@ exit();
                 </tr>
                 <tr>
                   <td ><span style="font-weight: bold">Course Title: </span></td>
-                  <td ><input name="title" type="text" id="title" value="" size="50"  placeholder="Course Title"/></td>
+                  <td ><input name="title" type="text" class="form-control" id="title" value="" size="50"  placeholder="Course Title"/></td>
                 </tr>
                 <tr>
                   <td ><span style="font-weight: bold">Course Code: </span></td>
                   <td ><span style="vertical-align: top;; font-weight: bold">
-                    <input name="code" id="code" value="" maxlength="9" placeholder="Course Code"/>
+                    <input name="code" class="form-control" id="code" value="" maxlength="9" placeholder="Course Code"/>
                   </span></td>
                 </tr>
                 <tr>
                   <td ><span style="font-weight: bold">Course Unit:</span></td>
                   <td ><span style="font-weight: bold">
-                    <select name="unit" id="unit">
+                    <select name="unit" id="unit" class="form-control">
                       <option>Choose Unit</option>
                       <option>0</option>
                       <option>1</option>
@@ -218,7 +186,7 @@ exit();
                 <tr>
                   <td ><span style="font-weight: bold">Semester:</span></td>
                   <td ><span style="font-weight: bold">
-                    <select name="semester">
+                    <select name="semester" class="form-control">
                       <option>Choose Semester</option>
                       <option value="1">First Semester</option>
                       <option value="2">Second Semester</option>
@@ -231,7 +199,8 @@ exit();
                 </tr>
                 <tr>
                   <td ><strong>Session:</strong></td>
-                  <td ><select name="session">
+                  <td >
+                    <select name="session" class="form-control">
                  
 				  <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
 				   <option>2017/2018</option>
@@ -242,12 +211,8 @@ exit();
                 </tr>
               </table>
             <label>
-              <input name="Submit" type="submit" id="Submit" value="Add Course" />
+              <input class="btn btn-gradient-primary mr-2" name="Submit" type="submit" id="Submit" value="Add Course" />
               </label>
           </form></td>
         </tr>
       </table>
-
-
-
-      </div>

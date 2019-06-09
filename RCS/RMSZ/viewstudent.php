@@ -6,104 +6,74 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Untitled Document</title>
-<style type="text/css">
-<!--
-a:link {
-	color: #0033FF;
-}
-a:hover {
-	color: #0066FF;
-}
-.style1 {color: #000000}
-.style3 {color: #FF0000}
-.style2 {
-	color: #FFFFFF;
-	font-weight: bold;
-}
-.style4 {color: #000033}
-.style7 {color: #FFF; font-weight: bold; }
-.style8 {color: #FFF}
-.auto-style1 {
-	color: #FFFFFF;
-	font-weight: bold;
-	font-size: small;
-}
--->
-</style>
+
 </head>
 
 <body>
 
-
-  <div style="float:left; width:600px;">
-
-
-    
-    
-    <form id="form2" name="form2" method="post" action="">
-          <table border="0">
-            <tr>
-              <td style="height: 30px" ><strong>PROGRAMME:</strong></td>
-              <td style="height: 30px; width: 86px">
-                <select name="dept" id="dept">
-                <?php include('dptcode.php') ;
-            
-            
-            $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
-            
-            while($pcd = mysqli_fetch_assoc($queri)){
-            ?>
-            
-            
-              <option selected="selected"><?php echo $pcd['dep'];?></option>
+  <form id="form2" name="form2" method="post" action="">
+    <table class="table table-bordered" >
+      <tr>
+        <td ><strong>PROGRAMME:</strong></td>
+        <td>
+          <select name="dept" id="dept" class="form-control">
+            <?php include('dptcode.php') ;
+            $queri = mysqli_query($conn,"SELECT * FROM `programmes` WHERE prog_id = '".$_SESSION['prgid']."'") or die(mysqli_error($conn));
+            while($pcd = mysqli_fetch_assoc($queri)){?>
+              <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
+              <?php 
               
-              <?php }?>
-              
-             
-    			  
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td ><strong>YEAR:</strong></td>
-              <td style="width: 86px" >
-                <select name="year" id="year">
-                  <option selected="selected"></option>
-				  <option>9</option>
-                  <option>10</option>
-                  <option>11</option>
-                  <option>12</option>
-                  <option>13</option>
-                  <option>14</option>
-                  <option>15</option>
-                  <option>16</option>
-                  <option>17</option>
-                  <option>18</option>
-                  <option>19</option>
-                  <option>20</option>
-                </select>
-             </td>
-            </tr>
-            <tr>
-              <td ><strong>SESSION:</strong></td>
-              <td style="width: 86px" >
-                <select name="session" id="session">
-                  <option selected="selected"></option>
-                  <option>2010/2011</option>
-                  <option>2012/2013</option>
-                  <option>2013/2014</option>
-                  <option>2014/2015</option>
-                  <option>2015/2016</option>
-                  <option>2016/2017</option>                  
-                  <option>2017/2018</option>
-                </select>
-              </td>
-            </tr>
-          </table>
-                    <input type="submit" name="Submit" value="Submit" />
-                          </form>
+            }?>
+            
+          </select>
+
+        </td>
+      </tr>
+      <tr>
+        <td ><strong>YEAR:</strong></td>
+        <td >
+        <select name="year" id="year" class="form-control">
+          <option selected="selected">Year</option>
+          <option>9</option>
+          <option>10</option>
+          <option>11</option>
+          <option>12</option>
+          <option>13</option>
+          <option>14</option>
+          <option>15</option>
+          <option>16</option>
+          <option>17</option>
+          <option>18</option>
+          <option>19</option>
+          <option>20</option>
+        </select>
+
+      </td>
+
+    </tr>
+
+    <tr>
+      <td ><strong>SESSION:</strong></td>
+      <td>
+      <select name="session" id="session" class="form-control">
+        <option selected="selected">Session</option>
+        <option>2010/2011</option>
+        <option>2012/2013</option>
+        <option>2013/2014</option>
+        <option>2014/2015</option>
+        <option>2015/2016</option>
+        <option>2016/2017</option>                  
+        <option>2017/2018</option>
+      </select>
+    </td>
+  </tr>
+</table>
+<br>
+<input type="submit" name="Submit" value="Submit" class="btn btn-gradient-primary mr-2"/>
+</form>
                           
- <a href="index.php?regs">Register Student</a>
+ <br><p><a href="index.php?regs">Register Student</a></p>
+ <br>
 
 <br/>
 
@@ -117,10 +87,10 @@ a:hover {
 	if (isset($_POST['Submit'])){
 	echo '<h3>'.$_POST['dept'].'</h3>';
 	?>
-	<table border="0">
+	<table class="table table-bordered" >
       <tr>
         <td>
-          <table border="1" style="font-size:11; width:800px; border:thin; border-collapse:collapse" cellpadding="0" cellspacing="1" >
+          <table class="table table-bordered"  style="font-size:11; width:800px; border:thin; border-collapse:collapse" cellpadding="0" cellspacing="1" >
               <tr>
               <td><span style ="color:black;">Id</span></td>
               <td><span style ="color:black;">Name</span></td>
@@ -133,7 +103,7 @@ a:hover {
 			$dept = $_POST['dept'];
 			$year=$_POST['year'];
 			$session=$_POST['session'];
-			$sql=mysqli_query($conn,"SELECT *FROM `studentsnm` WHERE dept = '$dept' && year ='$year' && session='$session'  ORDER BY `matno` ASC");
+			$sql=mysqli_query($conn,"SELECT *FROM `studentsnm` WHERE prog_id = '$dept' && year ='$year' && session='$session'  ORDER BY `matno` ASC") or die(mysqli_error($conn));
 			$n=0;
 			 while ($row=mysqli_fetch_assoc($sql)){
 			 $n=$n+1;
@@ -158,6 +128,6 @@ a:hover {
             
         </td>
       </tr>
-    </table><?php exit; }?>
-                         
-         </div>
+    </table><?php //exit;
+   }?>
+      

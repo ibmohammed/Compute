@@ -12,9 +12,6 @@
             return $stmt;
 
 
-
-
-
            }
            
            // student login confirmation 

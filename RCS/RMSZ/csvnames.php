@@ -75,11 +75,12 @@ if(isset($_POST['Submit'])){
 <form id="form1" action="" enctype="multipart/form-data" method="post" name="form1">
 
 
-    <table style="width: 60%">
+    <table class="table table-bordered" >
 		<tr>
           <td style="height: 30px" ><span style="font-weight: bold; color: #000000">PROGRAMME:</span></td>
-          <td style="height: 30px" ><select name="programme" id="programme">
-         			<option selected="selected"></option>
+		  <td style="height: 30px" >
+		  <select name="programme" id="programme" class="form-control">
+         			<option selected="selected">Programmed</option>
          			
          			 <?php include('dptcode.php') ;
             
@@ -100,12 +101,19 @@ if(isset($_POST['Submit'])){
         </tr>
 		<tr>
 			<td><span style="font-weight: bold; color: #000000">SESSION:</span></td>
-			<td>  &nbsp;<select name="session">
+			<td>
+				<select name="session" class="form-control">
           <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
                     <?php echo include('includes/sessions.php');?>
 				<option>2018/2019</option>
-          </select><select name="year" id="year">
-            <option selected="selected"></option>
+		  </select>
+			</td>
+			</tr>
+			<tr>
+				<td><span style="font-weight: bold; color: #000000">YEAR:</span></td>
+				<td>
+		  <select name="year" id="year" class="form-control">
+            <option selected="selected">Year</option>
 			<option>9</option>
             <option>10</option>
             <option>11</option>
@@ -125,6 +133,6 @@ if(isset($_POST['Submit'])){
 			<td>  <input name="csv" type="file" id="csv" /></td>
 		</tr>
 	</table>
-	<input name="Submit" type="submit" value="Submit"> 
+	<input class="btn btn-gradient-primary mr-2" name="Submit" type="submit" value="Submit"> 
 </form>
  
