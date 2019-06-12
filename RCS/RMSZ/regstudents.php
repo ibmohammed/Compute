@@ -124,7 +124,7 @@
 <form action="" method="post" enctype="multipart/form-data" name="form" id="form" onsubmit="MM_validateForm('mat','','R','ric','','R','no','','R');MM_validateForm('sname','','R','mat','','R','ric','','R','no','','R','mat','','R','ric','','R','no','','R');return document.MM_returnValue">
       <div align="center"><strong>STUDENTS RECORD FORM </strong></div>
 
-      <table class="table table-bordered" width="100%" align="center">
+      <table class="table table-bordered">
            
         <tr>
                <td width="12%" align="left" ><strong> LOAD IMAGE:</strong></td>
@@ -136,25 +136,27 @@
                    <select name="programme" class="form-control" id="programme" class="form-control">            
                     <?php 
                       include('dptcode.php') ;            
-                      $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysql_error());     
-                      while($pcd = mysqli_fetch_assoc($queri)){            
+                     // $queri = mysqli_query($conn,"SELECT * FROM `dept` ") or die(mysql_error());     
+                     while($prgasc = mysqli_fetch_assoc($prgqry))
+                     // while($pcd = mysqli_fetch_assoc($queri))
+                     {            
                     ?>
                         <option selected="selected">
-                          <?php echo $pcd['dep'];?>
+                          <?php echo $prgasc['programme'];?>
                         </option>
 
                             <?php   
                       }
                             ?>
                   </select>
-                </span>
+                </span> <span style="color:red">*</span>
                 </td>
           </tr>
 
           <tr>
               <td align="left" ><strong>STUDENTNAME:</strong></td>
               <td align="left" >
-                <input name="sname" type ="text" id="sname" size = "30" class="form-control"/></td>
+                <input name="sname" type ="text" id="sname" size = "30" class="form-control"/> <span style="color:red">*</span></td>
           </tr>
           <tr>
               <td align="left" >
@@ -165,7 +167,7 @@
                     <option value="M">Male</option>
                     <option value="F">Female</option>
                   </select>
-              <span class="style3">*</span>
+              <span style="color:red">*</span>
               </td>
 
             </tr>
@@ -173,12 +175,23 @@
             <tr>
                <td align="left" ><p><strong>MATRIC NO.:</strong></p></td>
                <td align="left" >
-                 <input name="mat" id="mat" value="" size= "15" class="form-control" placeholder="NDCS"/>
-                /
-                <input name="ric" id="ric" value="" size= "8" class="form-control" placeholder="015"/>
-                / 
-                <input name="no" id="no" value="" size= "8" class="form-control" placeholder="098"/>
-                (eg. NDCS/015/098)</td>
+
+
+
+               <table class="table table-bordered" >
+               <tr>
+               <td><input name="mat" id="mat" value="" size= "15" class="form-control" placeholder="NDCS"/>/</td>
+              <td>  <input name="ric" id="ric" value="" size= "8" class="form-control" placeholder="015"/> / </td>
+                <td>  <input name="no" id="no" value="" size= "8" class="form-control" placeholder="098"/></td>
+                <td> (eg. NDCS/015/098) <span style="color:red">*</span></td>
+                </tr>
+               </td>
+               </table>
+
+
+
+
+                </td>
             </tr>
 
             <tr>
@@ -188,7 +201,7 @@
                     <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
                     <?php echo include('includes/sessions.php');?>
 
-                  </select>               
+                  </select>  <span style="color:red">*</span>              
                 </td>
             </tr>
 
@@ -199,7 +212,7 @@
 </form>
 <p></p>
 <br>
-<p><a href="index.php?edits">Edit Students Records</a></p>
+<p><a href="smanage.php?edits">Edit Students Records</a></p>
 <br>
 
 <p></p>

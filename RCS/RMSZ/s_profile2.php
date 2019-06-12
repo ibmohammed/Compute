@@ -87,19 +87,19 @@ if(@$_SESSION['comfirmstaff'] == True){
       ?>
       <?php
              $return_result = staff_data($_SESSION['comfirmstaff'],$logs);
-        $data = mysqli_fetch_assoc($return_result);
+             $data = mysqli_fetch_assoc($return_result);
 
         ?>
       <div class="w3-card w3-round w3-white">
         <div class="w3-container">
          <h4 class="w3-center">My Profile</h4>
           <?php echo $data['names'];
-                    $_SESSION['MM_Username'] = $data['number'];
+                $_SESSION['MM_Username'] = $data['number'];
           ?>
          <hr>
 
          <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i><?php echo $data['number'];?></p>
-         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?php echo $data['dept'];?></p>
+         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?php echo $data['dept_id'];?></p>
          <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> <?php echo @$data['session'];?></p>
         </div>
 

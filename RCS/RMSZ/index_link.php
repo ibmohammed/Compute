@@ -1,0 +1,28 @@
+<?php 
+if(isset($_GET['csv']))
+{
+    header('location:index.php?csv');
+}elseif(isset($_GET['entres']))
+{
+    header('location:index.php?entres');
+}if(isset($_GET['editres']))
+{
+    header('location:index.php?editres');
+}if(isset($_GET['consider']))
+{
+    header('location:index.php?consider');
+}if(isset($_GET['overwrite']))
+{
+    header('location:index.php?overwrite');
+}if(isset($_GET['deleter']))
+{
+    header('location:index.php?deleter');
+}if(isset($_GET['deleterr']))
+{
+    header('location:index.php?deleterr');
+}if(isset($_GET['alloc']))
+{
+    header('location:index.php?alloc');
+}
+
+?>

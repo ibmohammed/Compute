@@ -19,7 +19,7 @@ if(isset($_POST['Submit2']))
 	$contact = $_POST['contact'];
 	$number = $_POST['staffnumber'];
 	
-	$logintbl="INSERT INTO staff (names, number, contact, dept)
+	$logintbl="INSERT INTO staff (names, number, contact, dept_id)
 	VALUES ('$names','$number','$contact','$dptdcode')";
 	
 	
@@ -28,8 +28,8 @@ if(isset($_POST['Submit2']))
 		//echo "User Added Successfuly";
 		//$uname = 
 		
-		$qry="INSERT INTO logintbl (username, password, progs, status)
-		VALUES ('$number', '0000', '$dptdcode', '1')";
+		$qry="INSERT INTO logintbl (username, password, progs, t_user, status)
+		VALUES ('$number', '0000', '$dptdcode', '1', '2')";
 		
 		if (mysqli_query($conn, $qry))
 		{

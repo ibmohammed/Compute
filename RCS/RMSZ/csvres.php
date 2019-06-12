@@ -212,10 +212,10 @@ or die(mysqli_error($conn));
 <form id="form1" action="" enctype="multipart/form-data" method="post" name="form1">
 
 
-    <table style="width: 100%">
+    <table class="table table-bordered">
 		<tr>
 			<td>Course Code:</td>
-			<td>&nbsp;<select name="ccodes">
+			<td>&nbsp;<select name="ccodes" class="form-control">
 			<?php while($rows = mysqli_fetch_assoc($crss)){?>
 			
 			<option><?php echo $rows['code'];?></option>
@@ -224,7 +224,7 @@ or die(mysqli_error($conn));
 		</tr>
 		<tr>
 			<td>Choose your file:</td>
-			<td>  <input name="csv" type="file" id="csv" /> </td>
+			<td>  <input name="csv" type="file" id="csv" class="form-control"/> </td>
 		</tr>
 	</table>
 
@@ -232,7 +232,7 @@ or die(mysqli_error($conn));
 	<input name="session" value="<?php echo $session;?>" type="hidden"/>
 	<input name="semester" value="<?php echo $semester;?>" type="hidden"/>
 	
-	<input name="Submit" type="submit" value="Submit"> 
+	<input name="Submit" type="submit" value="Submit" class="btn btn-gradient-primary mr-2"> 
 </form>
  
 <?php
@@ -249,10 +249,11 @@ if (empty($_GET['csv'])) {
 
 
 <form action="" method="post" name="grade" id="grade">
-      <table style="text-align: left;color:blue;">
+      <table class="table table-bordered">
         <tr>
           <td style="height: 30px" ><span style="font-weight: bold; color: #000000">PROGRAMME:</span></td>
-          <td style="height: 30px" ><select name="programme" id="programme">
+          <td style="height: 30px" >
+		  <select name="programme" id="programme" class="form-control">
          			<option selected="selected"></option>
          			
          			 <?php include('dptcode.php') ;
@@ -273,7 +274,7 @@ if (empty($_GET['csv'])) {
         </tr>
         <tr>
           <td ><span style="font-weight: bold; color: #000000">SESSION:</span></td>
-          <td ><select name="session">
+          <td ><select name="session" class="form-control">
           <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
                     <?php echo include('includes/sessions.php');?>
 			<option>2018/2019</option>
@@ -282,7 +283,7 @@ if (empty($_GET['csv'])) {
         </tr>
         <tr>
           <td ><span style="font-weight: bold; color: #000000">SEMESTER:</span></td>
-          <td ><select name="semester">
+          <td ><select name="semester" class="form-control">
             <option selected="selected"></option>
 			<option value="1">First Semester</option>
             <option value="2">Second Semester</option>
@@ -293,7 +294,7 @@ if (empty($_GET['csv'])) {
           </select></td>
         </tr>
       </table>
-      <input name="Submitf" value="Submit" type="submit" />
+      <input name="Submitf" value="Submit" type="submit" class="btn btn-gradient-primary mr-2"/>
       <br />
     </form>
 

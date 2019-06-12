@@ -99,23 +99,23 @@ $snm = mysqli_query($conn,"UPDATE `course` SET
 <form id="form1" action="" enctype="multipart/form-data" method="post" name="form1">
 
 
-    <table class="table table-bordered" style="width: 60%">
+    <table class="table table-bordered" >
 		<tr>
-          <td style="height: 30px" ><span style="font-weight: bold; color: #000000">PROGRAMME:</span></td>
-		  <td style="height: 30px" >
+          <td><span style="font-weight: bold; color: #000000">PROGRAMME:</span></td>
+		  <td>
 		  <select name="programme" id="programme" class="form-control">
-         			<option selected="selected"></option>
+		  <option selected="selected" value="">Select Programme</option>
          			
          			 <?php include('dptcode.php') ;
             
             
-            $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
-            
-            while($pcd = mysqli_fetch_assoc($queri)){
+           // $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
+            //while($prgasc = mysqli_fetch_assoc($prgqry))
+            while($pcd = mysqli_fetch_assoc($prgqry)){
             ?>
             
             
-              <option><?php echo $pcd['dep'];?></option>
+              <option><?php echo $pcd['programme'];?></option>
               
               <?php }?>
               
@@ -126,6 +126,7 @@ $snm = mysqli_query($conn,"UPDATE `course` SET
 			<td><span style="font-weight: bold; color: #000000">SESSION:</span></td>
 			<td>  
 				<select name="session" class="form-control">
+				<option selected="selected" value="">Select Session</option>
           <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
                     <?php echo include('includes/sessions.php');?>
                     <option>2018/2019</option>
@@ -135,7 +136,7 @@ $snm = mysqli_query($conn,"UPDATE `course` SET
 		<tr>
 			<td><span style="font-weight: bold; color: #000000">SEMESTER:</span></td>
 			<td>  <select name="semester" class="form-control">
-            <option selected="selected"></option>
+            <option selected="selected" value="">Select Semester</option>
 			<option value="1">First Semester</option>
             <option value="2">Second Semester</option>
             <option value="3">Third Semester</option>
@@ -145,10 +146,11 @@ $snm = mysqli_query($conn,"UPDATE `course` SET
           </select></td>
 		</tr>
 		<tr>
-			<td>Choose your file:</td>
-			<td>  <input name="csv" type="file" id="csv" /></td>
+			<td><span style="font-weight: bold; color: #000000">Choose your file:</span></td>
+			<td>  <input name="csv" type="file" id="csv" class="btn btn-gradient-primary mr-2" /></td>
 		</tr>
 	</table>
-	<input name="Submit" type="submit" value="Submit"> 
+<br>
+	<p><input name="Submit" type="submit" value="Submit" class="btn btn-gradient-primary mr-2" > </p>
 </form>
- 
+ <hr>

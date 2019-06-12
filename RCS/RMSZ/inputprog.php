@@ -5,48 +5,43 @@
 	<?php 
 	if(isset($_POST['Submit'])){
 	$programme = $_POST['prog'];
-  $schl = $_POST['schl'];
-  $deptcode = $_POST['deptcode'];
+  $dpt = $_POST['dpt'];
+  //$deptcode = $_POST['deptcode'];
 	
-	$sql = mysqli_query($conn,"INSERT INTO `departments` (`name`, `code`, `schl_id`)
-		VALUES('$programme','$schlcode','$schl')") or die(mysqli_error());
+	$sql = mysqli_query($conn,"INSERT INTO `programmes` (`programme`, `dept_id`)
+		VALUES('$programme','$dpt')") or die(mysqli_error());
 	
 	
 	echo "<script language = 'javascript'>alert('Programme Added')</script>";
 	
 	}
-	$schqry = mysqli_query($logs, "SELECT schl_id, school FROM `schools`") or die(mysqli_error($logs));
+	$schqry = mysqli_query($logs, "SELECT dept_id, name FROM `departments`") or die(mysqli_error($logs));
 	?>
 	
 	<form id="form1" name="form1" method="post" action="">
 	&nbsp;
   <table class="table table-bordered" >
         <tr>
-          <td><strong>School:</strong></td>
+          <td><strong>Department:</strong></td>
           <td>
-          <select name="schl" class="form-control">
-					<option selected = "selected" value="">Select School</option>
+          <select name="dpt" class="form-control">
+					<option selected = "selected" value="">Select Department</option>
 					<?php 
 					while($rows = mysqli_fetch_assoc($schqry))
 					{?>
-						<option value="<?php echo $rows['schl_id'];?>"><?php echo $rows['school'];?></option>
+						<option value="<?php echo $rows['dept_id'];?>"><?php echo $rows['name'];?></option>
 						<?php 
 					}?>
 				</select>
           </td>
         </tr>
         <tr>
-          <td><strong>Department:</strong></td>
+          <td><strong>Programme:</strong></td>
           <td>
           <input name="prog" type="text" id="prog" class="form-control"/>
           </td>
         </tr>
-        <tr>
-          <td><strong>Department Code:</strong></td>
-          <td><label>
-          <input name="deptcode" type="text" id="prev" class="form-control"/>
-          </label></td>
-        </tr>
+        
       </table>
       <br>
         <p>

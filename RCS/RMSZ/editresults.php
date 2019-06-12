@@ -48,7 +48,7 @@ echo "<font color = 'red'><i>"."Records Updated"."</i></font>";
 
 // Display Student List ?>
 
-<table border="1"  style="width:600px; font-size:11px;">
+<table class="table table-bordered">
             <tr >
               <td ><strong>Id</strong></td>
               <td ><strong>Name</strong></td>
@@ -116,7 +116,7 @@ echo "<font color = 'red'><i>"."Records Updated"."</i></font>";
 	
 	// show students data?>
 	
-	<table border="1"  style="width:600px; font-size:11px;">
+	<table class="table table-bordered">
             <tr >
               <td ><strong>Id</strong></td>
               <td ><strong>Name</strong></td>
@@ -184,7 +184,7 @@ echo "<font color = 'red'><i>"."Records Updated"."</i></font>";
 	
 
 	<form id="form1" name="form1" method="post" action="">
-      <table border="0">
+      <table class="table table-bordered">
         <tr>
           <td ><span style="font-weight: bold">Name:</span></td>
           <td ><input name="name" type="text" id="name" value="<?php echo $row['names'];?>" size="40" />
@@ -197,7 +197,7 @@ echo "<font color = 'red'><i>"."Records Updated"."</i></font>";
         </tr>
       </table>
       
-        <table border="0" style="width:none; font-size:11px;">
+        <table class="table table-bordered">
           <tr>
             <?php 
 				$msql=mysqli_query($conn,"SELECT * FROM  `results` WHERE matric_no='$matno' && semester='$semester'");
@@ -219,7 +219,7 @@ die(mysqli_error());}
         </table>
         <input name="count" type="hidden" id="count" value="<?php echo $n;?>" />
        
-        <input type="submit" name="Submit2" value="Submit" />
+        <input type="submit" name="Submit2" value="Submit" class="btn btn-gradient-primary mr-2"/>
         <input type="hidden" name="programme"  value="<?php echo $programme;?>"/>
         <input type="hidden" name="session"  value="<?php echo $session;?>"/>
         <input type="hidden" name="semester"  value="<?php echo $semester;?>"/><input type="hidden" name="year"  value="<?php echo $year;?>"/>
@@ -237,11 +237,11 @@ die(mysqli_error());}
 		
 		<form id="form2" name="form2" method="post" action="">
           <strong>EDIT RESULTS</strong>
-          <table style="text-align: left;color:blue;">
+          <table class="table table-bordered">
             <tr>
               <td ><span style="font-weight: bold">PROGRAMME:</span></td>
-              <td  style="width: 130px"><span style="font-weight: bold">
-                <select name="programme" id="programme2">
+              <td ><span style="font-weight: bold">
+                <select name="programme" id="programme2" class="form-control">
                   <option selected="selected"></option>
                    <?php include('dptcode.php') ;
             
@@ -261,14 +261,14 @@ die(mysqli_error());}
             </tr>
             <tr>
               <td ><span style="font-weight: bold">SESSION:</span></td>
-              <td  style="width: 130px"><span style="font-weight: bold">
-                <select name="session" id="session">
+              <td><span style="font-weight: bold">
+                <select name="session" id="session" class="form-control">
                  <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
                   <?php echo include('includes/sessions.php');?>
                 </select>
                 -
-                <select name="year" id="year2">
-                  <option selected="selected"></option>
+                <select name="year" id="year2" class="form-control">
+                  <option selected="selected">YEAR</option>
                   <option>10</option>
                   <option>11</option>
                   <option>12</option>
@@ -285,8 +285,8 @@ die(mysqli_error());}
             </tr>
             <tr>
               <td ><span style="font-weight: bold">SEMESTER:</span></td>
-              <td  style="width: 130px"><span style="font-weight: bold">
-                <select name="semester" id="semester">
+              <td ><span style="font-weight: bold">
+                <select name="semester" id="semester" class="form-control">
                   <option selected="selected"></option>
                   <option value="1">First Semester</option>
                   <option value="2">Second Semester</option>
@@ -298,7 +298,7 @@ die(mysqli_error());}
               </span></td>
             </tr>
           </table>
-          <input type="submit" name="button" id="button" value="Submit" />
+          <input type="submit" name="button" id="button" value="Submit" class="btn btn-gradient-primary mr-2"/>
         </form>    
 <p>&nbsp;</p>
     

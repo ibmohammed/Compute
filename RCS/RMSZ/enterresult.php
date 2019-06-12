@@ -35,7 +35,7 @@ function MM_validateForm() { //v4.0
 <?php ini_set('display_errors', true); ?>
 <?php include("includes/header.php"); ?>        
 
-<div> 
+
 
    	<?php
 if(isset($_POST['Submit2'])){
@@ -109,7 +109,7 @@ $query=mysqli_query($conn,"INSERT IGNORE INTO `consultdbsnw`.`results`
 
 	<form action="" method="post" name="form2" id="form2" onsubmit="MM_validateForm('name','','R','matno','','R');return document.MM_returnValue">
   
-	  <table border="0">
+	  <table class="table table-bordered">
         <tr>
           <td style="height: 30px"><span style="font-weight: bold">Name:</span></td>
           <td style="height: 30px"><input name="name" type="text" id="name" value="<?php echo $row['names'];?>" size="40"  readonly="1"/>
@@ -122,7 +122,7 @@ $query=mysqli_query($conn,"INSERT IGNORE INTO `consultdbsnw`.`results`
         </tr>
       </table>
     
-    <table border="0">
+    <table class="table table-bordered">
           <tr>
 		  
             <?php 
@@ -208,7 +208,7 @@ if (($matricno==$col[2])&&($programme==$col[3])&&($programme==$col['semester']))
 
 
 	<form action="" method="post" name="form1" id="form1" onsubmit="MM_validateForm('name','','R','matno','','R');return document.MM_returnValue">
-      <table border="0">
+      <table class="table table-bordered">
         <tr>
           <td ><span style="font-weight: bold">Name:</span></td>
           <td ><input name="name" type="text" id="name" value="<?php echo $row['names'];?>" size="40" readonly="1"  />
@@ -220,7 +220,7 @@ if (($matricno==$col[2])&&($programme==$col[3])&&($programme==$col['semester']))
           </td>
         </tr>
       </table>
-        <table border="0">
+        <table class="table table-bordered">
           <tr>
             <?php $n=0; 
 			while ($col= mysqli_fetch_assoc($query)){
@@ -258,7 +258,7 @@ if (($matricno==$col[2])&&($programme==$col[3])&&($programme==$col['semester']))
           </tr>
         </table>
         <input name="count" type="hidden" id="count" value="<?php echo $n;?>" />
-        <input type="submit" name="Submit2" value="Submit" />
+        <input type="submit" name="Submit2" value="Submit" class="btn btn-gradient-primary mr-2"/>
         <input type="hidden" name="programme"  value="<?php echo $programme;?>"/>
         <input type="hidden" name="session"  value="<?php echo $session;?>"/>
         <input type="hidden" name="semester"  value="<?php echo $semester;?>"/>
@@ -273,11 +273,11 @@ if (($matricno==$col[2])&&($programme==$col[3])&&($programme==$col['semester']))
 	
 	
 <form action="" method="post" name="grade" id="grade">
-      <strong >INPUT RESULTS</strong>
-      <table style="text-align: left;color:blue;">
+     <p> <strong >INPUT RESULTS</strong></p>
+      <table class="table table-bordered">
         <tr>
           <td ><span style="font-weight: bold; color: #000000">PROGRAMME:</span></td>
-          <td ><select name="programme" id="programme">
+          <td ><select name="programme" id="programme" class="form-control">
          			<option selected="selected"></option>
          			
          			 <?php include('dptcode.php') ;
@@ -308,14 +308,14 @@ if (($matricno==$col[2])&&($programme==$col[3])&&($programme==$col['semester']))
         </tr>
         <tr>
           <td ><span style="font-weight: bold; color: #000000">SESSION:</span></td>
-          <td ><select name="session">
+          <td ><select name="session" class="form-control">
           <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
                     <?php echo include('includes/sessions.php');?>
 
           </select>
           -
-          <select name="year" id="year">
-            <option selected="selected"></option>
+          <select name="year" id="year" class="form-control">
+            <option selected="selected">YEAR</option>
 			<option>9</option>
             <option>10</option>
             <option>11</option>
@@ -335,7 +335,7 @@ if (($matricno==$col[2])&&($programme==$col[3])&&($programme==$col['semester']))
         </tr>
         <tr>
           <td ><span style="font-weight: bold; color: #000000">SEMESTER:</span></td>
-          <td ><select name="semester">
+          <td ><select name="semester" class="form-control">
             <option selected="selected"></option>
 			<option value="1">First Semester</option>
             <option value="2">Second Semester</option>
@@ -346,7 +346,9 @@ if (($matricno==$col[2])&&($programme==$col[3])&&($programme==$col['semester']))
           </select></td>
         </tr>
       </table>
-      <input name="Submit" value="Submit" type="submit" />
+      <br>
+      <p></p>
+      <p><input name="Submit" value="Submit" type="submit" class="btn btn-gradient-primary mr-2"/></p>
       <br />
     </form>
-</div>
+    <hr>

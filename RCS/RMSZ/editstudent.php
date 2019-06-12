@@ -80,8 +80,8 @@ echo '<h3>'.$_POST['dept'].'<h3>';
 				  }?>
               </span></td>
               <td style="height: 16px" >
-<a href="index.php?edits= &id=<?php echo $row['sn']."&"."Edit="."edit"."&"."dept="."$dept"."&"."year="."$year"."&"."session="."$session";?>" class="style4">EDIT</a></td>
-              <td style="height: 16px" ><a href="index.php?id=<?php echo $row['sn']."&"."deletes="."del"."&"."matno=".$row['matno']."&"."dept="."$dept"."&"."year="."$year"."&"."session="."$session";?>" class="style4">DELETE</a></td>
+<a href="smanage.php?edits= &id=<?php echo $row['sn']."&"."Edit="."edit"."&"."dept="."$dept"."&"."year="."$year"."&"."session="."$session";?>" class="style4">EDIT</a></td>
+              <td style="height: 16px" ><a href="smanage.php?id=<?php echo $row['sn']."&"."deletes="."del"."&"."matno=".$row['matno']."&"."dept="."$dept"."&"."year="."$year"."&"."session="."$session";?>" class="style4">DELETE</a></td>
             </tr><?php  }?>
       </table>
 	  <br/>
@@ -233,8 +233,8 @@ $matno = $_GET['matno'];
 					  echo "<font color='#FF0000'>In_Active</font>";
 				  }?>
               </span></td>
-              <td ><a href="index.php?edits= &id=<?php echo $row['sn']."&"."Edit="."edit"."&"."dept="."$dept"."&"."year="."$year"."&"."session="."$session";?>" class="style1">EDIT</a></td>
-              <td ><a href="index.php?id=<?php echo $row['sn']."&"."deletes="."del"."&"."matno=".$row['matno']."&"."dept="."$dept"."&"."year="."$year"."&"."session="."$session";?>" class="style1">DELETE</a></td>
+              <td ><a href="smanage.php?edits= &id=<?php echo $row['sn']."&"."Edit="."edit"."&"."dept="."$dept"."&"."year="."$year"."&"."session="."$session";?>" class="style1">EDIT</a></td>
+              <td ><a href="smanage.php?id=<?php echo $row['sn']."&"."deletes="."del"."&"."matno=".$row['matno']."&"."dept="."$dept"."&"."year="."$year"."&"."session="."$session";?>" class="style1">DELETE</a></td>
             </tr><?php  }?>
           </table>
             
@@ -249,16 +249,17 @@ $matno = $_GET['matno'];
               <td ><strong>PROGRAMME:</strong></td>
               <td>
                 <select name="dept" id="dept" class="form-control">
+                <option selected="selected" value="">Select Programme</option>
                 <?php include('dptcode.php') ;
             
             
-            $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
-            
-            while($pcd = mysqli_fetch_assoc($queri)){
+            //$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
+            //while($prgasc = mysqli_fetch_assoc($prgqry))
+            while($pcd = mysqli_fetch_assoc($prgqry)){
             ?>
             
             
-              <option selected="selected"><?php echo $pcd['dep'];?></option>
+              <option selected="selected"><?php echo $pcd['programme'];?></option>
               
               <?php }?>
               
@@ -271,7 +272,7 @@ $matno = $_GET['matno'];
               <td ><strong>YEAR:</strong></td>
               <td>
                 <select name="year" id="year" class="form-control">
-                  <option selected="selected">Year</option>
+                  <option selected="selected" value="">Year</option>
 				  <option>9</option>
                   <option>10</option>
                   <option>11</option>
@@ -291,7 +292,7 @@ $matno = $_GET['matno'];
               <td ><strong>SESSION:</strong></td>
               <td>
                 <select name="session" id="session" class="form-control">
-                  <option selected="selected">Sessions</option>
+                  <option selected="selected" value="">Sessions</option>
                   <option>2010/2011</option>
                   <option>2012/2013</option>
                   <option>2013/2014</option>
@@ -307,5 +308,5 @@ $matno = $_GET['matno'];
                  <p>   <input type="submit" name="Submit" value="Submit" class="btn btn-gradient-primary mr-2" /></p>
                           </form>
                          <br> 
-                         <p> <a href="index.php?regs">Register Student</a></p>
+                         <p> <a href="smanage.php?regs">Register Student</a></p>
                          <br>

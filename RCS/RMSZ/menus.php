@@ -314,7 +314,7 @@
 		
 		}elseif(isset($_GET['newcourse'])){
 
-		echo '<h3>Add New Programme</h3>';
+		echo '<h3>Input Department</h3>';
 		include('newcourse.php');
 		
 		}elseif(isset($_GET['deletes'])){
@@ -335,12 +335,12 @@
 		
 		}elseif(isset($_GET['newpro'])){
 
-		echo '<h3>Import New Prog.</h3>';
+		echo '<h3>Import Department</h3>';
 		include('newprog.php');
 
 		}elseif(isset($_GET['editgroup'])){
 
-		echo '<h3>Edit Programmes.</h3>';
+		echo '<h3>Edit Department.</h3>';
 		include('editgroup.php');
 		
 		// overwrite		
@@ -359,6 +359,16 @@
 
 		echo '<h3>Allocate Courses</h3>';
 		include('alloc.php');
+
+	}elseif(isset($_GET['importpro'])){
+
+		echo '<h3>Import Programme</h3>';
+		include('importprog.php');
+
+	}elseif(isset($_GET['inputpro'])){
+
+		echo '<h3>Input Programme Courses</h3>';
+		include('inputprog.php');
 	}
 		
 	//	editresultsspill.php

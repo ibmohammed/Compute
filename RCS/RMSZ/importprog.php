@@ -30,16 +30,16 @@ require('includes/header.php');
 				
 		
 				
-				mysqli_query($conn,"INSERT INTO `departments` (`name`, `code`, `schl_id`)
+				mysqli_query($conn,"INSERT INTO `programmes` (`programme`, `dept_id`)
 				VALUES( 
                     '".addslashes($data[0])."',
-					'".addslashes($data[1])."',
-					'".addslashes($_POST['schl'])."'
+				
+					'".addslashes($_POST['dpt'])."'
 
                 ) ON DUPLICATE KEY UPDATE
 				   `name` = '".addslashes($data[0])."',
-					`code` = '".addslashes($data[1])."',
-					`schl_id` = '".addslashes($_POST['schl'])."' 
+				
+					`schl_id` = '".addslashes($_POST['dpt'])."' 
 
 				   ") or die(mysqli_error()); 
             
@@ -56,7 +56,7 @@ require('includes/header.php');
 		}
 }
 
-$schqry = mysqli_query($logs, "SELECT schl_id, school FROM `schools`") or die(mysqli_error($logs));
+$schqry = mysqli_query($logs, "SELECT dept_id, name FROM `departments`") or die(mysqli_error($logs));
 ?>
 
 
@@ -73,12 +73,12 @@ $schqry = mysqli_query($logs, "SELECT schl_id, school FROM `schools`") or die(my
 			<tr>
 			<td>School</td>
 			<td> 
-				<select name="schl" class="form-control">
-					<option selected = "selected" value="">Select School</option>
+				<select name="dpt" class="form-control">
+					<option selected = "selected" value="">Select Department</option>
 					<?php 
 					while($rows = mysqli_fetch_assoc($schqry))
 					{?>
-						<option value="<?php echo $rows['schl_id'];?>"><?php echo $rows['school'];?></option>
+						<option value="<?php echo $rows['dept_id'];?>"><?php echo $rows['name'];?></option>
 						<?php 
 					}?>
 				</select>

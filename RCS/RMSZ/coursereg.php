@@ -7,7 +7,7 @@
 
 
 
-<p><a href="index.php?addviewwdit">Edit Courses</a>
+<p><a href="smanage.php?addviewwdit">Edit Courses</a>
 <br></p>
 <?php 
 
@@ -40,8 +40,8 @@ VALUES ('$prog', '$unit', '$semester', '$code', '$title','$session')") or die(my
 
 
 ?>
-      <table class="table table-bordered" border="1" style="font-size:11; width:800px; border:thin; border-collapse:collapse" cellpadding="0" cellspacing="1" >
-        <tr bgcolor="">
+      <table class="table table-bordered" >
+        <tr >
           <td style="height: 25px"><span style="font-weight: bold;">S/n</span></td>
           <td style="height: 25px"><span style="font-weight: bold;">Title</span></td>
           <td style="height: 25px"><span style="font-weight: bold;">Code</span></td>
@@ -50,16 +50,17 @@ VALUES ('$prog', '$unit', '$semester', '$code', '$title','$session')") or die(my
         <?php 
         
         $sql=mysqli_query($conn,"SELECT * FROM `course` 
-WHERE Programme ='$prog' && 
-semester='$semester' && 
-sessions = '$session'") or die(mysqli_error());
+            WHERE Programme ='$prog' && 
+            semester='$semester' && 
+            sessions = '$session'") or die(mysqli_error());
 
-        
-  $n= 0 ;
-  while($row=mysqli_fetch_assoc($sql)){
-  $n = $n+1;
-  ?>
-        <tr bgcolor="">
+                  
+            $n= 0 ;
+            while($row=mysqli_fetch_assoc($sql)){
+            $n = $n+1;
+            ?>
+
+        <tr >
           <td><span style="font-weight: bold;"><?php echo $n;?></span></td>
           <td><span style="font-weight: bold;"><?php echo $row['title'];?></span></td>
           <td><span style="font-weight: bold;"><?php echo $row['code'];?></span></td>
@@ -68,17 +69,16 @@ sessions = '$session'") or die(mysqli_error());
         <?php }?>
       </table>
       <?php ?>
-      <table border="0">
-        <tr>
-          <td>
-          
+      
+
+
           <form action="" method="post" name="form2" id="form2" onSubmit="MM_validateForm('title','','R','code','','R','code','','R');return document.MM_returnValue" onfocus="MM_validateForm('0','','R','0','','R','1','','R','1','','R','0','','R','1','','R');return document.MM_returnValue">
-              <table border="0">
+              <table class="table table-bordered" >
                 <tr>
                   <td><span style="color: #FFFFFF">Programme:</span></td>
                   <td><span style="color: #FFFFFF">
                     <label>
-                    <input name="programe" type="hidden" id="programe" value="<?php echo $prog;?>" />
+                    <input name="programe" type="hidden" id="programe" value="<?php echo $prog;?>" class="form-control"/>
                     </label>
                   </span></td>
                 </tr>
@@ -96,7 +96,7 @@ sessions = '$session'") or die(mysqli_error());
                   <td ><span style="font-weight: bold">Course Unit:</span></td>
                   <td >
                     <select name="unit" id="select2" class="form-control">
-                      <option>Choose Unit</option>
+                    <option selected="selected" value="">Choose Unit</option>
                       <option>0</option>
                       <option>1</option>
                       <option>2</option>
@@ -119,43 +119,31 @@ sessions = '$session'") or die(mysqli_error());
             <label>
               <input class="btn btn-gradient-primary mr-2" name="Submit" type="submit" id="Submit" value="Add Course" />
               </label>
-          </form></td>
-        </tr>
-      </table>
-      <?php 
+          </form>
 
-
+<?php 
 exit(); 
 }
 ?>
-      <table border="0">
-        <tr>
-          <td><form action="" method="post" name="form1" id="form1" onSubmit="MM_validateForm('0','','R','0','','R','1','','R','1','','R','0','','R','1','','R');MM_validateForm('title','','R','code','','R','title','','R','code','','R','code','','R','code','','R');return document.MM_returnValue">
-              <table border="0">
+          
+          <form action="" method="post" name="form1" id="form1" onSubmit="MM_validateForm('0','','R','0','','R','1','','R','1','','R','0','','R','1','','R');MM_validateForm('title','','R','code','','R','title','','R','code','','R','code','','R','code','','R');return document.MM_returnValue">
+
+              <table class="table table-bordered" >
                 <tr>
                   <td ><span style="font-weight: bold">Programme:</span></td>
-                  <td ><span style="font-weight: bold">
-          <select name="programe" id="programe">
- <?php include('dptcode.php') ;
+                          <td ><span style="font-weight: bold">
+                  <select name="programe" id="programe"  class="form-control" >
+                      <option value="">Select programme</option>
+                      <?php include('dptcode.php') ;
+                
             
-            
-            $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
-            
-            while($pcd = mysqli_fetch_assoc($queri)){
-            ?>
-            
-            
-              <option selected="selected"><?php echo $pcd['dep'];?></option>
-              
-              <?php }?>
-              
-             
-                                  <?php
-			//include('prog1.php');
-			//include('prog2.php');
-			//include('prog3.php');
-			 ?>
-		 </select>
+                      // $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
+                       //while($prgasc = mysqli_fetch_assoc($prgqry))
+                      while($pcd = mysqli_fetch_assoc($prgqry)){
+                         ?>
+                        <option><?php echo $pcd['programme'];?></option>
+                        <?php }?> 
+                   </select>
                   </span></td>
                 </tr>
                 <tr>
@@ -172,7 +160,7 @@ exit();
                   <td ><span style="font-weight: bold">Course Unit:</span></td>
                   <td ><span style="font-weight: bold">
                     <select name="unit" id="unit" class="form-control">
-                      <option>Choose Unit</option>
+                    <option selected="selected" value="">Choose Unit</option>
                       <option>0</option>
                       <option>1</option>
                       <option>2</option>
@@ -187,7 +175,7 @@ exit();
                   <td ><span style="font-weight: bold">Semester:</span></td>
                   <td ><span style="font-weight: bold">
                     <select name="semester" class="form-control">
-                      <option>Choose Semester</option>
+                    <option selected="selected" value="">Choose Semester</option>
                       <option value="1">First Semester</option>
                       <option value="2">Second Semester</option>
                       <option value="3">Third Semester</option>
@@ -201,7 +189,7 @@ exit();
                   <td ><strong>Session:</strong></td>
                   <td >
                     <select name="session" class="form-control">
-                 
+                    <option selected="selected" value="">Select Session</option>    
 				  <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
 				   <option>2017/2018</option>
 				    <option>2018/2019</option>
@@ -210,9 +198,8 @@ exit();
 				   </select></td>
                 </tr>
               </table>
+              <br>
             <label>
-              <input class="btn btn-gradient-primary mr-2" name="Submit" type="submit" id="Submit" value="Add Course" />
-              </label>
-          </form></td>
-        </tr>
-      </table>
+              <p><input class="btn btn-gradient-primary mr-2" name="Submit" type="submit" id="Submit" value="Add Course" /></p>
+              </label><br>
+          </form>

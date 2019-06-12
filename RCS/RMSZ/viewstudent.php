@@ -17,9 +17,12 @@
         <td ><strong>PROGRAMME:</strong></td>
         <td>
           <select name="dept" id="dept" class="form-control">
+          <option selected="selected" value="">Select Programme</option>
             <?php include('dptcode.php') ;
-            $queri = mysqli_query($conn,"SELECT * FROM `programmes` WHERE prog_id = '".$_SESSION['prgid']."'") or die(mysqli_error($conn));
-            while($pcd = mysqli_fetch_assoc($queri)){?>
+           // $queri = mysqli_query($conn,"SELECT * FROM `programmes` WHERE prog_id = '".$_SESSION['prgid']."'") or die(mysqli_error($conn));
+           //while($prgasc = mysqli_fetch_assoc($prgqry))
+           
+           while($pcd = mysqli_fetch_assoc($prgqry)){?>
               <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
               <?php 
               
@@ -90,7 +93,7 @@
 	<table class="table table-bordered" >
       <tr>
         <td>
-          <table class="table table-bordered"  style="font-size:11; width:800px; border:thin; border-collapse:collapse" cellpadding="0" cellspacing="1" >
+          <table class="table table-bordered" >
               <tr>
               <td><span style ="color:black;">Id</span></td>
               <td><span style ="color:black;">Name</span></td>

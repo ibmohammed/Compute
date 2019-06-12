@@ -86,7 +86,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
   ?>
 <br>
 <div align="center">
-  <?php echo @$_SESSION['comfirmstaff']. $_SESSION['stid'];?>
+  <?php echo @$_SESSION['comfirmstaff']. @$_SESSION['stid'];?>
   <form class="login100-form validate-form p-b-33 p-t-5" name="form1" action="" method="post">
 <br>
     <div class="wrap-input100 validate-input" data-validate = "Enter username">

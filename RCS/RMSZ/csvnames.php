@@ -85,14 +85,15 @@ if(isset($_POST['Submit'])){
          			 <?php include('dptcode.php') ;
             
             
-			$qqry = "SELECT * FROM `dept` WHERE prog = '$departmentcode'";
+			//$qqry = "SELECT * FROM `dept` WHERE prog = '$departmentcode'";
+			$qqry = "SELECT * FROM `programmes`";
 			$queri = mysqli_query($conn,$qqry) or die(mysqli_error());
             
             while($pcd = mysqli_fetch_assoc($queri)){
             ?>
             
             
-              <option><?php echo $pcd['dep'];?></option>
+              <option><?php echo $pcd['programme'];?></option>
               
               <?php }?>
               
@@ -130,9 +131,11 @@ if(isset($_POST['Submit'])){
 		</tr>
 		<tr>
 			<td>Choose your file:</td>
-			<td>  <input name="csv" type="file" id="csv" /></td>
+			<td>  <input name="csv" type="file" id="csv" class="btn btn-gradient-primary mr-2"/></td>
 		</tr>
 	</table>
-	<input class="btn btn-gradient-primary mr-2" name="Submit" type="submit" value="Submit"> 
+	<br>
+	<p><input class="btn btn-gradient-primary mr-2" name="Submit" type="submit" value="Submit"> </p>
+	<br>
 </form>
- 
+ <hr>

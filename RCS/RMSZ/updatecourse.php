@@ -1,17 +1,9 @@
 <?php error_reporting(-1); ?>
 <?php ini_set('display_errors', true); ?>
 <?php require("includes/header.php");?>    
-<style type="text/css">
-<!--
-.style1 {color: #FFBB55}
-.style3 {color: #FFBB55; font-weight: bold; }
-.auto-style1 {
-	font-weight: bold;
-}
--->
-</style>
 
-<p><a href="index.php?courser">Register Courses</a>
+
+<p><a href="smanage.php?courser">Register Courses</a>
 <br></p>
 <?php 
 if (isset($_POST['Submit2'])){
@@ -119,14 +111,14 @@ die(mysqli_error());
                   <input name="<?php echo 'codes'.$n;?>" type="hidden" value="<?php echo $row['code'];?>" /></td>
                   <td ><input style="border:thin;" name="<?php echo 'unit'.$n;?>" type="text" value="<?php echo $row['unit'];?>" size="4" />
                     <input name="<?php echo 'units'.$n;?>" type="hidden" value="<?php echo $row['unit'];?>" /></td>
-                  <td bgcolor="#FFFFFF" style="width: 58px" ><a href="index.php?id=<?php echo $row['0'].'&updtcourse';?>">&nbsp;&nbsp;&nbsp;<img src="images/del.jpg" width="16" height="14" alt="del" /></a>
+                  <td bgcolor="#FFFFFF" style="width: 58px" ><a href="smanage.php?id=<?php echo $row['0'].'&updtcourse';?>">&nbsp;&nbsp;&nbsp;<img src="images/del.jpg" width="16" height="14" alt="del" /></a>
                   <input name="<?php echo 'sn'.$n;?>" type="hidden" value="<?php echo $row['0'];?>" /></td>
                 </tr>
                 <?php }?>
               </table>
             <input name="count" type="hidden" value="<?php echo $n;?>" />
             <br>
-              <input type="submit" name="Submit2" value="Edit Records" style="border:thin; color:navy;" />
+              <input type="submit" name="Submit2" value="Edit Records" class="btn btn-gradient-primary mr-2" />
               </form>
       <p><br>
       </p>
@@ -135,37 +127,36 @@ exit;
 }
 ?>
       <form id="form1" name="form1" method="post" action="">
-              <table border="0" style="border-collapse:collapse;">
+              <table class="table table-bordered">
                 <tr>
                   <td ><span style="font-weight: bold">Programme:</span></td>
-                  <td style="width: 130px" ><select name="programe" id="programe">
-
- <?php include('dptcode.php') ;
+                  <td>
+                  <select name="programe" id="programe" class="form-control">
+                  <option selected="selected" value="">Select Proramme</option>
+             <?php include('dptcode.php') ;
             
             
-            $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
+            //$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
             
-            while($pcd = mysqli_fetch_assoc($queri)){
+            //$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
+            //while($prgasc = mysqli_fetch_assoc($prgqry))
+            while($pcd = mysqli_fetch_assoc($prgqry)){
             ?>
             
             
-              <option selected="selected"><?php echo $pcd['dep'];?></option>
+              <option ><?php echo $pcd['programme'];?></option>
               
               <?php }?>
               
              
             
-
-<?php
-		//	include('prog1.php');
-		//	include('prog2.php');
-		//	include('prog3.php');
-			 ?>                  </select></td>
+                 </select></td>
                 </tr>
                 <tr>
                   <td ><span style="font-weight: bold">Semester:</span></td>
-                  <td style="width: 130px" ><select name="semester">
-                      <option>Choose Semester</option>
+                  <td>
+                  <select name="semester"  class="form-control">
+                  <option selected="selected" value="">Choose Semester</option>
                       <option value="1">First Semester</option>
                       <option value="2">Second Semester</option>
                       <option value="3">Third Semester</option>
@@ -175,19 +166,22 @@ exit;
                   </select></td>
                 </tr>
               	<tr>
-                  <td  style="height: 26px">Session:</td>
-                  <td  style="height: 26px; width: 130px;"><select name="session">
-				  <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
-				  <option>2017/2018</option>
-				  <option>2018/2019</option>
-				   </select></td>
+                  <td ><span style="font-weight: bold">Session:</span></td>
+                  <td >
+                    <select name="session" class="form-control">
+                      <option selected="selected" value="">Select Session</option>
+                      <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
+                      <option>2017/2018</option>
+                      <option>2018/2019</option>
+                    </select>
+                  </td>
                   </tr>
                 <tr>
                   <td >&nbsp;</td>
-                  <td style="width: 130px" >&nbsp;</td>
+                  <td>&nbsp;</td>
                 </tr>
               </table>
-            <input type="submit" name="Submit" value="Submit" />
+              <br>
+              <p><input type="submit" name="Submit" value="Submit" class="btn btn-gradient-primary mr-2" /></p>
               </form>
-
-      
+              <p></p><hr>

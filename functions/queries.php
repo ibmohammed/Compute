@@ -7,7 +7,6 @@
             /* bind parameters for markers */
             mysqli_stmt_bind_param($stmt, "ss", $username, $password);
             /* execute query */
-            // mysqli_stmt_bind_result($stmt);
             mysqli_stmt_store_result($stmt);
             return $stmt;
 
@@ -36,7 +35,6 @@
              $stmt = mysqli_prepare($lg, $query) or die(mysqli_error($lg)."query error");
              mysqli_stmt_bind_param($stmt, "s", $username);
             /* execute query */
-            // mysqli_stmt_bind_result($stmt);
             mysqli_stmt_store_result($stmt);
              return $stmt;
              }
