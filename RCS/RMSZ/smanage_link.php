@@ -42,6 +42,9 @@ if(isset($_GET['csvn']))
 }if(isset($_GET['editgroup']))
 {
     header('location:smanage.php?editgroup');
+}if(isset($_GET['editprog']))
+{
+    header('location:smanage.php?editprog');
 }
 
 ?>

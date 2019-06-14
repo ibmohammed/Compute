@@ -225,10 +225,10 @@ if(@$_SESSION['usercomfirmed'] == True){
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="stdprofile.php?Results=1">First</a></li>
-                <li class="nav-item"> <a class="nav-link" href="stdprofile.php?Results=2">Second</a></li>
-                <li class="nav-item"> <a class="nav-link" href="stdprofile.php?Results=3">Third</a></li>
-                <li class="nav-item"> <a class="nav-link" href="stdprofile.php?Results=4">Fourth</a></li>
+                <li class="nav-item"> <a class="nav-link" href="stdprofile_link.php?Results1">First</a></li>
+                <li class="nav-item"> <a class="nav-link" href="stdprofile_link.php?Results2">Second</a></li>
+                <li class="nav-item"> <a class="nav-link" href="stdprofile_link.php?Results3">Third</a></li>
+                <li class="nav-item"> <a class="nav-link" href="stdprofile_link.php?Results4">Fourth</a></li>
               </ul>
             </div>
           </li>

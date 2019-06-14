@@ -8,10 +8,12 @@
 if(isset($_POST['Submit'])){
 
 				$sesn = $_POST['session'];
+				$sesn = preg_replace("/[^0-9\/]/", "", $sesn);
 				$prgrm = $_POST['programme'];
+				$prgrm = preg_replace("/[^0-9]/", "", $prgrm);
 				
 				$year=$_POST['year'];
-
+				$year = preg_replace("/[^0-9]/", "", $year);
 
 
 				$fname = $_FILES['csv']['name'];
@@ -33,28 +35,53 @@ if(isset($_POST['Submit'])){
 						//$prgrm = mysql_escape_string($prgrm);
 			
 							$names = $data[0];
+							$names = preg_replace("/[^a-zA-Z\s]/", "", $names);
+
+							$matno = $data[1];
+							$matno = preg_replace("/[^a-zA-Z0-9\s\/]/", "", $matno);
 			
 							//$names = mysql_escape_string($names);
-						
+						$images = "";
+						$status = 0;
+						$stat = 0;
+						$Withdrwan = 0;
+						$sex = "";
+
+
 							$imports = "INSERT INTO`studentsnm`  
-									(`names`, `matno`, `dept`, `year`, `session`) 
+									(`names`, `matno`, `prog_id`, `year`, `images`, `session`, `status`, `stat`, `Withdrwan`, `sex`) 
 									VALUES( 
 					                    '".addslashes($names)."',
-					                    '".addslashes($data[1])."',
+					                    '".addslashes($matno)."',
 					                    '".addslashes($prgrm)."',
 					                    '".addslashes($year)."',
-					                    '".addslashes($sesn)."'
+										'".addslashes($images)."',
+					                    '".addslashes($sesn)."',
+										'".addslashes($status)."',
+										'".addslashes($stat)."',
+										'".addslashes($Withdrwan)."',
+										'".addslashes($sex)."'
 					
 									   ) ON DUPLICATE KEY UPDATE
 									    `names` = '".addslashes($names)."', 
-									    `matno` = '".addslashes($data[1])."', 
-									    `dept` = '".addslashes($prgrm)."', 
+									    `matno` = '".addslashes($matno)."', 
+									    `prog_id` = '".addslashes($prgrm)."', 
 									    `year` = '".addslashes($year)."', 
 									    `session` = '".addslashes($sesn)."'
 									    
 								";
-								mysqli_query($conn,$imports); 
-					            
+								mysqli_query($conn,$imports) or die(mysqli_error($conn)); 
+							   
+								
+
+								$pp = "0000";
+							$stat = "Enable";
+							
+				$students_log =	"INSERT INTO `students_log` 
+					(`matric_no`,`password`,`status`) 
+					VALUES('".addslashes($matno)."', '".addslashes($pp)."', '".addslashes($stat)."')";
+
+			mysqli_query($conn, $students_log) or die(mysqli_error($conn)); 
 					          
 		
 						}
@@ -62,6 +89,7 @@ if(isset($_POST['Submit'])){
 					fclose($handle);
 					echo "Successfully imported";
 
+							
 			}
 
 		else
@@ -80,20 +108,20 @@ if(isset($_POST['Submit'])){
           <td style="height: 30px" ><span style="font-weight: bold; color: #000000">PROGRAMME:</span></td>
 		  <td style="height: 30px" >
 		  <select name="programme" id="programme" class="form-control">
-         			<option selected="selected">Programmed</option>
+         			<option selected="selected" value="">Select Programmes</option>
          			
          			 <?php include('dptcode.php') ;
             
             
 			//$qqry = "SELECT * FROM `dept` WHERE prog = '$departmentcode'";
-			$qqry = "SELECT * FROM `programmes`";
-			$queri = mysqli_query($conn,$qqry) or die(mysqli_error());
+			$queri = prog_function($logs);
+			//$queri = mysqli_query($conn,$qqry) or die(mysqli_error());
             
             while($pcd = mysqli_fetch_assoc($queri)){
             ?>
             
             
-              <option><?php echo $pcd['programme'];?></option>
+              <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
               
               <?php }?>
               
@@ -104,6 +132,7 @@ if(isset($_POST['Submit'])){
 			<td><span style="font-weight: bold; color: #000000">SESSION:</span></td>
 			<td>
 				<select name="session" class="form-control">
+				<option selected="selected" value="">Select Session</option>
           <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
                     <?php echo include('includes/sessions.php');?>
 				<option>2018/2019</option>

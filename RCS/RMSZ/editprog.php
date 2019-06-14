@@ -19,8 +19,7 @@ if (!isset($_SESSION)) {
 $departmentcode = $_SESSION['deptcode'];
 $deptcd = $departmentcode;
 
-$sqlm = mysqli_query($conn,"SELECT * 
-FROM `departments`") or die(mysql_error());
+$sqlm = prog_function($logs);
 
  ?>
 
@@ -38,8 +37,8 @@ FROM `departments`") or die(mysql_error());
 	?>
 	<tr>
 		<td><?php echo $n;?></td>
-		<td><?php echo $rows['name'];?></td>
-		<td><a href="smanage.php?id=<?php echo $rows['dept_id']."&ed=0";?>">Delete</a></td>
-		<td><a href="smanage.php?id=<?php echo $rows['dept_id']."&ed=1";?>">Edit</a></td>
+		<td><?php echo $rows['programme'];?></td>
+		<td><a href="smanage.php?id=<?php echo $rows['prog_id']."&edpr=0";?>">Delete</a></td>
+		<td><a href="smanage.php?id=<?php echo $rows['prog_id']."&edpr=1";?>">Edit</a></td>
 	</tr><?php }?>
 </table>

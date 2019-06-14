@@ -167,7 +167,10 @@ if(@$_SESSION['MM_Usernames'] == True){
             
             <?php  
                 include('menus.php');
-                include('grpedit.php');
+               
+                include('grpedit.php');  //edit departments 
+                
+                include('progedit.php');  //edit programme 
 
                 if(isset($_GET['create'])){
                    include('idexcreate.php');
@@ -175,27 +178,40 @@ if(@$_SESSION['MM_Usernames'] == True){
                 ?>
 <!-- Enf of page content -->
       
-  <?php   if(isset($_GET['dashdept']))
+  <?php   
+     $prgqry =  dept_function($logs);
+     $schlsqry = schl_function($logs);
+    $colgqry = col_function($logs);
+      prog_function($logs);
+            
+  if(isset($_GET['dashdept']))
         {
           ?>
-            <h2>Programme</h2>
+            <h2>Departments</h2>
             <table  class="table table-bordered">
             <thead>
             <tr>
             <th>#</th>
-            <th>Programmes</th>
+            <th>Names of Department</th>
+            <th>No. of Programmes</th>
             </tr>
             </thead>
             <tbody>
-            <?php $i = 0;  
-            
+            <?php $i = 0;                      
             while($prgasc = mysqli_fetch_assoc($prgqry))
             { 
                 $i++; 
                 ?>
                 <tr>
                 <td><?php echo $i;?></td>
-                <td><?php echo $prgasc['programme'];?></td>
+                <td><?php echo $prgasc['name'];?></td>
+                <td><?php 
+                
+                //$deptsid = $prgasc['dept_id']; 
+                $progno =  progs_function($logs, $prgasc['dept_id']);             
+               $progno = mysqli_num_rows($progno);
+               echo $progno;
+                ?></td>
                 </tr>
                 <?php
             }
@@ -204,6 +220,85 @@ if(@$_SESSION['MM_Usernames'] == True){
             </table>
 
  <?php }
+      elseif(isset($_GET['dashcolg']))
+      {?>
+            <h2>Colleges</h2>
+            
+            <table  class="table table-bordered">
+            <thead>
+            <tr>
+            <th>#</th>
+            <th>Names of Colleges</th>
+            <th>No. of Schools</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php $i = 0;  
+           
+           
+      
+            while($colgs = mysqli_fetch_assoc($colgqry))
+            { 
+                $i++; 
+                ?>
+                <tr>
+                <td><?php echo $i;?></td>
+                <td><?php echo $colgs['college'];?></td>
+                <td><?php 
+                
+                //$colid = $colgs['college_id'];  
+                $schlgeno = schls_function($logs, $colgs['college_id']);        
+                $schlgeno = mysqli_num_rows($schlgeno);
+                echo $schlgeno;
+                ?></td>
+                </tr>
+                <?php
+            }
+            ?>
+            <tbody>
+            </table>
+        
+  <?php }
+      elseif(isset($_GET['dashschl']))
+      {?>
+
+            <h2>Schools</h2>
+            <table  class="table table-bordered">
+            <thead>
+            <tr>
+            <th>#</th>
+            <th>Names of Schools</th>
+            <th>No. of Departments</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php $i = 0;  
+           
+           
+      
+            while($schls = mysqli_fetch_assoc($schlsqry))
+            { 
+                $i++; 
+                ?>
+                <tr>
+                <td><?php echo $i;?></td>
+                <td><?php echo $schls['school'];?></td>
+                <td><?php 
+                
+                //$schlid = $schls['schl_id'];  
+                $depteno = depts_function($logs, $schls['schl_id']);        
+                $depteno = mysqli_num_rows($depteno);
+                echo $depteno;
+                ?></td>
+                </tr>
+                <?php
+            }
+            ?>
+            <tbody>
+            </table>
+
+  <?php }
+   
     ?>  
      <!---dashboard -->
 
@@ -229,12 +324,14 @@ if(@$_SESSION['MM_Usernames'] == True){
             <div class="col-md-4 stretch-card grid-margin">
               <div class="card bg-gradient-danger card-img-holder text-white">
                 <div class="card-body">
+                <a href="smanage.php?dashcolg"> 
                   <img src="../../imagess/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
                   <h4 class="font-weight-normal mb-3">College
                     <i class="mdi mdi-chart-line mdi-24px float-right"></i>
                   </h4>
-                  <h3 class="mb-5"><?php echo $coleg['college'];?></h3>
+                  <h3 class="mb-5"><?php //echo $coleg['college'];?></h3>
                   <h6 class="card-text"></h6>
+                  </a>
                 </div>
               </div>
             </div>
@@ -242,25 +339,27 @@ if(@$_SESSION['MM_Usernames'] == True){
             <div class="col-md-4 stretch-card grid-margin">
               <div class="card bg-gradient-info card-img-holder text-white">
                 <div class="card-body">
+                <a href="smanage.php?dashschl"> 
                   <img src="../../imagess/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                  
                   <h4 class="font-weight-normal mb-3">School 
                     <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                   </h4>
-                  <h3 class="mb-5"><?php echo $schl['school'];?></h3>
+                  <h3 class="mb-5"><?php //echo $schl['school'];?></h3>
                   <h6 class="card-text"></h6>
+                  </a>
                 </div>
               </div>
             </div>
             
-            <div class="col-md-4 stretch-card grid-margin">
-              
+            <div class="col-md-4 stretch-card grid-margin">            
               <div class="card bg-gradient-success card-img-holder text-white">
                 <div class="card-body">
-                <a href="smanage.php?dashdept">  <img src="../../imagess/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                                
-                  <h4 class="font-weight-normal mb-3">Department 
+                <a href="smanage.php?dashdept">  
+                <img src="../../imagess/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                                
+                  <h4 class="font-weight-normal mb-3">Departments 
                     <i class="mdi mdi-diamond mdi-24px float-right"></i>
                   </h4>
-                  <h3 class="mb-5"><?php echo $depts['name'];?></h3>
+                  <h3 class="mb-5"><?php //echo $depts['name'];?></h3>
                   <h6 class="card-text"></h6>
                   </a>  
                 </div>

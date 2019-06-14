@@ -7,10 +7,13 @@
 <?php  
 if(isset($_POST['Submit'])){
 
-				$sesn = $_POST['session'];
-				$prgrm = $_POST['programme'];
-				$semst = $_POST['semester'];
-			//	$year=$_POST['year'];
+	$sesn = $_POST['session'];
+	$sesn = preg_replace("/[^0-9\/]/", "", $sesn);
+	$prgrm = $_POST['programme'];
+	$prgrm = preg_replace("/[^0-9]/", "", $prgrm);
+	$semst = $_POST['semester'];
+	$semst = preg_replace("/[^0-9]/", "", $semst);
+//	$year=$_POST['year'];
 
 
 
@@ -25,56 +28,66 @@ if(isset($_POST['Submit'])){
 			{
 
 
-$filename = $_FILES['csv']['tmp_name'];
+						$filename = $_FILES['csv']['tmp_name'];
 						$handle = fopen($filename, "r");
 		
 						while (($data = fgetcsv($handle,1000,",")) !== FALSE)
-		
 						{
-						        
+							
+							$code = $data[0];
+							$code = preg_replace("/[^a-zA-Z0-9\s]/", "", $code);
+							
+							$title = $data[1];
+							$title = preg_replace("/[^a-zA-Z0-9\s]/", "", $title);
 
-$snm = mysqli_query($conn,"SELECT * FROM `course`
-			WHERE 
-			`Programme` =	'".addslashes($prgrm)."'&&
-                `unit` =    '".addslashes($data[2])."'&&
-                `semester` =   '".addslashes($semst)."'&&
-                `code` =    '".addslashes($data[0])."'&&
-				`sessions` =	'".addslashes($sesn)."'
+							$unit = $data[2];
+							$unit = preg_replace("/[^0-9]/", "", $unit);
 
-			 ") or die(mysqli_error());
-			  
-			 if(mysqli_num_rows($snm)==0){
-			 
-		$snms = mysqli_query($conn,"INSERT INTO `course` 
-		(`Programme`,`unit`,`semester`,`code`,`title`,`sessions`) 
-				VALUES(
-				'".addslashes($prgrm)."',
-                '".addslashes($data[2])."',
-                '".addslashes($semst)."',
-                '".addslashes($data[0])."',
-                '".addslashes($data[1])."',
-				'".addslashes($sesn)."'
-				)
-			 ") or die(mysqli_error()); 
-			 
-			 }else{
+
+
+							$snm = mysqli_query($conn,"SELECT * FROM `course`
+									WHERE 
+									`prog_id` =	'".addslashes($prgrm)."'&&
+									`unit` =    '".addslashes($unit)."'&&
+									`semester` =   '".addslashes($semst)."'&&
+									`code` =    '".addslashes($code)."'&&
+									`sessions` =	'".addslashes($sesn)."'
+
+									") or die(mysqli_error($conn));
+
+									if(mysqli_num_rows($snm)==0){
+											$staffs_id = 0;
+										$snms = mysqli_query($conn,"INSERT INTO `course` 
+										(`prog_id`,`unit`,`semester`,`code`,`title`,`sessions`, `staff_id`) 
+												VALUES(
+												'".addslashes($prgrm)."',
+												'".addslashes($unit)."',
+												'".addslashes($semst)."',
+												'".addslashes($code)."',
+												'".addslashes($title)."',
+												'".addslashes($sesn)."',
+												'".addslashes($staffs_id)."'
+												)
+											") or die(mysqli_error($conn)); 
+									
+									}else{
 			 
 $snm = mysqli_query($conn,"UPDATE `course` SET
 
-			`Programme` =	'".addslashes($prgrm)."',
-                `unit` =    '".addslashes($data[2])."',
+			`prog_id` =	'".addslashes($prgrm)."',
+                `unit` =    '".addslashes($unit)."',
                 `semester` =   '".addslashes($semst)."',
-                `code` =    '".addslashes($data[0])."',
-                `title` =    '".addslashes($data[1])."',
+                `code` =    '".addslashes($code)."',
+                `title` =    '".addslashes($title)."',
 				`sessions` =	'".addslashes($sesn)."'
 			WHERE 
-			`Programme` =	'".addslashes($prgrm)."'&&
-                `unit` =    '".addslashes($data[2])."'&&
+			`prog_id` =	'".addslashes($prgrm)."'&&
+                `unit` =    '".addslashes($unit)."'&&
                 `semester` =   '".addslashes($semst)."'&&
-                `code` =    '".addslashes($data[0])."'&&
+                `code` =    '".addslashes($code)."'&&
 				`sessions` =	'".addslashes($sesn)."'
 
-			 ") or die(mysqli_error());
+			 ") or die(mysqli_error($conn));
 			 
 			 }
 			 
@@ -89,9 +102,41 @@ $snm = mysqli_query($conn,"UPDATE `course` SET
 		else
 		{
 			echo "Invalid file";
-		}
+		}?>
 
-}
+<table class="table table-bordered" >
+        <tr >
+          <td style="height: 25px"><span style="font-weight: bold;">S/n</span></td>
+          <td style="height: 25px"><span style="font-weight: bold;">Title</span></td>
+          <td style="height: 25px"><span style="font-weight: bold;">Code</span></td>
+          <td style="height: 25px"><span style="font-weight: bold;">Unit</span></td>
+        </tr>
+        <?php 
+        
+        $sql=mysqli_query($conn,"SELECT * FROM `course` 
+            WHERE prog_id ='$prgrm' && 
+            semester='$semst' && 
+            sessions = '$sesn'") or die(mysqli_error($conn));
+
+                  
+            $n= 0 ;
+            while($row=mysqli_fetch_assoc($sql)){
+            $n = $n+1;
+            ?>
+
+        <tr >
+          <td><span style="font-weight: bold;"><?php echo $n;?></span></td>
+          <td><span style="font-weight: bold;"><?php echo $row['title'];?></span></td>
+          <td><span style="font-weight: bold;"><?php echo $row['code'];?></span></td>
+          <td><span style="font-weight: bold;"><?php echo $row['unit'];?></span></td>
+        </tr>
+        <?php }?>
+      </table>
+
+
+<?php
+
+} 
 
 ?>
 
@@ -108,14 +153,14 @@ $snm = mysqli_query($conn,"UPDATE `course` SET
          			
          			 <?php include('dptcode.php') ;
             
-            
-           // $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
+            $queri = prog_function($logs);
+           // $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error($conn));
             //while($prgasc = mysqli_fetch_assoc($prgqry))
-            while($pcd = mysqli_fetch_assoc($prgqry)){
+            while($pcd = mysqli_fetch_assoc($queri)){
             ?>
             
             
-              <option><?php echo $pcd['programme'];?></option>
+              <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
               
               <?php }?>
               

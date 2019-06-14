@@ -367,8 +367,13 @@
 
 	}elseif(isset($_GET['inputpro'])){
 
-		echo '<h3>Input Programme Courses</h3>';
+		echo '<h3>Input Programme</h3>';
 		include('inputprog.php');
+
+	}elseif(isset($_GET['editprog'])){
+
+		echo '<h3>Edit Programme</h3>';
+		include('editprog.php');
 	}
 		
 	//	editresultsspill.php

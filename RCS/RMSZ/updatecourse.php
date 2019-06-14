@@ -8,6 +8,7 @@
 <?php 
 if (isset($_POST['Submit2'])){
 $count=$_POST['count'];
+$count = preg_replace("/[^0-9]/", "", $count);
 $count = $count-1;
 $m=0;
 while($m<=$count){
@@ -33,9 +34,8 @@ $codes=$_POST[$c];
 // Update result Table
 //$updtres =mysqli_query($conn,"UPDATE `results` SET `unit` = '$unit', `code`='$code' WHERE `results`.`code` ='$codes'");
 // Update Course Table
-$query= mysqli_query($conn,"UPDATE  `course` SET  `code` =  '$code',`
-title` =  '$title',`unit`='$unit' WHERE  `course`.`sn` ='$sn'")
-or die(mysqli_error());
+$query= mysqli_query($conn,"UPDATE  `course` SET  `code` =  '$code',`title` =  '$title',`unit`='$unit' WHERE  `course`.`sn` ='$sn'")
+or die(mysqli_error($conn));
 
 // update result table heere
 
@@ -46,6 +46,8 @@ echo "<font color = 'red'>"."<i>"."Update Successful"."</i>"."</font>";
 }elseif(isset($_GET['id'])){
 	
 $ids = $_GET['id'];
+$ids = preg_replace("/[^0-9]/", "", $ids);
+
 
 if (!isset($_SESSION)) {
   session_start();
@@ -56,7 +58,7 @@ if (!isset($_SESSION)) {
 //$_SESSION['session'];
 
 
-$qry = mysqli_query($conn,"DELETE FROM course WHERE `sn` = '$ids'") or die(mysqli_error());	
+$qry = mysqli_query($conn,"DELETE FROM course WHERE `sn` = '$ids'") or die(mysqli_error($conn));	
 	echo "<font color = 'red'>"."<i>"."Update Successful"."</i>"."</font>";
 
 echo '<div> <form action="" method="post"><input type = "hidden" name = "programe" value = "'.$_SESSION['prog'].'" >
@@ -69,8 +71,11 @@ echo '<div> <form action="" method="post"><input type = "hidden" name = "program
 
 if (isset($_POST['Submit'])){
 $prog=$_POST['programe'];
+$prog = preg_replace("/[^0-9]/", "", $prog);
 $semester=$_POST['semester'];
+$semester = preg_replace("/[^0-9]/", "", $semester);
 $session = $_POST['session'];
+$session = preg_replace("/[^0-9\/]/", "", $session);
 
 if (!isset($_SESSION)) {
   session_start();
@@ -81,14 +86,14 @@ $_SESSION['semester'] = $semester;
 $_SESSION['session'] = $session;
 
 
-$sql = mysqli_query($conn,"SELECT * FROM  `course` WHERE Programme='$prog' && semester ='$semester' && sessions = '$session'");
+$sql = mysqli_query($conn,"SELECT * FROM  `course` WHERE prog_id='$prog' && semester ='$semester' && sessions = '$session'");
 if(!$sql){
-die(mysqli_error());
+die(mysqli_error($conn));
 }?>
-
+<hr>
 
 <form id="form2" name="form2" method="post" action="">
-              <table border="1" style="font-size:11; width:800px; border:thin; border-collapse:collapse" cellpadding="0" cellspacing="1" >
+              <table class="table table-bordered">
                 <tr>
                   <td style="height: 23px"><span style="font-weight: bold">S/N</span></td>
                   <td style="height: 23px"><span style="font-weight: bold">Course Title</span></td>
@@ -111,8 +116,8 @@ die(mysqli_error());
                   <input name="<?php echo 'codes'.$n;?>" type="hidden" value="<?php echo $row['code'];?>" /></td>
                   <td ><input style="border:thin;" name="<?php echo 'unit'.$n;?>" type="text" value="<?php echo $row['unit'];?>" size="4" />
                     <input name="<?php echo 'units'.$n;?>" type="hidden" value="<?php echo $row['unit'];?>" /></td>
-                  <td bgcolor="#FFFFFF" style="width: 58px" ><a href="smanage.php?id=<?php echo $row['0'].'&updtcourse';?>">&nbsp;&nbsp;&nbsp;<img src="images/del.jpg" width="16" height="14" alt="del" /></a>
-                  <input name="<?php echo 'sn'.$n;?>" type="hidden" value="<?php echo $row['0'];?>" /></td>
+                  <td><a href="smanage.php?id=<?php echo $row['sn'].'&updtcourse';?>">&nbsp;&nbsp;&nbsp;<img src="images/del.jpg" width="16" height="14" alt="del" /></a>
+                  <input name="<?php echo 'sn'.$n;?>" type="hidden" value="<?php echo $row['sn'];?>" /></td>
                 </tr>
                 <?php }?>
               </table>
@@ -123,9 +128,10 @@ die(mysqli_error());
       <p><br>
       </p>
       <?php
-exit;
+//exit;
 }
 ?>
+<hr>
       <form id="form1" name="form1" method="post" action="">
               <table class="table table-bordered">
                 <tr>
@@ -140,11 +146,12 @@ exit;
             
             //$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
             //while($prgasc = mysqli_fetch_assoc($prgqry))
-            while($pcd = mysqli_fetch_assoc($prgqry)){
+            $queri = prog_function($logs);
+            while($pcd = mysqli_fetch_assoc($queri)){
             ?>
             
             
-              <option ><?php echo $pcd['programme'];?></option>
+              <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
               
               <?php }?>
               
@@ -171,6 +178,7 @@ exit;
                     <select name="session" class="form-control">
                       <option selected="selected" value="">Select Session</option>
                       <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
+                      <option>2010/2011</option>
                       <option>2017/2018</option>
                       <option>2018/2019</option>
                     </select>
@@ -184,4 +192,5 @@ exit;
               <br>
               <p><input type="submit" name="Submit" value="Submit" class="btn btn-gradient-primary mr-2" /></p>
               </form>
-              <p></p><hr>
+              <p></p>
+              <hr>

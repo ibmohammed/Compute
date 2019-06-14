@@ -8,6 +8,7 @@
 <?php 
 if (isset($_POST['Submit2'])){
 $count=$_POST['count'];
+$count = preg_replace("/[^0-9]/", "", $count);
 $count = $count-1;
 $m=0;
 
@@ -90,8 +91,8 @@ $titles=$_POST[$t];
 $codes=$_POST[$c];
 $sess = $_POST[$ss];
 // Insert into Table course
-$updtres =mysqli_query($conn,"INSERT INTO `course` (`sn`, `Programme`, `unit`, `semester`, `code`, `title`, `sessions`) 
-VALUES (NULL, '$prog', '$unit', '$semesters', '$code', '$title', '$sessions');");
+$updtres =mysqli_query($conn,"INSERT INTO `course` (`prog_id`, `unit`, `semester`, `code`, `title`, `sessions`) 
+VALUES ('$prog', '$unit', '$semesters', '$code', '$title', '$sessions');");
 
 // Update Course Table
 //$query= mysqli_query($conn,"UPDATE  `course` SET  `code` =  '$code',`title` =  '$title',`unit`='$unit',`sessions`='$sessions'
@@ -104,6 +105,9 @@ echo "<font color = 'red'>"."<i>"."Successful"."</i>"."</font>";
 }elseif(isset($_GET['id'])){
 	
 $ids = $_GET['id'];
+$ids = preg_replace("/[^0-9]/", "", $ids);
+
+
 
 if (!isset($_SESSION)) {
   session_start();
@@ -126,9 +130,13 @@ echo '<div> <form action="" method="post"><input type = "hidden" name = "program
 	}
 
 if (isset($_POST['Submit'])){
+
 $prog=$_POST['programe'];
+$prog = preg_replace("/[^0-9]/", "", $prog);
 $semester=$_POST['semester'];
+$semester = preg_replace("/[^0-9]/", "", $semester);
 $session = $_POST['session'];
+$session = preg_replace("/[^0-9\/]/", "", $session);
 
 if (!isset($_SESSION)) {
   session_start();
@@ -139,7 +147,7 @@ $_SESSION['semester'] = $semester;
 $_SESSION['session'] = $session;
 
 
-$sql = mysqli_query($conn,"SELECT * FROM  `course` WHERE Programme='$prog' && semester ='$semester' && sessions = '$session'");
+$sql = mysqli_query($conn,"SELECT * FROM  `course` WHERE prog_id='$prog' && semester ='$semester' && sessions = '$session'");
 if(!$sql){
 die(mysqli_error());
 }?>
@@ -167,15 +175,15 @@ die(mysqli_error());
                     <input name="<?php echo 'sn'.$n;?>" type="hidden"  value="<?php echo $row['sn'];?>" /></td>
                   <td ><input style="border:thin;" name="<?php echo 'title'.$n;?>" type="text"  value="<?php echo $row['title'];?>" size="50" class="form-control"/>
                   <input name="<?php echo 'titles'.$n;?>" type="hidden"  value="<?php echo $row['title'];?>" size="50"/></td>
-                  <td  style="width: 89px"><input style="border:thin;" name="<?php echo 'code'.$n;?>" type="text" value="<?php echo $row['code'];?>" size="6" class="form-control"/>
+                  <td  style="width: 170px"><input style="border:thin;" name="<?php echo 'code'.$n;?>" type="text" value="<?php echo $row['code'];?>" size="6" class="form-control"/>
                   <input name="<?php echo 'codes'.$n;?>" type="hidden" value="<?php echo $row['code'];?>" /></td>
                   <td ><input style="border:thin;" name="<?php echo 'unit'.$n;?>" type="text" value="<?php echo $row['unit'];?>" size="4" class="form-control"/>
                     <input name="<?php echo 'units'.$n;?>" type="hidden" value="<?php echo $row['unit'];?>" /></td>
                   <td>
-				           <input class="form-control" name="<?php echo 'ses'.$n;?>" type="text" value="<?php echo $row['sessions'];?>" size="4" />
+				           <input style="border:thin;" class="form-control" name="<?php echo 'ses'.$n;?>" type="text" value="<?php echo $row['sessions'];?>" size="4" />
 				           <input name="<?php echo 'sess'.$n;?>" type="hidden" value="<?php echo $row['sessions'];?>" /></td>
                   <td>
-				            <input class="form-control" name="<?php echo 'sems'.$n;?>" type="text" value="<?php echo $semester;?>" size="4" /></td>
+				            <input style="border:thin;" class="form-control" name="<?php echo 'sems'.$n;?>" type="text" value="<?php echo $semester;?>" size="4" /></td>
                   <td><a href="smanage.php?id=<?php echo $row['sn'].'&updtcourse';?>">&nbsp;&nbsp;&nbsp;<img src="images/del.jpg" width="16" height="14" alt="del" /></a>
                   <input name="<?php echo 'sn'.$n;?>" type="hidden" value="<?php echo $row['sn'];?>" /></td>
                 </tr>
@@ -205,11 +213,12 @@ exit;
             
                     //$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
                       //while($prgasc = mysqli_fetch_assoc($prgqry))
-                      while($pcd = mysqli_fetch_assoc($prgqry)){
+                      $queri = prog_function($logs);
+                      while($pcd = mysqli_fetch_assoc($queri)){
                       ?>
                       
             
-            <option ><?php echo $pcd['programme'];?></option>
+            <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
               
               <?php }?>
               
@@ -234,6 +243,7 @@ exit;
                   <select name="session" class="form-control">
                   <option selected="selected" value="">Select Session</option>
                   <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
+                  <option>2010/2011</option>
                   <option>2017/2018</option>
                   <option>2018/2019</option>
                   </select>

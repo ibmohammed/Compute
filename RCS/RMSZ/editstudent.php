@@ -2,40 +2,52 @@
 <?php ini_set('display_errors', true); ?>
 <?php include("includes/header.php"); ?>    
     
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Untitled Document</title>
-</head>
 
-<body>
   
 	<?php 
 if(isset($_POST['Submit2'])){	
-$name = $_POST['names'];
-$matno=$_POST['mat'];
-$sex=$_POST['sex'];
-$matno2=$_POST['mat2'];
-$id = $_POST['id'];
-$atw = $_POST['atw'];
-$session = $_POST['session'];
-$year = $_POST['year'];
-$progr = $_POST['prg'];
-$progr2 = $_POST['dept'];
 
+
+    $name = $_POST['names'];
+    $name =  preg_replace("/[^a-zA-Z\s]/", "", $name);
+    $matno=$_POST['mat'];
+    $matno =  preg_replace("/[^a-zA-Z0-9\s\/]/", "", $matno);
+    $sex=$_POST['sex'];
+    $sex =  preg_replace("/[^a-zA-Z\s]/", "", $sex);
+    $matno2=$_POST['mat2'];
+    $matno2 =  preg_replace("/[^a-zA-Z0-9\s\/]/", "", $matno2);
+    $id = $_POST['id'];
+    $id =  preg_replace("/[^0-9\s]/", "", $id);
+    $atw = $_POST['atw'];
+    $atw =  preg_replace("/[^0-9\s]/", "", $atw);
+    $session = $_POST['session'];
+    $session =  preg_replace("/[^0-9\s\/]/", "", $session);
+    $year = $_POST['year'];
+    $year =  preg_replace("/[^0-9\s]/", "", $year);
+    $progr = $_POST['prg'];
+    $progr =  preg_replace("/[^a-zA-Z\s]/", "", $progr);
+    $progr2 = $_POST['dept'];
+    $progr2 =  preg_replace("/[^a-zA-Z\s]/", "", $progr2);
+
+
+   /* $sql=mysqli_query($conn,"UPDATE `studentsnm` SET `names` = '$name',`matno` = '$matno',
+    `Withdrwan`='$atw',`sex`='$sex', `session` = '$session', `year` = '$year', `dept` = '$progr' 
+    WHERE `studentsnm`.`sn` ='$id' ") or die (mysqli_error());*/
+    
 
 $sql=mysqli_query($conn,"UPDATE `studentsnm` SET `names` = '$name',`matno` = '$matno',
-`Withdrwan`='$atw',`sex`='$sex', `session` = '$session', `year` = '$year', `dept` = '$progr' 
+`Withdrwan`='$atw',`sex`='$sex', `session` = '$session', `year` = '$year' 
 WHERE `studentsnm`.`sn` ='$id' ") or die (mysqli_error());
 
 if($atw==0){
+
 $msql=mysqli_query($conn,"UPDATE `results` SET `name` = '$name',
-`matric_no` = '$matno', `programme` = '$progr', `session` = '$session'  
+`matric_no` = '$matno'  
 WHERE `results`.`matric_no` ='$matno2'") or die (mysqli_error());
+
 }else{
 $msql=mysqli_query($conn,"UPDATE `results` SET `name` = '$name',
-`matric_no` = '$matno', `programme` = '$progr', `session` = '$session', stat = '$atw' 
+`matric_no` = '$matno', stat = '$atw' 
 WHERE `results`.`matric_no` ='$matno2'") or die (mysqli_error());
 
 }
@@ -44,7 +56,7 @@ echo "<font color = 'red'><i>"."Successful!!"."</i></font>";
 echo '<h3>'.$_POST['dept'].'<h3>';
 
 ?>
-<table border="1" style="font-size:11; width:800px; border:thin; border-collapse:collapse" cellpadding="0" cellspacing="1">
+<table class="table table-bordered">
             <tr bgcolor=""  >
               <td><span style ="color:black;">Id</span></td>
               <td><span style ="color:black;">Name</span></td>
@@ -59,7 +71,7 @@ echo '<h3>'.$_POST['dept'].'<h3>';
 			$dept = $_POST['dept'];
 			$year=$_POST['year'];
 			$session=$_POST['session'];
-			$sql=mysqli_query($conn,"SELECT *FROM `studentsnm` WHERE dept = '$dept' && year ='$year' ORDER BY `matno` ASC");
+			$sql=mysqli_query($conn,"SELECT * FROM `studentsnm` WHERE prog_id = '$dept' && year ='$year' ORDER BY `matno` ASC");
 			$n=0;
 			 while ($row=mysqli_fetch_assoc($sql)){
 			 $n=$n+1;
@@ -86,9 +98,11 @@ echo '<h3>'.$_POST['dept'].'<h3>';
       </table>
 	  <br/>
 	
-	<?php exit; }	?>
-	
-	<?php if (isset($_GET['deletes'])){
+  <?php // exit; 
+
+
+}elseif(isset($_GET['deletes'])){
+
 	$id = $_GET['id'];
 $matno = $_GET['matno'];
 
@@ -97,39 +111,43 @@ $matno = $_GET['matno'];
 	$query=mysqli_query($conn,"DELETE FROM `results` WHERE matric_no = '$matno'") or die (mysqli_error());
 	
 	echo "<font color = 'red'><i>"."Deleted"."</i></font>";
-	}
-	
-	?>
-	
-	
-	<?php if (isset($_GET['Edit'])){
-	$id = $_GET['id'];
-	$query=mysqli_query($conn,"SELECT *FROM `studentsnm` WHERE sn = '$id'") or die (mysqli_error());
-	$row=mysqli_fetch_assoc($query);
+  
+
+}elseif (isset($_GET['Edit'])){
+    
+  $id = $_GET['id'];
+  $id =  preg_replace("/[^a-zA-Z0-9\s]/", "", $id);
+	$query=mysqli_query($conn,"SELECT * FROM `studentsnm` WHERE sn = '$id'") or die (mysqli_error());
+  $row=mysqli_fetch_assoc($query);
+  
+  $pg = proggpid_function($logs, $row['prog_id']);
+  $rows= mysqli_fetch_assoc($pg);
+  echo $row['prog_id'];
 	?>
 	
         
         <form id="form1" name="form1" method="post" action="">
-          <table border="" style="font-size:11; width:800px; border:thin; border-collapse:collapse" cellpadding="0" cellspacing="1">
+          <table class="table table-bordered">
             <tr>
               <td style="height: 29px" ><strong>PROGRAMME:</strong></td>
               
 
               <td style="height: 29px" >
               
-              <input style="height:auto;" name="dept" type="hidden" id="dept"  value="<?php echo $row['dept'];?>" size="50" readonly="1"/>
-              <select name="prg" id="prg">
+              <input style="height:auto;" name="dept" type="hidden" id="dept"  value="<?php echo $row['prog_id'];?>" size="50" readonly="1"/>
+              <select name="prg" id="prg" class="form-control">
                 <?php include('dptcode.php') ;
             
             
-            $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
+            $queri = proggpid_function($logs, $row['prog_id']);
+           // $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE dep = '$departmentcode'") or die(mysqli_error());
             
             while($pcd = mysqli_fetch_assoc($queri)){
             ?>
             
-             <option selected="selected">	<?php echo $row['dept'];?>
-             </otion>
-              <option><?php echo $pcd['dep'];?></option>
+             <option selected="selected">	<?php echo $pcd['programme'];?>
+             </option>
+              <option><?php echo $pcd['programme'];?></option>
               
               <?php }?>
                            
@@ -140,27 +158,27 @@ $matno = $_GET['matno'];
             </tr>
             <tr>
               <td style="height: 29px" ><strong>NAME:</strong></td>
-              <td style="height: 29px" ><input name="names" style="height:auto;" type="text" id="names"  value="<?php echo $row['names'];?>" size="30"/>              </td>
+              <td style="height: 29px" ><input name="names" style="height:auto;" type="text" id="names"  value="<?php echo $row['names'];?>" size="30" class="form-control"/>              </td>
             </tr>
             <tr>
               <td ><strong>GENDER:</strong></td>
-              <td ><input name="sex" style="height:auto;" id="sex" value="<?php echo $row['sex'];?>" size= "15" /></td>
+              <td ><input name="sex" style="height:auto;" id="sex" value="<?php echo $row['sex'];?>" size= "15" class="form-control"/></td>
             </tr>
             <tr>
               <td ><strong>MATRIC NO: </strong></td>
-              <td ><input name="mat" style="height:auto;" id="mat" value="<?php echo $row['matno'];?>" size= "15" />
+              <td ><input name="mat" style="height:auto;" id="mat" value="<?php echo $row['matno'];?>" size= "15" class="form-control"/>
                 <input name="mat2" id="mat2" value="<?php echo $row['matno'];?>" size= "15" type="hidden" />
                                  <input name="year"  type="hidden"id="year" value="<?php echo $row['year'];?>" size= "8" />
                   <span class="style3">*</span></td>
             </tr>
             <tr>
               <td ><strong>SESSION:</strong></td>
-              <td ><select name="session" style="height:auto;" id="session">
+              <td ><select name="session" class="form-control" id="session">
                   <option selected="selected"><?php echo $row['session'];?></option>
                          <?php echo include('includes/sessions.php');?>
 
               </select> - 
-			  <select name="year" style="height:auto;" id="year">
+			  <select name="year" class="form-control" id="year">
                   <option selected="selected"><?php echo $row['year'];?></option>
                          <?php 
                          for($i = 14; $i<=25; $i++){
@@ -174,31 +192,31 @@ $matno = $_GET['matno'];
             </tr>
             <tr>
               <td ><strong>STATUS:</strong> </td>
-              <td ><select name="atw" style="height:auto;" id="atw">
+              <td ><select name="atw" class="form-control" id="atw">
                 <option value="0" selected="selected">Active</option>
                 <option value="1">InActive</option>
               </select>               </td>
             </tr>
           </table>
-                <input type="submit" name="Submit2" value="Update" />
+                <input type="submit" name="Submit2" value="Update" class="btn btn-gradient-primary mr-2"/>
                 </form>
                 
                 
-        	<?php exit;  }
-        	
-//        	
-        	
-        	
-        	
-        	
+          <?php //exit;  
 
-	if (isset($_POST['Submit'])){
-	echo '<h3>'.$_POST['dept'].'</h3>';
+          
+        
+}
+          
+
+elseif (isset($_POST['Submit'])){
+  
+  echo '<h3>'.$_POST['dept'].'</h3>';
 	?>
-	<table border="0">
+	<table class="table table-bordered">
       <tr>
         <td>
-          <table border="1" style="font-size:11; width:800px; border:thin; border-collapse:collapse" cellpadding="0" cellspacing="1" >
+          <table class="table table-bordered" >
               <tr>
               <td><span style ="color:black;">Id</span></td>
               <td><span style ="color:black;">Name</span></td>
@@ -213,7 +231,7 @@ $matno = $_GET['matno'];
 			$dept = $_POST['dept'];
 			$year=$_POST['year'];
 			$session=$_POST['session'];
-			$sql=mysqli_query($conn,"SELECT *FROM `studentsnm` WHERE dept = '$dept' && year ='$year' && session='$session'  ORDER BY `matno` ASC");
+			$sql=mysqli_query($conn,"SELECT *FROM `studentsnm` WHERE prog_id = '$dept' && year ='$year' && session='$session'  ORDER BY `matno` ASC");
 			$n=0;
 			 while ($row=mysqli_fetch_assoc($sql)){
 			 $n=$n+1;
@@ -240,9 +258,11 @@ $matno = $_GET['matno'];
             
         </td>
       </tr>
-    </table><?php exit; }?>
+    </table><?php //exit; 
+  }?>
     
-    
+    <br>
+    <hr>
     <form id="form2" name="form2" method="post" action="">
           <table  class="table table-bordered" >
             <tr>
@@ -255,11 +275,12 @@ $matno = $_GET['matno'];
             
             //$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
             //while($prgasc = mysqli_fetch_assoc($prgqry))
+            $prgqry = prog_function($logs);
             while($pcd = mysqli_fetch_assoc($prgqry)){
             ?>
             
             
-              <option selected="selected"><?php echo $pcd['programme'];?></option>
+              <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
               
               <?php }?>
               
@@ -310,3 +331,4 @@ $matno = $_GET['matno'];
                          <br> 
                          <p> <a href="smanage.php?regs">Register Student</a></p>
                          <br>
+<hr>

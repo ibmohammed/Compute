@@ -21,7 +21,7 @@
             <?php include('dptcode.php') ;
            // $queri = mysqli_query($conn,"SELECT * FROM `programmes` WHERE prog_id = '".$_SESSION['prgid']."'") or die(mysqli_error($conn));
            //while($prgasc = mysqli_fetch_assoc($prgqry))
-           
+           $prgqry = prog_function($logs);
            while($pcd = mysqli_fetch_assoc($prgqry)){?>
               <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
               <?php 

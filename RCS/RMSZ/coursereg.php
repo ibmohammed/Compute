@@ -13,29 +13,42 @@
 
 if(isset($_POST['Submit'])){
 $prog=$_POST['programe'];
+$prog = preg_replace("/[^0-9]/", "", $prog);
+
 $title=$_POST['title'];
+$title = preg_replace("/[^a-zA-Z0-9\s]/", "", $title);
+
 $code=$_POST['code'];
+$code = preg_replace("/[^a-zA-Z0-9\s]/", "", $code);
+
 $unit=$_POST['unit'];
+$unit = preg_replace("/[^0-9]/", "", $unit);
+
 $semester=$_POST['semester'];
+$semester = preg_replace("/[^0-9]/", "", $semester);
+
 $session = $_POST['session'];
+$session = preg_replace("/[^0-9\/]/", "", $session);
+
+$staffs_id = 0;
 
 // Check if records exist in the data base
 
 $msql=mysqli_query($conn,"SELECT * FROM `course` 
-WHERE Programme ='$prog' && 
+WHERE prog_id ='$prog' && 
 semester='$semester' && 
-code = '$code' && sessions = '$session'") or die(mysqli_error());
+code = '$code' && sessions = '$session'") or die(mysqli_error($conn));
 
 $valid = mysqli_fetch_assoc($msql);
 if ($code ==$valid['code']){
-echo "<i><font color='red'>This caourse cannot be registaerd twice</i></font>"; 
+echo "<i><font color='red'>course cannot be registaerd twice</i></font>"; 
 }else{
 
 
 //insert records into the database
 
-$query=mysqli_query($conn,"INSERT INTO `course` (`Programme`, `unit`, `semester`, `code`, `title`,`sessions`) 
-VALUES ('$prog', '$unit', '$semester', '$code', '$title','$session')") or die(mysqli_error());
+$query=mysqli_query($conn,"INSERT INTO `course` (`prog_id`, `unit`, `semester`, `code`, `title`,`sessions`, `staff_id`) 
+VALUES ('$prog', '$unit', '$semester', '$code', '$title','$session', '$staffs_id')") or die(mysqli_error($conn));
 }
 
 
@@ -50,9 +63,9 @@ VALUES ('$prog', '$unit', '$semester', '$code', '$title','$session')") or die(my
         <?php 
         
         $sql=mysqli_query($conn,"SELECT * FROM `course` 
-            WHERE Programme ='$prog' && 
+            WHERE prog_id ='$prog' && 
             semester='$semester' && 
-            sessions = '$session'") or die(mysqli_error());
+            sessions = '$session'") or die(mysqli_error($conn));
 
                   
             $n= 0 ;
@@ -71,14 +84,14 @@ VALUES ('$prog', '$unit', '$semester', '$code', '$title','$session')") or die(my
       <?php ?>
       
 
-
+<!--
           <form action="" method="post" name="form2" id="form2" onSubmit="MM_validateForm('title','','R','code','','R','code','','R');return document.MM_returnValue" onfocus="MM_validateForm('0','','R','0','','R','1','','R','1','','R','0','','R','1','','R');return document.MM_returnValue">
               <table class="table table-bordered" >
                 <tr>
                   <td><span style="color: #FFFFFF">Programme:</span></td>
                   <td><span style="color: #FFFFFF">
                     <label>
-                    <input name="programe" type="hidden" id="programe" value="<?php echo $prog;?>" class="form-control"/>
+                    <input name="programe" type="hidden" id="programe" value="<?php //echo $prog;?>" class="form-control"/>
                     </label>
                   </span></td>
                 </tr>
@@ -110,8 +123,8 @@ VALUES ('$prog', '$unit', '$semester', '$code', '$title','$session')") or die(my
                   <td><span style="color: #FFFFFF">Semester:</span></td>
                   <td><span style="color: #FFFFFF">
                     <label>
-                    <input name="semester" type="hidden" id="semester"  value="<?php echo $semester;?>"/>
-                     <input name="session" type="hidden" id="session"  value="<?php echo $session;?>"/>
+                    <input name="semester" type="hidden" id="semester"  value="<?php //echo $semester;?>"/>
+                     <input name="session" type="hidden" id="session"  value="<?php //echo $session;?>"/>
                     </label>
                   </span></td>
                 </tr>
@@ -120,11 +133,14 @@ VALUES ('$prog', '$unit', '$semester', '$code', '$title','$session')") or die(my
               <input class="btn btn-gradient-primary mr-2" name="Submit" type="submit" id="Submit" value="Add Course" />
               </label>
           </form>
-
+-->
 <?php 
-exit(); 
+//exit(); 
 }
 ?>
+<br>
+<p></p>
+<hr>
           
           <form action="" method="post" name="form1" id="form1" onSubmit="MM_validateForm('0','','R','0','','R','1','','R','1','','R','0','','R','1','','R');MM_validateForm('title','','R','code','','R','title','','R','code','','R','code','','R','code','','R');return document.MM_returnValue">
 
@@ -134,14 +150,16 @@ exit();
                           <td ><span style="font-weight: bold">
                   <select name="programe" id="programe"  class="form-control" >
                       <option value="">Select programme</option>
+                      <option value="">Select programme</option>
                       <?php include('dptcode.php') ;
                 
             
                       // $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
                        //while($prgasc = mysqli_fetch_assoc($prgqry))
-                      while($pcd = mysqli_fetch_assoc($prgqry)){
+                       $queri = prog_function($logs);
+                      while($pcd = mysqli_fetch_assoc($queri)){
                          ?>
-                        <option><?php echo $pcd['programme'];?></option>
+                        <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
                         <?php }?> 
                    </select>
                   </span></td>
@@ -191,7 +209,8 @@ exit();
                     <select name="session" class="form-control">
                     <option selected="selected" value="">Select Session</option>    
 				  <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
-				   <option>2017/2018</option>
+          <option>2010/2011</option>
+          <option>2017/2018</option>
 				    <option>2018/2019</option>
 				     <option>2019/2020</option>
 				      <option>2020/2021</option>
@@ -203,3 +222,9 @@ exit();
               <p><input class="btn btn-gradient-primary mr-2" name="Submit" type="submit" id="Submit" value="Add Course" /></p>
               </label><br>
           </form>
+
+          
+<br>
+<p></p>
+<hr>
+        

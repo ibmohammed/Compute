@@ -21,7 +21,7 @@ if(isset($_POST['submit']))
 
 
       $loginUsername = $_POST['username'];
-      // $loginUsername =  preg_replace("/[^a-zA-Z0-9\s]/", "", $loginUsername);
+      $loginUsername =  preg_replace("/[^a-zA-Z0-9\s\/]/", "", $loginUsername);
 
       $password = $_POST['password'];
       $password =  preg_replace("/[^a-zA-Z0-9\s]/", "", $password);
