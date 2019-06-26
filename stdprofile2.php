@@ -95,11 +95,14 @@ if(@$_SESSION['comfirmuser'] == True){
          <h4 class="w3-center">My Profile</h4>
           <?php echo $data['names'];
                     $_SESSION['MM_Username'] = $data['matno'];
+
+                   $retnt = programmes($data['prog_id'], $logs);
+                    $prgid = mysqli_fetch_assoc($retnt);
           ?>
          <hr>
 
          <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i><?php echo $data['matno'];?></p>
-         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?php echo $data['dept'];?></p>
+         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?php echo $prgid['programme'];?></p>
          <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> <?php echo $data['session'];?></p>
         </div>
 

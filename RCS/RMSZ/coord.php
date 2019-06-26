@@ -1,6 +1,5 @@
 <?php
-if (!isset($_SESSION))
-{
+if (!isset($_SESSION)) {
   session_start();
   require_once('../../functions/queries.php');
   require_once('../../connections/connection.php');
@@ -34,20 +33,26 @@ function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
   return $isValid; 
 }
 
+$MM_restrictGoTo = "logins.php";
+if (!((isset($_SESSION['username'])))) {   
+  $MM_qsChar = "?";
+  $MM_referrer = $_SERVER['PHP_SELF'];
+  if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
+  if (isset($QUERY_STRING) && strlen($QUERY_STRING) > 0) 
+  $MM_referrer .= "?" . $QUERY_STRING;
+  $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
+  header("Location: ". $MM_restrictGoTo); 
+  exit;
+}
+?>
 
-$MM_restrictGoTo = "../../Login_v3/index.php";
+<?php 
+if (!isset($_SESSION)) {
+  session_start();
+}
 
-if (!((isset($_SESSION['staffcomfirmed']))))
-{
-    $MM_qsChar = "?";
-    $MM_referrer = $_SERVER['PHP_SELF'];
-    if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
-    if (isset($QUERY_STRING) && strlen($QUERY_STRING) > 0)
-    $MM_referrer .= "?" . $QUERY_STRING;
-    $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
-    header("Location: ". $MM_restrictGoTo);
-    exit;
-  }?>
+$departmentcode = $_SESSION['deptcode'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -97,8 +102,8 @@ if (!((isset($_SESSION['staffcomfirmed']))))
               <div class="nav-profile-text">
               <p class="mb-1 text-black">
                   <?php
-if(@$_SESSION['staffcomfirmed'] == True){
-  echo $_SESSION['staffcomfirmed'];
+if(@$_SESSION['MM_Usernames'] == True){
+  echo $_SESSION['MM_Usernames'];
 }
 ?></p>
               </div>
@@ -109,10 +114,10 @@ if(@$_SESSION['staffcomfirmed'] == True){
                 Activity Log
               </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="logout.php">
                 <i class="mdi mdi-logout mr-2 text-primary"></i>
                 Signout
-                </a>
+              </a>
             </div>
           </li>
           <li class="nav-item d-none d-lg-block full-screen-link">
@@ -141,11 +146,10 @@ if(@$_SESSION['staffcomfirmed'] == True){
     <div class="container-fluid page-body-wrapper">
       <!-- partial:../../partials/_sidebar.html -->
 
-      <?php require_once('newmenus_staff.php');?>
+     <?php require_once('newmenus.php');?>
 
       <!-- partial -->
       <div class="main-panel">
-      
         <div class="content-wrapper">
 
 
@@ -159,30 +163,47 @@ if(@$_SESSION['staffcomfirmed'] == True){
                   <!--  Add class <code>.table-bordered</code>-->
                   </p>
 
+            <!-- page content -->
+            
+            <?php  
+                include('menus.php');
+                include('grpedit.php');
 
-<!-- Page content -->
-<?php if(isset($_POST['Submitf']))
+                if(isset($_GET['create'])){
+                   include('idexcreate.php');
+                }
+                ?>
+<!-- Enf of page content -->
+      
+  <?php   if(isset($_GET['dashdept']))
         {
           ?>
-          
-            <br>
+            <h2>Programme</h2>
+            <table  class="table table-bordered">
+            <thead>
+            <tr>
+            <th>#</th>
+            <th>Programmes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php $i = 0;  
+            while($prgasc = mysqli_fetch_assoc($prgqry))
+            { 
+                $i++; 
+                ?>
+                <tr>
+                <td><?php echo $i;?></td>
+                <td><?php echo $prgasc['programme'];?></td>
+                </tr>
+                <?php
+            }
+            ?>
+            <tbody>
+            </table>
 
-            <h4>Import Results </h4><br>
-            <h6 class="w3-opacity"> </h6>
-            <hr class="w3-clear">
-        <?php require_once('csvresn.php');
-	
-
-		
-	}
-  require_once('menus.php');
-    
-    ?>
-      <!-- End of page content -->
-         
-                  
-
-      
+ <?php }
+    ?>  
      <!---dashboard -->
 
        <div class="page-header">
@@ -211,7 +232,7 @@ if(@$_SESSION['staffcomfirmed'] == True){
                   <h4 class="font-weight-normal mb-3">College
                     <i class="mdi mdi-chart-line mdi-24px float-right"></i>
                   </h4>
-                  <h3 class="mb-5"><?php echo $clg['college'];?></h3>
+                  <h3 class="mb-5"><?php echo $coleg['college'];?></h3>
                   <h6 class="card-text"></h6>
                 </div>
               </div>
@@ -224,96 +245,42 @@ if(@$_SESSION['staffcomfirmed'] == True){
                   <h4 class="font-weight-normal mb-3">School 
                     <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                   </h4>
-                  <h3 class="mb-5"><?php echo $clgid['school'];?></h3>
+                  <h3 class="mb-5"><?php echo $schl['school'];?></h3>
                   <h6 class="card-text"></h6>
                 </div>
               </div>
             </div>
-
+            
             <div class="col-md-4 stretch-card grid-margin">
+              
               <div class="card bg-gradient-success card-img-holder text-white">
                 <div class="card-body">
-                  <img src="../../imagess/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                                    
+                <a href="index.php?dashdept">  <img src="../../imagess/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                                
                   <h4 class="font-weight-normal mb-3">Department 
                     <i class="mdi mdi-diamond mdi-24px float-right"></i>
                   </h4>
-                  <h3 class="mb-5"><?php echo $schlid['name'];?></h3>
+                  <h3 class="mb-5"><?php echo $depts['name'];?></h3>
                   <h6 class="card-text"></h6>
+                  </a>  
                 </div>
               </div>
             </div>
+              
           </div>
           
      <!-- - End of Dashboard -->
 
 
-<!--- course allocation -->
+              
 
-       <h4>Courses</h4>
-                            
-              <?php
-                           
-              //require_once('RCS/courses.php');
-				$msql = "SELECT * FROM `course` WHERE staff_id = '".$_SESSION['id_staff']."'";
-				$msqls = mysqli_query($logs, $msql);
-				?>
-	<h4 style="color:red">Courses Allocated to <?php echo @$_SESSION['names']." (".@$_SESSION['number'].")";?></h4>
-	
-		
-			<table  class="table table-bordered" style="width:100%">
-			
-      <thead>
-        <tr>
-        <th>#</th>  
-        <th>CourseCode</th>
-        <th>Course Tile</th>
-        <th>Course Unit</th>
-      </tr>
-      </thead>
-      <tbody>	
-						
-			<?php 
-			$in = 0;
-      while($col = mysqli_fetch_assoc($msqls)){ $in++;
-      
-      
-      ?>
-      	<form name="form<?php echo $in;?>" method="post" action="">
-				<tr>
-				
-				
-        <td>	<?php echo $in;?></td>
-        <td>	<button class="btn btn-gradient-primary mr-2" style="width:150px"  name="Submitf"><?php echo $col['code'];?></button></td>
-        <td>		<?php echo $col['title'];?></td>
-        <td>		<?php echo $col['unit'];?>
-										<input type="hidden" value="<?php echo $col['semester'];?>" name="semester"> 
-										<input type="hidden" value="<?php echo $col['sessions'];?>" name="session">
-										<input type="hidden" value="<?php echo $col['prog_id'];?>" name="dept_id">
-										<input type="hidden" value="<?php echo $col['code'];?>" name="code">
-                    <!--&nbsp;&nbsp;<button style="width:70px; font-size:8pt" name="SubmitS"><?php //echo $col['code'];?></button>-->
-				</td>
-        </tr>
-        </form>
-        <?php }?>
-      </tbody>
-				
-			</table>
-      <br>
-            
-<!--- End of course allocation -->
-
-
-    
-     
-    </div>
+       </div>
     </div>
 </div>
-    </div>
+    
 
 
-
+        </div>
         <!-- content-wrapper ends -->
-        
         <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
@@ -329,14 +296,14 @@ if(@$_SESSION['staffcomfirmed'] == True){
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
-  <script src="vendors/js/vendor.bundle.base.js"></script>
-  <script src="vendors/js/vendor.bundle.addons.js"></script>
+  <script src="../../vendors/js/vendor.bundle.base.js"></script>
+  <script src="../../vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <!-- End plugin js for this page-->
   <!-- inject:js -->
-  <script src="js/off-canvas.js"></script>
-  <script src="js/misc.js"></script>
+  <script src="../../js/off-canvas.js"></script>
+  <script src="../../js/misc.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->
   <!-- End custom js for this page-->

@@ -35,7 +35,7 @@ if(isset($_POST['Submit']))
 	
 	$password = $_POST['pasword'];
 	//$password = mysqli_real_escape_string($password);
-	$password =  preg_replace("/[^a-zA-Z0-9\s]/", "", $password);
+	//$password =  preg_replace("/[^a-zA-Z0-9\s]/", "", $password);
 
 	$MM_fldUserAuthorization = "";
 	  $MM_redirectLoginSuccess = "index.php";
@@ -46,31 +46,33 @@ if(isset($_POST['Submit']))
 	  $MM_redirecttoReferrer = true;
   
 
+	//  $stmt = mysqli_prepare($conn, "SELECT id, username, password, progs,  t_user 
+	  //FROM  `logintbl` WHERE username =? AND password=?");
 
-
-	$stmt = mysqli_prepare($conn, "SELECT id, username, password, progs,  t_user FROM  `logintbl` WHERE username =? AND password=?");
+	$stmt = mysqli_prepare($conn, 
+	"SELECT id, username, password, progs,  t_user, status 
+	FROM  `logintbl` WHERE username =?");
 	
 
 	
 	//$row = mysqli_fetch_assoc($result);
 
   /* bind parameters for markers */
-  mysqli_stmt_bind_param($stmt, "ss", $loginUsername, $password);
+  mysqli_stmt_bind_param($stmt, "s", $loginUsername);
 
   /* execute query */
   mysqli_stmt_execute($stmt);
-  mysqli_stmt_bind_result($stmt, $id, $uname, $pwrd, $prog, $t_user);
+  mysqli_stmt_bind_result($stmt, $id, $uname, $pwrd, $prog, $t_user, $number);
   mysqli_stmt_store_result($stmt);
-  $loginFoundUser = mysqli_stmt_num_rows($stmt);
+
+  //$loginFoundUser = password_verify($password, $pwrd);
+
+  //$loginFoundUser = mysqli_stmt_num_rows($stmt);
   /* fetch value */
   mysqli_stmt_fetch($stmt);
   //$loginFoundUser = mysqli_num_rows($result);
-
-  
-  
-
-	
-	//$_SESSION['deptcode'] = ;
+$_SESSION['myaidi'] =  $id;
+$_SESSION['utyp'] =  "Staff";  
 	
 	if($t_user == 0)
 	//if($row['status']== 0)

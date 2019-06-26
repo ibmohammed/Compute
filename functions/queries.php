@@ -2,12 +2,12 @@
          function students_login($username, $password, $lg) {
 
             //require_once('connection.php');
-            $query = "SELECT id, matric_no, password, status FROM nigerpol_consultdbsnw.students_log WHERE matric_no=? && password=?";
+            $query = "SELECT id, matric_no, password, status FROM students_log WHERE matric_no=?";
             $stmt = mysqli_prepare($lg, $query) or die(mysqli_error($logs)."query error");
             /* bind parameters for markers */
-            mysqli_stmt_bind_param($stmt, "ss", $username, $password);
+            mysqli_stmt_bind_param($stmt, "s", $username);
             /* execute query */
-            mysqli_stmt_store_result($stmt);
+            //mysqli_stmt_store_result($stmt);
             return $stmt;
 
 
@@ -18,7 +18,7 @@
            function login_comfirm($username, $password,$lg) {
              //require_once('connection.php');
              $query = "SELECT sn, names, matno, prog_id, year, session, status FROM nigerpol_consultdbsnw.studentsnm WHERE matno=?";
-             $stmt = mysqli_prepare($lg, $query)or die(mysqli_error($lg)."query error");
+             $stmt = mysqli_prepare($lg, $query) or die(mysqli_error($lg)."query error");
              mysqli_stmt_bind_param($stmt, "s", $username);
             /* execute query */
             // mysqli_stmt_bind_result($stmt);
@@ -31,11 +31,13 @@
              
   			 function login_scomfirm($username, $password,$lg) {
              //require_once('connection.php');
-             $query = "SELECT id, names, number, contact, dept_id FROM nigerpol_consultdbsnw.staff WHERE number=?";
+             $query = "SELECT id, names, number, contact, dept_id 
+             FROM nigerpol_consultdbsnw.staff WHERE number=?";
              $stmt = mysqli_prepare($lg, $query) or die(mysqli_error($lg)."query error");
              mysqli_stmt_bind_param($stmt, "s", $username);
             /* execute query */
             mysqli_stmt_store_result($stmt);
+            //mysqli_execute($stmt);
              return $stmt;
              }
 
@@ -142,14 +144,14 @@ try {
            }
 // get all courses   
            function t_courses($course, $lg) {
-            $ssql = "SELECT *  FROM course WHERE `prog_id` LIKE '$course'";
-			$msq = mysqli_query($lg, $ssql) or die(mysqli_error());
-			return $msq;
+            $ssql = "SELECT * FROM course WHERE `prog_id` = '$course'";
+            $msq = mysqli_query($lg, $ssql) or die(mysqli_error($lg));
+            return $msq;
            }
 // get the department name
 		   function programme($departmentcode, $lg) {
            $ssql = "SELECT * FROM `dept` WHERE	 `prog` = '$departmentcode'";
-			$msq = mysqli_query($lg, $ssql) or die(mysqli_error());
+			$msq = mysqli_query($lg, $ssql) or die(mysqli_error($lg));
 			return $msq;
            }
 
@@ -160,11 +162,6 @@ try {
 function departments($deptid, $lg) 
 {
 
- /* $ssql = "SELECT * FROM `departments` WHERE `dept_id` = ?";
-  $stmt = mysqli_prepare($lg, $ssql);
-  mysqli_stmt_bind_param($stmt, "s", $deptid);
-  $stmts1 = mysqli_stmt_execute($stmt);
-  */
 
   $stmt1 = $lg->prepare("SELECT * FROM `departments` WHERE `dept_id` = ?");
   $stmt1->bind_param("s", $deptid);
@@ -177,11 +174,7 @@ function departments($deptid, $lg)
 
 function schools($schlid, $lg) 
 {
-  /*$ssql = "SELECT * FROM `schools` WHERE schl_id = ?";
-  $stmt = mysqli_prepare($lg, $ssql);
-  mysqli_stmt_bind_param($stmt, "s", $schlid);
-  $stmts2 = mysqli_stmt_execute($stmt);
-  */
+ 
 
 $stmt2 = $lg->prepare("SELECT * FROM `schools` WHERE schl_id = ?");
 $stmt2->bind_param("s", $schlid);
@@ -194,12 +187,7 @@ $clgid = $result2->fetch_assoc();
 
 function colleges($collegeid, $lg) 
 {
-  /*$ssql = "SELECT * FROM `colleges` WHERE college_id = ?";
-  $stmt = mysqli_prepare($lg, $ssql);
-  mysqli_stmt_bind_param($stmt, "s", $collegeid);
-  $stmts3 = mysqli_stmt_execute($stmt);
-*/
-//$param = "%{$_POST['user']}%";
+  
 $stmt3 = $lg->prepare("SELECT * FROM `colleges` WHERE college_id = ?");
 $stmt3->bind_param("s", $collegeid);
 $stmt3->execute();
@@ -239,5 +227,17 @@ function collegess($collegeid, $lg)
 }
 
 
+function user_type($lg)
+{
+  $utype = "SELECT * FROM `usertype`";
+  $msq = mysqli_query($lg, $utype) or die(mysqli_error($lg));
+  return $msq;  
+}
 
+function programmess_dept($deptid, $lg) 
+{
+  $ssql = "SELECT * FROM `programmes` WHERE `dept_id` = '$deptid'";
+  $msq = mysqli_query($lg, $ssql) or die(mysqli_error());
+  return $msq;  
+}
   ?>

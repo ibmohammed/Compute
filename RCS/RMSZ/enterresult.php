@@ -111,8 +111,8 @@ $query=mysqli_query($conn,"INSERT IGNORE INTO `consultdbsnw`.`results`
   
 	  <table class="table table-bordered">
         <tr>
-          <td style="height: 30px"><span style="font-weight: bold">Name:</span></td>
-          <td style="height: 30px"><input name="name" type="text" id="name" value="<?php echo $row['names'];?>" size="40"  readonly="1"/>
+          <td><span style="font-weight: bold">Name:</span></td>
+          <td><input name="name" type="text" id="name" value="<?php echo $row['names'];?>" size="40"  readonly="1"/>
           </td>
         </tr>
         <tr>
@@ -281,30 +281,19 @@ if (($matricno==$col[2])&&($programme==$col[3])&&($programme==$col['semester']))
          			<option selected="selected"></option>
          			
          			 <?php include('dptcode.php') ;
-            
-            
-//        $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode' && `dep` LIKE '%National Diploma%'") or die(mysql_error());
-
-            $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE 
-            prog = '$departmentcode'") or die(mysql_error());
-            
-            while($pcd = mysqli_fetch_assoc($queri)){
-            ?>
-            
-            
-              <option><?php echo $pcd['dep'];?></option>
-              
-              <?php }?>
+             $prgqry = prog_function($logs);
+             while($pcd = mysqli_fetch_assoc($prgqry)){
+             ?>
+             
+             
+               <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
+               
+               <?php }?>
+               
               
              
-            
-  <?php
-			//include('prog1.php');
-			//include('prog2.php');
-			//include('prog3.php');
-			 ?>
-		    <?php //include("includes/optionsc.php"); ?>
-          </select>          </td>
+                 </select>         
+          </td>
         </tr>
         <tr>
           <td ><span style="font-weight: bold; color: #000000">SESSION:</span></td>
@@ -316,7 +305,7 @@ if (($matricno==$col[2])&&($programme==$col[3])&&($programme==$col['semester']))
           -
           <select name="year" id="year" class="form-control">
             <option selected="selected">YEAR</option>
-			<option>9</option>
+			      <option>9</option>
             <option>10</option>
             <option>11</option>
             <option>12</option>
@@ -324,26 +313,28 @@ if (($matricno==$col[2])&&($programme==$col[3])&&($programme==$col['semester']))
             <option>14</option>
             <option>15</option>
             <option>16</option>
-			<option>17</option>
-	   <?php 
-                         for($i = 18; $i<=20; $i++){
-                         
-                         echo "<option>".$i."</option>";
-                         }
-                         ?>
-          </select></td>
+		      	<option>17</option>
+	         <?php 
+            for($i = 18; $i<=20; $i++)
+            {
+              echo "<option>".$i."</option>";
+            }?>
+          </select>
+          </td>
         </tr>
         <tr>
-          <td ><span style="font-weight: bold; color: #000000">SEMESTER:</span></td>
-          <td ><select name="semester" class="form-control">
-            <option selected="selected"></option>
-			<option value="1">First Semester</option>
-            <option value="2">Second Semester</option>
-            <option value="3">Third Semester</option>
-			<option value="4">Fourth Semester</option>
-            <option value="5">Fift Semester</option>
-            <option value="6">Sixth Semester</option>
-          </select></td>
+          <td>SEMESTER:</td>
+          <td>
+            <select name="semester" class="form-control">
+              <option selected="selected"></option>
+              <option value="1">First Semester</option>
+              <option value="2">Second Semester</option>
+              <option value="3">Third Semester</option>
+              <option value="4">Fourth Semester</option>
+              <option value="5">Fift Semester</option>
+              <option value="6">Sixth Semester</option>
+            </select>
+          </td>
         </tr>
       </table>
       <br>

@@ -99,5 +99,14 @@ $prgqry = mysqli_query($logs, "SELECT prog_id, programme FROM `programmes` WHERE
                                             </ul>
                                         </div>
                                         </li>
+
+                                        
+    <li class="nav-item">
+            <a class="nav-link" href="index_link.php?setting">
+              <span class="menu-title">Settings</span>
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+            </a>
+          </li>
+
       </ul>
       </nav>

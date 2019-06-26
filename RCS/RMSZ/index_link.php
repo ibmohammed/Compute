@@ -23,6 +23,9 @@ if(isset($_GET['csv']))
 }if(isset($_GET['alloc']))
 {
     header('location:index.php?alloc');
+}if(isset($_GET['setting']))
+{
+    header('location:index.php?setting');
 }
 
 ?>

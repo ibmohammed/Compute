@@ -6,21 +6,43 @@ if (!isset($_SESSION))
 
 <?php 
 include("includes/header.php"); 
-include("logintop.php");
+//include("logintop.php");
 ?>
+	<?php 
 
-<?php
+$dcode =  dept_function($conn);             
+
+
 //staff registration 
 if(isset($_POST['Submit2']))
 {
 
-	$dptdcode = $_POST['dptdcode'];
-	$names = $_POST['staffname'];
-	$contact = $_POST['contact'];
-	$number = $_POST['staffnumber'];
+	
+function staff_reg($names,$number,$contact,$ccdes){
 	
 	$logintbl="INSERT INTO staff (names, number, contact, dept_id)
-	VALUES ('$names','$number','$contact','$dptdcode')";
+	VALUES ('$names','$number','$contact','$ccdes')";
+	return $logintbl;
+	
+}
+	
+$names = $_POST['staffname'];
+$contact = $_POST['contact'];
+$number = $_POST['staffnumber'];
+$t_user = $_POST['t_user'];
+
+
+	if($t_user!==1){
+
+		$dptdcode = 0;	
+		$logintbl = 	staff_reg($names,$number,$contact,$dptdcode);
+	}else{
+		$dptdcode = $_POST['dptdcode'];
+		$ccodes = mysqli_query($conn, "SELECT dept_id, name, schl_id FROM `departments` WHERE code= '".$dptdcode."' ") or die(mysqli_error($logs));
+		$ccdes = mysqli_fetch_assoc($ccodes);
+		$logintbl = 	staff_reg($names,$number,$contact,$ccdes['dept_id']);
+		
+	}
 	
 	
 	if (mysqli_query($conn, $logintbl))
@@ -29,12 +51,18 @@ if(isset($_POST['Submit2']))
 		//$uname = 
 		
 		$qry="INSERT INTO logintbl (username, password, progs, t_user, status)
-		VALUES ('$number', '0000', '$dptdcode', '1', '2')";
+		VALUES ('$number', '0000', '$dptdcode', '$t_user', '$t_user')";
 		
 		if (mysqli_query($conn, $qry))
 		{
 		//echo "User Added Successfuly";
-		header("location:adduser.php?Success=Staff Added Successfuly");
+
+		echo '<script type="text/javascript">
+		location.replace("smanage.php?Success=Staff Added Successfuly");
+		</script>';
+
+
+		//header("location:smanage.php?Success=Staff Added Successfuly");
 		// header("location:index.php?Invalid=Inorrect Username and Password");
 		}
 		else
@@ -73,40 +101,16 @@ elseif(isset($_POST['Submit']))
 		
 		//echo 
 		?>
-		<div class="limiter">
-	<div class="container-login100" style="background-image: url('../../Login_v3/images/bg-001.jpg');">
-		<div class="wrap-login100 p-t-30 p-b-50">
-			<span class="login100-form-title p-b-41">
-				New Staff
-			</span>
+		
+			<h3>
+				Other Users Registration form
+			</h3>
 
 
-<form class="login100-form validate-form p-b-33 p-t-5" name="form2" action="" method="post">
+<form  name="form2" action="" method="post">
 
-	<input type="hidden" name="dptdcode" value="<?php echo $dptdcode;?>" />
-			
-	<div class="wrap-input100 validate-input" data-validate = "Enter staffname">
-			<input class="input100" type="text" type="text" name="staffname" placeholder="Staff name"/>
-			<span class="focus-input100" data-placeholder="&#xe82a;"></span>
-	</div>
-				
-	<div class="wrap-input100 validate-input" data-validate = "Enter staffnumber">					
-		<input class="input100" type="text" type="text" name="staffnumber" placeholder="Staff number"/>
-		<span class="focus-input100" data-placeholder="&#xe82a;"></span>
-	</div>
-				
-	<div class="wrap-input100 validate-input" data-validate = "Enter contact">						
-		<input class="input100" type="text" type="text" name="contact" placeholder="Staff contact"/>
-		<span class="focus-input100" data-placeholder="&#xe82a;"></span>
-	</div>
-			
-	<div class="container-login100-form-btn m-t-32">
-		<button class="login100-form-btn" name="Submit2">
-		Add new staff
-		</button>
-	</div>
-	<?php
-				if(@$_GET['Success']==True)
+<?php
+if(@$_GET['Success']==True)
 				{
 					echo "<script>
 					alert('New staff added!!')
@@ -119,69 +123,98 @@ elseif(isset($_POST['Submit']))
 					<?php
 				}
 				?>
+	<table class="table table-bordered">
+	
+	<tr>
+	<td>
 
+	<input type="hidden" name="dptdcode" value="<?php echo $dptdcode;?>" />
+	<input class="form-control" type="text" name="staffname" placeholder="Staff name"/>
+	</td>
+</tr>
+
+<tr>
+<td>	
+		<input class="form-control" name="staffnumber" placeholder="Staff number"/>
+		</td>
+</tr>
+
+<tr>
+<td>
+		<input class="form-control" name="contact" placeholder="Staff contact"/>
+
+</td>
+</tr>
+
+
+<tr>
+<td>
+		<select  name="t_user" class="form-control">
+			<option selected="selected" value=""> Select User Type</option>
+			<option value="3">Exams and Records</option>
+			<option value="2">System Manager</option>
+			<option value="1">Teaching Staff</option>
+		</select>
+		</td>
+</tr>
+<!--
+<tr>
+<td>
+	
+
+	
+		<select name="dptdcode" class="form-control">
+		<option selected="selected" value="">Select Department</option>
+		<?php //while($dcodess = mysqli_fetch_assoc($dcode)){?>
+		<option value="<?php //echo $dcodess['code'];?>"><?php //echo $dcodess['name'];?></option>
+		<?php //}?></select>
+		</td>
+</tr>
+-->
+		
+	</table>
+		<input name="Submit2" value="Add new staff" type="Submit" class="btn btn-gradient-primary mr-2">
+		
+
+			
 </form>
+<hr>
 		<?php 
-	exit();
+	//exit();
 	}
 	else
 	{
-	
-		$logintbl="INSERT INTO logintbl (username, password,progs)
-		VALUES ('$uname','$pwd','$dptdcode')";
+	$cordname = $_POST['cordname'];
+
+		$logintbl="INSERT INTO logintbl (username, password,progs, t_user, status)
+		VALUES ('$uname','$pwd','$dptdcode', '0', '0')";
 		
 		
 		if (mysqli_query($conn,$logintbl))
 		{
+
+
+			$logintbl = 	staff_reg($names,$number,$contact,$dptdcode);
+			
 			//echo "User Added Successfuly";
-			header("location:adduser.php?Success=User Added Successfuly");
+			//header("location:adduser.php?Success=User Added Successfuly");
+			echo '<script type="text/javascript">
+                location.replace("smanage.php?Success=User Added Successfuly");
+                </script>';
 		}
 		else
 		{
 			echo"request failed .";
-			echo mysqli_error();
+			echo mysqli_error($conn);
 		}
 	
 	}
 }
 ?>
-<div class="limiter">
-	<div class="container-login100" style="background-image: url('../../Login_v3/images/bg-001.jpg');">
-		<div class="wrap-login100 p-t-30 p-b-50">
-			<span class="login100-form-title p-b-41">
-				New User
-			</span>
 
-
-<form class="login100-form validate-form p-b-33 p-t-5" name="form1" action="" method="post">
-
-	<div class="wrap-input100 validate-input" data-validate = "Select username">
-
-		<select class="input100" name="username">
-			<option selected="selected"> Select User </option>
-			<option>Coordinator</option>
-			<option>Other User</option>
-		</select>
-		<span class="focus-input100" data-placeholder="&#xe82a;"></span>
-	</div>
-				
-	<div class="wrap-input100 validate-input" data-validate = "Enter password">
-		<input class="input100" type="password" name="password" placeholder="Password"/>
-		<span class="focus-input100" data-placeholder="&#xe80f;"></span>
-	</div>
-	
-	<div class="wrap-input100 validate-input" data-validate = "<?php echo @$_SESSION['deptcode'];?>">
-		<input class="input100" name="dptdcode" type="text" value="<?php echo @$_SESSION['deptcode'];?>">
-		<span class="focus-input100" data-placeholder="&#xe82;"></span>
-	</div>
-
-	<div class="container-login100-form-btn m-t-32">
-		<button class="login100-form-btn" name="Submit">
-			Add new user
-		</button>
-
-	</div>
-	<?php
+<h3>New Coordinator Registration Form</h3>
+<form name="form1" action="" method="post">
+<?php
 				if(@$_GET['Success']==True)
 				{
 					echo "<script>
@@ -195,8 +228,57 @@ elseif(isset($_POST['Submit']))
 					<?php
 				}
 				?>
+<table class="table table-bordered">
 
+<tr>
+<td>
+		<select  name="username" class="form-control">
+			<option selected="selected" value=""> Select User Type</option>
+			<option>Coordinator</option>
+			<option>Other User</option>
+		</select>
+		</td>
+</tr>
+
+<tr>
+<td>
+		<input type="text" name="cordname" placeholder="Enter Cordinator's name" class="form-control"/>
+		</td>
+</tr>
+
+<tr>
+<td>
+		<input type="password" name="password" placeholder="Password" class="form-control"/>
+		</td>
+</tr>
+
+<tr>
+<td>
+	
+
+	<?php 
+
+	 $dcode =  dept_function($conn);             
+	
+
+	 ?>
+			
+		<select name="dptdcode" class="form-control">
+		<option selected="selected" value="">Select Department</option>
+		<?php while($dcodess = mysqli_fetch_assoc($dcode)){?>
+		<option value="<?php echo $dcodess['code'];?>"><?php echo $dcodess['name'];?></option>
+		<?php }?></select>
+		</td>
+</tr>
+
+		
+	
+</table>	
+<br><p>
+<input name="Submit" class="btn btn-gradient-primary mr-2" value="Add Coordinator" Type="Submit">
+</p>		
 </form>
+<p><hr></p>
 <?php
-include("loginbotom.php");
+//include("loginbotom.php");
 ?>

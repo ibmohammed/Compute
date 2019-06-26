@@ -2,7 +2,7 @@
 
 function dept_function($logs)
 {
-  $deptqry = mysqli_query($logs, "SELECT dept_id, name, schl_id FROM `departments` ") or die(mysqli_error($logs));
+  $deptqry = mysqli_query($logs, "SELECT dept_id, name, code, schl_id FROM `departments` ") or die(mysqli_error($logs));
   return $deptqry;
   //$depts = mysqli_fetch_assoc($deptqry);
 }
@@ -87,8 +87,6 @@ return $prgqry2;
 
 
 
-
-
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <span class="menu-title">Manage Student data</span>
@@ -155,8 +153,8 @@ return $prgqry2;
                                         </a>
                                         <div class="collapse" id="ui-basic7">
                                             <ul class="nav flex-column sub-menu">
-                                            <li class="nav-item"> <a class="nav-link" href="adduser.php"  target="_new">Add new user/staff</a></li>
-                                            <li class="nav-item"> <a class="nav-link" href="edituser.php"  target="_new">Edit user/staff</a></li>                
+                                            <li class="nav-item"> <a class="nav-link" href="smanage_link.php?staff_user">Add new user/staff</a></li>
+                                            <li class="nav-item"> <a class="nav-link" href="smanage_link.php?edituser_staff" >View/Edit user/staff</a></li>                
                                           <!--  <li class="nav-item"> <a class="nav-link" href="smanage.php?alloc"  target="_new">Allocate courses</a></li>-->
                                             </ul>
                                         </div>

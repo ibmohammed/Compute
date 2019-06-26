@@ -2,7 +2,6 @@
 <?php ini_set('display_errors', true); ?>
 <?php include("includes/header.php"); ?>    
     
-
   
 	<?php 
 if(isset($_POST['Submit2'])){	

@@ -14,7 +14,8 @@
 
 		//if($uname!=="")
 		//if (mysqli_stmt_num_rows($stmt) !== 0)
-		if ($loginFoundUser) 
+		//if ($loginFoundUser) 
+		if (password_verify($password, $pwrd)) 
 		{
 		
 		

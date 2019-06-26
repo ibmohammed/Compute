@@ -64,7 +64,7 @@ $qry = mysqli_query($conn,"DELETE FROM course WHERE `sn` = '$ids'") or die(mysql
 echo '<div> <form action="" method="post"><input type = "hidden" name = "programe" value = "'.$_SESSION['prog'].'" >
 <input type = "hidden" name = "semester" value = "'.$_SESSION['semester'].'" >
 <input type = "hidden" name = "session" value = "'.$_SESSION['session'].'" >
-<input type="submit" name="Submit" value=" OK " />	
+<input type="submit" name="Submit" value=" OK " />
 </form>
  </div>' ;
 	}

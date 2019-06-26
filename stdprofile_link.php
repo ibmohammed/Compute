@@ -5,11 +5,14 @@ if(isset($_GET['Results1']))
 }elseif(isset($_GET['Results2']))
 {
     header('location:stdprofile.php?Results=2');
-}if(isset($_GET['Results3']))
+}elseif(isset($_GET['Results3']))
 {
     header('location:stdprofile.php?Results=3');
-}if(isset($_GET['Results4']))
+}elseif(isset($_GET['Results4']))
 {
     header('location:stdprofile.php?Results=4');
+}elseif(isset($_GET['setting']))
+{
+    header('location:stdprofile.php?setting');
 }
 ?>

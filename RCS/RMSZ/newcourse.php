@@ -6,7 +6,7 @@
 	if(isset($_POST['Submit'])){
 	$programme = $_POST['prog'];
   $schl = $_POST['schl'];
-  $deptcode = $_POST['deptcode'];
+  $schlcode = $_POST['deptcode'];
 	
 	$sql = mysqli_query($conn,"INSERT INTO `departments` (`name`, `code`, `schl_id`)
 		VALUES('$programme','$schlcode','$schl')") or die(mysqli_error());
@@ -26,6 +26,7 @@
           <td>
           <select name="schl" class="form-control">
 					<option selected = "selected" value="">Select School</option>
+          <option value="0">None</option>
 					<?php 
 					while($rows = mysqli_fetch_assoc($schqry))
 					{?>

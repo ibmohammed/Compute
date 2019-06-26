@@ -8,6 +8,11 @@ if(isset($_GET['vwstdr']))
 }if(isset($_GET['viewabm']))
 {
     header('location:exams_records.php?viewabm');
+
+}if(isset($_GET['setting']))
+{
+    header('location:exams_records.php?setting');
 }
+
 
 ?>

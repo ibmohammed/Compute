@@ -374,6 +374,27 @@
 
 		echo '<h3>Edit Programme</h3>';
 		include('editprog.php');
+
+	}elseif(isset($_GET['staff_user'])){
+
+		echo '<h2>Create Users</h2>';
+		include('create_staff_user.php');
+
+	}elseif(isset($_GET['edituser_staff'])){
+
+		echo '<h2>View/Edit Users</h2>';
+		include('edit_staff_user.php');
+
+	}elseif(isset($_GET['tusers'])){
+
+		echo '<h2>View/Edit Users</h2>';
+		include('detail_staff_user.php');
+		
+	}elseif(isset($_GET['setting'])){
+
+		echo '<h3>Change password</h3>';
+		include('alluseredit.php');
+	
 	}
 		
 	//	editresultsspill.php

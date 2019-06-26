@@ -45,6 +45,18 @@ if(isset($_GET['csvn']))
 }if(isset($_GET['editprog']))
 {
     header('location:smanage.php?editprog');
-}
+
+}if(isset($_GET['staff_user']))
+{
+    header('location:smanage.php?staff_user');
+
+}if(isset($_GET['edituser_staff']))
+{
+    header('location:smanage.php?edituser_staff');
+    
+} if(isset($_GET['tusers']))
+{
+    header('location:smanage.php?tusers');
+ }
 
 ?>

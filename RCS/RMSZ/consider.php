@@ -1,20 +1,4 @@
-<?php include("includes/header.php"); ?>    
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
 
-<head>
-<meta content="en-us" http-equiv="Content-Language" />
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<title>Consideration</title>
-<style type="text/css">
-
-tbody {
-	display:table-row-group;
-}
-</style>
-</head>
-
-<body>
 <?php 
 if(isset($_POST['Submit1'])){
 
@@ -38,7 +22,7 @@ $score = $_POST['score'];
 
 
 $ql = mysqli_query($conn,"SELECT * FROM  `results` WHERE  (score >= $score && score < 40) && programme = '$programme' &&
- semester = '$semester' && session = '$session' ") or die(mysqli_error());?>
+ semester = '$semester' && session = '$session' ") or die(mysqli_error($conn));?>
  
  <form method="post">
 
@@ -57,7 +41,7 @@ $ql = mysqli_query($conn,"SELECT * FROM  `results` WHERE  (score >= $score && sc
 		<td>
 		
 			<input name="matno" type="text" value = "<?php echo $row['matric_no'];?>" disabled="disabled" />
-			<input name="sn[]" type="hidden" value="<?php echo $row[0];?>" />
+			<input name="sn[]" type="hidden" value="<?php echo $row['sn'];?>" />
 		</td>
 		<td>
 		
@@ -92,19 +76,19 @@ exit;
 
 <form method="post">
 
-<table style="width: 40%">
+<table  class="table table-bordered">
 	<tr>
-		<td style="height: 30px">Enter Score:</td>
-		<td style="height: 30px">
+		<td>Enter Score:</td>
+		<td>
 		
-			<input name="score" type="text" style="width: 46px" />
+			<input name="score" type="text" class="form-control"/>
 		&nbsp;</td>
     </tr>
 	<tr>
 		<td>Programme:</td>
 		<td>
       
-      <select name="programme" id="programme">
+      <select name="programme" id="programme" class="form-control">
 <option selected="selected"> <?php // echo $_GET['depts'];?></option>
 
  <?php include('dptcode.php') ;
@@ -112,69 +96,65 @@ exit;
             
 //$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode' && `dep` LIKE '%National Diploma%'") or die(mysqli_error());
   
-          $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
-            
-            while($pcd = mysqli_fetch_assoc($queri)){
-            ?>
-            
-            
-              <option><?php echo $pcd['dep'];?></option>
-              
-              <?php }?>
-              
-                        
-		<?php
-			//include('prog1.php');
-			//include('prog2.php');
-			//include('prog3.php');
-			 ?>
-      </select></td>
+$prgqry = prog_function($logs);
+while($pcd = mysqli_fetch_assoc($prgqry)){
+?>
+
+
+  <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
+  
+  <?php }?>
+  
+ 
+	  
+	</select>
+	</td>
     </tr>
 	<tr>
 		<td>Semester:</td>
-		<td><select name="semester" id="semester">
-        <option selected="selected"></option>
-        <option value="1">First Semester</option>
-        <option value="2">Second Semester</option>
-        <option value="3">Third Semester</option>
-        <option value="4">Fourth Semester</option>
-        <!--<option value="5">Fifth Semester</option>
-        <option value="6">Sixth Semester</option> -->
-      </select></td>
+		<td>
+		<select name="semester" id="semester" class="form-control">
+			<option selected="selected"></option>
+			<option value="1">First Semester</option>
+			<option value="2">Second Semester</option>
+			<option value="3">Third Semester</option>
+			<option value="4">Fourth Semester</option>
+     	</select>
+	  </td>
     </tr>
 	<tr>
 		<td>Session:</td>
-		<td><select name="session" id="session">
-      <option selected="selected"></option>
-      <option><?php echo ((date('Y')-1)."/".date('Y'));?></option>
-        <?php echo include('includes/sessions.php');?>
-      </select>-<select name="year" id="select2">
-          <option selected="selected"></option>
-		  <option>9</option>
-          <option>10</option>
-          <option>11</option>
-          <option>12</option>
-          <option>13</option>
-          <option>14</option>
-          <option>15</option>
-          <option>16</option>
-             <?php 
-                         for($i = 2017; $i<=2020; $i++){
-                         
-                         echo "<option>".$i."</option>";
-                         }
-                         ?>
-        </select></td>
+		<td>
+		<select name="session" id="session" class="form-control">
+			<option selected="selected" value="">Select Session</option>
+			<option><?php echo ((date('Y')-1)."/".date('Y'));?></option>
+			<?php echo include('includes/sessions.php');?>
+        </select>
+		-
+		<select name="year" id="select2" class="form-control">
+			<option selected="selected" value="">Select Year</option>
+			<option>9</option>
+			<option>10</option>
+			<option>11</option>
+			<option>12</option>
+			<option>13</option>
+			<option>14</option>
+			<option>15</option>
+			<option>16</option>
+			<?php 
+			for($i = 17; $i<=20; $i++)
+			{
+			echo "<option>".$i."</option>";
+			}
+			?>
+        </select>
+		
+		</td>
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td><input name="Submit" type="submit" value="submit">&nbsp;</td>
+		<td><input name="Submit" type="submit" value="submit" class="btn btn-gradient-primary mr-2">&nbsp;</td>
 	</tr>
 </table>
 
 </form>
-
-
-</body>
-
-</html>

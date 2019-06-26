@@ -34,133 +34,37 @@
         $stdnm=mysqli_query($conn,"INSERT INTO studentsnm (names, matno, prog_id, year, images, session, status, stat, Withdrwan, sex) 
         VALUES ('$sname', '$matricno', '$cid', '$ric','$image','$sess','0','0','0','$sex')") or die(mysqli_error($conn));
         
-        
-              $pp = "0000";
-							$stat = "Enable";
-							
-				 
+        $options = [
+          'cost' => 11,
+        ];
+        $pp = "Eeasy0123.";
+      $stat = "Enable";
+      $hash = password_hash($pp, PASSWORD_BCRYPT,  $options);
+      	 
           mysqli_query($conn, 	"INSERT INTO `students_log` 
 					(`matric_no`,`password`,`status`) 
 					VALUES( '".addslashes($matricno)."', '".addslashes($pp)."', '".addslashes($stat)."')") or die(mysqli_error($conn));
-          
 
         echo "<script language = 'javascript'>"."alert('Successful')"."</script>";
         echo "<h5 style = 'color:red'>Record added Successfully <h5>";
 
       }
-      
-  ?>
-<!--/*
-<form action="" method="post" enctype="multipart/form-data" name="form1" id="form1" onsubmit="MM_validateForm('sname','','R','mat','','R','ric','','R','no','','R','mat','','R','ric','','R','no','','R');return document.MM_returnValue">
-  <div align="center"><strong>STUDENTS RECORD FORM </strong></div>
-  <table class="table table-bordered" width="100%" align="center">
-        
-     <tr>
-          <td align="left" ><strong>LOAD IMAGE: </strong></td>
-          <td align="left" ><input name="file" type="file" id="file" />
-            <span class="style3">*</span>
-          </td>
-      </tr>
-     
-      <tr>
-          <td align="left" ><strong>PROGRAMME:</strong></td>
-          <td align="left" >
-           <select name="programme" id="programme" class="form-control">
-            
-           
-              <input type = "text" value="<?php //echo @$_POST['programme'];?>" name="programme" class="form-control">
-              <?php 
-              //include('dptcode.php') ; 
-             // $qri = mysqli_query($conn, "SELECT * FROM programmes WHERE prog_id=''") or die(mysqli_error($conn));
-              //progs_function($logs, $_POST['programme']); 
-            //  $prgss = mysqli_fetch_assoc($qri);
-              ?>
-
-
-              <input type = "text" value="<?php //echo $prgss['programme'];?>" class="form-control" name ="unknown">
-    
-            </select>
-            <span style="color:red">*<?php //echo $prgss['programme'];?></span>
-          </td>
-      </tr>
-      <tr>
-          <td align="left" ><strong>STUDENT NAME:</strong></td>
-          <td align="left" ><input name="sname" type ="text" id="sname"  class="form-control"/>
-            <span class="style3">*</span>
-          </td>
-      </tr>
-
-      <tr>
-          <td align="left" ><strong>GENDER:</strong></td>
-          <td align="left" >
-            <select name="sex" id="sex" class="form-control">
-            <option selected="selected"></option>
-            <option value="M">Male</option>
-            <option value="F">Female</option>
-          </select>
-            <span class="style3">*</span>
-          </td>
-      </tr>
-
-      <tr>
-          <td align="left" ><p><strong>MATRIC NO.:</strong></p>
-        
-          </td>
-          <td align="left" >
-           
-          <table class="table table-bordered">
-               <tr>
-               <td><input name="mat" id="mat" value="<?php //echo $mat;?>" size= "15" class="form-control" placeholder="NDCS"/>/</td>
-              <td>  <input name="ric" id="ric" value="<?php //echo $ric;?>" size= "8" class="form-control" placeholder="015"/> / </td>
-                <td>  <input name="no" id="no" value="" size= "8" class="form-control" placeholder="098"/></td>
-                <td> (eg. NDCS/015/098) <span style="color:red">*</span></td>
-                </tr>
-               </td>
-               </table>
-          
-          
-          </td>
-      </tr>
-
-      <tr>
-          <td height="24" align="left" ><strong>SESSION:</strong></td>
-          <td align="left" >
-          <select name="session" id="session" class="form-control">
-              <option selected="selected"><?php //echo $sess;?></option>
-			          <?php //echo include('includes/sessions.php');?>
-
-          </select>
-            <span class="style3">*</span>
-          </td>
-        </tr>
-
-  </table>
-      <div align="center">
-	          <input class="btn btn-gradient-primary mr-2" name="Submit" type="submit" id="Submit" value="Submit" />
-        </div>
-</form>
-*/
-
-	-->	  
-  <?php //exit; 
 }
 ?>
-  
-
 
 
 <form action="" method="post" enctype="multipart/form-data" name="form" id="form" onsubmit="MM_validateForm('mat','','R','ric','','R','no','','R');MM_validateForm('sname','','R','mat','','R','ric','','R','no','','R','mat','','R','ric','','R','no','','R');return document.MM_returnValue">
-      <div align="center"><strong>STUDENTS RECORD FORM </strong></div>
+      <div><strong>STUDENTS RECORD FORM </strong></div>
 
       <table class="table table-bordered">
            
         <tr>
-               <td width="12%" align="left" ><strong> LOAD IMAGE:</strong></td>
-               <td width="88%" align="left" ><input name="file" type="file" id="file" class="btn btn-gradient-primary mr-2"/></td>
+               <td width="12%" ><strong> LOAD IMAGE:</strong></td>
+               <td width="88%" ><input name="file" type="file" id="file" class="btn btn-gradient-primary mr-2"/></td>
             </tr>
             <tr>
-                <td align="left" ><strong>PROGRAMME:</strong></td>
-                <td align="left" ><span style="font-weight: bold">
+                <td ><strong>PROGRAMME:</strong></td>
+                <td ><span style="font-weight: bold">
 
                    <select name="programme" class="form-control" id="programme" class="form-control">            
                       <option selected="selected" value="">Select Programme</option>
@@ -185,14 +89,14 @@
           </tr>
 
           <tr>
-              <td align="left" ><strong>STUDENTNAME:</strong></td>
-              <td align="left" >
+              <td><strong>STUDENTNAME:</strong></td>
+              <td>
                 <input name="sname" type ="text" id="sname" size = "30" class="form-control" placeholder="Enter Student name"/> <span style="color:red">*</span></td>
           </tr>
           <tr>
-              <td align="left" >
+              <td>
                 <span style="font-weight: bold">GENDER:</span></td>
-                  <td align="left" >
+                  <td >
                   <select name="sex" id="sex" class="form-control">
                    <option selected="selected" value="">Select Gender</option>
 
@@ -205,8 +109,8 @@
             </tr>
 
             <tr>
-               <td align="left" ><p><strong>MATRIC NO.:</strong></p></td>
-               <td align="left" >
+               <td ><p><strong>MATRIC NO.:</strong></p></td>
+               <td >
 
 
 
@@ -220,15 +124,12 @@
                </td>
                </table>
 
-
-
-
                 </td>
             </tr>
 
             <tr>
-                <td height="24" align="left" ><strong>SESSION:</strong></td>
-                <td align="left" >
+                <td ><strong>SESSION:</strong></td>
+                <td>
                   <select name="session" id="session" class="form-control">
                   <option selected="selected" value="">Select Session</option>
                     <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>

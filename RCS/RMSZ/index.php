@@ -268,16 +268,11 @@ if(@$_SESSION['MM_Usernames'] == True){
               
           </div>
           
-     <!-- - End of Dashboard -->
-
-
-              
+     <!-- - End of Dashboard -->          
 
        </div>
     </div>
 </div>
-    
-
 
         </div>
         <!-- content-wrapper ends -->

@@ -9,13 +9,14 @@
 		$_SESSION['stid'] = $id;
 		
 		
-		if ($loginFoundUser) 
+		//if ($loginFoundUser) 
+		if (password_verify($password, $pwrd)) 
 		{
 		
-// start comfirmation //////////////////////
+				// start comfirmation //////////////////////
 		
-			if($_POST['pasword'] == '0000')
-		    {
+				if($_POST['pasword'] == "Simply012345@")
+				{
 			
 		        $return_comfirm = login_scomfirm($loginUsername, $password, $logs);
 				//$comfirm = mysqli_fetch_assoc($return_comfirm);
@@ -52,20 +53,17 @@
 		          document.getElementById("demo").innerHTML = txt;
 		        }
 		        </script>';
-				$_SESSION['comfirmstaff'] = $loginUsername;
+			//	$_SESSION['comfirmstaff'] = $loginUsername;
+				$_SESSION['comfirmstaff'] = $number;
 		          //$_SESSION['comfirmstaff'] = $_POST['username'];
 		          exit();
 	        }
 	        else
 	        {
 	
-			
-			
 			// end confirmation 
 			
-			
-				
-			
+
 				$loginStrGroup = "";
 				//declare two session variables and assign them
 				$_SESSION['MM_Usernames'] = $loginUsername;
@@ -88,7 +86,7 @@
 		else 
 		{
 			echo '<script type="text/javascript">
-			alert("incorrect login details");
+			alert("incorrect login detailsppp");
 			location.replace("logins.php");
 			</script>';
 			

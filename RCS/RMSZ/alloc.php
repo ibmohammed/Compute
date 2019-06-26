@@ -104,16 +104,14 @@ $msqls = mysqli_query($logs, $msql);
 	
 	<div>
 	<form name ="form1" method="post" action="">
+
 	<table class="table table-bordered">
+
 	<tr>
 	<td colspan="3">
 	<select name="staff_id" class="form-control">
 	<option selected="selected">Select staff</option>
-	
-	
-	
 	<?php 
-	
 	//$numrow = mysqli_num_rows($dprtment);
 	//$_SESSION['deptid'];
 	$dprtment =  staff_alloc($_SESSION['deptid'], $logs);
@@ -129,6 +127,7 @@ $msqls = mysqli_query($logs, $msql);
 	</select>
 	</td>
 	</tr>
+
 	<tr>
 	<th>#</th>
 	<th>Code</th>
@@ -137,7 +136,7 @@ $msqls = mysqli_query($logs, $msql);
 	<th>Semester<?php echo $_SESSION['deptid'];?></th>
 	</tr>
 	<?php 
-	$pgram =  programmes($_SESSION['deptid'], $logs);
+	$pgram =  programmess_dept($_SESSION['deptid'], $logs);
 	while($prow = mysqli_fetch_assoc($pgram))
 {
 	$crs =  t_courses($_SESSION['prgid'], $logs);
@@ -150,8 +149,8 @@ $msqls = mysqli_query($logs, $msql);
 	<td><?php echo $rows['title'];?></td>
 	<td><?php echo $rows['unit'];?></td>
 	<td><?php echo $rows['semester'];?></td>
-	
 	</tr>	
+	
 	<?php 
 	}
 }

@@ -11,11 +11,12 @@
 
 		//if($uname!=="")
 		//if (mysqli_stmt_num_rows($stmt) !== 0)
-		if ($loginFoundUser) 
+		//if ($loginFoundUser) 
+		if (password_verify($password, $pwrd)) 
 		{
             // start comfirmation //////////////////////
 		
-			if($_POST['pasword'] == '0000')
+			if($_POST['pasword'] == 'Simply012345@')
 		    {
 			
                 mysqli_stmt_bind_param($stmt, "ss", $loginUsername, $password);
@@ -55,7 +56,8 @@
 		          document.getElementById("demo").innerHTML = txt;
 		        }
 		        </script>';
-				$_SESSION['comfirmstaff'] = $loginUsername;
+				//$_SESSION['comfirmstaff'] = $loginUsername;
+				$_SESSION['comfirmstaff'] = $number;
 		          //$_SESSION['comfirmstaff'] = $_POST['username'];
 		          exit();
 	        }
@@ -77,7 +79,7 @@
                 }
                 
                 echo '<script type="text/javascript">
-                location.replace("index.php");
+                location.replace("coord.php");
                 </script>';
                 // exit(header("Location: " . $MM_redirectLoginSuccess ));
                 // echo "Yes";
@@ -86,7 +88,7 @@
         else 
         {
             echo '<script type="text/javascript">
-            alert("incorrect login details'.$uname.$pwrd.'");
+            alert("incorrect login detailskkk'.$uname.$pwrd.'");
             location.replace("logins.php");
             </script>';
             

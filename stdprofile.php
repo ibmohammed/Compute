@@ -234,14 +234,12 @@ if(@$_SESSION['usercomfirmed'] == True){
           </li>
 
      
-
-        <!--  <li class="nav-item">-->
-          <?php //echo $data['matno'];?>
-         <?php// echo $clg['college'];?>
-         <?php //echo $clgid['school'];?>
-         <?php //echo $schlid['name'];?>
-          <?php //echo $data['session'];?>
-
+    <li class="nav-item">
+            <a class="nav-link" href="stdprofile_link.php?setting">
+              <span class="menu-title">Settings</span>
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+            </a>
+          </li>
           <?php 
            $course = $_SESSION['programme'];
            //  $sem =  $_GET['Results'];
@@ -252,23 +250,8 @@ if(@$_SESSION['usercomfirmed'] == True){
 
           require_once('RCS/calculate_gp.php'); 
           ?>
-         <!-- 
-            <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
-              <span class="menu-title">Result Cumulatives</span>
-              <i class="menu-arrow"></i>
-              <i class="mdi mdi-medical-bag menu-icon"></i>
-            </a>
-            <div class="collapse" id="general-pages">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item" style="font-weight:bold";> <a class="nav-link" href="#"> Total Course Unit:  <?php echo @$unit; ?></a></li>
-                <li class="nav-item" style="font-weight:bold"> <a class="nav-link" href="#"> Cumulative G P: <?php echo @$gp;?></a></li>
-                <li class="nav-item" style="font-weight:bold"> <a class="nav-link" href="#"> Cumulative G P A: <?php echo @$gpa;?></a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/samples/error-404.html"> 404 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/samples/error-500.html"> 500 </a></li>
-              </ul>
-              </div>
-          </li>
-    -->
+
+
           <li class="nav-item sidebar-actions">
             <span class="nav-link">
           
@@ -319,12 +302,23 @@ if(@$_SESSION['usercomfirmed'] == True){
               $semester =  $_GET['Results'];
               require_once('RCS/indresult.php');
 
-          } ?>
+          } 
+          
+          
+          ?>
 
               <hr class="w3-clear">
 
           <?php
         }
+
+        if(isset($_GET['setting'])){
+
+          echo '<h3>Change password</h3>';
+          include('RCS/RMSZ/alluseredit.php');
+        
+        }
+    
           ?>
            
        <!-- end of semester result-->

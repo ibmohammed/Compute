@@ -73,13 +73,16 @@ if(isset($_POST['Submit'])){
 								mysqli_query($conn,$imports) or die(mysqli_error($conn)); 
 							   
 								
-
-								$pp = "0000";
+								$options = [
+									'cost' => 11,
+								];
+								$pp = "Eeasy0123.";
 							$stat = "Enable";
+							$hash = password_hash($pp, PASSWORD_BCRYPT,  $options);
 							
 				$students_log =	"INSERT INTO `students_log` 
 					(`matric_no`,`password`,`status`) 
-					VALUES('".addslashes($matno)."', '".addslashes($pp)."', '".addslashes($stat)."')";
+					VALUES('".addslashes($matno)."', '".addslashes($hash)."', '".addslashes($stat)."')";
 
 			mysqli_query($conn, $students_log) or die(mysqli_error($conn)); 
 					          

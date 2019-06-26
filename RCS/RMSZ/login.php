@@ -4,16 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Untitled Document</title>
-<style type="text/css">
-<!--
-a:link {
-	color: #0033FF;
-}
-a:hover {
-	color: #0066FF;
-}
--->
-</style>
+
 </head>
 
 <body>
