@@ -259,51 +259,53 @@ if (empty($_GET['csv'])) {
 
 
 <form action="" method="post" name="grade" id="grade">
-      <table style="text-align: left;color:blue;">
+      <table class="table table-bordered">
         <tr>
-          <td style="height: 30px" ><span style="font-weight: bold; color: #000000">PROGRAMME:</span></td>
-          <td style="height: 30px" ><select name="programme" id="programme">
-         			<option selected="selected"></option>
-         			
-         			 <?php include('dptcode.php') ;
-            
-            
-            $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
-            
-            while($pcd = mysqli_fetch_assoc($queri)){
-            ?>
-            
-            
-              <option><?php echo $pcd['dep'];?></option>
-              
-              <?php }?>
-              
-             
-          </select> </td>
+          <td>PROGRAMME:</span></td>
+          <td>
+                <select name="programme" class="form-control">
+                <option selected="selected" value="">Select Programme</option>
+
+                <?php include('dptcode.php');
+                $queri = 	programmess_dept($_SESSION['depts_ids'], $logs); 
+                //	$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
+                while($pcd = mysqli_fetch_assoc($queri)){
+                ?>
+                <option><?php echo $pcd['programme'];?></option>
+
+                <?php }?>
+
+
+                </select> 
+          </td>
         </tr>
         <tr>
-          <td ><span style="font-weight: bold; color: #000000">SESSION:</span></td>
-          <td ><select name="session">
-          <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
-                    <?php echo include('includes/sessions.php');?>
-
-          </select>
+          <td><span style="font-weight: bold; color: #000000">SESSION:</span></td>
+          <td>
+            <select name="session"  class="form-control">
+                <option selected="selected" value="">Select Session</option>
+                <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
+                <?php echo include('includes/sessions.php');?>
+            </select>
          </td>
         </tr>
         <tr>
-          <td ><span style="font-weight: bold; color: #000000">SEMESTER:</span></td>
-          <td ><select name="semester">
-            <option selected="selected"></option>
-			<option value="1">First Semester</option>
-            <option value="2">Second Semester</option>
-            <option value="3">Third Semester</option>
-			<option value="4">Fourth Semester</option>
-            <option value="5">Fift Semester</option>
-            <option value="6">Sixth Semester</option>
-          </select></td>
+          <td><span style="font-weight: bold; color: #000000">SEMESTER:</span></td>
+          <td>
+            <select name="semester"  class="form-control">
+                <option selected="selected" value="">Select Semester</option>
+                <option value="1">First Semester</option>
+                <option value="2">Second Semester</option>
+                <option value="3">Third Semester</option>
+                <option value="4">Fourth Semester</option>
+                <option value="5">Fift Semester</option>
+                <option value="6">Sixth Semester</option>
+            </select>
+
+    </td>
         </tr>
       </table>
-      <input name="Submitf" value="Submit" type="submit" />
+      <input name="Submitf" value="Submit" type="submit" class="btn btn-gradient-primary mr-2"/>
       <br />
     </form>
 

@@ -68,7 +68,7 @@ $msqls = mysqli_query($logs, $msql);
 //}
 
 ?>
-	<h4 style="color:red">Courses Allocated to <?php echo @$_SESSION['names']." (".@$_SESSION['number'].")";?></h4>
+	<h4 style="color:red"> Allocated Courses</h4>
 	<form name="form2" method="post" action="">
 	
 		<table class="table table-bordered">
@@ -102,7 +102,6 @@ $msqls = mysqli_query($logs, $msql);
 
 // end action?>	
 	
-	<div>
 	<form name ="form1" method="post" action="">
 
 	<table class="table table-bordered">
@@ -158,4 +157,3 @@ $msqls = mysqli_query($logs, $msql);
 <br>
 <button name="Submit" class="btn btn-gradient-primary mr-2">Allocate	</button>
 </form>
-</div>

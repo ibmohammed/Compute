@@ -35,7 +35,6 @@ or die(mysqli_error($conn));
 
 foreach($_POST['Check_list'] as $selected){
 $dep = $_POST['deptcode']; 
-
 //echo $selected."<br>45";
 $sql = mysqli_query($conn,"UPDATE `dept` SET 
 `prog` = '$dep',

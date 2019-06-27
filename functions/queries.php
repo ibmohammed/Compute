@@ -162,7 +162,6 @@ try {
 function departments($deptid, $lg) 
 {
 
-
   $stmt1 = $lg->prepare("SELECT * FROM `departments` WHERE `dept_id` = ?");
   $stmt1->bind_param("s", $deptid);
   $stmt1->execute();
@@ -231,6 +230,14 @@ function user_type($lg)
 {
   $utype = "SELECT * FROM `usertype`";
   $msq = mysqli_query($lg, $utype) or die(mysqli_error($lg));
+  return $msq;  
+}
+
+
+function departments_code($code, $lg) 
+{
+  $ssql = "SELECT * FROM `departments` WHERE `code` = '$code'";
+  $msq = mysqli_query($lg, $ssql) or die(mysqli_error());
   return $msq;  
 }
 

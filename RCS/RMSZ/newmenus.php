@@ -77,7 +77,7 @@ $prgqry = mysqli_query($logs, "SELECT prog_id, programme FROM `programmes` WHERE
                     <li class="nav-item"> <a class="nav-link" href="index_link.php?entres">Input score</a></li>
                     <li class="nav-item"> <a class="nav-link" href="index_link.php?editres">Edit score</a></li>
                     <li class="nav-item"> <a class="nav-link" href="index_link.php?consider">Consider scores</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="index_link.php?overwrite">Update scores</a></li>
+                   <!-- <li class="nav-item"> <a class="nav-link" href="index_link.php?overwrite">Update scores</a></li>-->
                     <li class="nav-item"> <a class="nav-link" href="index_link.php?deleter">Delete Records</a></li>
                     <li class="nav-item"> <a class="nav-link" href="index_link.php?deleterr">Delete Semester scores</a></li>
                    

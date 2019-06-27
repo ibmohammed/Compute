@@ -1,12 +1,13 @@
 
 <?php 
+$conn = $logs;
 if(isset($_POST['Submit1'])){
 
 foreach($_POST['sn'] as $selected){
 //$sn = $_POST['sn']; 
 
 $sql = mysqli_query($conn,"UPDATE `results` SET  `score` =  '40', `grade` = 'E', `points` = '2' WHERE  
-`results`.`sn` ='$selected'") or die(mysqli_error());
+`results`.`sn` ='$selected'") or die(mysqli_error($conn));
 
 echo "Consideration done.";
 
@@ -21,7 +22,7 @@ $programme=$_POST['programme'];
 $score = $_POST['score'];
 
 
-$ql = mysqli_query($conn,"SELECT * FROM  `results` WHERE  (score >= $score && score < 40) && programme = '$programme' &&
+$ql = mysqli_query($conn,"SELECT * FROM  `results` WHERE  (score >= $score && score < 40) && prog_id = '$programme' &&
  semester = '$semester' && session = '$session' ") or die(mysqli_error($conn));?>
  
  <form method="post">
@@ -81,40 +82,28 @@ exit;
 		<td>Enter Score:</td>
 		<td>
 		
-			<input name="score" type="text" class="form-control"/>
-		&nbsp;</td>
+			<input name="score" type="text" class="form-control" placeholder="Enter Score"/>
+		</td>
     </tr>
 	<tr>
 		<td>Programme:</td>
 		<td>
-      
-      <select name="programme" id="programme" class="form-control">
-<option selected="selected"> <?php // echo $_GET['depts'];?></option>
-
- <?php include('dptcode.php') ;
-            
-            
-//$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode' && `dep` LIKE '%National Diploma%'") or die(mysqli_error());
-  
-$prgqry = prog_function($logs);
-while($pcd = mysqli_fetch_assoc($prgqry)){
-?>
-
-
-  <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
-  
-  <?php }?>
-  
- 
-	  
-	</select>
+			<select name="programme" id="programme" class="form-control">
+			<option selected="selected" value="">Select Programme</option>
+				<?php include('dptcode.php') ;
+				$queri = 	programmess_dept($_SESSION['depts_ids'], $logs); 
+				while($pcd = mysqli_fetch_assoc($queri)){
+				?>
+				<option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
+				<?php }?>
+			</select>
 	</td>
     </tr>
 	<tr>
 		<td>Semester:</td>
 		<td>
 		<select name="semester" id="semester" class="form-control">
-			<option selected="selected"></option>
+		<option selected="selected" value="">Select Semester</option>
 			<option value="1">First Semester</option>
 			<option value="2">Second Semester</option>
 			<option value="3">Third Semester</option>
@@ -151,10 +140,11 @@ while($pcd = mysqli_fetch_assoc($prgqry)){
 		
 		</td>
 	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td><input name="Submit" type="submit" value="submit" class="btn btn-gradient-primary mr-2">&nbsp;</td>
-	</tr>
+	
 </table>
+<br>
+<input name="Submit" type="submit" value="submit" class="btn btn-gradient-primary mr-2">
+<br>
+<hr>
 
 </form>

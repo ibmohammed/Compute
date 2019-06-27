@@ -1,55 +1,32 @@
-
-<head>
-<style type="text/css">
-.auto-style1 {
-	text-align: center;
-}
-</style>
-</head>
-
-<?php include("includes/header.php"); ?>    
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-
-<head>
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<title>Untitled 1</title>
-</head>
-
-<body>
-
-<p>
-<center>
-
 <?php
-
+$conn =$logs;
 if(isset($_POST['Submitf'])){
 
 $programme=$_POST['programme'];
 
-$programme = mysql_escape_string($programme);
+$programme = mysqli_escape_string($conn, $programme);
 
 
 $year=$_POST['year'];
 	$session=$_POST['session'];
 	$semester=$_POST['semester'];
 
-$crss = mysql_query("SELECT * FROM `course` WHERE 
-`Programme` = '$programme' && `semester` = '$semester' && `sessions` = '$session' ") 
-or die(mysql_error());
+$crss = mysqli_query($conn, "SELECT * FROM `course` WHERE 
+`prog_id` = '$programme' && `semester` = '$semester' && `sessions` = '$session' ") 
+or die(mysqli_error($conn));
 ?>
 
 
 <form id="form1" action="" enctype="multipart/form-data" method="post" name="form1">
 
 
-    <table style="width: 100%">
+    <table class="table table-bordered">
 		<tr>
 			<td>Course Code:</td>
-			<td>&nbsp;<select name="code">
-			<?php while($rows = mysql_fetch_array($crss)){?>
-			
-			<option><?php echo $rows['code'];?></option>
+			<td>
+        <select name="code" class="form-control">
+        <?php while($rows = mysqli_fetch_assoc($crss)){?>
+        <option><?php echo $rows['code'];?></option>
 			<?php }?>
 			</select>
 			<input name="semester" type="hidden" value="<?php echo $semester;?>">
@@ -58,16 +35,11 @@ or die(mysql_error());
 			<input name="year" type="hidden" value="<?php echo $year;?>">
 
 			</td>
+      <td>
+        <input name="Submit" type="submit" value="Delete" class="btn btn-gradient-primary mr-2"> 
+      </td>
 		</tr>
 		</table>
-
-	<!--
-	<input name="programme" value="<?php echo $programme;?>" type="hidden"/>
-	<input name="session" value="<?php echo $session;?>" type="hidden"/>
-	<input name="semester" value="<?php echo $semester;?>" type="hidden"/>
-	<input name="year" value="<?php echo $year;?>" type="hidden"/>
-	-->
-	<input name="Submit" type="submit" value="Delete"> 
 </form>
  
 <?php
@@ -84,21 +56,21 @@ $semester=$_POST['semester'];
 $session=$_POST['session'];
 $year=$_POST['year'];
 $programme=$_POST['programme'];
-$programme = mysql_escape_string($programme);
+$programme = mysqli_escape_string($conn, $programme);
 
 $nsemester = ($semester - 1);
 
-	echo $ccode;
-	echo "Semester: ".$semester.", <br/>" ;
+	echo "The scores for ". $ccode;
+	echo " Semester: ".$semester.", <br/>" ;
 	echo $session." Session, "."<br/>" ;
 	echo "Class of ".$year.", <br/>" ;
-	echo $programme." programme"."<br/>" ;
-	echo " Scores will be Deleted<br/>" ;?>
+	//echo $programme." programme"."<br/>" ;
+	echo "  will be Deleted<br/>" ;?>
 	
-	<table style="width: " >
+	<table class="table table-bordered" >
 	<tr>
 		<td>
-			<?php echo "<a href = 'index.php?deleter' style='color:black; text-decoration:none;'><button >Cancel</button></a> ";?>
+			<?php echo "<a href = 'index.php?deleter' style='color:black; text-decoration:none;'><button class='btn btn-gradient-primary mr-2'>Cancel</button></a> ";?>
 			
 			<br/>
 </td>
@@ -111,94 +83,74 @@ $nsemester = ($semester - 1);
 			<input name="code" type="hidden" value="<?php echo $ccode;?>">
 
 			<br/>
-			<input name="Submit2" value="OK" type="submit" />
+			<input name="Submit2" value="Delete" type="submit" class="btn btn-gradient-primary mr-2"/>
 		</form>
 	 </td>
 	</tr>
 </table>
 
-</center>
 
 	
 <?php 
 exit();
-}elseif(isset($_POST['Submit2'])){ 
+}elseif(isset($_POST['Submit2']))
+{ 
+  $semester=$_POST['semester'];
+  $session=$_POST['session'];
+  $year=$_POST['year'];
+  $programme=$_POST['programme'];
 
-$semester=$_POST['semester'];
-$session=$_POST['session'];
-$year=$_POST['year'];
-$programme=$_POST['programme'];
+  $programme = mysqli_escape_string($conn, $programme);
 
-$programme = mysql_escape_string($programme);
-
-$nsemester = ($semester - 1);
-$ccode = $_POST['code'];
-
-
-
-
-		$msql=mysql_query("SELECT * FROM `studentsnm` WHERE 	
-		dept ='$programme' && year='$year'") 
-		or die(mysql_error());
+  $nsemester = ($semester - 1);
+  $ccode = $_POST['code'];
+  $msql=mysqli_query($conn, "SELECT * FROM `studentsnm` WHERE 	
+                    prog_id ='$programme' && year='$year'") 
+                    or die(mysqli_error($conn));
 
 
-while ($col=mysql_fetch_array($msql)){
+  while ($col=mysqli_fetch_assoc($msql))
+  {
+    $matno = $col['matno'];
 
+    $sql= mysqli_query($conn, "DELETE FROM `results` WHERE `matric_no` = '$matno'  && `code` ='$ccode' ") 
+    or die ('Err'.mysqli_error($conn));
 
-		$matno = $col['matno'];
-		
-		
-		$sql= mysql_query("DELETE FROM `results` WHERE `matric_no` = '$matno'  && `code` ='$ccode' ") 
-		or die ('Err'.mysql_error());
+    $sqls = mysqli_affected_rows($conn);
+    
+    if($sqls !== 0)
+    {
+      // Select Records entered to enable Delete 
 
+      $qry = mysqli_query($conn, "SELECT * FROM `entered` WHERE 
+                                  `code` = '$ccode' && `session` = '$session' && `semester` = '$semester'") 
+                                  or die('selqry'.mysqli_error($conn));
+      $fid = mysqli_fetch_assoc($qry);
 
-$sqls = mysql_affected_rows();
-		
+      $eid = $fid['sn'];
 
-if($sqls !== 0){
+      // Query to dalete Records Selected
 
-// Select Records entered to enable Delete 
+      $delqry = mysqli_query($conn, "DELETE FROM `entered` WHERE `sn` = '$eid' LIMIT 1") or die('delqry'.mysqli_error($conn));
 
-$qry = mysql_query("SELECT * FROM `entered` WHERE 
-`code` = '$ccode' && `session` = '$session' && `semester` = '$semester'") 
-or die('selqry'.mysql_error());
+      echo "<div style='color:green; font-style:italic;'>";
+      echo $matno." Scores Deleted Successfully<br/>";
 
- 
-$fid = mysql_fetch_array($qry);
+      // Update Student Status 
+      $query = mysqli_query($conn, "UPDATE  `studentsnm` SET status = '$nsemester' 
+      WHERE matno='$matno'") 
+      or die(mysqli_error($conn));
 
-$eid = $fid['sn'];
-
-// Query to dalete Records Selected
-
-$delqry = mysql_query("DELETE FROM `entered` WHERE `sn` = '$eid' LIMIT 1") or die('delqry'.mysql_error());
-
-
-echo "<div style='color:green; font-style:italic;'>";
-echo $matno." Scores Deleted Successfully<br/>";
-
-// Update Student Status 
-$query = mysql_query("UPDATE  `studentsnm` SET status = '$nsemester' 
-WHERE matno='$matno'") 
-or die(mysql_error());
-
-if ($query){
- 
- echo $matno." Data Updated Successfully<br/>";
- echo "</div>";
- }
-
-
-}else{
-
-echo "records not deleted for ". $matno."<br/>";
-
-}
-
-
-
-} 
-
-
+      if ($query)
+      {
+        echo $matno." Data Updated Successfully<br/>";
+        echo "</div>";
+      }
+    }else
+    {
+      echo "records not deleted for ". $matno."<br/>";
+    }
+  } 
 
 }
 ?>
@@ -208,40 +160,31 @@ echo "records not deleted for ". $matno."<br/>";
 
 <form action="" method="post" name="grade" id="grade">
       <div class="auto-style1">
-      <table align="center">
+      <table class="table table-bordered">
         <tr>
-          <td align="left"><strong>PROGRAMME:</strong></td>
-          <td align="left"><select name="programme" id="programme">
-            <option selected="selected"><?php // echo $_GET['depts'];?></option>
-			
-			
-			
-			 <?php include('dptcode.php') ;
-            
-            
-            //$queri = mysql_query("SELECT * FROM `dept` WHERE 
-            //prog = '$departmentcode'  && `dep` LIKE '%National Diploma%'") or die(mysql_error());
-            
-            $queri = mysql_query("SELECT * FROM `dept` WHERE 
-            prog = '$departmentcode'") or die(mysql_error());
-            
-            while($pcd = mysql_fetch_array($queri)){
-            ?>
-            
-            
-              <option selected="selected"><?php echo $pcd['dep'];?></option>
-              
+          <td><strong>PROGRAMME:</strong></td>
+          <td>
+            <select name="programme" id="programme" class="form-control">
+              <option selected="selected" value="">Select Programme</option>
+              <?php include('dptcode.php') ;
+              //$queri = mysql_query("SELECT * FROM `dept` WHERE 
+              //prog = '$departmentcode'  && `dep` LIKE '%National Diploma%'") or die(mysqli_error($conn));
+              $queri = 	programmess_dept($_SESSION['depts_ids'], $logs); 
+              //	$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
+              while($pcd = mysqli_fetch_assoc($queri)){
+              ?>
+              <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
+
               <?php }?>
-              
-                        
-          </select>
+            </select>
           
           </td>
         </tr>
         <tr>
-          <td align="left"><strong>SEMESTER:</strong></td>
-          <td align="left"><select name="semester">
-            <option selected="selected"></option>
+          <td><strong>SEMESTER:</strong></td>
+          <td>
+          <select name="semester" class="form-control">
+            <option selected="selected" value="">Select Semester</option>
             <option value="1">First Semester</option>
             <option value="2">Second Semester</option>
             <option value="3">Third Semester</option>
@@ -251,16 +194,16 @@ echo "records not deleted for ". $matno."<br/>";
           </select></td>
         </tr>
         <tr>
-          <td align="left"><strong>SESSION:</strong></td>
-          <td align="left"><select name="session">
-          <option selected="selected"></option>
-          <option><?php echo ((date('Y')-1)."/".date('Y'));?></option>
-                     <?php echo include('includes/sessions.php');?>
-
-            </select>
+          <td ><strong>SESSION:</strong></td>
+          <td>
+          <select name="session" class="form-control">
+            <option selected="selected" value="">Select Session</option>
+            <option><?php echo ((date('Y')-1)."/".date('Y'));?></option>
+            <?php echo include('includes/sessions.php');?>
+          </select>
             -
-            <select name="year" id="year">
-              <option selected="selected" ></option>
+            <select name="year" id="year" class="form-control">
+              <option selected="selected" value="">Select Year</option>
               <option>9</option>
               <option>10</option>
               <option>11</option>
@@ -268,21 +211,23 @@ echo "records not deleted for ". $matno."<br/>";
               <option>13</option>
               <option>14</option>
               <option>15</option>
-              <option>16</option>
-              <option>17</option>
-              <option>18</option>
-              <option>19</option>
-              <option>20</option>
+              <option>16</option> 
+              <?php
+              for($i = 17; $i<=20; $i++)
+              {
+                echo "<option>".$i."</option>";
+              }
+              ?>
             </select>
             <input  type="hidden" name="start" value="0" />
           <input type="hidden" name="list" value="20" /></td>
         </tr>
         <tr>
-          <td align="left">&nbsp;</td>
-          <td align="left">&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
         </tr>
           </table>
-      <input name="Submitf" value="Submit" type="submit" />
+      <input name="Submitf" value="Submit" type="submit" class="btn btn-gradient-primary mr-2"/>
 
   </div>
 

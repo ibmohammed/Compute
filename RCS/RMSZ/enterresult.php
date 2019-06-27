@@ -38,273 +38,290 @@ function MM_validateForm() { //v4.0
 
 
    	<?php
-if(isset($_POST['Submit2'])){
-	$programme=$_POST['programme'];
+if(isset($_POST['Submit2']))
+{
+  $programme=$_POST['programme'];
+
+  $programme = mysqli_escape_string($conn, $programme);
+
+  $year=$_POST['year'];
+  $session=$_POST['session'];
+  $semester=$_POST['semester'];
+  $name= $_POST['name'];
+  $name = mysqli_escape_string($conn, $name);
+  $matno= $_POST['matno'];
+  $count = $_POST['count'];
+  $session = $_POST['session'];
 
 
-$programme = mysqli_escape_string($programme);
+  // check if result already exist
 
-		$year=$_POST['year'];
-	$session=$_POST['session'];
-	$semester=$_POST['semester'];
-	$name= $_POST['name'];
-$name = mysqli_escape_string($name);
-	$matno= $_POST['matno'];
-	$count = $_POST['count'];
-	$session = $_POST['session'];
+  $matricno=$_POST['matno'];
 
 
-// check if result already exist
-
-		$matricno=$_POST['matno'];
-		
-		$sql1=mysqli_query($conn,"SELECT *FROM `results`
-    WHERE `matric_no` = '$matricno'AND 
-    `programme` = '$programme' AND 
-    `semester`='$semester'") or die (mysql_error());
-
-$col = mysqli_fetch_assoc($sql1);
-if (($matricno==$col['matric_no'])&&($programme==$col['programme'])&&($semester==$col['semester'])){
-    echo "<script language = 'javascript'>"."alert('record already Exist')"."</script>";
-	
-}else{
-	
-	
-	if (!$name && !$matno){
-	die( 'No more records and Empty fields cannot be added');
-	}
-	$count=$count-1;
-	$m=0;
-	while($m<=$count){
-$m=$m+1;
-$scr= "score".$m;
-$score = $_POST[$scr];
-include("includes/scoregrade.php");
-$point = $n[$grade1];
-$un="unit".$m;
-$unit=$_POST[$un];
-$cod="code".$m;
-$code = $_POST[$cod];
-
-// insert results
-$query=mysqli_query($conn,"INSERT IGNORE INTO `consultdbsnw`.`results` 
-(`sn`, `name`, `matric_no`, `code`,`unit`,`score`, `grade`,`points`,
- `programme`, `semester`, `session`) VALUES (NULL, '$name', '$matno',
- '$code','$unit', '$score', '$grade1','$point', '$programme', '$semester',
- '$session')");
-}
-// update status
-	$updt = mysqli_query($conn,"UPDATE `consultdbsnw`.`studentsnm` 
-  SET `status` = '$semester' WHERE `studentsnm`.`matno` ='$matno'");
-	
-	$query = mysqli_query($conn,"SELECT * FROM `course` 
-  WHERE programme ='$programme' && semester = '$semester' && sessions = '$session'");
-	
-	$sql = mysqli_query($conn,"SELECT * FROM `studentsnm` 
-  WHERE dept='$programme' && year = '$year' && status < '$semester' ORDER BY `studentsnm`.`matno` ASC");
-	$row = mysqli_fetch_assoc($sql);
-		
-	?>
-	
-
-	<form action="" method="post" name="form2" id="form2" onsubmit="MM_validateForm('name','','R','matno','','R');return document.MM_returnValue">
-  
-	  <table class="table table-bordered">
-        <tr>
-          <td><span style="font-weight: bold">Name:</span></td>
-          <td><input name="name" type="text" id="name" value="<?php echo $row['names'];?>" size="40"  readonly="1"/>
-          </td>
-        </tr>
-        <tr>
-          <td ><span style="font-weight: bold">MatricNo:</span></td>
-          <td ><input name="matno" type="text" id="matno"  value="<?php echo $row['matno'];?>" readonly="1"/>
-          </td>
-        </tr>
-      </table>
+  $sql1=mysqli_query($conn,"SELECT * FROM `results`
+  WHERE `matric_no` = '$matricno'AND 
+  `prog_id` = '$programme' AND 
+  `semester`='$semester'") or die (mysqli_error($conn));
     
-    <table class="table table-bordered">
+  if (!$name && !$matno)
+  {
+    die( 'No more records and Empty fields cannot be added');
+  }
+    
+
+  $col = mysqli_fetch_assoc($sql1);
+
+    if (!empty($_POST['score_list']))
+    {
+      foreach($_POST['score_list'] as $score) 
+      {
+        foreach($_POST['code_list'] as $code)   
+        {
+          foreach( $_POST['unit_list'] as $unit)
+          {
+
+            include("includes/scoregrade.php");
+            $point = $n[$grade1];
+            // insert results
+            $query=mysqli_query($conn,"INSERT IGNORE INTO `results` 
+            (`sn`, `name`, `matric_no`, `code`,`unit`,`score`, `grade`,`points`,
+            `prog_id`, `semester`, `session`) VALUES (NULL, '$name', '$matno',
+            '$code','$unit', '$score', '$grade1','$point', '$programme', '$semester',
+            '$session')");
+          } 
+        }
+      }
+    }
+    // update status
+    $updt = mysqli_query($conn,"UPDATE `studentsnm` 
+    SET `status` = '$semester' WHERE `studentsnm`.`matno` ='$matno'");
+
+    $query = mysqli_query($conn,"SELECT * FROM `course` 
+    WHERE prog_id ='$programme' && semester = '$semester' && sessions = '$session'");
+
+    $sql = mysqli_query($conn,"SELECT * FROM `studentsnm` 
+    WHERE prog_id='$programme' && year = '$year' && status < '$semester' ORDER BY `studentsnm`.`matno` ASC");
+    $row = mysqli_fetch_assoc($sql);
+    
+    $exixtin = mysqli_num_rows($sql);
+    if($exixtin==0){
+      echo "No Student left";
+    }
+    else
+    {
+      ?>
+
+      <form action="" method="post" name="form2" id="form2">
+        <table class="table table-bordered">
           <tr>
-		  
+            <td><span style="font-weight: bold">Name:</span></td>
+            <td>
+              <input name="name" type="text" id="name" value="<?php echo $row['names'];?>"  readonly="1"/>
+              <input name="name" type="hidden" id="name" value="<?php echo $row['names'];?>" size="40" />
+            </td>
+          </tr>
+          <tr>
+            <td ><span style="font-weight: bold">MatricNo:</span></td>
+            <td >
+              <input name="matno" type="text" id="matno"  value="<?php echo $row['matno'];?>" readonly="1"/>
+              <input name="matno" type="hidden" id="matno"  value="<?php echo $row['matno'];?>" />
+            </td>
+          </tr>
+        </table>
+      
+        <table class="table table-bordered">
+          <tr>
             <?php 
-			
-			$n=0; 
-			while ($col= mysqli_fetch_assoc($query)){
-			 $n=$n+1;
-			 
-			 // check if there are existing records and the records are not complete
-			 
-			$cscode =  $col['code'];
-			$csunit =  $col['unit'];
-			 $smatno = $row['matno'];
-			 
-			 //echo "<input type='text' value='".$matno."'>";
-			 
- $sqry = mysqli_query($conn,"SELECT * FROM `results` 
- WHERE  matric_no = '$smatno' && code = '$cscode' && unit = '$csunit'"
- )or die('sqry'.mysqli_error());			
- $nmrws = mysqli_num_rows($sqry);
- if($nmrws ==0){
-			 ?>
-			 
-			 <td ><span style="color: #000000; font-weight: bold"><?php echo $col['code']."<br>";?>
-			   <input name="<?php echo'unit'.$n;?>" type="hidden" value="<?php echo $col['unit'];?>" size="4" />
-				<input name="<?php echo'code'.$n;?>" type="hidden" value="<?php echo $col['code'];?>" size="4"/>
-			  
-			    <select name="<?php echo'score'.$n;?>" >
-                  <option >---</option>
-                  <?php include("includes/scoreopt.php");?>
-                </select>
-			 </span></td>
-            <?php 
-                        
-            }  // end of checking
-            
-            
+            $n=0; 
+            while ($col= mysqli_fetch_assoc($query))
+            {
+              $n=$n+1;
+
+              // check if there are existing records and the records are not complete
+
+              $cscode =  $col['code'];
+              $csunit =  $col['unit'];
+              $smatno = $row['matno'];
+
+              //echo "<input type='text' value='".$matno."'>";
+
+              $sqry = mysqli_query($conn,"SELECT * FROM `results` 
+              WHERE  matric_no = '$smatno' && code = '$cscode' && unit = '$csunit'"
+              )or die('sqry'.mysqli_error($conn));			
+              $nmrws = mysqli_num_rows($sqry);
+              if($nmrws ==0)
+              {
+                ?>
+
+              <td >
+                <span style="color: #000000; font-weight: bold"><?php echo $col['code']."<br>";?>
+                  <input name="unit_list[]" type="hidden" value="<?php echo $col['unit'];?>" size="4" />
+                  <input name="code_list[]" type="hidden" value="<?php echo $col['code'];?>" size="4" />
+                  <select name="score_list[]">
+                    <option value="0">---</option>
+                    <?php include("includes/scoreopt.php");?>
+                  </select>
+                </span>
+              </td>
+              <?php 
+              }  // end of checking
             }?>
           </tr>
         </table>
         <input name="count" type="hidden" id="count" value="<?php echo $n;?>" />
-        <input type="submit" name="Submit2" value="Submit" />
+        <input type="submit" name="Submit2" value="Submit"  class="btn btn-gradient-primary mr-2"/>
         <input type="hidden" name="programme"  value="<?php echo $programme;?>"/>
         <input type="hidden" name="session"  value="<?php echo $session;?>"/>
         <input type="hidden" name="semester"  value="<?php echo $semester;?>"/>
         <input type="hidden" name="year"  value="<?php echo $year;?>"/>
-        </form>
-    
-    
-    
-    <?php }?>
-	<?php exit;
+      </form>
+      
+      
+      
+      <?php 
+    }?>
+    <?php exit;
 }	?>
-	<?php if(isset($_POST['Submit'])){
-	$programme=$_POST['programme'];
-	
-	$programme = mysqli_escape_string($conn,$programme);
-	
-	$year=$_POST['year'];
-	$session=$_POST['session'];
-	$semester=$_POST['semester'];
-	$query=mysqli_query($conn,"SELECT * FROM `course` 
-  WHERE programme ='$programme' && semester = '$semester'  && sessions = '$session'") or die(mysql_error());
+  <?php 
+if(isset($_POST['Submit']))
+{
+  $programme=$_POST['programme'];
 
-	$sql=mysqli_query($conn,"SELECT * FROM `studentsnm` 
-  WHERE dept='$programme'  && year = '$year' && 
-  status <'$semester' && Withdrwan ='0' ORDER BY `studentsnm`.`matno` ASC") or die(mysql_error());
-		$row=mysqli_fetch_assoc($sql);
-		
-		$matricno=$row['matno'];
-		
-		$sql1=mysqli_query($conn,"SELECT *FROM `results`
-    WHERE `matric_no` LIKE '$matricno'AND `programme` LIKE '$programme'") or die (mysql_error());
+  $programme = mysqli_escape_string($conn,$programme);
+
+  $year=$_POST['year'];
+  $session=$_POST['session'];
+  $semester=$_POST['semester'];
+  $query=mysqli_query($conn,"SELECT * FROM `course` 
+  WHERE prog_id ='$programme' && semester = '$semester'  && sessions = '$session'") or die(mysqli_error($conn));
+
+  $sql=mysqli_query($conn,"SELECT * FROM `studentsnm` 
+  WHERE prog_id='$programme'  && year = '$year' && 
+  status <'$semester' && Withdrwan ='0' ORDER BY `studentsnm`.`matno` ASC") or die(mysqli_error($conn));
+  $row=mysqli_fetch_assoc($sql);
+
+  $matricno=$row['matno'];
+
+  $sql1=mysqli_query($conn,"SELECT *FROM `results`
+  WHERE `matric_no` LIKE '$matricno'AND `prog_id` = '$programme'") or die (mysqli_error($conn));
   $col =mysqli_fetch_assoc($sql1);
 
-if (($matricno==$col[2])&&($programme==$col[3])&&($programme==$col['semester'])){
+  if (($matricno==$col['matric_no'])&&($programme==$col['code'])&&($programme==$col['semester']))
+  {
     echo "<script language = 'javascript'>"."alert('record already Exist')"."</script>";
-	exit;
-}
-	
-	?>
+    exit;
+  }
 
+  $exixtin = mysqli_num_rows($sql);
 
+  if($exixtin==0)
+  {
+    echo "No Student left";
+  }
+  else
+  {	
+    ?>
 
-	<form action="" method="post" name="form1" id="form1" onsubmit="MM_validateForm('name','','R','matno','','R');return document.MM_returnValue">
+    <!--<form action="" method="post" name="form1" id="form1" onsubmit="MM_validateForm('name','','R','matno','','R');return document.MM_returnValue">-->
+    <form action="" method="post" name="form1" id="form1">
       <table class="table table-bordered">
         <tr>
           <td ><span style="font-weight: bold">Name:</span></td>
-          <td ><input name="name" type="text" id="name" value="<?php echo $row['names'];?>" size="40" readonly="1"  />
+          <td >
+            <input name="name" type="text" id="name" value="<?php echo $row['names'];?>" size="40" readonly="1"  />
+            <input name="name" type="hidden" id="name" value="<?php echo $row['names'];?>" size="40" />
           </td>
         </tr>
         <tr>
-          <td ><span style="font-weight: bold">MatricNo:</span></td>
-          <td ><input name="matno" type="text" id="matno"  value="<?php echo $row['matno'];?>" readonly="1"/>
+          <td ><span style="font-weight: bold">Matric Number:</span></td>
+          <td >
+            <input name="matno" type="text" id="matno"  value="<?php echo $row['matno'];?>" readonly="1"/>
+            <input name="matno" type="hidden" id="matno"  value="<?php echo $row['matno'];?>" />
           </td>
         </tr>
       </table>
-        <table class="table table-bordered">
-          <tr>
-            <?php $n=0; 
-			while ($col= mysqli_fetch_assoc($query)){
-			 $n=$n+1;
-			
 
-			 // check if there are existing records and the records are not complete
-			 
-			$cscode =  $col['code'];
-			$csunit =  $col['unit'];
-			 $smatno = $row['matno'];
-			 
-			 //echo "<input type='text' value='".$matno."'>";
-			 
- $sqry = mysqli_query($conn,"SELECT * FROM `results` 
- WHERE  matric_no = '$smatno' && code = '$cscode' && unit = '$csunit'")or die('sqry'.mysqli_error());			
- $nmrws = mysqli_num_rows($sqry);
- if($nmrws ==0){
-		
-	 ?>
-	 			<td ><span style="color: #000000; font-weight: bold"><?php echo $col['code']."<br>";?>
-			    <input name="<?php echo'unit'.$n;?>" type="hidden" value="<?php echo $col['unit'];?>" size="4" />
-				<input name="<?php echo'code'.$n;?>" type="hidden" value="<?php echo $col['code'];?>" size="4" />
-			 
-			    <select name="<?php echo'score'.$n;?>" >
-                  <option >---</option>
+      <table class="table table-bordered">
+        <tr>
+          <?php $n=0; 
+          while ($col= mysqli_fetch_assoc($query))
+          {
+            $n=$n+1;
+            // check if there are existing records and the records are not complete
+            $cscode =  $col['code'];
+            $csunit =  $col['unit'];
+            $smatno = $row['matno'];
+
+            //echo "<input type='text' value='".$matno."'>";
+
+            $sqry = mysqli_query($conn,"SELECT * FROM `results` 
+            WHERE  matric_no = '$smatno' && code = '$cscode' && unit = '$csunit'")or die('sqry'.mysqli_error($conn));			
+            $nmrws = mysqli_num_rows($sqry);
+            if($nmrws ==0)
+            {
+              ?>
+              <td >
+                <span style="color: #000000; font-weight: bold"><?php echo $col['code']."<br>";?>
+                  <input name="unit_list[]" type="hidden" value="<?php echo $col['unit'];?>" size="4" />
+                  <input name="code_list[]" type="hidden" value="<?php echo $col['code'];?>" size="4" />
+                  <select name="score_list[]" >
+                  <option value="0">---</option>
                   <?php include("includes/scoreopt.php");?>
-                </select>
-			 </span></td>
-            <?php
-            
-}
-
- }?>
-          </tr>
-        </table>
-        <input name="count" type="hidden" id="count" value="<?php echo $n;?>" />
-        <input type="submit" name="Submit2" value="Submit" class="btn btn-gradient-primary mr-2"/>
-        <input type="hidden" name="programme"  value="<?php echo $programme;?>"/>
-        <input type="hidden" name="session"  value="<?php echo $session;?>"/>
-        <input type="hidden" name="semester"  value="<?php echo $semester;?>"/>
-        <input type="hidden" name="year"  value="<?php echo $year;?>"/>
+                  </select>
+                </span>
+              </td>
+              <?php
+            }
+          }?>
+        </tr>
+      </table>
+      
+    <input name="count" type="hidden" id="count" value="<?php echo $n;?>" />
+    <input type="submit" name="Submit2" value="Submit" class="btn btn-gradient-primary mr-2"/>
+    <input type="hidden" name="programme"  value="<?php echo $programme;?>"/>
+    <input type="hidden" name="session"  value="<?php echo $session;?>"/>
+    <input type="hidden" name="semester"  value="<?php echo $semester;?>"/>
+    <input type="hidden" name="year"  value="<?php echo $year;?>"/>
     </form>
- 
-	<?php 
-	exit;
-	}
+
+    <?php 
+  }
+  exit;
+}
 	
-	?>
+?>
 	
 	
 <form action="" method="post" name="grade" id="grade">
      <p> <strong >INPUT RESULTS</strong></p>
       <table class="table table-bordered">
         <tr>
-          <td ><span style="font-weight: bold; color: #000000">PROGRAMME:</span></td>
-          <td ><select name="programme" id="programme" class="form-control">
-         			<option selected="selected"></option>
-         			
-         			 <?php include('dptcode.php') ;
-             $prgqry = prog_function($logs);
-             while($pcd = mysqli_fetch_assoc($prgqry)){
-             ?>
-             
-             
-               <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
-               
-               <?php }?>
-               
-              
-             
-                 </select>         
+          <td>PROGRAMME:</td>
+          <td>
+            <select name="programme" id="programme" class="form-control">
+            <option selected="selected" value="">Select Programme</option>
+              <?php include('dptcode.php');
+              $queri = 	programmess_dept($_SESSION['depts_ids'], $logs); 
+              //	$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error($conn));
+              while($pcd = mysqli_fetch_assoc($queri)){
+              ?>
+              <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
+              <?php }?>
+            </select>         
           </td>
         </tr>
         <tr>
-          <td ><span style="font-weight: bold; color: #000000">SESSION:</span></td>
-          <td ><select name="session" class="form-control">
-          <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
-                    <?php echo include('includes/sessions.php');?>
-
-          </select>
+          <td >SESSION:</td>
+          <td >
+            <select name="session" class="form-control">
+            <option selected="selected" value="">Select Session</option>
+              <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
+              <?php echo include('includes/sessions.php');?>
+            </select>
           -
           <select name="year" id="year" class="form-control">
-            <option selected="selected">YEAR</option>
+            <option selected="selected" value="">Select Year</option>
 			      <option>9</option>
             <option>10</option>
             <option>11</option>
@@ -326,7 +343,7 @@ if (($matricno==$col[2])&&($programme==$col[3])&&($programme==$col['semester']))
           <td>SEMESTER:</td>
           <td>
             <select name="semester" class="form-control">
-              <option selected="selected"></option>
+            <option selected="selected" value="">Select Semester</option>
               <option value="1">First Semester</option>
               <option value="2">Second Semester</option>
               <option value="3">Third Semester</option>

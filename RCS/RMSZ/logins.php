@@ -69,10 +69,14 @@ if(isset($_POST['Submit']))
 
   //$loginFoundUser = mysqli_stmt_num_rows($stmt);
   /* fetch value */
-  mysqli_stmt_fetch($stmt);
+  $deptcode = mysqli_stmt_fetch($stmt);
   //$loginFoundUser = mysqli_num_rows($result);
 $_SESSION['myaidi'] =  $id;
 $_SESSION['utyp'] =  "Staff";  
+
+//departments_code($prog, $conn);
+
+
 	
 	if($t_user == 0)
 	//if($row['status']== 0)

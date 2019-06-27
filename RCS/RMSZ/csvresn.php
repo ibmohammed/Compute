@@ -277,10 +277,10 @@ or die(mysqli_error($conn).'llll');
 <form id="form1" class="forms-sample" action="" enctype="multipart/form-data" method="post" name="form1">
 <div class="form-group">
                       
-    <table class="table table-bordered" style="width: 100%">
-		<tr>
+		<table class="table table-bordered">
+    		<tr>
 			<td>Course Code:</td>
-			<td>&nbsp;
+			<td>
 			<select name="ccodes" class="form-control" id="exampleSelectGender">
 			<option selected="selected"><?php echo $_POST['code'];?></option>
 			<?php while($rows = mysqli_fetch_assoc($crss)){?>			
@@ -289,30 +289,28 @@ or die(mysqli_error($conn).'llll');
 			</select></td>
 		</tr>
 		<tr>
-			<td>Choose your file:</td>
-			<td>  
-			<!--<input name="csv" type="file" class="btn btn-gradient-primary" /> -->
+		<td>Choose your file:</td>
+		<td>  
 			<div class="form-group">
-				      <input type="file" name="img[]" class="file-upload-default">
-                      <div class="input-group col-xs-12">
-                        <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                        <span class="input-group-append">
-                          <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
-                        </span>
-                      </div>
-                    </div>	
-			                    
+				    <input type="file" name="img[]" class="file-upload-default">
+                    <div class="input-group col-xs-12">
+						<input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+						<span class="input-group-append">
+						<button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
+						</span>
+                    </div>
+            </div>	                    
 		</td>
-		</tr>
-		
+		</tr>	
 	</table>
-	
 	<input name="programme" value="<?php echo $programme;?>" type="hidden"/>
 	<input name="session" value="<?php echo $session;?>" type="hidden"/>
 	<input name="semester" value="<?php echo $semester;?>" type="hidden"/>
+	<br>
 	
 	<input name="Submit" type="submit" value="Submit" class="btn btn-gradient-primary mr-2"> 
-	
+	<hr>
+	<br>
                      
 </div>
 </form>
@@ -331,34 +329,26 @@ if (empty($_GET['csv'])) {
 
 
 <form action="" method="post" name="grade" id="grade">
-      <table class="table table-bordered" style="text-align: left;color:blue;">
+      <table class="table table-bordered" >
         <tr>
-          <td style="height: 30px" ><span style="font-weight: bold; color: #000000">PROGRAMME:</span></td>
- <td style="height: 30px" >
-
-		<div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-							<div class="col-sm-9">
-			<select class="form-control">
-				<?php include('dptcode.php') ;
-
-				$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
-				while($pcd = mysqli_fetch_assoc($queri)){
-				?>
-				<option><?php echo $pcd['dep'];?></option>
-				<?php }?>
-
-			</select>
-		</div>
-		</div>
-                        </div>
-                      </div>
- </td>
+        	<td style="height: 30px" >PROGRAMME:</td>
+			<td style="height: 30px" >
+				<select name="programme" id="programme" class="form-control">
+					<option selected="selected" value="">Select Programme</option>
+					<?php include('dptcode.php') ;
+					$queri = 	programmess_dept($_SESSION['depts_ids'], $logs); 
+					while($pcd = mysqli_fetch_assoc($queri)){
+					?>
+					<option><?php echo $pcd['programme'];?></option>
+					<?php }?>
+				</select>
+			</td>
         </tr>
         <tr>
-          <td ><span style="font-weight: bold; color: #000000">SESSION:</span></td>
-          <td ><select name="session">
+          <td >SESSION:</td>
+          <td >
+		  <select name="session" class="form-control">
+		  <option selected="selected" value="">Select Session</option>
           <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
                     <?php echo include('includes/sessions.php');?>
 			<option>2018/2019</option>
@@ -366,9 +356,10 @@ if (empty($_GET['csv'])) {
          </td>
         </tr>
         <tr>
-          <td ><span style="font-weight: bold; color: #000000">SEMESTER:</span></td>
-          <td ><select name="semester">
-            <option selected="selected"></option>
+          <td >SEMESTER:</td>
+          <td >
+		  <select name="semester" class="form-control">
+            <option selected="selected" value="">Select Semester</option>
 			<option value="1">First Semester</option>
             <option value="2">Second Semester</option>
             <option value="3">Third Semester</option>
@@ -378,7 +369,7 @@ if (empty($_GET['csv'])) {
           </select></td>
         </tr>
       </table>
-      <input name="Submitf" value="Submit" type="submit" />
+      <input name="Submitf" value="Submit" type="submit" class="btn btn-gradient-primary mr-2"/>
       <br />
     </form>
 

@@ -52,6 +52,9 @@ if (!isset($_SESSION)) {
 }
 
 $departmentcode = $_SESSION['deptcode'];
+$depts_ids = departments_code($departmentcode, $logs);
+$depts_ids = mysqli_fetch_assoc($depts_ids);
+$_SESSION['depts_ids'] = $depts_ids['dept_id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,6 +77,10 @@ $departmentcode = $_SESSION['deptcode'];
 </head>
 
 <body>
+<?php 
+programmess_dept($_SESSION['depts_ids'], $logs); 
+?>
+
   <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
