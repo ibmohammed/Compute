@@ -1,10 +1,4 @@
 <?php
-// admin user 
-		
-		//$_SESSION['username'] = $row["username"];
-		//$_SESSION['password'] = $row["password"];
-		//$_SESSION['deptcode'] = $row['progs'];
-		//$_SESSION['stid'] = $row['id'];
 		
 		$_SESSION['username'] = $uname;
 		$_SESSION['password'] = $pwrd;
@@ -12,9 +6,6 @@
 		$_SESSION['stid'] = $id;
 
 
-		//if($uname!=="")
-		//if (mysqli_stmt_num_rows($stmt) !== 0)
-		//if ($loginFoundUser) 
 		if (password_verify($password, $pwrd)) 
 		{
 		

@@ -48,12 +48,13 @@ if(isset($_POST['submit']))
   //if(mysqli_num_rows($return_result)!== 0)
   {
 
-    if($password == '0000')
+    if($password == '000000')
     {
       $return_comfirm = login_comfirm($loginUsername, $password,$logs);
       mysqli_stmt_execute($return_comfirm);
       mysqli_stmt_bind_result($return_comfirm, $sn, $names, $matno, $prog_id, $year, $session, $status);
       mysqli_stmt_store_result($return_comfirm);
+      mysqli_stmt_fetch($return_comfirm);
 
       echo $loginUsername;
       echo $names;

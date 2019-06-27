@@ -20,7 +20,7 @@ function col_function($logs)
   //$coleg = mysqli_fetch_assoc($colgqry);
   return $colgqry;
 }
-
+/*
 
 function prog_function($logs)
 {
@@ -30,7 +30,7 @@ function prog_function($logs)
   return $prgqry;
 }
 
-
+*/
 function progs_function($logs, $deptsid)
 {
 $prgqry2 = mysqli_query($logs, "SELECT prog_id, programme FROM `programmes` WHERE dept_id ='".$deptsid."'") or die(mysqli_error($logs));

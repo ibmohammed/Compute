@@ -33,7 +33,13 @@ if (!((isset($_SESSION['comfirmuser']))))
       echo $password;
     }
 
-    $stmt = make_change_pass($_SESSION['stid'], $_POST['password'],$logs);
+    $options = [
+      'cost' => 11,
+  ];
+  
+
+  $hash = password_hash($_POST['password'], PASSWORD_BCRYPT,  $options);
+    $stmt = make_change_pass($_SESSION['stid'], $hash, $logs);
 
     if(mysqli_affected_rows($logs) !== 0)
     {

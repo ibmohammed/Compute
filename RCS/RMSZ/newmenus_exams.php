@@ -38,7 +38,7 @@ $prgqry = mysqli_query($logs, "SELECT prog_id, programme FROM `programmes` WHERE
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="index.php">
+            <a class="nav-link" href="exams_records.php">
               <span class="menu-title">Dashboard</span>
               <i class="mdi mdi-home menu-icon"></i>
             </a>

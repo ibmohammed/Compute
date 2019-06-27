@@ -63,10 +63,8 @@ $list=$_POST['list'];
 	// keep title here
 	
 	include('title.php');
-	
 
 	?>
-
     <style type="text/css" media="print,screen" >
 table td {
 	border-bottom:1px solid gray;
@@ -91,7 +89,7 @@ tbody {
     <td rowspan="2"><div align="center" style="font-weight: bold"><span><strong>S/N</strong></span></div></td>
     <td rowspan="2" ><div align="center" style="font-weight: bold"><span><strong>Matric_No</strong></span></div></td>
     <td rowspan="2"><div align="center">
-      <div align="left"><span><strong>Names&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span></div>
+      <div><span><strong>Names&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span></div>
     </div> </td>
     <?php while($row=mysqli_fetch_assoc($query)){  ?>  
 	  <td rowspan="2"><div align="center" style="font-weight: bold"><span><strong><?php echo $row['code']."<br>"."(".$row['unit'].")";?></strong></span></div></td>
@@ -262,6 +260,7 @@ while ($col=mysqli_fetch_assoc($msql)){
                     	//	echo "ATW";
                     	//	}else
                 		if(($unit == $unn) && ($gpa >1.50 && $gpa < 3.50 )){
+                      $passs = "PASS";
                 			echo $passs;
                 		}
 	               }
@@ -300,9 +299,6 @@ while ($col=mysqli_fetch_assoc($msql)){
 <?php
 include('selected.php');	
  ?>
-	
-	
-	
 <!--   Page Control button -->
 <!--
 
@@ -311,45 +307,27 @@ include('selected.php');
 	?>
 	
 <form action="viewabm.php" method="post" name="grades" id="grade" target="_blank">
- <div align="center"> <table align="center">
-    <tr>
-      <td align="left"><span style="font-weight: bold">PROGRAMME:</span></td>
-      <td align="left" style="width: 154px">
-      
-      <select name="programme" id="programme">
-<option selected="selected"> <?php // echo $_GET['depts'];?></option>
-
+<table class="table table-bordered">  
+  <tr>
+      <td><span style="font-weight: bold">PROGRAMME:</span></td>
+      <td >
+      <select name="programme" id="programme" class="form-control">
+            <option selected="selected" value="">Select Programme</option>
  <?php include('dptcode.php') ;
-            
-            
-//$departmentcode = mysqli_escape_string($departmentcode);
-
-$sq = "SELECT * FROM `departments` WHERE code = '$departmentcode'";
-
-$sq = mysqli_query($conn,$sq);
-$did = mysqli_fetch_assoc($sq);
-          $queri = mysqli_query($conn,"SELECT * FROM `programmes` WHERE dept_id LIKE '".$did['dept_id']."'") or die(mysqli_error($conn));
-            
-            while($pcd = mysqli_fetch_assoc($queri)){
+  $queri = 	prog_function($logs); 
+  //	$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error($conn));
+  while($pcd = mysqli_fetch_assoc($queri)){
             ?>
-            
-            
-              <option value = "<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
+  <option value = "<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
               
               <?php }?>
-              
-                        
-		<?php
-			//include('prog1.php');
-			//include('prog2.php');
-			//include('prog3.php');
-			 ?>
       </select></td>
     </tr>
     <tr>
-      <td align="left"><span style="font-weight: bold">SEMESTER:</span></td>
-      <td align="left" style="width: 154px"><select name="semester" id="semester">
-        <option selected="selected"></option>
+      <td><span style="font-weight: bold">SEMESTER:</span></td>
+      <td >
+      <select name="semester" class="form-control">
+        <option selected="selected" value="">Select Semester</option>
         <option value="1">First Semester</option>
         <option value="2">Second Semester</option>
         <option value="3">Third Semester</option>
@@ -359,17 +337,18 @@ $did = mysqli_fetch_assoc($sq);
       </select></td>
     </tr>
     <tr>
-      <td align="left"><span style="font-weight: bold">SESSION:</span></td>
-      <td align="left" style="width: 154px"><select name="session" id="session">
-      <option selected="selected"></option>
+      <td><span style="font-weight: bold">SESSION:</span></td>
+      <td >
+      <select name="session" class="form-control">
+            <option selected="selected" value="">Select Session</option>
       <option><?php echo ((date('Y')-1)."/".date('Y'));?></option>
         <?php echo include('includes/sessions.php');?>
         <option>2018/2019</option>
       </select>
         -
-        <select name="year" id="select2">
-          <option selected="selected"></option>
-		  <option>9</option>
+        <select name="year" id="year" class="form-control">
+            <option selected="selected" value="">Select Year</option>
+		      <option>9</option>
           <option>10</option>
           <option>11</option>
           <option>12</option>
@@ -377,26 +356,19 @@ $did = mysqli_fetch_assoc($sq);
           <option>14</option>
           <option>15</option>
           <option>16</option>
-           <option>17</option><option>18</option>
-             <?php 
-                         for($i = 2017; $i<=2020; $i++){
-                         
-                         echo "<option>".$i."</option>";
-                         }
-                         ?>
+          <?php 
+          for($i = 17; $i<=20; $i++){
+          echo "<option>".$i."</option>";
+          }
+          ?>
         </select>
         <input name="start"  type="hidden" id="start" value="0" />
       <input name="list" type="hidden" id="list" value="20" /></td>
     </tr>
     <tr>
-      <td colspan="2"><div align="center">
-        <input name="Submit" type="submit" id="Submit" value="Submit" />
-      </div></td>
+      <td colspan="2">
+        <input name="Submit" type="submit" id="Submit" value="Submit"  class="btn btn-gradient-primary mr-2"/>
+      </td>
     </tr>
-  </table></div>
+  </table>
 </form>
-<?php //echo $departmentcode; ?>
-
-</body>
-
-</html>

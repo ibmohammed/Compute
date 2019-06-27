@@ -17,7 +17,7 @@
            
            function login_comfirm($username, $password,$lg) {
              //require_once('connection.php');
-             $query = "SELECT sn, names, matno, prog_id, year, session, status FROM nigerpol_consultdbsnw.studentsnm WHERE matno=?";
+             $query = "SELECT sn, names, matno, prog_id, year, session, status FROM studentsnm WHERE matno=?";
              $stmt = mysqli_prepare($lg, $query) or die(mysqli_error($lg)."query error");
              mysqli_stmt_bind_param($stmt, "s", $username);
             /* execute query */
@@ -32,7 +32,7 @@
   			 function login_scomfirm($username, $password,$lg) {
              //require_once('connection.php');
              $query = "SELECT id, names, number, contact, dept_id 
-             FROM nigerpol_consultdbsnw.staff WHERE number=?";
+             FROM staff WHERE number=?";
              $stmt = mysqli_prepare($lg, $query) or die(mysqli_error($lg)."query error");
              mysqli_stmt_bind_param($stmt, "s", $username);
             /* execute query */
@@ -43,7 +43,7 @@
 
            function students_data($username,$lg) {
              //require_once('connection.php');
-             $query = "SELECT * FROM nigerpol_consultdbsnw.studentsnm WHERE matno = '".$username."'";
+             $query = "SELECT * FROM studentsnm WHERE matno = '".$username."'";
              $result_data = mysqli_query($lg, $query) or die(mysqli_error($lg)."query error");
 
             return $result_data;
@@ -51,7 +51,7 @@
 
              function students_result($programme,$lg) {
                //require_once('connection.php');
-               $query = "SELECT * FROM nigerpol_consultdbsnw.course; WHERE Programme='".$programme."'";
+               $query = "SELECT * FROM course; WHERE Programme='".$programme."'";
                $result_data = mysqli_query($lg, $query)or die(mysqli_error($lg)."query error");
 
               return $result_data;
@@ -128,7 +128,7 @@ try {
 
  		 function staff_data($username,$lg) {
              //require_once('connection.php');
-             $query = "SELECT * FROM nigerpol_consultdbsnw.staff WHERE number = '".$username."'";
+             $query = "SELECT * FROM staff WHERE number = '".$username."'";
              $result_data = mysqli_query($lg, $query) or die(mysqli_error($lg)."query error");
 
             return $result_data;
@@ -247,4 +247,15 @@ function programmess_dept($deptid, $lg)
   $msq = mysqli_query($lg, $ssql) or die(mysqli_error());
   return $msq;  
 }
+
+
+
+function prog_function($logs)
+{
+  
+  $prgqry = mysqli_query($logs, "SELECT prog_id, programme FROM `programmes`") or die(mysqli_error($logs));
+  //$prgasc = mysqli_fetch_assoc($prgqry);
+  return $prgqry;
+}
+
   ?>

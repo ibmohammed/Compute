@@ -52,6 +52,11 @@ if (!isset($_SESSION)) {
 }
 
 $departmentcode = $_SESSION['deptcode'];
+
+$depts_ids = departments_code($departmentcode, $logs);
+$depts_ids = mysqli_fetch_assoc($depts_ids);
+$_SESSION['depts_ids'] = $depts_ids['dept_id'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -255,7 +260,7 @@ if(@$_SESSION['MM_Usernames'] == True){
               
               <div class="card bg-gradient-success card-img-holder text-white">
                 <div class="card-body">
-                <a href="index.php?dashdept">  <img src="../../imagess/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                                
+                <a href="exams_records.php?dashdept">  <img src="../../imagess/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                                
                   <h4 class="font-weight-normal mb-3">Department 
                     <i class="mdi mdi-diamond mdi-24px float-right"></i>
                   </h4>
