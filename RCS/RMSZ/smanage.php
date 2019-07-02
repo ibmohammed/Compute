@@ -1,5 +1,6 @@
 <?php
-if (!isset($_SESSION)) {
+if (!isset($_SESSION)) 
+{
   session_start();
   require_once('../../functions/queries.php');
   require_once('../../connections/connection.php');
@@ -34,7 +35,8 @@ function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
 }
 
 $MM_restrictGoTo = "logins.php";
-if (!((isset($_SESSION['username'])))) {   
+if (!((isset($_SESSION['username'])))) 
+{   
   $MM_qsChar = "?";
   $MM_referrer = $_SERVER['PHP_SELF'];
   if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
@@ -43,9 +45,7 @@ if (!((isset($_SESSION['username'])))) {
   $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
   header("Location: ". $MM_restrictGoTo); 
   exit;
-}
-?>
-
+}?>
 <?php 
 if (!isset($_SESSION)) {
   session_start();
@@ -100,12 +100,14 @@ $departmentcode = $_SESSION['deptcode'];
                 <span class="availability-status online"></span>             
               </div>
               <div class="nav-profile-text">
-              <p class="mb-1 text-black">
+                <p class="mb-1 text-black">
                   <?php
-if(@$_SESSION['MM_Usernames'] == True){
-  echo $_SESSION['MM_Usernames'];
-}
-?></p>
+                  if(@$_SESSION['MM_Usernames'] == True)
+                  {
+                    echo $_SESSION['MM_Usernames'];
+                  }
+                  ?>
+                </p>
               </div>
             </a>
             <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">

@@ -11,15 +11,22 @@ if(isset($_POST['Submit']))
 	$sesn = $_POST['session'];
 	$prgrm = $_POST['programme'];
 	//get the course code Unit
-	$unitt ="SELECT unit FROM `course`  WHERE 
-	`code` = '$code' && `prog_id`= '$prgrm' && `semester` = '$semst' && `sessions`= '$sesn'";
+	$unitt ="SELECT unit FROM `course`  
+						 WHERE 
+						 `code` = '$code' && 
+						 `prog_id`= '$prgrm' && 
+						 `semester` = '$semst' && 
+						 `sessions`= '$sesn'";
 	$unt = mysqli_query($conn,$unitt)or die(mysqli_error($conn));
-	$unitss =mysqli_fetch_assoc($unt);
-
-	$cunits = $unitss['unit'];
+				$unitss =mysqli_fetch_assoc($unt);
+				$cunits = $unitss['unit'];
 	// check if recordsexist			
-	$sqry = "SELECT * FROM `entered` WHERE 
-	`code` = '$code' && `prog_id`= '$prgrm' && `semester` = '$semst' && `session`= '$sesn'";
+	$sqry = "SELECT * FROM `entered` 
+					  WHERE 
+					  `code` = '$code' && 
+					  `prog_id`= '$prgrm' && 
+					  `semester` = '$semst' && 
+					  `session`= '$sesn'";
 	$qqry = mysqli_query($conn,$sqry) or die(mysqli_error($conn));
 	$nmrws = mysqli_num_rows($qqry);
 	
@@ -37,7 +44,9 @@ if(isset($_POST['Submit']))
 				$score = $data[1];
 				$smatno = $data[0];
 				// get students names from table 
-				$snmss = "SELECT `names` FROM `studentsnm` WHERE `matno` = '$smatno'";
+				$snmss = "SELECT `names` FROM `studentsnm` 
+							 			 WHERE 
+										 `matno` = '$smatno'";
 				$snms = mysqli_query($conn,$snmss);
 				$stdnmr = mysqli_fetch_assoc($snms);
 				$snames = $stdnmr['names'];
@@ -52,8 +61,7 @@ if(isset($_POST['Submit']))
 				'".addslashes($cunits)."','".addslashes($data[1])."','".addslashes($grade1)."',
 				'".addslashes($point)."','".addslashes($prgrm)."','".addslashes($semst)."',	
 				'".addslashes($sesn)."'			
-				) 
-				";
+				)";
 				mysqli_query($conn,$emtq) or die(mysqli_error($conn)); 
 			}
 			fclose($handle);
@@ -67,7 +75,6 @@ if(isset($_POST['Submit']))
 			echo "Invalid file";
 		}
 	}// numrow----
-
 	else
 	{
 		// Delete from table entered  and results to enable records overwrite
@@ -103,7 +110,8 @@ if(isset($_POST['Submit']))
 
 				// get students names from table 
 
-				$snms = mysqli_query($conn,"SELECT `names` FROM `studentsnm` WHERE `matno` = '$smatno'");
+				$snms = mysqli_query($conn,"SELECT `names` FROM `studentsnm` 
+														   WHERE `matno` = '$smatno'");
 				$stdnmr = mysqli_fetch_assoc($snms);
 				$snames = $stdnmr['names'];
 
@@ -130,8 +138,14 @@ if(isset($_POST['Submit']))
 			fclose($handle);
 			echo "Successfully imported";
 
-			$qry = mysqli_query($conn,"INSERT INTO `entered` (`code`, `unit`, `prog_id`, `semester`, `session`)
-			VALUES ('$code', '$cunits', '$prgrm', '$semst', '$sesn')") or die(mysqli_error($conn));
+			$qry = mysqli_query(
+									$conn,"INSERT INTO `entered` 
+									(`code`, `unit`, `prog_id`, `semester`, `session`
+									)
+									VALUES(
+										'$code', '$cunits', '$prgrm', '$semst', '$sesn'
+										)"
+								) or die(mysqli_error($conn));
 
 		}
 
@@ -141,16 +155,8 @@ if(isset($_POST['Submit']))
 		}
 	}
 
-
 }
-
-
-
-//connect to the database 
-include('includes/header.php');// 
-
-
-if(isset($_POST['Submitf']))
+elseif(isset($_POST['Submitf']))
 {
 	$programme=$_POST['programme'];
 	$programme = mysqli_escape_string($conn,$programme);

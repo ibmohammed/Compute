@@ -34,9 +34,7 @@ function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
   return $isValid; 
 }
 
-
-$MM_restrictGoTo = "../../Login_v3/index.php";
-
+$MM_restrictGoTo = "logins.php";
 if (!((isset($_SESSION['staffcomfirmed']))))
 {
     $MM_qsChar = "?";
@@ -96,11 +94,13 @@ if (!((isset($_SESSION['staffcomfirmed']))))
               </div>
               <div class="nav-profile-text">
               <p class="mb-1 text-black">
-                  <?php
-if(@$_SESSION['staffcomfirmed'] == True){
-  echo $_SESSION['staffcomfirmed'];
-}
-?></p>
+                <?php
+                  if(@$_SESSION['staffcomfirmed'] == True)
+                  {
+                    echo $_SESSION['staffcomfirmed'];
+                  }
+                ?>
+             </p>
               </div>
             </a>
             <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
@@ -109,7 +109,7 @@ if(@$_SESSION['staffcomfirmed'] == True){
                 Activity Log
               </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="logout.php">
                 <i class="mdi mdi-logout mr-2 text-primary"></i>
                 Signout
                 </a>
@@ -161,20 +161,15 @@ if(@$_SESSION['staffcomfirmed'] == True){
 
 
 <!-- Page content -->
-<?php if(isset($_POST['Submitf']))
+<?php if(isset($_POST['Submitff']) || isset($_GET['csvrn']))
         {
           ?>
-          
             <br>
-
-            <h4>Import Results </h4><br>
+            <h4>Manage Scores </h4><br>
             <h6 class="w3-opacity"> </h6>
             <hr class="w3-clear">
-        <?php require_once('csvresn.php');
-	
-
-		
-	}
+            <?php require_once('csvresn.php');
+      	}
   require_once('menus.php');
     
     ?>
@@ -276,14 +271,19 @@ if(@$_SESSION['staffcomfirmed'] == True){
 			$in = 0;
       while($col = mysqli_fetch_assoc($msqls)){ $in++;
       
-      
-      ?>
+         $_SESSION['semester']= $col['semester'];
+         $_SESSION['sessions']= $col['sessions'];
+         $_SESSION['prog_id'] = $col['prog_id'];
+          //$col['code'];
+          ?>
+
+     
       	<form name="form<?php echo $in;?>" method="post" action="">
 				<tr>
 				
 				
         <td>	<?php echo $in;?></td>
-        <td>	<button class="btn btn-gradient-primary mr-2" style="width:150px"  name="Submitf"><?php echo $col['code'];?></button></td>
+        <td>	<button class="btn btn-gradient-primary mr-2" style="width:150px"  name="Submitff"><?php echo $col['code'];?></button></td>
         <td>		<?php echo $col['title'];?></td>
         <td>		<?php echo $col['unit'];?>
 										<input type="hidden" value="<?php echo $col['semester'];?>" name="semester"> 

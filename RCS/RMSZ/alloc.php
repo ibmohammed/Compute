@@ -138,7 +138,7 @@ $msqls = mysqli_query($logs, $msql);
 	$pgram =  programmess_dept($_SESSION['deptid'], $logs);
 	while($prow = mysqli_fetch_assoc($pgram))
 {
-	$crs =  t_courses($_SESSION['prgid'], $logs);
+	$crs =  t_courses($prow['prog_id'], $logs);
 	while($rows = mysqli_fetch_assoc($crs))
 	{
 	?>

@@ -25,6 +25,7 @@
 		echo '<h3>Upload Scores</h3>';
 		include('csvres.php');
 		
+		
 //Student Registration Menu
 
 		}elseif(isset($_GET['regs'])){
@@ -401,5 +402,9 @@
 	//	viewsspill
 		
 		
+		/*
+		}elseif(isset($_GET['csvrn'])){
+		//echo '<h3>Upload Scores</h3>';
+		include('csvresn.php');*/
 		
 		?>
