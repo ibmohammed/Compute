@@ -34,8 +34,6 @@ if(isset($_POST['submit']))
    $row =  mysqli_stmt_fetch($return_result);
   //$loginFoundUser = mysqli_stmt_num_rows($return_result);
 
- 
-
   //$row = mysqli_fetch_array($return_result);
 
   // $_SESSION['stid'] = $row['id'];

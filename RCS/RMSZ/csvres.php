@@ -18,6 +18,10 @@ if(isset($_POST['Submit']))
 						 `semester` = '$semst' && 
 						 `sessions`= '$sesn'";
 	$unt = mysqli_query($conn,$unitt)or die(mysqli_error($conn));
+
+
+
+
 				$unitss =mysqli_fetch_assoc($unt);
 				$cunits = $unitss['unit'];
 	// check if recordsexist			
@@ -110,9 +114,20 @@ if(isset($_POST['Submit']))
 
 				// get students names from table 
 
-				$snms = mysqli_query($conn,"SELECT `names` FROM `studentsnm` 
-														   WHERE `matno` = '$smatno'");
-				$stdnmr = mysqli_fetch_assoc($snms);
+				
+				//$snms = mysqli_query($conn,"SELECT `names` FROM `studentsnm` 
+				//WHERE `matno` = '$smatno'");
+				//$stdnmr = mysqli_fetch_assoc($snms);
+				
+				$snms = mysqli_prepare($conn,"SELECT `names` FROM `studentsnm` 
+														   WHERE `matno` = ?");
+				
+				mysqli_stmt_bind_param($snms, "sssissssss", $smatno,);
+				
+				mysqli_stmt_execute($snms);
+				$stdnmr = mysqli_stmt_get_result();
+				$stdnmr = mysqli_fetch_aarray($snms, MYSQLI_ASSOC);
+
 				$snames = $stdnmr['names'];
 
 				//$snames = mysql_escape_string($snames);
@@ -121,8 +136,8 @@ if(isset($_POST['Submit']))
 
 				//include("includes/scoregrade1.php"); THIS SCORE GRADE IS FOR pgd
 
-				$point = $n[$grade1];
-				mysqli_query($conn,"INSERT IGNORE INTO `results`  
+				
+				/* $resultsss =	mysqli_query($conn,"INSERT IGNORE INTO `results`  
 				(`name`, `matric_no`, `code`, `unit`, `score`, `grade`, `points`,`prog_id`, `semester`, `session`) 
 				VALUES( 
 				'".addslashes($snames)."','".addslashes($data[0])."','".addslashes($code)."',
@@ -131,14 +146,26 @@ if(isset($_POST['Submit']))
 				'".addslashes($sesn)."'			
 
 				) 
+				") or die(mysqli_error($conn));  */
+
+
+				$point = $n[$grade1];
+			$resultsss =	mysqli_prepare($conn,"INSERT IGNORE INTO `results`  
+				(`name`, `matric_no`, `code`, `unit`, `score`, `grade`, `points`,`prog_id`, `semester`, `session`) 
+				VALUES(?,?,?,?,?,?,?,?,?,?
+				) 
 				") or die(mysqli_error($conn)); 
+
+mysqli_stmt_bind_param($resultsss, "sssissssss", $names,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn);
+mysqli_stmt_execute($resultsss);
+
 
 			}
 
 			fclose($handle);
 			echo "Successfully imported";
 
-			$qry = mysqli_query(
+			/*$qry = mysqli_query(
 									$conn,"INSERT INTO `entered` 
 									(`code`, `unit`, `prog_id`, `semester`, `session`
 									)
@@ -146,7 +173,14 @@ if(isset($_POST['Submit']))
 										'$code', '$cunits', '$prgrm', '$semst', '$sesn'
 										)"
 								) or die(mysqli_error($conn));
+								*/
 
+		$qry= mysqli_prepare($conn,"INSERT INTO `entered` 
+								(`code`, `unit`, `prog_id`, `semester`, `session`
+								)VALUES(?,?,?,?,?)"
+							)or die(mysqli_error($conn));
+			mysqli_stmt_bind_param($qry, "sssss", $code, $cunits, $prgrm, $semst, $sesn);
+			mysqli_stmt_execute($qry);
 		}
 
 		else
@@ -158,16 +192,19 @@ if(isset($_POST['Submit']))
 }
 elseif(isset($_POST['Submitf']))
 {
-	$programme=$_POST['programme'];
-	$programme = mysqli_escape_string($conn,$programme);
-
-	//	$year=$_POST['year'];
-		$session=$_POST['session'];
-		$semester=$_POST['semester'];
-
-	$crss = mysqli_query($conn,"SELECT * FROM `course` WHERE 
-	`prog_id` = '$programme' && `semester` = '$semester' && `sessions` = '$session' ") 
+	$crss = mysqli_prepare($conn,"SELECT code FROM `course` WHERE 
+	`prog_id` = ? && `semester` = ? && `sessions` = ?") 
 	or die(mysqli_error($conn));
+	mysqli_stmt_bind_param($crss, "sss", $programme,$semester,$session);
+
+	// set parameter
+	$programme = $_POST['programme'];
+	//$programme = mysqli_escape_string($conn,$programme);
+	$session=$_POST['session'];
+	$semester=$_POST['semester'];
+
+	mysqli_stmt_execute($crss);
+	$crss = mysqli_stmt_get_result($crss);
 	?>
 	<form id="form1" action="" enctype="multipart/form-data" method="post" name="form1">
 
@@ -177,7 +214,7 @@ elseif(isset($_POST['Submitf']))
 				<td>Course Code:</td>
 				<td>
 					<select name="ccodes" class="form-control">
-						<?php while($rows = mysqli_fetch_assoc($crss)){?>
+						<?php while($rows = mysqli_fetch_array($crss, MYSQLI_ASSOC)){?>
 						<option><?php echo $rows['code'];?></option>
 						<?php }?>
 					</select>
@@ -211,8 +248,10 @@ if (empty($_GET['csv']))
 				<select name="programme" id="programme" class="form-control">
 					<option selected="selected" value="">Select Programme</option>
 					<?php include('dptcode.php') ;
-						$queri = 	programmess_dept($_SESSION['depts_ids'], $logs); 
-						while($pcd = mysqli_fetch_assoc($queri))
+						//$queri = 	programmess_dept($_SESSION['depts_ids'], $logs); 
+						 //query from newmenu line 21
+						 while($pcd = mysqli_fetch_array($prgqry, MYSQLI_ASSOC))
+						//while($pcd = mysqli_fetch_assoc($queri))
 						{
 							?>
 							<option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>

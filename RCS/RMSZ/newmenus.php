@@ -4,6 +4,9 @@
 $deptqry = mysqli_query($logs, "SELECT dept_id, name, schl_id FROM `departments` WHERE code ='".$_SESSION['deptcode']."'") or die(mysqli_error($logs));
 $depts = mysqli_fetch_assoc($deptqry);
 $_SESSION['deptid'] = $depts['dept_id'];
+
+
+
 $schlqry = mysqli_query($logs, "SELECT school, college_id FROM `schools`WHERE schl_id='".$depts['schl_id']."'") or die(mysqli_error($logs));
 $schl = mysqli_fetch_assoc($schlqry);
 
@@ -14,9 +17,20 @@ $prgqry2 = mysqli_query($logs, "SELECT prog_id, programme FROM `programmes` WHER
 $prg_ids = mysqli_fetch_assoc($prgqry2);
 $_SESSION['prgid'] = $prg_ids['prog_id'];
 
-$prgqry = mysqli_query($logs, "SELECT prog_id, programme FROM `programmes` WHERE dept_id ='".$depts['dept_id']."'") or die(mysqli_error($logs));
-//$prgasc = mysqli_fetch_assoc($prgqry);
+//$prgqry = mysqli_query($logs, "SELECT prog_id, programme FROM `programmes` WHERE dept_id ='".$depts['dept_id']."'") or die(mysqli_error($logs));
+$prgqry = mysqli_prepare($logs, 
+          "SELECT  prog_id, programme 
+          FROM `programmes` 
+          WHERE `dept_id`= ?") or die(mysqli_error($logs)."You");
+                               
 
+//$prgasc = mysqli_fetch_assoc($prgqry);
+  mysqli_stmt_bind_param($prgqry, "s", $deptid);
+  $deptid = $depts['dept_id'];// set parameter
+  mysqli_stmt_execute($prgqry);
+  $prgqry = mysqli_stmt_get_result($prgqry);
+
+  //$msq = mysqli_query($lg, $ssql   '$deptid'
 
 
 

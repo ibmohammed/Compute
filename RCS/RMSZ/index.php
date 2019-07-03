@@ -53,8 +53,9 @@ if (!isset($_SESSION)) {
 
 $departmentcode = $_SESSION['deptcode'];
 $depts_ids = departments_code($departmentcode, $logs);
-$depts_ids = mysqli_fetch_assoc($depts_ids);
-$_SESSION['depts_ids'] = $depts_ids['dept_id'];
+$depts_ids= mysqli_fetch_array($depts_ids, MYSQLI_ASSOC);
+//$depts_ids = mysqli_fetch_assoc($depts_ids);
+$_SESSION['depts_ids'] = $depts_ids["dept_id"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -182,34 +183,36 @@ if(@$_SESSION['MM_Usernames'] == True){
                 ?>
 <!-- Enf of page content -->
       
-  <?php   if(isset($_GET['dashdept']))
-        {
+  <?php  
+  if(isset($_GET['dashdept']))
+  {
+    ?>
+    <h2>Programme</h2>
+    <table  class="table table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Programmes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php $i = 0;  
+        //query from newmenu line 21
+        while($prgasc = mysqli_fetch_array($prgqry, MYSQLI_ASSOC))
+        { 
+          $i++; 
           ?>
-            <h2>Programme</h2>
-            <table  class="table table-bordered">
-            <thead>
-            <tr>
-            <th>#</th>
-            <th>Programmes</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php $i = 0;  
-            while($prgasc = mysqli_fetch_assoc($prgqry))
-            { 
-                $i++; 
-                ?>
-                <tr>
-                <td><?php echo $i;?></td>
-                <td><?php echo $prgasc['programme'];?></td>
-                </tr>
-                <?php
-            }
-            ?>
-            <tbody>
-            </table>
-
- <?php }
+          <tr>
+            <td><?php echo $i;?></td>
+            <td><?php echo $prgasc['programme'];?></td>
+          </tr>
+          <?php
+        }
+        ?>
+      <tbody>
+    </table>
+    <?php 
+ }
     ?>  
      <!---dashboard -->
 
