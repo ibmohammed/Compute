@@ -7,5 +7,6 @@
 <!--<a href="smanage.php?courser">Register Courses</a>-->
 <br></p>
 <?php 
+$form = 0;
 include("addviewedit_xtend.php");
 ?>

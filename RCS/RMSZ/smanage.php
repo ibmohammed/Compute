@@ -149,14 +149,9 @@ $departmentcode = $_SESSION['deptcode'];
       <!-- partial:../../partials/_sidebar.html -->
 
      <?php require_once('newmenus_manage.php');?>
-
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-
-
-
-
         <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -164,9 +159,7 @@ $departmentcode = $_SESSION['deptcode'];
                   <p class="card-description">
                   <!--  Add class <code>.table-bordered</code>-->
                   </p>
-
             <!-- page content -->
-            
             <?php  
                 include('menus.php');
                

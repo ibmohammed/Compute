@@ -1,110 +1,83 @@
 <?php error_reporting(-1); ?>
 <?php ini_set('display_errors', true); ?>
 <?php include("includes/header.php"); ?>    
-
-
-
 <?php  
-if(isset($_POST['Submit'])){
-
+if(isset($_POST['Submit']))
+{
 	$sesn = $_POST['session'];
 	$sesn = preg_replace("/[^0-9\/]/", "", $sesn);
 	$prgrm = $_POST['programme'];
 	$prgrm = preg_replace("/[^0-9]/", "", $prgrm);
 	$semst = $_POST['semester'];
 	$semst = preg_replace("/[^0-9]/", "", $semst);
-//	$year=$_POST['year'];
-
-
-
-				$fname = $_FILES['csv']['name'];
-			
-				echo 'upload file name: '. $fname. ' ';
-				$chk_ext = explode(".",$fname);
-
-
-			if(strtolower(end($chk_ext)) == "csv")
-	
-			{
-
-
-						$filename = $_FILES['csv']['tmp_name'];
-						$handle = fopen($filename, "r");
-		
-						while (($data = fgetcsv($handle,1000,",")) !== FALSE)
-						{
-							
-							$code = $data[0];
-							$code = preg_replace("/[^a-zA-Z0-9\s]/", "", $code);
-							
-							$title = $data[1];
-							$title = preg_replace("/[^a-zA-Z0-9\s]/", "", $title);
-
-							$unit = $data[2];
-							$unit = preg_replace("/[^0-9]/", "", $unit);
-
-
-
-							$snm = mysqli_query($conn,"SELECT * FROM `course`
-									WHERE 
-									`prog_id` =	'".addslashes($prgrm)."'&&
-									`unit` =    '".addslashes($unit)."'&&
-									`semester` =   '".addslashes($semst)."'&&
-									`code` =    '".addslashes($code)."'&&
-									`sessions` =	'".addslashes($sesn)."'
-
-									") or die(mysqli_error($conn));
-
-									if(mysqli_num_rows($snm)==0){
-											$staffs_id = 0;
-										$snms = mysqli_query($conn,"INSERT INTO `course` 
-										(`prog_id`,`unit`,`semester`,`code`,`title`,`sessions`, `staff_id`) 
-												VALUES(
-												'".addslashes($prgrm)."',
-												'".addslashes($unit)."',
-												'".addslashes($semst)."',
-												'".addslashes($code)."',
-												'".addslashes($title)."',
-												'".addslashes($sesn)."',
-												'".addslashes($staffs_id)."'
-												)
-											") or die(mysqli_error($conn)); 
-									
-									}else{
-			 
-$snm = mysqli_query($conn,"UPDATE `course` SET
-
-			`prog_id` =	'".addslashes($prgrm)."',
-                `unit` =    '".addslashes($unit)."',
-                `semester` =   '".addslashes($semst)."',
-                `code` =    '".addslashes($code)."',
-                `title` =    '".addslashes($title)."',
-				`sessions` =	'".addslashes($sesn)."'
-			WHERE 
-			`prog_id` =	'".addslashes($prgrm)."'&&
-                `unit` =    '".addslashes($unit)."'&&
-                `semester` =   '".addslashes($semst)."'&&
-                `code` =    '".addslashes($code)."'&&
-				`sessions` =	'".addslashes($sesn)."'
-
-			 ") or die(mysqli_error($conn));
-			 
-			 }
-			 
-			 }
-			 
-
-					fclose($handle);
-					echo "Successfully imported";
-
-			}
-
-		else
+	//	$year=$_POST['year'];
+	$fname = $_FILES['csv']['name'];
+	echo 'upload file name: '. $fname. ' ';
+	$chk_ext = explode(".",$fname);
+	if(strtolower(end($chk_ext)) == "csv")
+	{
+		$filename = $_FILES['csv']['tmp_name'];
+		$handle = fopen($filename, "r");
+		while (($data = fgetcsv($handle,1000,",")) !== FALSE)
 		{
-			echo "Invalid file";
-		}?>
+			$code = $data[0];
+			$code = preg_replace("/[^a-zA-Z0-9\s]/", "", $code);
+			$title = $data[1];
+			$title = preg_replace("/[^a-zA-Z0-9\s]/", "", $title);
+			$unit = $data[2];
+			$unit = preg_replace("/[^0-9]/", "", $unit);
 
-<table class="table table-bordered" >
+			$snm = mysqli_query($conn,"SELECT * FROM `course`
+					WHERE 
+					`prog_id` =	'".addslashes($prgrm)."'&&
+					`unit` =    '".addslashes($unit)."'&&
+					`semester` =   '".addslashes($semst)."'&&
+					`code` =    '".addslashes($code)."'&&
+					`sessions` =	'".addslashes($sesn)."'
+					") or die(mysqli_error($conn));
+
+					if(mysqli_num_rows($snm)==0)
+					{
+						$staffs_id = 0;
+						$snms = mysqli_query($conn,"INSERT INTO `course` 
+						(`prog_id`,`unit`,`semester`,`code`,`title`,`sessions`, `staff_id`) 
+								VALUES(
+								'".addslashes($prgrm)."',
+								'".addslashes($unit)."',
+								'".addslashes($semst)."',
+								'".addslashes($code)."',
+								'".addslashes($title)."',
+								'".addslashes($sesn)."',
+								'".addslashes($staffs_id)."'
+								)
+							") or die(mysqli_error($conn)); 
+					}
+					else
+					{
+						$snm = mysqli_query($conn,"UPDATE `course` SET
+							`prog_id` =	'".addslashes($prgrm)."',
+								`unit` = '".addslashes($unit)."',
+								`semester` = '".addslashes($semst)."',
+								`code` =  '".addslashes($code)."',
+								`title` =  '".addslashes($title)."',
+								`sessions` = '".addslashes($sesn)."'
+							WHERE 
+							`prog_id` =	'".addslashes($prgrm)."'&&
+								`unit` =  '".addslashes($unit)."'&&
+								`semester` = '".addslashes($semst)."'&&
+								`code` = '".addslashes($code)."'&&
+								`sessions` = '".addslashes($sesn)."'
+							") or die(mysqli_error($conn));
+					}
+		}
+			fclose($handle);
+			echo "Successfully imported";
+	}
+	else
+	{
+		echo "Invalid file";
+	}?>
+	<table class="table table-bordered" >
         <tr >
           <td style="height: 25px"><span style="font-weight: bold;">S/n</span></td>
           <td style="height: 25px"><span style="font-weight: bold;">Title</span></td>
@@ -112,34 +85,32 @@ $snm = mysqli_query($conn,"UPDATE `course` SET
           <td style="height: 25px"><span style="font-weight: bold;">Unit</span></td>
         </tr>
         <?php 
-        
         $sql=mysqli_query($conn,"SELECT * FROM `course` 
             WHERE prog_id ='$prgrm' && 
             semester='$semst' && 
             sessions = '$sesn'") or die(mysqli_error($conn));
-
-                  
             $n= 0 ;
             while($row=mysqli_fetch_assoc($sql)){
             $n = $n+1;
             ?>
-
-        <tr >
+        <tr>
           <td><span style="font-weight: bold;"><?php echo $n;?></span></td>
           <td><span style="font-weight: bold;"><?php echo $row['title'];?></span></td>
           <td><span style="font-weight: bold;"><?php echo $row['code'];?></span></td>
           <td><span style="font-weight: bold;"><?php echo $row['unit'];?></span></td>
         </tr>
         <?php }?>
-      </table>
-
-
+    </table>
 <?php
-
 } 
-
 ?>
-
+<br>
+<hr>
+<hr>
+<i style="color:green">Select Programme, Session, Semester and choose ".cv" file containing the courses to import</i>
+<hr>
+<hr>
+<br>
 
 <form id="form1" action="" enctype="multipart/form-data" method="post" name="form1">
 

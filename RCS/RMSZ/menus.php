@@ -316,12 +316,12 @@
 		
 		}elseif(isset($_GET['addviewwdit'])){
 
-		echo '<h3>Edit Courses</h3>';
+		echo '<h3>Add/View/Edit Courses</h3>';
 		include('addviewedit.php');
 		
 		}elseif(isset($_GET['addviewwditx'])){
 
-		echo '<h3>Edit Courses</h3>';
+		echo '<h3>Courses</h3>';
 		include('addviewedit_xams.php');
 		}elseif(isset($_GET['newcourse'])){
 

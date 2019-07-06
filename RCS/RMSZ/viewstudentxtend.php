@@ -1,5 +1,5 @@
 
-<i style="color:red">Select programe and year to view student records</i>
+<i style="color:green">Select programe and year to view student records</i>
   <form id="form2" name="form2" method="post" action="">
     <table class="table table-bordered" >
       <tr>
@@ -75,8 +75,9 @@
 	
 
 	if (isset($_POST['Submit'])){
-	echo '<h3>'.$_POST['dept'].'</h3>';
+	//echo '<h3>'..'</h3>';
 	?>
+  <i style="color:green;">Class of <?php echo  $_POST['year']." students records for: ".$_POST['dept'];?></i>
 	<table class="table table-bordered" >
       <tr>
         <td>

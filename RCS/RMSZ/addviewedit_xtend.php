@@ -1,59 +1,253 @@
 
+<?php 
+if (isset($_POST['Submit2'])){
+$count=$_POST['count'];
+$count = preg_replace("/[^0-9]/", "", $count);
+$count = $count-1;
+$m=0;
+
+while($m<=$count){
+
+$m=$m+1;
+$t="title".$m;
+$c="code".$m;
+$s="sn".$m;
+$u="unit".$m;
+$se ="ses".$m;
+$sems = "sems".$m;
+// New Values
+
+$unit=$_POST[$u];
+$title=$_POST[$t];
+$code=$_POST[$c];
+$sn=$_POST[$s];
+$sessions=$_POST[$se];
+$semesters =$_POST[$sems];
+// old values
+
+$t="titles".$m;
+$c="codes".$m;
+$u="units".$m;
+$ss="sess".$m;
+$units=$_POST[$u];
+$titles=$_POST[$t];
+$codes=$_POST[$c];
+$sess = $_POST[$ss];
+
+// Update result Table
+//$updtres =mysqli_query($conn,"UPDATE `results` SET `unit` = '$unit', `code`='$code' WHERE `results`.`code` ='$codes'");
+// Update Course Table;
+
+$query= mysqli_query($conn,"UPDATE  `course` SET  `code` =  '$code',`title` =  '$title',`unit`='$unit',`sessions`='$sessions' 
+WHERE  `course`.`sn` ='$sn'") or die(mysqli_error($conn));
+//echo $sn;
+	}
+echo "<font color = 'red'>"."<i>"."Update Successful"."</i>"."</font>";
+
+
+}elseif (isset($_POST['Submit3'])){
+
+if (!isset($_SESSION)) {
+  session_start();
+}
+
+$prog = $_SESSION['prog'];
+
+$count=$_POST['count'];
+$semester = $_SESSION['semester'];
+//$_POST['programme']
+$count = $count-1;
+$m=0;
+while($m<=$count){
+$m=$m+1;
+$t="title".$m;
+$c="code".$m;
+$s="sn".$m;
+$u="unit".$m;
+$se ="ses".$m;
+$sems = "sems".$m;
+// New Values
+
+$unit=$_POST[$u];
+$title=$_POST[$t];
+$code=$_POST[$c];
+$sn=$_POST[$s];
+$sessions=$_POST[$se];
+$semesters =$_POST[$sems];
+
+// old values
+$t="titles".$m;
+$c="codes".$m;
+$u="units".$m;
+$ss="sess".$m;
+$units=$_POST[$u];
+$titles=$_POST[$t];
+$codes=$_POST[$c];
+$sess = $_POST[$ss];
+// Insert into Table course
+$updtres =mysqli_query($conn,"INSERT INTO `course` (`prog_id`, `unit`, `semester`, `code`, `title`, `sessions`) 
+VALUES ('$prog', '$unit', '$semesters', '$code', '$title', '$sessions');");
+
+// Update Course Table
+//$query= mysqli_query($conn,"UPDATE  `course` SET  `code` =  '$code',`title` =  '$title',`unit`='$unit',`sessions`='$sessions'
+ //WHERE  `course`.`sn` ='$sn'") or die(mysqli_error());
+
+	}
+echo "<font color = 'red'>"."<i>"."Successful"."</i>"."</font>";
+
+
+}elseif(isset($_GET['id'])){
+	
+$ids = $_GET['id'];
+$ids = preg_replace("/[^0-9]/", "", $ids);
+
+
+
+if (!isset($_SESSION)) {
+  session_start();
+}
+
+//$_SESSION['prog'];
+//$_SESSION['semester'];
+//$_SESSION['session'];
+
+
+$qry = mysqli_query($conn,"DELETE FROM course WHERE `sn` = '$ids'") or die(mysqli_error());	
+	echo "<font color = 'red'>"."<i>"."Update Successful"."</i>"."</font>";
+
+echo '<div> <form action="" method="post"><input type = "hidden" name = "programe" value = "'.$_SESSION['prog'].'" >
+<input type = "hidden" name = "semester" value = "'.$_SESSION['semester'].'" >
+<input type = "hidden" name = "session" value = "'.$_SESSION['session'].'" >
+<input type="submit" name="Submit" value=" OK " />	
+</form>
+ </div>' ;
+	}
+
+if (isset($_POST['Submit'])){
+
+$prog=$_POST['programe'];
+$prog = preg_replace("/[^0-9]/", "", $prog);
+$semester=$_POST['semester'];
+$semester = preg_replace("/[^0-9]/", "", $semester);
+$session = $_POST['session'];
+$session = preg_replace("/[^0-9\/]/", "", $session);
+
+if (!isset($_SESSION)) {
+  session_start();
+}
+
+$_SESSION['prog'] = $prog;
+$_SESSION['semester'] = $semester;
+$_SESSION['session'] = $session;
+
+
+$sql = mysqli_query($conn,"SELECT * FROM  `course` WHERE prog_id='$prog' && semester ='$semester' && sessions = '$session'");
+if(!$sql){
+die(mysqli_error());
+}?>
+
+
+<br>
+<hr>
+&nbsp;
+<hr>
+<br>
+<hr>
+<i style="color:green">
+<?php echo $session. " Semester: ".$semester." for ".$prog; ?>
+</i>
+<hr>
 <form id="form2" name="form2" method="post" action="">
     <table  class="table table-bordered" >
       <tr>
-        <td style="height: 23px"><span style="font-weight: bold">S/N</span></td>
-        <td style="height: 23px"><span style="font-weight: bold">Course Title</span></td>
-        <td style="height: 23px; width: 89px;">
-        <span style="font-weight: bold">Course <br>Code </span></td>
-        <td style="height: 23px" class="auto-style1">Unit</td>
-        <td style="height: 23px; width: 80px;" class="auto-style1">Session</td>
-        <td style="height: 23px; width: 58px;" class="auto-style1">Semester</td>
-        <td style="height: 23px; width: 58px;" class="auto-style1">Delete</td>
+
+        <th>S/N</th>
+        <th>Course Title</th>
+        <th>Course Code </th>
+        <th>Unit</th>
+        <th>Session</th>
+        <th>Semester</th>
+        <th>Delete</th>
+
       </tr>
                 <?php 
-		$n = 0;
-		while ($row=mysqli_fetch_assoc($sql)){
-		$n= $n+1;
-		?>
-                <tr>
-                  <td ><?php echo $n;?>
-                    <input name="<?php echo 'sn'.$n;?>" type="hidden"  value="<?php echo $row['sn'];?>" /></td>
-                  <td ><input style="border:thin;" name="<?php echo 'title'.$n;?>" type="text"  value="<?php echo $row['title'];?>" size="50" class="form-control"/>
-                  <input name="<?php echo 'titles'.$n;?>" type="hidden"  value="<?php echo $row['title'];?>" size="50"/></td>
-                  <td  style="width: 170px"><input style="border:thin;" name="<?php echo 'code'.$n;?>" type="text" value="<?php echo $row['code'];?>" size="6" class="form-control"/>
-                  <input name="<?php echo 'codes'.$n;?>" type="hidden" value="<?php echo $row['code'];?>" /></td>
-                  <td ><input style="border:thin;" name="<?php echo 'unit'.$n;?>" type="text" value="<?php echo $row['unit'];?>" size="4" class="form-control"/>
-                    <input name="<?php echo 'units'.$n;?>" type="hidden" value="<?php echo $row['unit'];?>" /></td>
-                  <td>
-				           <input style="border:thin;" class="form-control" name="<?php echo 'ses'.$n;?>" type="text" value="<?php echo $row['sessions'];?>" size="4" />
-				           <input name="<?php echo 'sess'.$n;?>" type="hidden" value="<?php echo $row['sessions'];?>" /></td>
-                  <td>
-				            <input style="border:thin;" class="form-control" name="<?php echo 'sems'.$n;?>" type="text" value="<?php echo $semester;?>" size="4" /></td>
-                  <td><a href="smanage.php?id=<?php echo $row['sn'].'&updtcourse';?>">&nbsp;&nbsp;&nbsp;<img src="images/del.jpg" width="16" height="14" alt="del" /></a>
-                  <input name="<?php echo 'sn'.$n;?>" type="hidden" value="<?php echo $row['sn'];?>" /></td>
-                </tr>
-                <?php }?>
-              </table>
+        $n = 0;
+        
+        if ($form == 1)
+        {
+            while ($row=mysqli_fetch_assoc($sql)){
+            $n= $n+1;
+            ?>
+                    <tr>
+                    <td ><?php echo $n;?>
+                        <input name="<?php echo 'sn'.$n;?>" type="hidden"  value="<?php echo $row['sn'];?>" /></td>
+                    <td ><input style="border:thin;" name="<?php echo 'title'.$n;?>" type="text"  value="<?php echo $row['title'];?>" size="50" class="form-control"/>
+                    <input name="<?php echo 'titles'.$n;?>" type="hidden"  value="<?php echo $row['title'];?>" size="50"/></td>
+                    <td  style="width: 170px"><input style="border:thin;" name="<?php echo 'code'.$n;?>" type="text" value="<?php echo $row['code'];?>" size="6" class="form-control"/>
+                    <input name="<?php echo 'codes'.$n;?>" type="hidden" value="<?php echo $row['code'];?>" /></td>
+                    <td ><input style="border:thin;" name="<?php echo 'unit'.$n;?>" type="text" value="<?php echo $row['unit'];?>" size="4" class="form-control"/>
+                        <input name="<?php echo 'units'.$n;?>" type="hidden" value="<?php echo $row['unit'];?>" /></td>
+                    <td>
+                            <input style="border:thin;" class="form-control" name="<?php echo 'ses'.$n;?>" type="text" value="<?php echo $row['sessions'];?>" size="4" />
+                            <input name="<?php echo 'sess'.$n;?>" type="hidden" value="<?php echo $row['sessions'];?>" /></td>
+                    <td>
+                                <input style="border:thin;" class="form-control" name="<?php echo 'sems'.$n;?>" type="text" value="<?php echo $semester;?>" size="4" /></td>
+                    <td><a href="smanage.php?id=<?php echo $row['sn'].'&updtcourse';?>">&nbsp;&nbsp;&nbsp;<img src="images/del.jpg" width="16" height="14" alt="del" /></a>
+                    <input name="<?php echo 'sn'.$n;?>" type="hidden" value="<?php echo $row['sn'];?>" /></td>
+                    </tr>
+                    <?php }?>
+                </table>
+                <input name="count" type="hidden" value="<?php echo $n;?>" />
+                <br>
+                <input type="submit" name="Submit2" value="Edit Records" style="border:thin; color:navy;" class="btn btn-gradient-primary mr-2" />
+                <input type="submit" name="Submit3" value="Add Records" style="border:thin; color:navy;" class="btn btn-gradient-primary mr-2" />
+                
+                </form>
+            <p><br>
+            </p>
+            <?php
+        }
+        else
+        {
+            while ($row=mysqli_fetch_assoc($sql)){
+                $n= $n+1;
+                ?>
+                        <tr>
+                        <td ><?php echo $n;?>
+                            <input name="<?php echo 'sn'.$n;?>" type="hidden"  value="<?php echo $row['sn'];?>" /></td>
+                        <td ><input style="border:thin;" name="<?php echo 'title'.$n;?>" type="text"  value="<?php echo $row['title'];?>" size="50" class="form-control"/>
+                        <input name="<?php echo 'titles'.$n;?>" type="hidden"  value="<?php echo $row['title'];?>" size="50"/></td>
+                        <td  style="width: 170px"><input style="border:thin;" name="<?php echo 'code'.$n;?>" type="text" value="<?php echo $row['code'];?>" size="6" class="form-control"/>
+                        <input name="<?php echo 'codes'.$n;?>" type="hidden" value="<?php echo $row['code'];?>" /></td>
+                        <td ><input style="border:thin;" name="<?php echo 'unit'.$n;?>" type="text" value="<?php echo $row['unit'];?>" size="4" class="form-control"/>
+                            <input name="<?php echo 'units'.$n;?>" type="hidden" value="<?php echo $row['unit'];?>" /></td>
+                        <td>
+                                <input style="border:thin;" class="form-control" name="<?php echo 'ses'.$n;?>" type="text" value="<?php echo $row['sessions'];?>" size="4" />
+                                <input name="<?php echo 'sess'.$n;?>" type="hidden" value="<?php echo $row['sessions'];?>" /></td>
+                        <td>
+                                    <input style="border:thin;" class="form-control" name="<?php echo 'sems'.$n;?>" type="text" value="<?php echo $semester;?>" size="4" /></td>
+                        <td>
+        <!--  <a href="smanage.php?id=<?php echo $row['sn'].'&updtcourse';?>">&nbsp;&nbsp;&nbsp;<img src="images/del.jpg" width="16" height="14" alt="del" /></a>-->
 
-
-
-              
-            <input name="count" type="hidden" value="<?php echo $n;?>" />
-            <br>
-              <input type="submit" name="Submit2" value="Edit Records" style="border:thin; color:navy;" class="btn btn-gradient-primary mr-2" />
-              <input type="submit" name="Submit3" value="Add Records" style="border:thin; color:navy;" class="btn btn-gradient-primary mr-2" />
-              
-              </form>
-      <p><br>
-      </p>
-      <?php
-exit;
+                        <input name="<?php echo 'sn'.$n;?>" type="hidden" value="<?php echo $row['sn'];?>" /></td>
+                        </tr>
+                        <?php }?>
+                    </table>
+                   
+                    </form>
+                <?php
+        }
+//exit;
 }
 ?>
-     
-     
-     
+      
+<br>
+<hr>
+&nbsp;
+<hr>
+<br>
+<i style="color:green">Select Programme, Semester, and session to view courses</i>
+<hr>
       <form id="form1" name="form1" method="post" action="">
               <table  class="table table-bordered" >
                 <tr>

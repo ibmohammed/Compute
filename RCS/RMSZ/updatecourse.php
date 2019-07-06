@@ -91,16 +91,17 @@ if(!$sql){
 die(mysqli_error($conn));
 }?>
 <hr>
+&nbsp;
+<hr>
 
 <form id="form2" name="form2" method="post" action="">
               <table class="table table-bordered">
                 <tr>
-                  <td style="height: 23px"><span style="font-weight: bold">S/N</span></td>
-                  <td style="height: 23px"><span style="font-weight: bold">Course Title</span></td>
-                  <td style="height: 23px; width: 89px;">
-				  <span style="font-weight: bold">Course <br>Code </span></td>
-                  <td style="height: 23px" class="auto-style1">Unit</td>
-                  <td style="height: 23px; width: 58px;" class="auto-style1">Delete</td>
+                  <td>S/N</td>
+                  <td>Course Title</td>
+                  <td>Course Code </td>
+                  <td>Unit</td>
+                  <td>Delete</td>
                 </tr>
                 <?php 
 		$n = 0;
@@ -111,12 +112,12 @@ die(mysqli_error($conn));
                   <td ><?php echo $n;?>
                     <input name="<?php echo 'sn'.$n;?>" type="hidden"  value="<?php echo $row['sn'];?>"/></td>
                   <td ><input style="border:thin;" name="<?php echo 'title'.$n;?>" type="text"  value="<?php echo $row['title'];?>" size="50"/>
-                  <input name="<?php echo 'titles'.$n;?>" type="hidden"  value="<?php echo $row['title'];?>" size="50"/></td>
+                  <input name="<?php echo 'titles'.$n;?>" type="hidden"  value="<?php echo $row['title'];?>" /></td>
                   <td  style="width: 89px"><input style="border:thin;" name="<?php echo 'code'.$n;?>" type="text" value="<?php echo $row['code'];?>" size="6" />
                   <input name="<?php echo 'codes'.$n;?>" type="hidden" value="<?php echo $row['code'];?>" /></td>
-                  <td ><input style="border:thin;" name="<?php echo 'unit'.$n;?>" type="text" value="<?php echo $row['unit'];?>" size="4" />
+                  <td ><input style="border:thin;" name="<?php echo 'unit'.$n;?>" type="text" value="<?php echo $row['unit'];?>" size="2" />
                     <input name="<?php echo 'units'.$n;?>" type="hidden" value="<?php echo $row['unit'];?>" /></td>
-                  <td><a href="smanage.php?id=<?php echo $row['sn'].'&updtcourse';?>">&nbsp;&nbsp;&nbsp;<img src="images/del.jpg" width="16" height="14" alt="del" /></a>
+                  <td><a href="smanage.php?id=<?php echo $row['sn'].'&updtcourse';?>">&nbsp;&nbsp;&nbsp;<img src="images/del.jpg" width="10" height="8" alt="del" /></a>
                   <input name="<?php echo 'sn'.$n;?>" type="hidden" value="<?php echo $row['sn'];?>" /></td>
                 </tr>
                 <?php }?>
@@ -127,6 +128,9 @@ die(mysqli_error($conn));
               </form>
       <p><br>
       </p>
+      <hr>
+&nbsp;
+<hr>
       <?php
 //exit;
 }
@@ -194,3 +198,5 @@ die(mysqli_error($conn));
               </form>
               <p></p>
               <hr>
+&nbsp;
+<hr>
