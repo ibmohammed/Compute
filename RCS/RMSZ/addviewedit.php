@@ -1,11 +1,12 @@
 <?php error_reporting(-1); ?>
 <?php ini_set('display_errors', true); ?>
 <?php include("includes/header.php"); ?>
-    
 
 <p><a href="smanage.php?courser">Register Courses</a>
 <br></p>
 <?php 
+
+
 if (isset($_POST['Submit2'])){
 $count=$_POST['count'];
 $count = preg_replace("/[^0-9]/", "", $count);
@@ -153,110 +154,5 @@ die(mysqli_error());
 }?>
 
 
-<form id="form2" name="form2" method="post" action="">
-    <table  class="table table-bordered" >
-      <tr>
-        <td style="height: 23px"><span style="font-weight: bold">S/N</span></td>
-        <td style="height: 23px"><span style="font-weight: bold">Course Title</span></td>
-        <td style="height: 23px; width: 89px;">
-        <span style="font-weight: bold">Course <br>Code </span></td>
-        <td style="height: 23px" class="auto-style1">Unit</td>
-        <td style="height: 23px; width: 80px;" class="auto-style1">Session</td>
-        <td style="height: 23px; width: 58px;" class="auto-style1">Semester</td>
-        <td style="height: 23px; width: 58px;" class="auto-style1">Delete</td>
-      </tr>
-                <?php 
-		$n = 0;
-		while ($row=mysqli_fetch_assoc($sql)){
-		$n= $n+1;
-		?>
-                <tr>
-                  <td ><?php echo $n;?>
-                    <input name="<?php echo 'sn'.$n;?>" type="hidden"  value="<?php echo $row['sn'];?>" /></td>
-                  <td ><input style="border:thin;" name="<?php echo 'title'.$n;?>" type="text"  value="<?php echo $row['title'];?>" size="50" class="form-control"/>
-                  <input name="<?php echo 'titles'.$n;?>" type="hidden"  value="<?php echo $row['title'];?>" size="50"/></td>
-                  <td  style="width: 170px"><input style="border:thin;" name="<?php echo 'code'.$n;?>" type="text" value="<?php echo $row['code'];?>" size="6" class="form-control"/>
-                  <input name="<?php echo 'codes'.$n;?>" type="hidden" value="<?php echo $row['code'];?>" /></td>
-                  <td ><input style="border:thin;" name="<?php echo 'unit'.$n;?>" type="text" value="<?php echo $row['unit'];?>" size="4" class="form-control"/>
-                    <input name="<?php echo 'units'.$n;?>" type="hidden" value="<?php echo $row['unit'];?>" /></td>
-                  <td>
-				           <input style="border:thin;" class="form-control" name="<?php echo 'ses'.$n;?>" type="text" value="<?php echo $row['sessions'];?>" size="4" />
-				           <input name="<?php echo 'sess'.$n;?>" type="hidden" value="<?php echo $row['sessions'];?>" /></td>
-                  <td>
-				            <input style="border:thin;" class="form-control" name="<?php echo 'sems'.$n;?>" type="text" value="<?php echo $semester;?>" size="4" /></td>
-                  <td><a href="smanage.php?id=<?php echo $row['sn'].'&updtcourse';?>">&nbsp;&nbsp;&nbsp;<img src="images/del.jpg" width="16" height="14" alt="del" /></a>
-                  <input name="<?php echo 'sn'.$n;?>" type="hidden" value="<?php echo $row['sn'];?>" /></td>
-                </tr>
-                <?php }?>
-              </table>
-            <input name="count" type="hidden" value="<?php echo $n;?>" />
-            <br>
-              <input type="submit" name="Submit2" value="Edit Records" style="border:thin; color:navy;" class="btn btn-gradient-primary mr-2" />
-              <input type="submit" name="Submit3" value="Add Records" style="border:thin; color:navy;" class="btn btn-gradient-primary mr-2" />
-              
-              </form>
-      <p><br>
-      </p>
-      <?php
-exit;
-}
+include("addviewedit_xtend.php");
 ?>
-      <form id="form1" name="form1" method="post" action="">
-              <table  class="table table-bordered" >
-                <tr>
-                  <td ><span style="font-weight: bold">Programme:</span></td>
-                  <td>
-                  <select name="programe" id="programe" class="form-control">
-                  <option selected="selected" value="">Select Programme</option>
-                    <?php include('dptcode.php') ;
-            
-            
-                    //$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
-                      //while($prgasc = mysqli_fetch_assoc($prgqry))
-                      $queri = prog_function($logs);
-                      while($pcd = mysqli_fetch_assoc($queri)){
-                      ?>
-                      
-            
-            <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
-              
-              <?php }?>
-              
-             
-                      </select></td>
-                </tr>
-                <tr>
-                  <td ><span style="font-weight: bold">Semester:</span></td>
-                  <td><select name="semester" class="form-control">
-                  <option selected="selected" value="">Choose Semester</option>
-                      <option value="1">First Semester</option>
-                      <option value="2">Second Semester</option>
-                      <option value="3">Third Semester</option>
-                      <option value="4">Fourth Semester</option>
-                      <option value="5">Fifth Semester</option>
-                      <option value="6">Sixth Semester</option>
-                  </select></td>
-                </tr>
-              	<tr>
-                  <td><span style="font-weight: bold">Session:</span></td>
-                  <td>
-                  <select name="session" class="form-control">
-                  <option selected="selected" value="">Select Session</option>
-                  <option><?php echo (date('Y')-1)."/".(date('Y')); ?></option>
-                  <option>2010/2011</option>
-                  <option>2017/2018</option>
-                  <option>2018/2019</option>
-                  </select>
-                  </td>
-                  </tr>
-                <tr>
-                  <td >&nbsp;</td>
-                  <td>&nbsp;</td>
-                </tr>
-              </table>
-              <br>
-           <p> <input type="submit" name="Submit" value="Submit" class="btn btn-gradient-primary mr-2" /></p>
-              </form>
-
-      <br>
-<hr>

@@ -148,9 +148,6 @@ if (!((isset($_SESSION['staffcomfirmed']))))
       
         <div class="content-wrapper">
 
-
-
-
         <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -158,8 +155,6 @@ if (!((isset($_SESSION['staffcomfirmed']))))
                   <p class="card-description">
                   <!--  Add class <code>.table-bordered</code>-->
                   </p>
-
-
 <!-- Page content -->
 <?php if(isset($_POST['Submitff']) || isset($_GET['csvrn']))
         {
@@ -171,15 +166,9 @@ if (!((isset($_SESSION['staffcomfirmed']))))
             <?php require_once('csvresn.php');
       	}
   require_once('menus.php');
-    
-    ?>
+?>
       <!-- End of page content -->
-         
-                  
-
-      
-     <!---dashboard -->
-
+      <!---dashboard -->
        <div class="page-header">
             <h3 class="page-title">
               <span class="page-title-icon bg-gradient-primary text-white mr-2">
@@ -238,82 +227,63 @@ if (!((isset($_SESSION['staffcomfirmed']))))
               </div>
             </div>
           </div>
-          
-     <!-- - End of Dashboard -->
-
-
-<!--- course allocation -->
-
+      <!-- - End of Dashboard -->
+      <!--- course allocation -->
        <h4>Courses</h4>
                             
-              <?php
-                           
-              //require_once('RCS/courses.php');
+        <?php
+        //require_once('RCS/courses.php');
+
 				$msql = "SELECT * FROM `course` WHERE staff_id = '".$_SESSION['id_staff']."'";
-				$msqls = mysqli_query($logs, $msql);
+        $msqls = mysqli_query($logs, $msql);
+        
 				?>
-	<h4 style="color:red">Courses Allocated to <?php echo @$_SESSION['names']." (".@$_SESSION['number'].")";?></h4>
-	
+    	<h4 style="color:red">Courses Allocated to <?php echo @$_SESSION['names']." (".@$_SESSION['number'].")";?></h4>
 		
 			<table  class="table table-bordered" style="width:100%">
-			
-      <thead>
-        <tr>
-        <th>#</th>  
-        <th>CourseCode</th>
-        <th>Course Tile</th>
-        <th>Course Unit</th>
-      </tr>
-      </thead>
-      <tbody>	
-						
-			<?php 
-			$in = 0;
-      while($col = mysqli_fetch_assoc($msqls)){ $in++;
-      
-         $_SESSION['semester']= $col['semester'];
-         $_SESSION['sessions']= $col['sessions'];
-         $_SESSION['prog_id'] = $col['prog_id'];
-          //$col['code'];
-          ?>
-
-     
-      	<form name="form<?php echo $in;?>" method="post" action="">
-				<tr>
-				
-				
-        <td>	<?php echo $in;?></td>
-        <td>	<button class="btn btn-gradient-primary mr-2" style="width:150px"  name="Submitff"><?php echo $col['code'];?></button></td>
-        <td>		<?php echo $col['title'];?></td>
-        <td>		<?php echo $col['unit'];?>
-										<input type="hidden" value="<?php echo $col['semester'];?>" name="semester"> 
-										<input type="hidden" value="<?php echo $col['sessions'];?>" name="session">
-										<input type="hidden" value="<?php echo $col['prog_id'];?>" name="dept_id">
-										<input type="hidden" value="<?php echo $col['code'];?>" name="code">
-                    <!--&nbsp;&nbsp;<button style="width:70px; font-size:8pt" name="SubmitS"><?php //echo $col['code'];?></button>-->
-				</td>
+        <thead>
+          <tr>
+          <th>#</th>  
+          <th>CourseCode</th>
+          <th>Course Tile</th>
+          <th>Course Unit</th>
         </tr>
-        </form>
-        <?php }?>
-      </tbody>
-				
+        </thead>
+        <tbody>	
+        <?php 
+        $in = 0;
+        while($col = mysqli_fetch_assoc($msqls))
+        { 
+          $in++;
+          $_SESSION['semester']= $col['semester'];
+          $_SESSION['sessions']= $col['sessions'];
+          $_SESSION['prog_id'] = $col['prog_id'];
+          ?>
+          <form name="form<?php echo $in;?>" method="post" action="">
+            <tr>
+              <td><?php echo $in;?></td>
+              <td><button class="btn btn-gradient-primary mr-2" style="width:150px"  name="Submitff"><?php echo $col['code'];?></button></td>
+              <td><?php echo $col['title'];?></td>
+              <td><?php echo $col['unit'];?>
+              <input type="hidden" value="<?php echo $col['semester'];?>" name="semester"> 
+              <input type="hidden" value="<?php echo $col['sessions'];?>" name="session">
+              <input type="hidden" value="<?php echo $col['prog_id'];?>" name="dept_id">
+              <input type="hidden" value="<?php echo $col['code'];?>" name="code">
+              </td>
+            </tr>
+          </form>
+          <?php 
+        }?>
+        </tbody>
 			</table>
       <br>
             
 <!--- End of course allocation -->
-
-
-    
-     
     </div>
     </div>
-</div>
     </div>
-
-
-
+    </div>
         <!-- content-wrapper ends -->
-        
         <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
@@ -341,5 +311,4 @@ if (!((isset($_SESSION['staffcomfirmed']))))
   <!-- Custom js for this page-->
   <!-- End custom js for this page-->
 </body>
-
 </html>

@@ -1,10 +1,12 @@
 <?php 
-if(isset($_GET['vwstdr']))
+if(isset($_GET['vwstdrx']))
 {
-    header('location:exams_records.php?vwstdr');
-}elseif(isset($_GET['addviewwdit']))
+    header('location:exams_records.php?vwstdrx');
+    
+}elseif(isset($_GET['addviewwditx']))
 {
-    header('location:exams_records.php?addviewwdit');
+    header('location:exams_records.php?addviewwditx');
+
 }if(isset($_GET['viewabm']))
 {
     header('location:exams_records.php?viewabm');

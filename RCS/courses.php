@@ -3,32 +3,12 @@
 <?php ini_set('display_errors', true); ?>
 <?php include("header.php");?>
 
-<style type="text/css">
-<!--
-a:link {
-color: #0033FF;
-}
-a:hover {
-color: #0066FF;
-}
-.style3 {color: #000000}
--->
-
-<!--
-.style1 {color: #FF0000}
-.style2 {color: #000066}
-.style7 {font-size: 18px}
-.style8 {font-size: 16px}
-.style9 {font-size: 16px; font-weight: bold; }
--->
-</style>
-
 	
 			<?php
 			$qry = "SELECT * FROM  `studentsnm`";
 			$sqm=mysqli_query($conn,$qry) or die(mysqli_error());
 			$img = mysqli_fetch_array($sqm);
-			$equry = "SELECT * FROM results WHERE matric_no LIKE '$mat'  AND session LIKE '$sess'";
+			$equry = "SELECT * FROM results WHERE matric_no = '$mat'  AND session = '$sess'";
 			$mtr = mysqli_query($conn,$equry);
 			if (!$mtr){
 				die("query failled".mysqli_error());
@@ -87,7 +67,7 @@ color: #0066FF;
 			</tr> 
 			
 			</thead>
-			<tbody?
+			<tbody>
 			<?php
 
 			$ssql = "SELECT *  FROM course WHERE `prog_id` LIKE '$course'";

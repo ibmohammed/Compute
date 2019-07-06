@@ -22,7 +22,8 @@
 		include('enterresultsnew.php');
 
 		}elseif(isset($_GET['csv'])){
-		echo '<h3>Upload Scores</h3>';
+		echo '<h3>Upload Scores</h3><hr>';
+
 		include('csvres.php');
 		
 		
@@ -91,7 +92,12 @@
 
 		include('viewstudent.php');
 	
+	}elseif(isset($_GET['vwstdrx'])){
 
+		echo '<h3> Students Records</h3>';
+
+		include('viewstudentxams.php');
+	
 	
 		}elseif(isset($_GET['viewabm'])){
 
@@ -313,6 +319,10 @@
 		echo '<h3>Edit Courses</h3>';
 		include('addviewedit.php');
 		
+		}elseif(isset($_GET['addviewwditx'])){
+
+		echo '<h3>Edit Courses</h3>';
+		include('addviewedit_xams.php');
 		}elseif(isset($_GET['newcourse'])){
 
 		echo '<h3>Input Department</h3>';

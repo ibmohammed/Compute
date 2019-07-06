@@ -6,7 +6,6 @@ $depts = mysqli_fetch_assoc($deptqry);
 $_SESSION['deptid'] = $depts['dept_id'];
 
 
-
 $schlqry = mysqli_query($logs, "SELECT school, college_id FROM `schools`WHERE schl_id='".$depts['schl_id']."'") or die(mysqli_error($logs));
 $schl = mysqli_fetch_assoc($schlqry);
 
@@ -31,29 +30,7 @@ $prgqry = mysqli_prepare($logs,
   $prgqry = mysqli_stmt_get_result($prgqry);
 
   //$msq = mysqli_query($lg, $ssql   '$deptid'
-
-
-
- /*$return_result = staff_data(@$_SESSION['staffcomfirmed'], $logs);
-        $data = mysqli_fetch_assoc($return_result);
-        
-        $return_dept = departmentss(@$data['dept_id'], $logs);
-        $schlid = mysqli_fetch_assoc($return_dept);
-        //$schlid = $result1->fetch_array();
-        
-        
-        
-        
-        $return_schl = schoolss(@$schlid['schl_id'], $logs);
-        $clgid = mysqli_fetch_assoc($return_schl);
-        //$clgid = $result2->fetch_array();
-        $return_college = collegess(@$clgid['college_id'], $logs);
-        $clg = mysqli_fetch_assoc($return_college);
-        //$clg = $result3->fetch_array();
-*/
-
         ?>
-
 
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
