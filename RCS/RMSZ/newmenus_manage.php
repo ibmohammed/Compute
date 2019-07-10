@@ -67,7 +67,7 @@ return $prgqry2;
           <li class="nav-item nav-profile">
             <a href="#" class="nav-link">
               <div class="nav-profile-image">
-                <!--<img src="../../imagess/faces/face1.jpg" alt="profile">-->
+               <img src="../../imagess/faces/face1.jpg" alt="profile">
                 <span class="login-status online"></span> <!--change to offline or busy as needed-->              
               </div>
               <div class="nav-profile-text d-flex flex-column">
@@ -83,9 +83,6 @@ return $prgqry2;
               <i class="mdi mdi-home menu-icon"></i>
             </a>
           </li>
-
-
-
 
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
@@ -159,6 +156,21 @@ return $prgqry2;
                                             </ul>
                                         </div>
                                         </li>
-          
+
+
+                                        <li class="nav-item">
+                                        <a class="nav-link" data-toggle="collapse" href="#ui-basic8" aria-expanded="false" aria-controls="ui-basic8">
+                                            <span class="menu-title">Manage backups</span>
+                                            <i class="menu-arrow"></i>
+                                            <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                                        </a>
+                                        <div class="collapse" id="ui-basic8">
+                                            <ul class="nav flex-column sub-menu">
+                                            <li class="nav-item"> <a class="nav-link" href="smanage_link.php?create">Create Backup</a></li>
+                                            <li class="nav-item"> <a class="nav-link" href="smanage_link.php?upload" >Import Backup</a></li>                
+                                          <!--  <li class="nav-item"> <a class="nav-link" href="smanage.php?alloc"  target="_new">Allocate courses</a></li>-->
+                                            </ul>
+                                        </div>
+                                        </li>
         </ul>
       </nav>

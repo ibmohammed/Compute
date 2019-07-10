@@ -7,7 +7,7 @@
 include("csvres_extend.php");
 if(isset($_POST['Submitf']))
 {
-	$crss = mysqli_prepare($conn,"SELECT code FROM `course` WHERE 
+	$crss = mysqli_prepare($conn,"SELECT code, title FROM `course` WHERE 
 	`prog_id` = ? && `semester` = ? && `sessions` = ?") 
 	or die(mysqli_error($conn));
 	mysqli_stmt_bind_param($crss, "sss", $programme,$semester,$session);

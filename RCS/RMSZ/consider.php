@@ -11,6 +11,12 @@ $sql = mysqli_query($conn,"UPDATE `results` SET  `score` =  '40', `grade` = 'E',
 
 echo "Consideration done.";
 
+// chronicle 
+$lids = $selected;
+$action = "CONSIDERED";
+include("dchronicle_res.php");
+// End of chronicles 
+
 }
 
 }elseif(isset($_POST['Submit'])){

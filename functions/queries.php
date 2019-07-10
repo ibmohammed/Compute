@@ -11,7 +11,7 @@ function students_login($username, $password, $lg)
 }
 
 // student login confirmation 
-function login_comfirm($username, $password,$lg) 
+function login_comfirm($username, $password, $lg) 
 {
   //require_once('connection.php');
   $query = "SELECT sn, names, matno, prog_id, year, session, status FROM studentsnm WHERE matno=?";
@@ -24,12 +24,12 @@ function login_comfirm($username, $password,$lg)
 }
 
 // staff login confirmation
-function login_scomfirm($username, $password,$lg) 
+function login_scomfirm($username, $logs) 
 {
   //require_once('connection.php');
   $query = "SELECT id, names, number, contact, dept_id 
   FROM staff WHERE number=?";
-  $stmt = mysqli_prepare($lg, $query) or die(mysqli_error($lg)."query error");
+  $stmt = mysqli_prepare($logs, $query) or die(mysqli_error($logs)."query error");
   mysqli_stmt_bind_param($stmt, "s", $username);
   /* execute query */
   mysqli_stmt_store_result($stmt);
@@ -219,21 +219,14 @@ function user_type($lg)
 
 function departments_code($code, $lg) 
 {
- //$ssql = "SELECT * FROM `departments` WHERE `code` = '$code'";
- // $msq = mysqli_query($lg, $ssql) or die(mysqli_error());
+ 
 
   $msq = mysqli_prepare($lg, "SELECT * FROM `departments` WHERE `code` = ?")
   or die(mysqli_error($lg));
   mysqli_stmt_bind_param($msq, "s", $code);
-  //mysqli_stmt_store_result($msq);
-  // mysqli_stmt_bind_result($msq);
   
   mysqli_stmt_execute($msq);
   $result = mysqli_stmt_get_result($msq);
-  //mysqli_num_rows($result)
-  //$row = mysqli_fetch_array($result, MYSQLI_ASSOC)
-  //  echo "<p>" . $row["name"] . "</p>";
-//}
 
   return $result;  
 }
@@ -254,13 +247,63 @@ function programmess_dept($deptid, $lg)
 }
 
 
-
 function prog_function($logs)
 {
   
   $prgqry = mysqli_query($logs, "SELECT prog_id, programme FROM `programmes`") or die(mysqli_error($logs));
   //$prgasc = mysqli_fetch_assoc($prgqry);
   return $prgqry;
+}
+
+// keep logs 
+
+function chronicles($logs, $table_id, $tablename, $action, $whoid, $whoname)
+{
+
+  $chronic = mysqli_prepare($logs, "INSERT INTO `chronicle` (`table_id`, `tablename`, `action`, `whoid`, `whoname`, `ddate`, `dtime`) VALUES (?,?,?,?,?,?,?)");
+  if (!$chronic)
+  {
+    die(mysqli_error($logs));
+  }else{ 
+  mysqli_stmt_bind_param($chronic, "ississs", $table_id, $tablename, $action, $whoid, $whoname, $ddate, $dtime);
+  
+  $ddate = date("d-m-Y");
+  $dtime = date("H:i:sa");
+  $chronics = mysqli_stmt_execute($chronic);
+  }
+  return $chronics;
+}
+
+function select_logintbl($conn, $username)
+{
+  $stmt = mysqli_prepare($conn, "SELECT `status` FROM `logintbl` WHERE `username` = ?");
+  if(!$stmt)
+  {
+    die(mysqli_error($conn));
+  }
+  else
+  {
+   // $stmt = mysqli_stmt_bind_param($stmt, "s", $username);
+     //mysqli_stmt_execute($stmt);
+  }
+  return $stmt;
+}
+
+function select_entered($conn, $code, $unit, $prog_id, $semester, $session)
+{
+  $stmt = mysqli_prepare($conn, "SELECT * FROM `entered` 
+  WHERE `code` = ? && `unit`=? && `prog_id`=? & `semester`=? && `session`=?");
+  if(!$stmt)
+  {
+    die(mysqli_error($conn));
+  }
+  else
+  {
+    mysqli_stmt_bind_param($stmt, "sisss", $code, $unit, $prog_id, $semester, $session);
+    mysqli_stmt_execute($stmt);
+
+  }
+  return $stmt;
 }
 
   ?>

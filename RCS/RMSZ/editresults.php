@@ -32,9 +32,19 @@ if(isset($_POST['Submit2']))
     $unit=$_POST[$un];
     $cod="code".$m;
     $code = $_POST[$cod];
+
+
     $query=mysqli_query($conn,"UPDATE `results` 
     SET  `code`='$code',`unit`='$unit',`score` =  '$score',`grade` =  '$grade1',`points`='$point' 
     WHERE  `results`.`sn` ='$sn'");
+
+	// chronicle 
+  $action = "UPDATED";
+  $lids = $sn;
+  include("dchronicle_res.php");
+  // End of chronicles  
+
+
     }
   echo "<script language = 'javascript'>"."alert('Records updated')"."</script>";
   echo "<font color = 'red'><i>"."Records Updated"."</i></font>";

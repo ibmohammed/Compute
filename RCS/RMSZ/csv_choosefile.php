@@ -1,6 +1,3 @@
-<?php 
-	
-		?>
 <br>
 		<hr>
 		<br>
@@ -12,23 +9,45 @@
 				<td>Course Code:</td>
 				<td>
 				<select name="ccodes" class="form-control" id="exampleSelectGender">
-				<option selected="selected"><?php// echo $_POST['code'];?></option>
-				<?php while($rows = mysqli_fetch_array($crss, MYSQLI_ASSOC)){?>
-				<option><?php echo $rows['code'];?></option>
-                <?php 
-                if ($semsesprog==0)
-                {
-                    $_SESSION['semester']= $rows['semester'];
-                    $_SESSION['sessions']= $rows['sessions'];
-                    $_SESSION['prog_id'] = $rows['prog_id'];
-                }else
-                {
-                                      
-                    $_SESSION['semester'] = $_POST['semester'];
-                	$_SESSION['sessions'] = $_POST['session'];
-                    $_SESSION['prog_id'] = $_POST['programme'];
-                }
-            }?>
+				<option selected="selected" value="">Select Course</option>
+					<?php 
+					while($rows = mysqli_fetch_array($crss, MYSQLI_ASSOC))
+					{ 
+						if($semsesprog == 0)
+						{
+							$_SESSION['semester']= @$rows['semester'];
+							$_SESSION['sessions']= @$rows['sessions'];
+							$_SESSION['prog_id'] = @$rows['prog_id'];
+
+							$stmtts = select_entered($conn, $rows['code'], $rows['unit'], $rows['prog_id'], $rows['semester'], $rows['sessions']);
+							$nrows = $crss = mysqli_stmt_get_result($stmtts);
+							mysqli_stmt_bind_result($stmtts, $sn, $code, $unit, $prog_id, $semester, $session);
+							mysqli_stmt_store_result($stmtts);
+							mysqli_stmt_fetch($stmtts);
+
+
+
+							if(mysqli_stmt_num_rows($stmtts) == 0)
+						{
+							?>
+							<option value="<?php echo $rows['code'];?>">
+								<?php echo $rows['title']." (".$rows['code'].")";?>
+							</option>
+							<?php 
+						}
+						}
+						else
+						{
+							$_SESSION['semester'] = $_POST['semester'];
+							$_SESSION['sessions'] = $_POST['session'];
+							$_SESSION['prog_id'] = $_POST['programme'];?>
+							<option value="<?php echo $rows['code'];?>">
+								<?php echo $rows['title']." (".$rows['code'].")";?>
+							</option>
+							<?php 
+						}
+						
+					}?>
 				</select></td>
 			</tr>
 			<tr>

@@ -57,6 +57,17 @@ if(isset($_GET['csvn']))
 } if(isset($_GET['tusers']))
 {
     header('location:smanage.php?tusers');
- }
+    
+ }if(isset($_GET['create']))
+ {
+     header('location:smanage.php?create');
+  
+}if(isset($_GET['upload']))
+{
+    header('location:smanage.php?upload');
+}
 
+
+
+ //include('backups2.php');
 ?>

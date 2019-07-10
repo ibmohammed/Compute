@@ -6,25 +6,12 @@
 		$_SESSION['stid'] = $id;
 
 
+
 		if (password_verify($password, $pwrd)) 
 		{
 		
-		
-			$loginStrGroup = "";
-			//declare two session variables and assign them
-			$_SESSION['MM_Usernames'] = $loginUsername;
-			$_SESSION['MM_UserGroups'] = $loginStrGroup;	      
+			include("dchronicle1.php");
 			
-			if (isset($_SESSION['PrevUrl']) && true) 
-			{
-				$MM_redirectLoginSuccess = $_SESSION['PrevUrl'];	
-			}
-			
-			echo '<script type="text/javascript">
-			location.replace("smanage.php");
-			</script>';
-			// exit(header("Location: " . $MM_redirectLoginSuccess ));
-			// echo "Yes";
 		}
 		else 
 		{

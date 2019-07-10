@@ -113,6 +113,12 @@ exit();
   {
     $matno = $col['matno'];
 
+    $sqlsn= mysqli_query($conn, "SELECT sn  FROM `results` WHERE `matric_no` = '$matno'  && `code` ='$ccode' ") 
+    or die ('Err'.mysqli_error($conn));
+    
+    $sqlsn = mysqli_fetch_assoc($sqlsn);
+    $lastsn = $sqlsn['sn'];
+
     $sql= mysqli_query($conn, "DELETE FROM `results` WHERE `matric_no` = '$matno'  && `code` ='$ccode' ") 
     or die ('Err'.mysqli_error($conn));
 
@@ -146,6 +152,15 @@ exit();
         echo $matno." Data Updated Successfully<br/>";
         echo "</div>";
       }
+
+            // chronicle 
+      $lids = $lastsn;
+      $action = "DELETED";
+      include("dchronicle_res.php");
+      // End of chronicles 
+
+
+
     }else
     {
       echo "records not deleted for ". $matno."<br/>";

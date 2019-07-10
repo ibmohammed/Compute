@@ -39,6 +39,13 @@ if(isset($_POST['submit']))
   // $_SESSION['stid'] = $row['id'];
   $_SESSION['stid'] = $id;
   $_SESSION['myaidi'] =  $id;
+
+  $studentdata = login_comfirm($loginUsername, $password,$logs);
+  mysqli_stmt_execute($studentdata);
+  mysqli_stmt_bind_result($studentdata, $sn, $names, $matno, $prog_id, $year, $session, $status);
+  mysqli_stmt_store_result($studentdata);
+  mysqli_stmt_fetch($studentdata);
+
   $_SESSION['utyp'] =  "Student";
 
   //if($loginFoundUser !== 0)
@@ -93,7 +100,26 @@ if(isset($_POST['submit']))
     {
 
       $_SESSION['usercomfirmed'] = $loginUsername;
-      header("location:../stdprofile.php");
+      //keep user logs
+      $table_id = $id;
+      $tablename = "students_log";
+      $action = "Login";
+      $whoid = $sn;
+      $whoname = $matric_no;
+      
+      $ddate = date("Y-m-d");
+      $dtime = date("h:i:sa");
+       chronicles($logs, $table_id, $tablename, $action, $whoid, $whoname);
+
+     if (mysqli_insert_id($logs)){
+        header("location:../stdprofile.php");
+
+      }else{
+        die ("weldone");
+      }
+           
+
+     
     }
   }
   else

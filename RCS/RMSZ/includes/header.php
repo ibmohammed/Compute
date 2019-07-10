@@ -8,7 +8,6 @@ $username_logs = "root";
 //$password_logs = "number012345@";
 $password_logs = "";
 
-
 $conn = mysqli_connect($hostname_logs, $username_logs, $password_logs, $database_logs);
 // Check connection
 if (!$conn) {

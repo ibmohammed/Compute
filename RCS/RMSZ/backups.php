@@ -1,83 +1,67 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Results Management System</title>
-<link href="stylesheets/bootstrap.css" rel="stylesheet" type="text/css" />
-</head>
-
-<body>
-<br />
-
+<?php include('includes/header.php');?>
 <table align="center">
   <tr>
-    <td align="center"><a href="index.php">
+    <td align="center"><a href="smanage.php">
       <input type="submit" name="button2" id="button2" value="Back" />
     </a></td>
   </tr>
   <tr>
-    <td><font color="#FF0000" class="center">To upload Backup, Enter Backup Date using this Format: ddd-mmm-YYY</font></td>
+    <td><font color="#green" class="center">To import backup, chose a file than click submit</font></td>
   </tr>
 </table>
 <?php
 
-if (isset($_POST['button'])){
-$dt = $_POST['date'];
-if (!$dt){
-	header('location:backups.php');
-	}
-
-include('includes/header.php');
-$table_name = "coresult";
-$table_name1 = "course";
-$table_name2 = "logintbl";
-$table_name3 = "results";
-$table_name4 = "studentsnm";
-$table_name5 = "dept";
-$table_name6 = "entered";
-
-$backup_file  = "/backups/".$dt."coresult.sql";
-$backup_file2  = "/backups/".$dt."course.sql";
-$backup_file3  = "/backups/".$dt."logintbl.sql";
-$backup_file4  = "/backups/".$dt."results.sql";
-$backup_file5  = "/backups/".$dt."studentsnm.sql";
-$backup_file6  = "/backups/".$dt."dept.sql";
-$backup_file7  = "/backups/".$dt."entered.sql";
-
-$sql="LOAD DATA INFILE '$backup_file' INTO TABLE $table_name";
-$sql1="LOAD DATA INFILE '$backup_file2' INTO TABLE $table_name1";
-$sql2="LOAD DATA INFILE '$backup_file3' INTO TABLE $table_name2";
-$sql3="LOAD DATA INFILE '$backup_file4' INTO TABLE $table_name3";
-$sql4="LOAD DATA INFILE '$backup_file5' INTO TABLE $table_name4";
-$sql5="LOAD DATA INFILE '$backup_file6' INTO TABLE $table_name5";
-$sql6="LOAD DATA INFILE '$backup_file7' INTO TABLE $table_name6";
-
-mysql_select_db('nigerpol_consultdbsnw');
-
-$retval = mysqli_query($conn,$sql);
-$retval1 = mysqli_query($conn,$sql1);
-$retval2= mysqli_query($conn,$sql2);
-$retval3 = mysqli_query($conn,$sql3);
-$retval4 = mysqli_query($conn,$sql4);
-$retval5 = mysqli_query($conn,$sql5);
-$retval5 = mysqli_query($conn,$sql6);
-if(! $retval ||! $retval1 || ! $retval2 || ! $retval3 || ! $retval4|| ! $retval5)
+if (isset($_POST['button']))
 {
-  die('Could not take data backup: ' . mysqli_error());
-}
-echo "data Uploaded successfully\n";
-mysqli_close($conn);
+
+  try 
+  {
+
+    $fname = $_FILES['file']['name'];
+    //	echo 'upload file name: '. $fname. ' ';
+    $chk_ext = explode(".",$fname);
+    if(strtolower(end($chk_ext)) == "sql")
+    {
+      echo 'upload file name: '. $fname. ' ';
+      $filename = $_FILES['file']['tmp_name'];
+      //$handle = fopen($filename, "r");
+
+      $templine = '';// temporary variable used to store current query
+      $Lines = file($fname); //Read in entire file
+      foreach($Lines as $line)//Loop through each line
+      {
+        if(substr($line,0,2) == '--' || $line == '') // skip it if it a comment
+        continue;
+        $templine .= $line; //add this line to the current segment
+        if(substr(trim($line),-1, 1) == ';') // if it has a semi colunm at the end, its the end of the query
+        {
+          //include('includes/header.php');
+          mysqli_query($conn, $templine) or die(mysqli_error($conn)); ////perfom the query
+          $templine = ''; // reset temp variable to empty
+        }
+      }
+        echo "Tables imported successfully";
+    }
+  } 
+  catch(Exception $e) 
+  {
+    throw $e;
+  }
 }?>
 
 <br /><br />
 <table width="347" align="center">
   <tr>
-    <td align="center"><form id="form1" name="form1" method="post" action=""><table width="339">
-  <tr>
-    <td align="center"><strong>BACKUP DATE:</strong> <br />     <input name="date" type="text" placeholder = "Date format:<?php echo date('j-n-Y');?>" /></td>
-    </tr>
-</table>
-    <input type="submit" name="button" id="button" value="Submit" />
-    </form></td>
+    <td align="center"><form id="form1" name="form1" method="post" action="" enctype="multipart/form-data">
+      <table width="339">
+          <td align="center">
+            <strong>Choose file</strong> <br />     
+            <input name="file" type="file" id="csv"  class="form-control"/>
+          </td>
+        </tr>
+      </table>
+     <input type="submit" name="button" id="button" value="Submit" />
+     </form>
+    </td>
   </tr>
 </table>

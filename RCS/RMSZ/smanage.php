@@ -78,8 +78,8 @@ $departmentcode = $_SESSION['deptcode'];
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="../../index.html"><img src="../../imagess/logo.svg" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="../../imagess/log-mini.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href=""><img src="../../imagess/logo.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href=""><img src="../../imagess/log-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-stretch">
         <div class="search-field d-none d-md-block">
@@ -230,8 +230,6 @@ $departmentcode = $_SESSION['deptcode'];
             <tbody>
             <?php $i = 0;  
            
-           
-      
             while($colgs = mysqli_fetch_assoc($colgqry))
             { 
                 $i++; 
@@ -240,7 +238,6 @@ $departmentcode = $_SESSION['deptcode'];
                 <td><?php echo $i;?></td>
                 <td><?php echo $colgs['college'];?></td>
                 <td><?php 
-                
                 //$colid = $colgs['college_id'];  
                 $schlgeno = schls_function($logs, $colgs['college_id']);        
                 $schlgeno = mysqli_num_rows($schlgeno);
@@ -252,11 +249,9 @@ $departmentcode = $_SESSION['deptcode'];
             ?>
             <tbody>
             </table>
-        
   <?php }
       elseif(isset($_GET['dashschl']))
       {?>
-
             <h2>Schools</h2>
             <table  class="table table-bordered">
             <thead>
@@ -268,8 +263,6 @@ $departmentcode = $_SESSION['deptcode'];
             </thead>
             <tbody>
             <?php $i = 0;  
-           
-           
       
             while($schls = mysqli_fetch_assoc($schlsqry))
             { 
@@ -279,7 +272,6 @@ $departmentcode = $_SESSION['deptcode'];
                 <td><?php echo $i;?></td>
                 <td><?php echo $schls['school'];?></td>
                 <td><?php 
-                
                 //$schlid = $schls['schl_id'];  
                 $depteno = depts_function($logs, $schls['schl_id']);        
                 $depteno = mysqli_num_rows($depteno);
@@ -293,10 +285,8 @@ $departmentcode = $_SESSION['deptcode'];
             </table>
 
   <?php }
-   
     ?>  
      <!---dashboard -->
-
        <div class="page-header">
             <h3 class="page-title">
               <span class="page-title-icon bg-gradient-primary text-white mr-2">

@@ -5,9 +5,9 @@ function insert_entered($conn, $code, $cunits, $prgrm, $semst, $sesn)
 					(`code`, `unit`, `prog_id`, `semester`, `session`
 					)VALUES(?,?,?,?,?)"
 				)or die(mysqli_error($conn));
-mysqli_stmt_bind_param($qry, "sssss", $code, $cunits, $prgrm, $semst, $sesn);
-$me = mysqli_stmt_execute($qry);
-return $me;
+	mysqli_stmt_bind_param($qry, "sssss", $code, $cunits, $prgrm, $semst, $sesn);
+	$me = mysqli_stmt_execute($qry);
+	return $me;
 }
 
 function insert_result($con, $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn){
@@ -77,11 +77,19 @@ if(isset($_POST['Submitm']))
 				// insert into result table
 				$resultssn = insert_result($conn, $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn);
 				mysqli_stmt_execute($resultssn);
+
+				// chronicle 
+				$lids = mysqli_insert_id($conn);
+				$action = "INSERTED";
+				include("dchronicle_res.php");
+				// End of chronicles 
+	
 			}
 			fclose($handle);
 			echo "Successfully imported";
 			// add to table entered courses
 			insert_entered($conn, $code, $cunits, $prgrm, $semst, $sesn);
+			 
 		}
 		else
 		{
@@ -125,12 +133,21 @@ if(isset($_POST['Submitm']))
 				// insert into result table
 				$resultssn = insert_result($conn, $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn);
 				mysqli_stmt_execute($resultssn);
+
+				// chronicle 
+				$lids = mysqli_insert_id($logs);
+				$action = "Overwrite";
+				include("dchronicle_res.php");
+				// End of chronicles
 			}
 
 			fclose($handle);
 			echo "Successfully imported";
 			// add to table entered courses
 			insert_entered($conn, $code, $cunits, $prgrm, $semst, $sesn);
+
+		
+ 
 		}
 		else
 		{

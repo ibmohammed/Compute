@@ -41,9 +41,7 @@ function MM_validateForm() { //v4.0
 if(isset($_POST['Submit2']))
 {
   $programme=$_POST['programme'];
-
   $programme = mysqli_escape_string($conn, $programme);
-
   $year=$_POST['year'];
   $session=$_POST['session'];
   $semester=$_POST['semester'];
@@ -89,10 +87,25 @@ if(isset($_POST['Submit2']))
             `prog_id`, `semester`, `session`) VALUES (NULL, '$name', '$matno',
             '$code','$unit', '$score', '$grade1','$point', '$programme', '$semester',
             '$session')");
+            	 
+            	// chronicle 
+				$action = "INSERTED";
+				$lids = mysqli_insert_id($logs);
+				include("dchronicle_res.php");
+				// End of chronicles  
+
+
+
+
           } 
         }
       }
     }
+
+
+
+
+
     // update status
     $updt = mysqli_query($conn,"UPDATE `studentsnm` 
     SET `status` = '$semester' WHERE `studentsnm`.`matno` ='$matno'");
@@ -105,6 +118,9 @@ if(isset($_POST['Submit2']))
     $row = mysqli_fetch_assoc($sql);
     
     $exixtin = mysqli_num_rows($sql);
+
+
+
     if($exixtin==0){
       echo "No Student left";
     }

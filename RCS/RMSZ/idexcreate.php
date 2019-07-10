@@ -12,22 +12,24 @@ $password_logs = "number012345@";
 */
 $host = "localhost";
 $dbname = "nigerpol_consultdbsnw";
-$user = "nigerpol_root";
-$pass = "number012345@";
+$user = "root";
+$pass = "";
 
 
 //MySQL server and database
 $dbhost = 'localhost';
-$dbuser = 'nigerpol_root';
-$dbpass = 'number012345@';
+$dbuser = 'root';
+$dbpass = '';
 $dbname = 'nigerpol_consultdbsnw';
 $tables = '*';
 
 //Call the core function
 backup_tables($dbhost, $dbuser, $dbpass, $dbname, $tables);
 
+
 //Core function
-function backup_tables($host, $user, $pass, $dbname, $tables = '*') {
+function backup_tables($host, $user, $pass, $dbname, $tables = '*') 
+{
     $link = mysqli_connect($host,$user,$pass, $dbname);
 
     // Check connection
@@ -77,7 +79,6 @@ function backup_tables($host, $user, $pass, $dbname, $tables = '*') {
                 } else{
                     $return.= '(';
                 }
-
                 //Over fields
                 for($j=0; $j<$num_fields; $j++) 
                 {
@@ -103,7 +104,7 @@ function backup_tables($host, $user, $pass, $dbname, $tables = '*') {
     $handle = fopen($fileName,'w+');
     fwrite($handle,$return);
     if(fclose($handle)){
-        echo "Done, the file name is: ".$fileName;
+      //  echo "Done, the file name is: ".$fileName;
       echo "<script>
       alert('Backup Successful');
       </script>";  
