@@ -21,9 +21,21 @@ if(isset($_GET['entresbyc'])){
 	include('enterresultsnew.php');
 
 }elseif(isset($_GET['csv'])){
-	echo '<h6>Upload Scores</h6><hr>';
+	echo '<h6>Import Scores</h6><hr>';
+	$compute_co = 0;
 	include('csvres.php');
 
+}elseif(isset($_GET['csvco'])){
+	echo '<h6>Import CO Scores</h6><hr>';
+	$co_spill = 0;
+	$compute_co = 1;
+	include('csvres.php');
+
+}elseif(isset($_GET['csvspill'])){
+	echo '<h6>Import Spill Over Scores</h6><hr>';
+	$co_spill = 1;
+	$compute_co = 1;
+	include('csvres.php');
 //Student Registration Menu
 }elseif(isset($_GET['regs'])){
 	echo '<h3>Register New Student</h3>';
@@ -286,11 +298,8 @@ include('manuallist.php');
 }elseif(isset($_GET['upload'])){
 	include('createddbs.php');
 
+}elseif(isset($_GET['result_analysis'])){
+echo '<h3>Result Analysis</h3>';
+include('piecharts_for_all.php');
 }
-//	editresultsspill.php
-//	viewsspill
-/*
-}elseif(isset($_GET['csvrn'])){
-//echo '<h3>Upload Scores</h3>';
-include('csvresn.php');*/
 ?>

@@ -29,7 +29,7 @@ $programme=$_POST['programme'];
 	?>
       
 
-  <table border="1" align="center" cellpadding="0" cellspacing="1" style="font-size:14px; width: 600px; border:thin; border-collapse:collapse">
+  <table>
       <tr>
         <td valign="top"><?php 
 		$semester=$_POST['semester'];
@@ -82,7 +82,8 @@ $programme=$_POST['programme'];
 	
 	}
 	// in %
-  include('reanalyz.php');	 
+  include('reanalyz.php');	
+  include("barchart.php"); 
 	?></td>
       </tr>
   </table>

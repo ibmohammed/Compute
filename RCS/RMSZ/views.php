@@ -21,8 +21,8 @@ $semester=$_POST['semester'];
 $session=$_POST['session'];
 $year=$_POST['year'];
 $programme=$_POST['programme'];
-$start=$_POST['start'];
-$list=$_POST['list'];
+$start=@$_POST['start'];
+$list=@$_POST['list'];
 		if ((!$programme)){
 	die("empty fields not allowed");
 	}
@@ -295,81 +295,11 @@ $n= $n+1;
    
     
   <p>&nbsp;</p>
-  <form action="views.php" method="post" name="grade" id="grade" target="_blank">
-      <table align="center">
-        <tr>
-          <td align="left"><strong>PROGRAMME:</strong></td>
-          <td align="left"><select name="programme" id="programme">
-            <option selected="selected"><?php // echo $_GET['depts'];?></option>
-			
-			
-			
-			 <?php include('dptcode.php') ;
-            
-            $sq = "SELECT * FROM `departments` WHERE code = '$departmentcode'";
 
-$sq = mysqli_query($conn,$sq);
-$did = mysqli_fetch_assoc($sq);
-            $queri = mysqli_query($conn,"SELECT * FROM `programmes` WHERE dept_id LIKE '".$did['dept_id']."'") or die(mysqli_error($conn));
-            
-            while($pcd = mysqli_fetch_assoc($queri)){
-            ?>
-            
-            
-            <option value = "<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
-              
-              <?php }?>
-              
-                        
-          </select>
-          
-          </td>
-        </tr>
-        <tr>
-          <td align="left"><strong>SEMESTER:</strong></td>
-          <td align="left"><select name="semester">
-            <option selected="selected"></option>
-            <option value="1">First Semester</option>
-            <option value="2">Second Semester</option>
-            <option value="3">Third Semester</option>
-            <option value="4">Fourth Semester</option>
-            <option value="5">Fifth Semester</option>
-            <option value="6">Sixth Semester</option>
-          </select></td>
-        </tr>
-        <tr>
-          <td align="left"><strong>SESSION:</strong></td>
-          <td align="left"><select name="session">
-          <option selected="selected"></option>
-          <option><?php echo ((date('Y')-1)."/".date('Y'));?></option>
-                     <?php echo include('includes/sessions.php');?>
-			<option>2018/2019</option>
-            </select>
-            -
-            <select name="year" id="year">
-              <option selected="selected" ></option>
-              <option>9</option>
-              <option>10</option>
-              <option>11</option>
-              <option>12</option>
-              <option>13</option>
-              <option>14</option>
-              <option>15</option>
-              <option>16</option>
-              <option>17</option>
-              <option>18</option>
-              <option>19</option>
-              <option>20</option>
-            </select>
-            <input  type="hidden" name="start" value="0" />
-          <input type="hidden" name="list" value="20" /></td>
-        </tr>
-        <tr>
-          <td align="left">&nbsp;</td>
-          <td align="left">&nbsp;</td>
-        </tr>
-          </table>
-      <input name="Submit" value="Submit" type="submit" />
 
-  </form>
+<?php
+ include("viewforms.php");
+ ?>
+
+
   </body>    

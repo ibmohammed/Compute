@@ -1,12 +1,13 @@
 
 <?PHP 
+/*
 $csns= mysqli_query($conn,"SELECT college, school
 FROM `dept` 
 WHERE dep = '$programme' ") 
-or die (mysql_error());
+or die (mysqli_error());
 
 $fet = mysqli_fetch_assoc($csns);  
-
+*/
 ?>
 
 <table style="width: 100%; font-size:8pt; text-transform:uppercase" align="right">

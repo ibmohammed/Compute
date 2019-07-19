@@ -163,7 +163,9 @@ if (!((isset($_SESSION['staffcomfirmed']))))
             <h4>Manage Scores </h4><br>
             <h6 class="w3-opacity"> </h6>
             <hr class="w3-clear">
-            <?php require_once('csvresn.php');
+            <?php 
+            $compute_co = 0;
+            require_once('csvresn.php');
       	}
   require_once('menus.php');
 ?>

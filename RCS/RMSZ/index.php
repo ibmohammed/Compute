@@ -174,6 +174,7 @@ if(@$_SESSION['MM_Usernames'] == True){
             <!-- page content -->
             
             <?php  
+            $forms_choose = 0;
                 include('menus.php');
                 include('grpedit.php');
 

@@ -1,0 +1,26 @@
+Here's the sample documentation we looked at (and another attached):
+
+The use case begins when the user selects the option to change their password.
+
+Basic Flow
+
+System: Present password change form and request user to enter their new password.
+Teaching Staff: Enters their new password and username and clicks submit. (A1, A2)
+System: Validate the password to ensure it is the correct. (A3, A4, A5)
+System: Displays confirmation to the user.
+
+Alternative Flows
+
+A1 - Cancel
+User decides to cancel the process of changing password
+
+System: Returns to main page. 
+
+A2 - Session Timeout
+The system detects a session timeout
+
+System: Displays timed out message and/or re-directs to login page.
+
+A3 - Password Incorrect
+A4 - Username already in use
+A5 - Unwanted characters in the password

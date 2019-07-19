@@ -278,7 +278,8 @@ $n= $n+1;
  echo "<p style='page-break-before:always'></p>";
      include('analysis1.php');
 	  echo "<p style='page-break-before:always'></p>";
-    include('analyz.php');
+	include('analyz.php');
+	//include("barchart.php");
     ?></div>
 
 	

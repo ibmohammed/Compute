@@ -153,11 +153,11 @@ else
 </tr>-->
 <tr>
 <td>New password</td>
-<td><input name="npassword" type ="text" id="npassword" size = "30" class="form-control" placeholder="Enter New password"/> <span style="color:red">*</span></td>
+<td><input name="npassword" type ="password" id="npassword" size = "30" class="form-control" placeholder="Enter New password"/> <span style="color:red">*</span></td>
 </tr>
 <tr>
 <td>Comfirm passwod</td>
-<td><input name="cpassword" type ="text" id="cpassword" size = "30" class="form-control" placeholder="Comfirm New password"/> <span style="color:red">*</span></td>
+<td><input name="cpassword" type ="password" id="cpassword" size = "30" class="form-control" placeholder="Comfirm New password"/> <span style="color:red">*</span></td>
 </tr>
 <tr>
 <td></td>

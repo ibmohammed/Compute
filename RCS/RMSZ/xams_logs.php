@@ -9,7 +9,7 @@
 		$_SESSION['stid'] = $id;
 		
 		
-		$stff = login_scomfirm($number, $password,$logs);
+		$stff = login_scomfirm($number, $logs);
 		//mysqli_stmt_bind_param($stff, "s", $uname);
 		mysqli_stmt_execute($stff);
 		mysqli_stmt_bind_result($stff, $stfid, $name, $number, $contact, $dept_id);

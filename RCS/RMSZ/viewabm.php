@@ -20,8 +20,8 @@ $semester=$_POST['semester'];
 $session=$_POST['session'];
 $year=$_POST['year'];
 $programme=$_POST['programme'];
-$start=$_POST['start'];
-$list=$_POST['list'];
+$start=@$_POST['start'];
+$list=@$_POST['list'];
 	if ((!$programme)){
  die("empty fields not allowed");
 	}
@@ -304,71 +304,6 @@ include('selected.php');
 
 -->
 <?php exit; }
+
+include("viewforms.php")
 	?>
-	
-<form action="viewabm.php" method="post" name="grades" id="grade" target="_blank">
-<table class="table table-bordered">  
-  <tr>
-      <td><span style="font-weight: bold">PROGRAMME:</span></td>
-      <td >
-      <select name="programme" id="programme" class="form-control">
-            <option selected="selected" value="">Select Programme</option>
- <?php include('dptcode.php') ;
-  $queri = 	prog_function($logs); 
-  //	$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error($conn));
-  while($pcd = mysqli_fetch_assoc($queri)){
-            ?>
-  <option value = "<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
-              
-              <?php }?>
-      </select></td>
-    </tr>
-    <tr>
-      <td><span style="font-weight: bold">SEMESTER:</span></td>
-      <td >
-      <select name="semester" class="form-control">
-        <option selected="selected" value="">Select Semester</option>
-        <option value="1">First Semester</option>
-        <option value="2">Second Semester</option>
-        <option value="3">Third Semester</option>
-        <option value="4">Fourth Semester</option>
-        <!--<option value="5">Fifth Semester</option>
-        <option value="6">Sixth Semester</option> -->
-      </select></td>
-    </tr>
-    <tr>
-      <td><span style="font-weight: bold">SESSION:</span></td>
-      <td >
-      <select name="session" class="form-control">
-            <option selected="selected" value="">Select Session</option>
-      <option><?php echo ((date('Y')-1)."/".date('Y'));?></option>
-        <?php echo include('includes/sessions.php');?>
-        <option>2018/2019</option>
-      </select>
-        -
-        <select name="year" id="year" class="form-control">
-            <option selected="selected" value="">Select Year</option>
-		      <option>9</option>
-          <option>10</option>
-          <option>11</option>
-          <option>12</option>
-          <option>13</option>
-          <option>14</option>
-          <option>15</option>
-          <option>16</option>
-          <?php 
-          for($i = 17; $i<=20; $i++){
-          echo "<option>".$i."</option>";
-          }
-          ?>
-        </select>
-        <input name="start"  type="hidden" id="start" value="0" />
-      <input name="list" type="hidden" id="list" value="20" /></td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <input name="Submit" type="submit" id="Submit" value="Submit"  class="btn btn-gradient-primary mr-2"/>
-      </td>
-    </tr>
-  </table>
-</form>

@@ -23,8 +23,8 @@ $semester=$_POST['semester'];
 $session=$_POST['session'];
 $year=$_POST['year'];
 $programme=$_POST['programme'];
-$start=$_POST['start'];
-$list=$_POST['list'];
+$start=@$_POST['start'];
+$list=@$_POST['list'];
 
 $atw = 0;
 $pass = 0;
@@ -155,7 +155,8 @@ if (@$n!=0)
 }	
 
 	?>
-<h3 align="center">Result Summary</h3>
+<h3 align="justify">Result Summary in Table</h3>
+
 <table border="1" align="center" cellpadding="0" cellspacing="1" style="font-size:14px; width: 600px; border:thin; border-collapse:collapse">
 	<tr>
 		<td style="height: 23px; width: 266px;"><strong>Total Number of Students in Class:</strong></td>
@@ -215,7 +216,9 @@ if (@$n!=0)
 		<td style="width: 87px; height: 25px;" class="auto-style1">&nbsp;<strong><?php echo '%'.@$atww;?></strong></td>
 	</tr>
 </table>
+<?php 
 
+?>
 </body>
 
 </html>

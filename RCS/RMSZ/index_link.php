@@ -2,6 +2,14 @@
 if(isset($_GET['csv']))
 {
     header('location:index.php?csv');
+
+}elseif(isset($_GET['csvco']))
+{
+    header('location:index.php?csvco');    
+}elseif(isset($_GET['csvspill']))
+{
+    header('location:index.php?csvspill');
+
 }elseif(isset($_GET['entres']))
 {
     header('location:index.php?entres');
@@ -26,6 +34,15 @@ if(isset($_GET['csv']))
 }if(isset($_GET['setting']))
 {
     header('location:index.php?setting');
+}if(isset($_GET['views']))
+{
+    header('location:index.php?views');
+}if(isset($_GET['viewabm']))
+{
+    header('location:index.php?viewabm');
+}if(isset($_GET['result_analysis']))
+{
+    header('location:index.php?result_analysis');
 }
 
 ?>

@@ -22,6 +22,24 @@ return $resultsss;
 }
 
 
+function update_result($con, $score,$grade1,$point,$co_spill,$smatno,$code){
+	$resultsss =	mysqli_prepare($con,"UPDATE `results` 
+    SET 
+	`score` =  ?,
+	`grade` =  ?,
+	`points` = ?, 
+	`co_spill` = ?
+    WHERE  
+	`results`.`matric_no` = ? &&  
+	`results`.`code` = ?
+	") or die(mysqli_error($conn)); 
+	mysqli_stmt_bind_param($resultsss, "ssssss", $score,$grade1,$point,$co_spill,$smatno,$code);
+
+return $resultsss;
+}
+
+
+
 function get_student_name($con, $smatno){
 	$namee = mysqli_query($con, "SELECT `names` 
 	FROM `studentsnm` WHERE `matno` = '$smatno'") or die(mysqli_error($con)."hhjk");
@@ -58,6 +76,8 @@ if(isset($_POST['Submitm']))
 	{
 		$nmrws = mysqli_num_rows($qqry);
 	}
+
+	//if($compute_co ==0){
 
 	if($nmrws == 0)
 	{  
@@ -131,6 +151,8 @@ if(isset($_POST['Submitm']))
 				// insert into result table
 				include("getname_getgrade_insertres.php");
 				// insert into result table
+
+
 				$resultssn = insert_result($conn, $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn);
 				mysqli_stmt_execute($resultssn);
 
@@ -139,6 +161,7 @@ if(isset($_POST['Submitm']))
 				$action = "Overwrite";
 				include("dchronicle_res.php");
 				// End of chronicles
+
 			}
 
 			fclose($handle);
@@ -154,6 +177,56 @@ if(isset($_POST['Submitm']))
 			echo "Invalid file";
 		}
 	}
+
+
+
+//}elseif($compute_co ==1){
+	// update query 
+
+/*
+ *
+ * 
+ * 		$fname = $_FILES['csv']['name'];
+		echo 'upload file name: '. $fname. ' ';
+		$chk_ext = explode(".",$fname);
+		if(strtolower(end($chk_ext)) == "csv")
+		{
+			$filename = $_FILES['csv']['tmp_name'];
+			$handle = fopen($filename, "r");
+
+			while (($data = fgetcsv($handle,1000,",")) !== FALSE)
+			{
+				// get students names from table 
+				//include("includes/scoregrade.php");
+				// insert into result table
+				include("getname_getgrade_insertres.php");
+				// insert into result table
+				if($co_spill == 1){
+					$co_spill = "co";
+					$succeed = "CO Result";
+				}elseif($co_spill == 0){
+					$co_spill = "spo";
+					$succeed = "SPO Result";
+				}
+
+				$resultssn = update_result($conn, $score,$grade1,$point,$co_spill,$smatno,$code);
+				mysqli_stmt_execute($resultssn);
+
+				// chronicle 
+				//$lids = mysqli_insert_id($logs);
+				//$action = "Overwrite";
+				//include("dchronicle_res.php");
+				// End of chronicles
+
+			}
+
+			fclose($handle);
+			echo "Successfully Updated".@$succeed;
+ */
+
+
+//}				
+
 
 }
 ?>

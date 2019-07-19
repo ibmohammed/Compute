@@ -14,6 +14,9 @@ if(isset($_GET['vwstdrx']))
 }if(isset($_GET['setting']))
 {
     header('location:exams_records.php?setting');
+}if(isset($_GET['result_analysis']))
+{
+    header('location:exams_records.php?result_analysis');
 }
 
 

@@ -37,7 +37,9 @@ $programme=$_POST['programme'];
 	die("empty fields not allowed");
 	}
 		$query= mysqli_query($conn,"SELECT * FROM course 
-		WHERE programme='$programme' && semester	='$semester' && sessions = '$session'") or die (mysqli_error());
+		WHERE prog_id='$programme' && 
+		semester	='$semester' && 
+		sessions = '$session'") or die (mysqli_error($conn));
 	
     switch ($semester) {
         case "1":
@@ -127,14 +129,14 @@ tbody {
         <td style="height: 21px" ><div align="center"></div></td>
   </tr>
   </thead>
-<?php $n = $start; 
+<?php $n = @$start; 
 
 // delete the $start and $last variable to make all result appear
 //$msql=mysqli_query($conn,"SELECT * FROM `studentsnm` WHERE dept ='$programme'&&  year='$year'  && Withdrwan ='0' ORDER BY  `matno` ASC LIMIT $start,$list");
 
 $msql=mysqli_query($conn,"SELECT * FROM `studentsnm` WHERE 
-dept ='$programme'&&  year='$year'  && Withdrwan ='0'
-  ORDER BY length(matno),matno ASC") or die(mysqli_error());
+prog_id ='$programme'&&  year='$year'  && Withdrwan ='0'
+  ORDER BY length(matno),matno ASC") or die(mysqli_error($conn));
 
 while ($col=mysqli_fetch_assoc($msql)){
 $n= $n+1;
@@ -146,7 +148,9 @@ $n= $n+1;
         <?php 
 		$matno = $col['matno'];
 		$sql= mysqli_query($conn,"SELECT * FROM results WHERE 
-		programme='$programme' && semester='$semester' && matric_no='$matno'") or die (mysqli_error());
+		prog_id='$programme' && 
+		semester='$semester' && 
+		matric_no='$matno'") or die (mysqli_error($conn));
 		
 		
 		$unit=0;
@@ -200,16 +204,16 @@ $n= $n+1;
 		<div align="center">
           <?php 
 		$matno = $col['matno'];
-		$mysql= mysqli_query($conn,"SELECT * FROM results WHERE programme='$programme' &&  matric_no='$matno'");
+		$mysql= mysqli_query($conn,"SELECT * FROM results WHERE prog_id='$programme' &&  matric_no='$matno'");
 		
 	if(!$mysql){
-	die (mysqli_error());
+	die (mysqli_error($conn));
 	}
 	
 	
 		  
 		$qq= mysqli_query($conn,"SELECT SUM(unit) AS vaule_sum FROM course 
-		WHERE programme='$programme' && semester ='$semester' && sessions = '$session'");
+		WHERE prog_id='$programme' && semester ='$semester' && sessions = '$session'");
 		$uu = mysqli_fetch_assoc($qq);
 		$unn = $uu['vaule_sum'];
 		

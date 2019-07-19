@@ -68,7 +68,8 @@ $prgqry = mysqli_prepare($logs,
                     <li class="nav-item"> <a class="nav-link" href="index_link.php?entres">Input score</a></li>
                     <li class="nav-item"> <a class="nav-link" href="index_link.php?editres">Edit score</a></li>
                     <li class="nav-item"> <a class="nav-link" href="index_link.php?consider">Consider scores</a></li>
-                   <!-- <li class="nav-item"> <a class="nav-link" href="index_link.php?overwrite">Update scores</a></li>-->
+                    <li class="nav-item"> <a class="nav-link" href="index_link.php?csvco">Import Carry Over scores</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="index_link.php?csvspill">Import Spill Over scores</a></li>
                     <li class="nav-item"> <a class="nav-link" href="index_link.php?deleter">Delete Records</a></li>
                     <li class="nav-item"> <a class="nav-link" href="index_link.php?deleterr">Delete Semester scores</a></li>
                    
@@ -77,19 +78,42 @@ $prgqry = mysqli_prepare($logs,
               </li>
     
     
-                                <li class="nav-item">
-                                        <a class="nav-link" data-toggle="collapse" href="#ui-basic7" aria-expanded="false" aria-controls="ui-basic7">
-                                            <span class="menu-title">Manage Staff</span>
-                                            <i class="menu-arrow"></i>
-                                            <i class="mdi mdi-account-multiple"></i>
-                                        </a>
-                                        <div class="collapse" id="ui-basic7">
-                                            <ul class="nav flex-column sub-menu">
-                                         
-                                            <li class="nav-item"> <a class="nav-link" href="index_link.php?alloc"  target="_new">Allocate courses</a></li>
-                                            </ul>
-                                        </div>
-                                        </li>
+
+          <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic4">
+                  <span class="menu-title">Manage Resuls</span>
+                  <i class="menu-arrow"></i>
+                  <i class="mdi mdi-alphabetical"></i>
+                </a>
+                <div class="collapse" id="ui-basic4">
+                  <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="index_link.php?views">Notice board result</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="index_link.php?viewabm">Acedemic board result</a></li>
+                   <!-- <li class="nav-item"> <a class="nav-link" href="index_link.php?overwrite">Update scores</a></li>-->
+                   <li class="nav-item"> <a class="nav-link" href="index_link.php?result_analysis">Result Analysis</a></li>
+
+                  </ul>
+                </div>
+              </li>
+
+
+                                       
+
+
+
+              <li class="nav-item">
+                      <a class="nav-link" data-toggle="collapse" href="#ui-basic7" aria-expanded="false" aria-controls="ui-basic7">
+                          <span class="menu-title">Manage Staff</span>
+                          <i class="menu-arrow"></i>
+                          <i class="mdi mdi-account-multiple"></i>
+                      </a>
+                      <div class="collapse" id="ui-basic7">
+                          <ul class="nav flex-column sub-menu">
+                        
+                          <li class="nav-item"> <a class="nav-link" href="index_link.php?alloc"  target="_new">Allocate courses</a></li>
+                          </ul>
+                      </div>
+              </li>
 
                                         
     <li class="nav-item">

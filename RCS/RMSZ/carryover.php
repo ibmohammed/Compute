@@ -44,6 +44,9 @@ $unit1=$_POST[$un1];
 $cod1="code".$m;
 $code1 = $_POST[$cod1];
 
+
+
+
 // update stat = 2 as carry over
 $mm = mysql_query("UPDATE `studentsnm` SET `stat` = '2' WHERE `studentsnm`.`matno`='$matno'") 
 or die(mysql_error()."stdnt");
@@ -56,7 +59,6 @@ or die(mysql_error()."updt");
 //UPDATE `consultdbsnw`.`results` SET `score` = '55',
 //`grade` = 'CD',
 //`points` = '2.0' WHERE `results`.`sn` =19;
-
 
 // keep old result
 $oldres = mysql_query("INSERT INTO `coresult` (`name`, `matric_no`, `code`, `unit`, `score`, `grade`,
@@ -81,7 +83,8 @@ echo "<font color = 'red'><i>"."Carry over computed"."</i></font>";
 	?>
 	<table border="0">
   <tr>
-    <td><form id="form1" name="form1" method="post" action="">
+    <td>
+    <form id="form1" name="form1" method="post" action="">
       <table border="0">
         <tr>
           <td ><span style="font-weight: bold">Name:</span></td>

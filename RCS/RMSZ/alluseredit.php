@@ -169,15 +169,15 @@ mysqli_stmt_fetch($stmt);
 </tr>
 <tr>
 <td>Old Password</td>
-<td><input name="opassword" type ="text" id="opassword" size = "30" class="form-control" placeholder="Enter Old Password"/> <span style="color:red">*</span></td>
+<td><input name="opassword" type ="password" id="opassword" size = "30" class="form-control" placeholder="Enter Old Password"/> <span style="color:red">*</span></td>
 </tr>
 <tr>
 <td>New password</td>
-<td><input name="npassword" type ="text" id="npassword" size = "30" class="form-control" placeholder="Enter New password"/> <span style="color:red">*</span></td>
+<td><input name="npassword" type ="password" id="npassword" size = "30" class="form-control" placeholder="Enter New password"/> <span style="color:red">*</span></td>
 </tr>
 <tr>
 <td>Comfirm passwod</td>
-<td><input name="cpassword" type ="text" id="cpassword" size = "30" class="form-control" placeholder="Comfirm New password"/> <span style="color:red">*</span></td>
+<td><input name="cpassword" type ="password" id="cpassword" size = "30" class="form-control" placeholder="Comfirm New password"/> <span style="color:red">*</span></td>
 </tr>
 <tr>
 <td></td>
