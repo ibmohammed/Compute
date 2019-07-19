@@ -43,6 +43,10 @@ if(isset($_GET['csv']))
 }if(isset($_GET['result_analysis']))
 {
     header('location:index.php?result_analysis');
+
+}if(isset($_GET['samplechart']))
+{
+    header('location:index.php?samplechart');
 }
 
 ?>

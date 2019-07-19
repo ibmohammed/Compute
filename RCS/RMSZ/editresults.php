@@ -2,6 +2,10 @@
 <?php ini_set('display_errors', true); ?>
 <?php include("includes/header.php"); ?>    
 	<?php
+
+
+
+
 if(isset($_POST['Submit2']))
 {
     
@@ -37,6 +41,15 @@ if(isset($_POST['Submit2']))
     $query=mysqli_query($conn,"UPDATE `results` 
     SET  `code`='$code',`unit`='$unit',`score` =  '$score',`grade` =  '$grade1',`points`='$point' 
     WHERE  `results`.`sn` ='$sn'");
+
+					// save Carry Over scores
+					
+        if ($score>=0 and $score <=39)
+        {
+          $co_spill = "co";
+          $resultssn = update_prev_result($conn, $score,$grade1,$point,$co_spill,$matno,$code);
+          mysqli_stmt_execute($resultssn);
+				}
 
 	// chronicle 
   $action = "UPDATED";

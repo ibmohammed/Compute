@@ -40,8 +40,8 @@ if (!((isset($_SESSION['usercomfirmed']))))
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="css/style.css">
-  <!-- endinject -->
-  <link rel="shortcut icon" href="imagess/favicon.png" />
+  <!-- endinject 
+  <link rel="shortcut icon" href="imagess/favicon.png" />-->
 </head>
 
 <body>

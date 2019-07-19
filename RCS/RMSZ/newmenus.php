@@ -12,6 +12,10 @@ $schl = mysqli_fetch_assoc($schlqry);
 $colgqry = mysqli_query($logs, "SELECT college, collegecode FROM `colleges`") or die(mysqli_error($logs));
 $coleg = mysqli_fetch_assoc($colgqry);
 
+$col_dashb = mysqli_query($logs, "SELECT college, collegecode FROM `colleges` WHERE `college_id` = '".$schl['college_id']."'") or die(mysqli_error($logs));
+$col_dashb = mysqli_fetch_assoc($col_dashb);
+
+
 $prgqry2 = mysqli_query($logs, "SELECT prog_id, programme FROM `programmes` WHERE dept_id ='".$depts['dept_id']."'") or die(mysqli_error($logs));
 $prg_ids = mysqli_fetch_assoc($prgqry2);
 $_SESSION['prgid'] = $prg_ids['prog_id'];
@@ -60,7 +64,7 @@ $prgqry = mysqli_prepare($logs,
                 <a class="nav-link" data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic3">
                   <span class="menu-title">Manage Scorse</span>
                   <i class="menu-arrow"></i>
-                  <i class="mdi mdi-alphabetical"></i>
+                  <i class="mdi mdi-marker"></i>
                 </a>
                 <div class="collapse" id="ui-basic3">
                   <ul class="nav flex-column sub-menu">
@@ -89,14 +93,28 @@ $prgqry = mysqli_prepare($logs,
                   <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="index_link.php?views">Notice board result</a></li>
                     <li class="nav-item"> <a class="nav-link" href="index_link.php?viewabm">Acedemic board result</a></li>
-                   <!-- <li class="nav-item"> <a class="nav-link" href="index_link.php?overwrite">Update scores</a></li>-->
-                   <li class="nav-item"> <a class="nav-link" href="index_link.php?result_analysis">Result Analysis</a></li>
+                   <!-- <li class="nav-item"> <a class="nav-link" href="index_link.php?overwrite">Update scores</a></li>
+                   <li class="nav-item"> <a class="nav-link" href="index_link.php?result_analysis">Result Analysis</a></li>-->
 
                   </ul>
                 </div>
               </li>
 
 
+ <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic5" aria-expanded="false" aria-controls="ui-basic5">
+                  <span class="menu-title">Resuls Analysis</span>
+                  <i class="menu-arrow"></i>
+                  <i class="mdi mdi-chart-bar "></i>
+                </a>
+                <div class="collapse" id="ui-basic5">
+                  <ul class="nav flex-column sub-menu">
+                   <li class="nav-item"> <a class="nav-link" href="index_link.php?samplechart">Single Course Analysis</a></li>
+                   <li class="nav-item"> <a class="nav-link" href="index_link.php?result_analysis">All courses Analysis</a></li>
+
+                  </ul>
+                </div>
+              </li>
                                        
 
 
@@ -119,7 +137,7 @@ $prgqry = mysqli_prepare($logs,
     <li class="nav-item">
             <a class="nav-link" href="index_link.php?setting">
               <span class="menu-title">Settings</span>
-              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <i class="mdi mdi-settings menu-icon"></i>
             </a>
           </li>
 

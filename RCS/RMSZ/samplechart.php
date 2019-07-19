@@ -123,7 +123,8 @@ elseif(isset($_POST["Submit1"]))
       <select name="programme" id="programme" class="form-control">
         <option selected="selected" value="">Select Programme</option>
         <?php //include('dptcode.php') ;
-        $queri = 	prog_function($logs); 
+        $queri = 	programmess_dept($_SESSION['depts_ids'], $logs); 
+        //	$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error($conn));
         while($pcd = mysqli_fetch_assoc($queri)){
             ?>
         <option value = "<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>

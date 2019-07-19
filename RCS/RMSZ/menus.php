@@ -301,5 +301,9 @@ include('manuallist.php');
 }elseif(isset($_GET['result_analysis'])){
 echo '<h3>Result Analysis</h3>';
 include('piecharts_for_all.php');
+
+}elseif(isset($_GET['samplechart'])){
+	echo '<h3>Result Analysis</h3>';
+	include('samplechart.php');
 }
 ?>

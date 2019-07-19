@@ -97,14 +97,14 @@ $_SESSION['id_staff'] = $data['id'];
     <li class="nav-item">
       <a class="nav-link" href="s_profile_link.php?csvrn">
         <span class="menu-title">Import scores</span>
-        <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+        <i class="mdi mdi-marker menu-icon"></i>
       </a>
     </li>
 
     <li class="nav-item">
       <a class="nav-link" href="s_profile_link.php?setting">
         <span class="menu-title">Settings</span>
-        <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+        <i class="mdi mdi-settings menu-icon"></i>
       </a>
     </li>
   </ul>

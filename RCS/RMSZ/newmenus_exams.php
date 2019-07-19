@@ -144,7 +144,7 @@ return $prgqry2;
                 <a class="nav-link" data-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic4">
                     <span class="menu-title">Manage results</span>
                     <i class="menu-arrow"></i>
-                    <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                    <i class="mdi mdi-chart-bar "></i>
                 </a>
                 <div class="collapse" id="ui-basic4">
                     <ul class="nav flex-column sub-menu">
@@ -158,7 +158,7 @@ return $prgqry2;
           <li class="nav-item">
             <a class="nav-link" href="exams_records_link.php?setting">
               <span class="menu-title">Settings</span>
-              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <i class="mdi mdi-settings menu-icon"></i>
             </a>
           </li>
 

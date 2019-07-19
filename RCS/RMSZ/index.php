@@ -4,6 +4,7 @@ if (!isset($_SESSION)) {
   require_once('../../functions/queries.php');
   require_once('../../connections/connection.php');
 }
+include("index_functions.php");
 $MM_authorizedUsers = "";
 $MM_donotCheckaccess = "true";
 
@@ -64,7 +65,7 @@ $_SESSION['depts_ids'] = $depts_ids["dept_id"];
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Purple Admin</title>
+  <title>NSPZ RMS-Coordinator</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="../../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
@@ -73,8 +74,9 @@ $_SESSION['depts_ids'] = $depts_ids["dept_id"];
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="../../css/style.css">
-  <!-- endinject -->
-  <link rel="shortcut icon" href="../../imagess/favicon.png" />
+  <!-- endinject 
+  <link rel="shortcut icon" href="../../imagess/favicon.png" />-->
+  <link rel="icon" href="../../images/img2A.jpg" type="image/x-jpg">
 </head>
 
 <body>
@@ -243,7 +245,7 @@ if(@$_SESSION['MM_Usernames'] == True){
                   <h4 class="font-weight-normal mb-3">College
                     <i class="mdi mdi-chart-line mdi-24px float-right"></i>
                   </h4>
-                  <h3 class="mb-5"><?php echo $coleg['college'];?></h3>
+                  <h5 class="mb-5"><?php echo $col_dashb['college'];?></h5>
                   <h6 class="card-text"></h6>
                 </div>
               </div>
@@ -256,7 +258,7 @@ if(@$_SESSION['MM_Usernames'] == True){
                   <h4 class="font-weight-normal mb-3">School 
                     <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                   </h4>
-                  <h3 class="mb-5"><?php echo $schl['school'];?></h3>
+                  <h5 class="mb-5"><?php echo $schl['school'];?></h5>
                   <h6 class="card-text"></h6>
                 </div>
               </div>
@@ -270,7 +272,7 @@ if(@$_SESSION['MM_Usernames'] == True){
                   <h4 class="font-weight-normal mb-3">Department 
                     <i class="mdi mdi-diamond mdi-24px float-right"></i>
                   </h4>
-                  <h3 class="mb-5"><?php echo $depts['name'];?></h3>
+                  <h5 class="mb-5"><?php echo $depts['name'];?></h5>
                   <h6 class="card-text"></h6>
                   </a>  
                 </div>
