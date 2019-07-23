@@ -149,6 +149,7 @@ if(isset($_POST['Submitm']))
 	}elseif($compute_co ==1)
 	{
 		// update query 
+		$curent_sess  = (date("Y") - 1)."/".date("Y");
 
 		$fname = $_FILES['csv']['name'];
 		echo 'upload file name: '. $fname. ' ';
@@ -173,13 +174,13 @@ if(isset($_POST['Submitm']))
 					$succeed = "SPO Result";
 				}
 
-				$resultssn = update_result($conn, $score,$grade1,$point,$co_spill,$smatno,$code);
+				$resultssn = update_result($conn, $score,$grade1,$point,$curent_sess,$co_spill,$smatno,$code);
 				mysqli_stmt_execute($resultssn);
-
 
 				// save Spill Over scores
 			if ($score>=0 and $score <=39){
-				$resultssn = insert_prev_result($con, $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn,$co_spill);
+				
+				$resultssn = insert_prev_result($con, $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn,$curent_sess,$co_spill);
 				mysqli_stmt_execute($resultssn);
 			}
 
@@ -187,11 +188,8 @@ if(isset($_POST['Submitm']))
 
 			fclose($handle);
 			echo "Successfully Updated".@$succeed;
-	
-
 
 			}				
-
 
 	}
 }

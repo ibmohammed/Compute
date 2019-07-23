@@ -22,13 +22,13 @@ return $resultsss;
 }
 
 
-function insert_prev_result($con, $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn,$co_spill){
+function insert_prev_result($con, $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn,$curent_sess,$co_spill){
 	$resultsss =	mysqli_prepare($con,"INSERT IGNORE INTO `prev_results`  
-	(`name`, `matric_no`, `code`, `unit`, `score`, `grade`, `points`,`prog_id`, `semester`, `session`, `co_spill`) 
+	(`name`, `matric_no`, `code`, `unit`, `score`, `grade`, `points`,`prog_id`, `semester`, `session`, `curent_sess`, `co_spill`) 
 	VALUES(?,?,?,?,?,?,?,?,?,?,?
 	) 
 	") or die(mysqli_error($con)."kl"); 
-	mysqli_stmt_bind_param($resultsss, "sssisssssss", $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn,$co_spill);
+	mysqli_stmt_bind_param($resultsss, "sssissssssss", $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn,$co_spill);
 	
 return $resultsss;
 }
@@ -54,18 +54,19 @@ function update_prev_result($con, $score,$grade1,$point,$co_spill,$smatno,$code)
 return $resultsss;
 }
 
-function update_result($con, $score,$grade1,$point,$co_spill,$smatno,$code){
+function update_result($con, $score,$grade1,$point,$curent_sess, $co_spill,$smatno,$code){
 	$resultsss =	mysqli_prepare($con,"UPDATE `results` 
     SET 
 	`score` =  ?,
 	`grade` =  ?,
 	`points` = ?, 
+	`session` = ?
 	`co_spill` = ?
     WHERE  
 	`results`.`matric_no` = ? &&  
 	`results`.`code` = ?
 	") or die(mysqli_error($con)); 
-	mysqli_stmt_bind_param($resultsss, "ssssss", $score,$grade1,$point,$co_spill,$smatno,$code);
+	mysqli_stmt_bind_param($resultsss, "sssssss", $score,$grade1,$point,$curent_sess, $co_spill,$smatno,$code);
 
 return $resultsss;
 }
