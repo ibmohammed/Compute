@@ -26,8 +26,9 @@ $list=@$_POST['list'];
 		if ((!$programme)){
 	die("empty fields not allowed");
 	}
-		$query= mysqli_query($conn,"SELECT * FROM course 
-    WHERE prog_id='$programme' && semester	='$semester' && sessions = '$session'") or die (mysqli_error());
+	$query= mysqli_query($conn,"SELECT * FROM course 
+	WHERE prog_id='$programme' && semester	='$semester' && sessions = '$session'") 
+	or die (mysqli_error());
 	
     switch ($semester) {
         case "1":
@@ -136,7 +137,8 @@ $n= $n+1;
         <?php 
 		$matno = $col['matno'];
 		$sql= mysqli_query($conn,"SELECT * FROM results WHERE 
-		prog_id='$programme' && semester='$semester' && matric_no='$matno'") or die (mysqli_error($conn));
+		prog_id='$programme' && semester='$semester' && matric_no='$matno'") 
+		or die (mysqli_error($conn));
 		
 		
 		$unit=0;
@@ -154,17 +156,10 @@ $n= $n+1;
 		 // grade / score 
 		 
 		 if (($res['grade']=="SICK")||($res['grade']=="ABSE")||($res['grade']=="PEND")||($res['grade']=="---")||($res['grade']=="EM")||($res['grade']=="AE")||($res['grade']=="PI")){
-			 
 			 echo $res['grade']; 
-			 
-			 
 			  }else{ 
-		 
 		// echo $res['score'];
-		 
-	
 		 //echo '<br/><hr style="width:8px; height:;"/>';
-		  
 		    echo $res['grade'];
 			  } 
 		  ?>
@@ -207,7 +202,7 @@ $n= $n+1;
           <?php 
 		$matno = $col['matno'];
 		$mysql= mysqli_query($conn,"SELECT * FROM results 
-    WHERE prog_id='$programme' &&  matric_no='$matno'") or die (mysqli_error());
+    	WHERE prog_id='$programme' &&  matric_no='$matno'") or die (mysqli_error($conn));
 
 	
 		  

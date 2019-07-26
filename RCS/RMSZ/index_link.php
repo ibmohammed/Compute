@@ -47,6 +47,9 @@ if(isset($_GET['csv']))
 }if(isset($_GET['samplechart']))
 {
     header('location:index.php?samplechart');
+}if(isset($_GET['viewsco']))
+{
+    header('location:index.php?viewsco');
 }
 
 ?>

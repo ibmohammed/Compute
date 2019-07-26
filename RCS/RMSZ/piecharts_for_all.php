@@ -26,11 +26,14 @@ if(isset($_POST["Submit1"]))
         {
             $n++;
             $functn = "drawChart".$n;
+            $hrfunctn = "hrcahrts".$n;
             $piechart = "piechart".$n;
+            $hrchart = "hrchart".$n;
             echo "<script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>";    
             echo "<script type='text/javascript'>
             google.charts.load('current', {'packages':['corechart']});
             google.charts.setOnLoadCallback($functn );
+            google.charts.setOnLoadCallback($hrfunctn);
 
 
             function $functn() {
@@ -67,14 +70,106 @@ if(isset($_POST["Submit1"]))
 
                 chart.draw(data, options);
             }
-            </script>";
-            ?>
+            
+   
+   function $hrfunctn() 
+   {
+     var data = google.visualization.arrayToDataTable([
+       ['Grade', 'Number of Student', { role: 'style' } ],";
 
-            <div id="<?php echo $piechart;?>" style="width: 900px; height: 500px;"></div>
-            <?php 
+       $grade_array = ["A","AB","B","BC","C","CD","D","E","F","EM","AE","AW","PI","MS","NR"];
+       
+       foreach($grade_array as $grd)
+       {
+         $m = $m+1;
+           $c_cod = $course_code['code'];
+
+           $a = mysqli_query($logs,"SELECT * FROM `results` 
+                   WHERE grade = '$grd' && 
+                   `code` = '$c_cod' &&  
+                   `prog_id` = '$programme' &&   
+                   `semester` = '$semester' && 
+                   `session` = '$session' && 
+                   `stat` = '0'
+                   ")or die(mysqli_error($logs));
+           $nrows = mysqli_num_rows($a);
+          
+      if($grd == "A"){
+        $clrg == "#ffb900";
+      }elseif($grd == "AB"){
+        $clrg = "#6aff00";
+      }elseif($grd == "B"){
+        $clrg = "#ff4000";
+      }elseif($grd == "BC"){
+        $clrg = "#0044ff";
+      }elseif($grd ==  "C"){ 
+        $clrg ="#131c33";
+      }elseif($grd == "CD"){ 
+        $clrg ="#9cc435";
+      }elseif($grd == "D"){ 
+        $clrg ="#c035c4";
+      }elseif($grd == "E"){ 
+        $clrg ="#35c0c4";
+    }elseif($grd == "F"){ 
+      $clrg ="#263f40";
+    }elseif($grd == "EM"){
+       $clrg ="#357a30";
+    }elseif($grd == "AE"){ 
+      $clrg ="#f2edc2";
+    }elseif($grd == "AW"){ 
+      $clrg ="#f2c2d8";
+    }elseif($grd == "PI"){ 
+      $clrg ="#c2c2f2";
+    }elseif($grd == "MS"){ 
+      $clrg ="#a1ad9e";
+    }
+
+  //   $clrg = $arr_col["$grd"];
+//
+           echo "['$grd',     $nrows, '$clrg'],"; 
+         }
+     
+         echo "
+         ]);
+
+    
+
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,
+                          { calc: 'stringify',
+                            sourceColumn: 1,
+                            type: 'string',
+                            role: 'annotation' },
+                          2]);
+
+        var options = {
+          title: '$c_cod',
+          width: 600,
+          height: 400,
+          bar: {groupWidth: '95%'},
+          legend: { position: 'none' },
+        };
+        var chart = new google.visualization.BarChart(document.getElementById('$hrchart'));
+        chart.draw(view, options);
+    }
+            </script>";
+
+            ?>
+<table>
+  <tr>
+    <td><div id="<?php echo $piechart;?>" style="width: 900px; height: 300px;"></div></td>
+    <td><div id="<?php echo $hrchart;?>" style="width: 900px; height: 300px;"></div></td>
+  </tr>
+</table>
+ <?php 
         }
 
-}
+  }
+
+
+
+  
+
     ?>
 
 

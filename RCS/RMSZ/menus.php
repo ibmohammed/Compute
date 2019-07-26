@@ -183,7 +183,7 @@ include('manuallist.php');
 	include('carryoverpgd.php');
 
 }elseif(isset($_GET['viewsco'])){
-	echo '<h3>View Carryover Records</h3>';
+	echo '<h5>View Carryover Records</h5>';
 	include('viewsco.php');
 
 }elseif(isset($_GET['viewscopgd'])){

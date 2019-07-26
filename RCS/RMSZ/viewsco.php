@@ -1,19 +1,8 @@
 <?php require("includes/header.php");?>
-<style type="text/css">
-<!--
-.style1 {font-size: smaller}
-.style2 {font-size: xx-small}
-.style5 {font-size: x-small}
--->
-</style>
 
-    
 
 <div align="left">
-  <table border="0" align="center">
-    <tr>
-      <td>
-        <div align="center">
+  
           <?php 
 	if(isset($_POST['Submit'])){
 	
@@ -21,16 +10,19 @@ $semester=$_POST['semester'];
 $session=$_POST['session'];
 $year=$_POST['year'];
 $programme=$_POST['programme'];
-$start=$_POST['start'];
-$list=$_POST['list'];
+$start=@$_POST['start'];
+$list=@$_POST['list'];
+
 		if ((!$programme)){
 	die("empty fields not allowed");
-	}
-		$query= mysql_query("SELECT * FROM course WHERE programme='$programme' && semester	='$semester'  && sessions = '$session'");
-	if(!$query){
-	die (mysql_error());
-	}
-	
+  }
+  
+  
+  
+	$query= mysqli_query($conn,"SELECT * FROM course 
+	WHERE prog_id='$programme' && semester	='$semester' && sessions = '$session'") 
+  or die (mysqli_error());
+  	
     switch ($semester) {
         case "1":
             $first = "st";
@@ -73,7 +65,7 @@ $list=$_POST['list'];
 	      <tr>
 	        <td rowspan="2" ><div align="center" class="style2" style="font-weight: bold">S/N</div></td>
         <td rowspan="2" ><div align="center" class="style2" style="font-weight: bold">Matric_No</div></td>
-      <?php while($row=mysql_fetch_array($query)){  ?>  
+      <?php while($row=mysqli_fetch_assoc($query)){  ?>  
 			  <td rowspan="2"  style="width: 10px"><div align="center" class="style2" style="font-weight: bold"><?php echo $row['code']."<br>"."(".$row['unit'].")";?></div></td>
       <?php }?>
 	        <td colspan="3" ><div align="center" class="style2" style="font-weight: bold">Current_Semester </div></td>
@@ -97,33 +89,34 @@ $list=$_POST['list'];
         <td ><div align="center" class="style2 style2" style="font-weight: bold">Pend</div></td>
         <td ><div align="center"><span class="style1"><span class="style1"><span class="style2"><span class="style2"></span></span></span></span></div></td>
       </tr>
-	      <?php $n = $start; 
-$msql=mysql_query("SELECT * FROM `studentsnm` WHERE dept ='$programme' && year='$year' &&`stat`='2'  && Withdrwan ='0' ORDER BY  `matno` ASC LIMIT $start,$list ");
-if(!$msql){
-die(mysql_error());
-}
+        <?php $n = $start; 
+        
+$msql=mysqli_query($conn,"SELECT * FROM `studentsnm` WHERE 
+prog_id ='$programme'&&  year='$year' && `stat`='2' && Withdrwan ='0'
+ORDER BY length(matno),matno ASC") or die(mysqli_error());
 
-while ($col=mysql_fetch_array($msql)){
+while ($col=mysqli_fetch_assoc($msql)){
 $n= $n+1;
  ?>
 	      <tr>
-	        <td bgcolor="#FFFFFF" style="font-size: small"><span class="style5 style2"><?php echo $n;?></span></td>
-            <td bgcolor="#FFFFFF" style="font-size: small"><div class="style5 style2"><?php echo $col['matno'];?></div></td>
-            <?php 
+	        <td><?php echo $n;?></td>
+            <td><?php echo $col['matno'];?></td>
+    <?php 
 		$matno = $col['matno'];
-		$sql= mysql_query("SELECT * FROM results WHERE programme='$programme' && semester='$semester'  && matric_no='$matno'");
-			if(!$sql){
-	die (mysql_error());
-	}
+    $sql= mysqli_query($conn,"SELECT * FROM results WHERE 
+		prog_id='$programme' && semester='$semester' && matric_no='$matno'") 
+		or die (mysqli_error($conn));
+		
 		$unit=0;
 		$gp=0;
 		$rem = 0;
-		while ($res=mysql_fetch_array($sql)){?>
-	        <td bgcolor="#FFFFFF" style="font-size: small; width: 10px;">
-	        <div align="center" class="style5 style2">
+		while ($res=mysqli_fetch_assoc($sql)){?>
+	        <td>
+	        <div align="center">
 	        <?php
-	    $ssql= mysql_query("SELECT * FROM coresult WHERE programme='$programme' && semester='$semester'  && matric_no='$matno'");    
-	    $wr = mysql_fetch_array($ssql);
+	    $ssql= mysqli_query($conn, "SELECT * FROM prev_results 
+      WHERE prog_id='$programme' && semester='$semester'  && matric_no='$matno'") or die(mysqli_error($conn));    
+	    $wr = mysqli_fetch_assoc($ssql);
 	    
 			if ($res['code']==$wr['code']){
 			echo " <u style=''>".$res['grade']."</u>";
@@ -151,75 +144,94 @@ $n= $n+1;
 		include("includes/cpgpa.php");
 
 		?>
-	        <td bgcolor="#FFFFFF" style="font-size: small"><div align="center" class="style5 style2"><?php echo $unit;?></div></td>
-            <td bgcolor="#FFFFFF" style="font-size: small"><div align="center" class="style5 style2"><?php echo $gp;?></div></td>
-            <td bgcolor="#FFFFFF" style="font-size: small"><div align="center" class="style5 style2"><?php echo $gpa;?></div></td>
-            <td bgcolor="#FFFFFF" style="font-size: small"><div align="center" class="style5 style2"><?php echo $pcu;?></div></td>
-            <td bgcolor="#FFFFFF" style="font-size: small"><div align="center" class="style5 style2"><?php echo $pcgp;?></div></td>
-            <td bgcolor="#FFFFFF" style="font-size: small"><div align="center" class="style5 style2"><?php echo $pcgpa;?></div></td>
-            <td bgcolor="#FFFFFF" style="font-size: small"><div align="center" class="style5 style2"><?php echo $ccu;?></div></td>
-            <td bgcolor="#FFFFFF" style="font-size: small"><div align="center" class="style5 style2"><?php echo $ccgp;?></div></td>
-            <td bgcolor="#FFFFFF" style="font-size: small"><div align="center" class="style5 style2"><?php echo $ccgpa;?></div></td>
-            <td bgcolor="#FFFFFF" style="font-size: small"><div align="center" class="style1">
+	        <td><div align="center"><?php echo $unit;?></div></td>
+            <td><div align="center"><?php echo $gp;?></div></td>
+            <td><div align="center"><?php echo $gpa;?></div></td>
+            <td><div align="center"><?php echo $pcu;?></div></td>
+            <td><div align="center"><?php echo $pcgp;?></div></td>
+            <td><div align="center"><?php echo $pcgpa;?></div></td>
+            <td><div align="center"><?php echo $ccu;?></div></td>
+            <td><div align="center"><?php echo $ccgp;?></div></td>
+            <td><div align="center"><?php echo $ccgpa;?></div></td>
+            <td><div align="center" class="style1">
             <?php include("includes/rmk.php"); ?>
             </div></td>
-            <td bgcolor="#FFFFFF" style="font-size: small"><div align="center" class="style5 style2">
+            <td><div align="center">
               <?php 
 		$matno = $col['matno'];
-		$mysql= mysql_query("SELECT * FROM results WHERE programme='$programme' &&  matric_no='$matno'");
-		
-	if(!$mysql){
-	die (mysql_error());
-	}
+		    
+    $mysql= mysqli_query($conn,"SELECT * FROM results 
+    WHERE prog_id='$programme' &&  matric_no='$matno'") 
+    or die (mysqli_error($conn));
+
+
+      
+		$qq= mysqli_query($conn,"SELECT SUM(unit) AS vaule_sum FROM course 
+		WHERE prog_id='$programme' && semester ='$semester' && sessions = '$session'");
+		$uu = mysqli_fetch_assoc($qq);
+    $unn = $uu['vaule_sum'];
+    
+
 		//$unit=0;
 		//$gp=0;
 		$rem = 0;
-		while ($result=mysql_fetch_array($mysql)){ 
+		while ($result=mysqli_fetch_assoc($mysql)){ 
 		if (($result['grade'] =="F")||($result['grade'] =="PEND")||($result['grade'] =="ABS")||($result['grade'] =="SICK")||($result['grade'] =="ABSE")||($result['grade'] =="EM")||($res['grade']=="AE")){
-		$rem = $rem +1;
+    $rem = $rem +1;
+    $reslt =$result['grade'];
 		}
-		}
-		  if ($semester <=5){
+    }
+    // $ccgpa
+		if ($semester <=5){
 		if($rem>=1){
-	if(($gpa<=1.49)&&($semester==1) ){
-	echo "ATW";
-	}elseif(($gpa<=1.49)&&($semester>=1)){
-//}elseif(($ccgpa<=1.5)&&($semester>1)){
-	echo "ATW";
-	}else{
-	echo "";
-	}
-	}elseif($rem<1){
-	if($gpa>=3.5){
-		echo "QR";
-		}else
-		if($gpa<=1.49){
-		echo "ATW";
-		}else{
-			echo "PASS";
-		}
-	}
+
+      if(($gpa<=1.49)&&($semester==1)&&($unit == 0) ){
+
+        echo "";
+      
+        }elseif(($gpa<=1.49)&&($semester>=1)){
+      
+        echo "ATW";
+        }elseif(($unit > $unn)){
+        echo "";
+        //}elseif(($gpa<=1.49)&&($semester>=1)&&($unit == 0)){
+        //echo "";
+        }
+        }elseif($rem<1){
+        if(($unit == $unn)&&($gpa>=3.5)){
+          echo "QR";
+          }else
+          if($gpa<=1.49 && ($unit < $unn)){
+          echo "ATW";
+          }elseif(($unit == $unn)&& ($gpa >=1.50)){
+            echo "PASS";
+          }
+        }
 	
 	}elseif($semester==6){
 	
-		if($rem>=1){
-	echo "";
-	}elseif($rem<1){
-	include("includes/remks.php");
-	echo $remarks;
-	}
-	
-	} 
+    if(($rem>=1 )&&($reslt=="EM")){
+      echo "EM"; 
+ }elseif($rem>=1){
+echo "";
 
-	?>
+}elseif($rem<1){
+include("includes/remks.php");
+echo $remarks;
+}
+
+} 
+
+?>
             </div></td>
           </tr><?php }?>
-        </table>      </td>
-    </tr>
-  </table>
+        </table>     
+
   <table align="center">
     <tr>
-      <td align="left"><form id="form1" name="form1" method="post" action="">
+      <td align="left">
+      
+      <form id="form1" name="form1" method="post" action="">
           
           <input name="semester" type="hidden" id="semester" value="<?php echo $semester;?>" />
           <input name="session" type="hidden" id="session"  value="<?php echo $session;?>"/>
@@ -241,80 +253,20 @@ $n= $n+1;
           
           <input type="submit" name="Submit" value="&gt;&gt;&gt;" />
           
-          </form>      </td>
+          </form>      
+      </td>
     </tr>
   </table>
-  <?php exit; }
+
+  <?php 
+  exit; }
 	?>
     
-  <table width="80%" border="0">
-    <tr>
-      <td><span style="font-weight: bold">VIEW CARRY OVER RESULTS SUMMARY </span></td>
-    </tr>
-  </table>
-</div>
-<form action="viewsco.php" method="post" name="grade" id="grade" target="_blank">
-    <div align="center">
-      <table>
-        <tr>
-          <td align="left"><strong>PROGRAMME:</strong></td>
-          <td align="left"><select name="programme" id="programme">
-         <option selected="selected">Select Programme</option>
-            
-             <?php include('dptcode.php') ;
-            
-            
-            $queri = mysql_query("SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysql_error());
-            
-            while($pcd = mysql_fetch_array($queri)){
-            ?>
-            
-            
-              <option><?php echo $pcd['dep'];?></option>
-              
-              <?php }?>
-                    </select></td>
-        </tr>
-        <tr>
-          <td align="left"><strong>SEMESTER:</strong></td>
-          <td align="left"><select name="semester" id="semester">
-            <option selected="selected"></option>
-            <option value="1">First Semester</option>
-            <option value="2">Second Semester</option>
-            <option value="3">Third Semester</option>
-            <option value="4">Fourth Semester</option>
-            <option value="5">Fifth Semester</option>
-            <option value="6">Sixth Semester</option>
-          </select></td>
-        </tr>
-        <tr>
-          <td align="left"><strong>SESSION:</strong></td>
-          <td align="left"><select name="session">
-          <option><?php echo ((date('Y')-1)."/".date('Y'));?></option>
-                     <?php echo include('includes/sessions.php');?>
+    <hr>VIEW CARRY OVER RESULTS SUMMARY <hr>
 
-            </select>
-            -
-            <select name="year" id="year">
-              <option selected="selected"></option>
-              <option>9</option>
-              <option>10</option>
-              <option>11</option>
-              <option>12</option>
-              <option>13</option>
-              <option>14</option>
-              <option>15</option>
-              <option>16</option>
-              <option>17</option>
-              <option>18</option>
-              <option>19</option>
-              <option>20</option>
-            </select>
-            <input  type="hidden" name="start" value="0" />
-          <input type="hidden" name="list" value="20" /></td>
-        </tr>
-      </table>
-      <input name="Submit" value="Submit" type="submit" />
-          </div>
-</form>
-  
+<hr>
+<br>
+<?php
+ include("viewforms.php");
+ ?>  
+<br><hr>

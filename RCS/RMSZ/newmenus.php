@@ -93,8 +93,8 @@ $prgqry = mysqli_prepare($logs,
                   <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="index_link.php?views">Notice board result</a></li>
                     <li class="nav-item"> <a class="nav-link" href="index_link.php?viewabm">Acedemic board result</a></li>
-                   <!-- <li class="nav-item"> <a class="nav-link" href="index_link.php?overwrite">Update scores</a></li>
-                   <li class="nav-item"> <a class="nav-link" href="index_link.php?result_analysis">Result Analysis</a></li>-->
+                    <li class="nav-item"> <a class="nav-link" href="index_link.php?viewsco">Carry Over Result</a></li>
+                   <!--<li class="nav-item"> <a class="nav-link" href="index_link.php?result_analysis">Result Analysis</a></li>-->
 
                   </ul>
                 </div>

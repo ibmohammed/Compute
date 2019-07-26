@@ -18,18 +18,17 @@ if(isset($_POST["Submit"]))
     $session = $_POST["session"];
     $programme = $_POST["programme"];
 
-
-    echo "<script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>";    
-    echo "
-    <script type='text/javascript'>
+?>
+    <script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
+      <script type='text/javascript'>
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
-
+        google.charts.setOnLoadCallback(drawCharts);
 
         function drawChart() 
         {
             var data = google.visualization.arrayToDataTable([
-            ['Grade', 'Number of Students'],";?>
+            ['Grade', 'Number of Students'],
         
             <?php 
             $grade_array = ["A","AB","B","BC","C","CD","D","E","F","EM","AE","AW","PI","MS","NR"];
@@ -54,15 +53,71 @@ if(isset($_POST["Submit"]))
 
             var options = {
             title: '$course_code'
-            };
+            };";
+
+            ?>
 
             var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
             chart.draw(data, options);
         }
-    </script>";
-        ?>
-    <div id="piechart" style="width: 900px; height: 500px;"></div>
+
+
+
+        function drawCharts() {
+      var data = google.visualization.arrayToDataTable([
+        ["grade", "Number of Student", { role: "style" } ],
+        <?php 
+            $grade_array = ["A","AB","B","BC","C","CD","D","E","F","EM","AE","AW","PI","MS","NR"];
+                
+            foreach($grade_array as $gd)
+            {
+                $a = mysqli_query($logs,"SELECT * FROM `results` 
+                                WHERE grade = '$gd' && 
+                                code = '$course_code' &&  
+                                `prog_id` ='$programme' && 
+                                semester = '$semester' && 
+                                `session` = '$session' && 
+                                `stat` = '0'") 
+                                or die(mysqli_error($logs));
+
+                $nrows = mysqli_num_rows($a);
+
+                echo "['$gd',     $nrows, '#0000'],";
+            }
+            
+            echo "
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: 'stringify',
+                         sourceColumn: 1,
+                         type: 'string',
+                         role: 'annotation' },
+                       2]);
+
+      var options = {
+        title: '$course_code',";?>
+        width: 600,
+        height: 400,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+      chart.draw(view, options);
+  }
+
+
+    </script>
+      
+    <table>
+  <tr>
+  <td><div id="barchart_values" style="width: 500px; height: 300px;"></div></td>
+  <td><div id="piechart" style="width: 500px; height: 300px;"></div></td>
+
+  </tr>
+</table>
     <?php 
 }
 elseif(isset($_POST["Submit1"]))
@@ -78,7 +133,8 @@ elseif(isset($_POST["Submit1"]))
                               `sessions` = '$session'") or die(mysqli_error($logs));
      
 ?>
-
+<br>
+<hr>
 <br>
 <hr>
 <form action="" method="post" name="grades" id="grade">
@@ -114,7 +170,9 @@ elseif(isset($_POST["Submit1"]))
 }
 ?>
 
-
+<hr>
+<br>
+<hr>
 <form action="" method="post" name="grades" id="grade">
 <table class="table table-bordered">  
   <tr>
