@@ -1,7 +1,9 @@
 
 <h3>User Type:<?php echo $_GET['tusers'];?></h3>
 <form name="form1" action="" method="post">
-<table class="table table-bordered">
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Number.." class="form-control">
+<table  class="table table-bordered" id="myTable">
 <thead>
 <tr>
 <th>#</th>

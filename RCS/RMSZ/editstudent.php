@@ -52,19 +52,23 @@ WHERE `results`.`matric_no` ='$matno2'") or die (mysqli_error());
 }
 
 echo "<font color = 'red'><i>"."Successful!!"."</i></font>";
-echo '<h3>'.$_POST['dept'].'<h3>';
+echo '<h5 style="font-style:italic; color:green" >Department of '.$_POST['dept'].', class of '.$_POST['year'].' records</h5>';
 
 ?>
-<table class="table table-bordered">
-            <tr bgcolor=""  >
-              <td><span style ="color:black;">Id</span></td>
-              <td><span style ="color:black;">Name</span></td>
-              <td><span style ="color:black;">MatricNo</span></td>
-              <td><span style ="color:black;">Session</span></td>
-              <td><span style ="color:black;">Year</span></td>
-              <td><span style ="color:black;">STATUS</span></td>
-              <td><span style ="color:black;">EDIT</span></td>
-              <td><span style ="color:black;">DELETE</span></td>
+
+
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Matric Number.." class="form-control">
+<table  class="table table-bordered" id="myTable" >
+            <tr>
+              <th><span style ="color:black;">Id</span></th>
+              <th><span style ="color:black;">Name</span></th>
+              <th><span style ="color:black;">MatricNo</span></th>
+              <th><span style ="color:black;">Session</span></th>
+              <th><span style ="color:black;">Year</span></th>
+              <th><span style ="color:black;">STATUS</span></th>
+              <th><span style ="color:black;">EDIT</span></th>
+              <th><span style ="color:black;">DELETE</span></th>
         </tr>
 			<?php
 			$dept = $_POST['dept'];
@@ -126,7 +130,7 @@ $matno = $_GET['matno'];
 	
         
         <form id="form1" name="form1" method="post" action="">
-          <table class="table table-bordered">
+        <table  class="table table-bordered" >
             <tr>
               <td style="height: 29px" ><strong>PROGRAMME:</strong></td>
               
@@ -210,12 +214,14 @@ $matno = $_GET['matno'];
 
 elseif (isset($_POST['Submit'])){
   
-  echo '<h3>'.$_POST['dept'].'</h3>';
+  echo '<h5 style="font-style:italic; color:green" >Department of '.$_POST['dept'].', class of '.$_POST['year'].' records</h5>';
 	?>
 	<table class="table table-bordered">
       <tr>
         <td>
-          <table class="table table-bordered" >
+         
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Matric Number.." class="form-control">
+<table  class="table table-bordered" id="myTable">
               <tr>
               <td><span style ="color:black;">Id</span></td>
               <td><span style ="color:black;">Name</span></td>

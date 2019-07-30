@@ -78,17 +78,22 @@
 	//echo '<h3>'..'</h3>';
 	?>
   <i style="color:green;">Class of <?php echo  $_POST['year']." students records for: ".$_POST['dept'];?></i>
+
+
+
 	<table class="table table-bordered" >
       <tr>
         <td>
-          <table class="table table-bordered" >
+       <!-- <input type="text" name="search" id="search" class="form-control" />-->
+       <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Matric Number.." class="form-control">
+          <table class="table table-bordered" id="myTable">
               <tr>
-              <td><span style ="color:black;">Id</span></td>
-              <td><span style ="color:black;">Name</span></td>
-              <td><span style ="color:black;">MatricNo</span></td>
-              <td><span style ="color:black;">Session</span></td>
-              <td><span style ="color:black;">Year</span></td>
-              <td><span style ="color:black;">STATUS</span></td>
+              <th><span style ="color:black;">Id</span></th>
+              <th onclick="sortTable(0)"><span style ="color:black;">Name</span></th>
+              <th onclick="sortTable(1)"><span style ="color:black;">MatricNo</span></th>
+              <th><span style ="color:black;">Session</span></th>
+              <th><span style ="color:black;">Year</span></th>
+              <th><span style ="color:black;">STATUS</span></th>
         	  </tr>
 			<?php
 			$dept = $_POST['dept'];
@@ -135,4 +140,4 @@
       </tr>
     </table><?php //exit;
    }?>
-      
+  

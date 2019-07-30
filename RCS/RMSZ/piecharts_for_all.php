@@ -155,10 +155,10 @@ if(isset($_POST["Submit1"]))
             </script>";
 
             ?>
-<table>
+<table class="table table-bordered">
   <tr>
-    <td><div id="<?php echo $piechart;?>" style="width: 900px; height: 300px;"></div></td>
-    <td><div id="<?php echo $hrchart;?>" style="width: 900px; height: 300px;"></div></td>
+    <td ><div id="<?php echo $piechart;?>" style="width: auto; height: auto;"></div></td>
+    <td><div id="<?php echo $hrchart;?>" style="width: auto; height: auto;"></div></td>
   </tr>
 </table>
  <?php 

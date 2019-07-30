@@ -19,26 +19,13 @@ unset($_SESSION['matricno']);
 unset($_SESSION['id_staff']);
 unset($_SESSION['names']);
 
-
-
-// *** Logout the current user.
-/*
-$logoutGoTo = "logins.php";
-if (!isset($_SESSION)) {
-  session_start();
-}
-
 //remove PHPSESSID from browser
 if ( isset( $_COOKIE[session_name()] ) )
-setcookie( session_name(), “”, time()-3600, “/” );
+setcookie("PHPSESSID","",time()-3600,"/");
 //clear session from globals
 $_SESSION = array();
 //clear session from disk
 session_destroy();
-
-if ($logoutGoTo != "") {header("Location: $logoutGoTo");
-exit;
-}*/
 
 
 if ($logoutGoTo != "") {header("Location: $logoutGoTo");

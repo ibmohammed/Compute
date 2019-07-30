@@ -111,10 +111,10 @@ if(isset($_POST["Submit"]))
 
     </script>
       
-    <table>
+    <table class="table table-bordered">
   <tr>
-  <td><div id="barchart_values" style="width: 500px; height: 300px;"></div></td>
-  <td><div id="piechart" style="width: 500px; height: 300px;"></div></td>
+  <td><div id="barchart_values" style="width: auto; height: auto;"></div></td>
+  <td><div id="piechart" style="width: auto; height: auto;"></div></td>
 
   </tr>
 </table>

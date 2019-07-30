@@ -157,13 +157,31 @@ die(mysqli_error());
 <?php echo $session. " Semester: ".$semester." for ".$prog; ?>
 </i>
 <hr>
+<style>
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 16px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2
+}
+</style>
 <form id="form2" name="form2" method="post" action="">
-    <table  class="table table-bordered" >
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Course Code.." class="form-control">
+    <table  class="table table-bordered" id="myTable">
       <tr>
 
         <th>S/N</th>
-        <th>Course Title</th>
-        <th>Course Code </th>
+        <th onclick="sortTable(1)">Course Title</th>
+        <th onclick="sortTable(2)">Course Code </th>
         <th>Unit</th>
         <th>Session</th>
         <th>Semester</th>
@@ -179,14 +197,21 @@ die(mysqli_error());
             $n= $n+1;
             ?>
                     <tr>
-                    <td ><?php echo $n;?>
-                        <input name="<?php echo 'sn'.$n;?>" type="hidden"  value="<?php echo $row['sn'];?>" /></td>
-                    <td ><input style="border:thin;" name="<?php echo 'title'.$n;?>" type="text"  value="<?php echo $row['title'];?>" size="50" class="form-control"/>
-                    <input name="<?php echo 'titles'.$n;?>" type="hidden"  value="<?php echo $row['title'];?>" size="50"/></td>
-                    <td  style="width: 170px"><input style="border:thin;" name="<?php echo 'code'.$n;?>" type="text" value="<?php echo $row['code'];?>" size="6" class="form-control"/>
-                    <input name="<?php echo 'codes'.$n;?>" type="hidden" value="<?php echo $row['code'];?>" /></td>
-                    <td ><input style="border:thin;" name="<?php echo 'unit'.$n;?>" type="text" value="<?php echo $row['unit'];?>" size="4" class="form-control"/>
-                        <input name="<?php echo 'units'.$n;?>" type="hidden" value="<?php echo $row['unit'];?>" /></td>
+                    <td>
+                      <?php echo $n;?>
+                      <input name="<?php echo 'sn'.$n;?>" type="hidden"  value="<?php echo $row['sn'];?>" />
+                    </td>
+                    <td>
+                      <input style="border:thin;" name="<?php echo 'title'.$n;?>" type="text"  value="<?php echo $row['title'];?>" size="50" class="form-control"/>
+                      <input name="<?php echo 'titles'.$n;?>" type="hidden"  value="<?php echo $row['title'];?>" size="50"/></td>
+                      <td style="width: 170px"><input style="border:thin;" name="<?php echo 'code'.$n;?>" type="text" value="<?php echo $row['code'];?>" size="6" class="form-control"/>
+                      <input name="<?php echo 'codes'.$n;?>" type="hidden" value="<?php echo $row['code'];?>" />
+                      <span style="color:white"><?php echo $row['code'];?></span>
+                    </td>
+                    <td>
+                      <input style="border:thin;" name="<?php echo 'unit'.$n;?>" type="text" value="<?php echo $row['unit'];?>" size="4" class="form-control"/>
+                      <input name="<?php echo 'units'.$n;?>" type="hidden" value="<?php echo $row['unit'];?>" />
+                    </td>
                     <td>
                             <input style="border:thin;" class="form-control" name="<?php echo 'ses'.$n;?>" type="text" value="<?php echo $row['sessions'];?>" size="4" />
                             <input name="<?php echo 'sess'.$n;?>" type="hidden" value="<?php echo $row['sessions'];?>" /></td>
@@ -213,19 +238,28 @@ die(mysqli_error());
                 $n= $n+1;
                 ?>
                         <tr>
-                        <td ><?php echo $n;?>
-                            <input name="<?php echo 'sn'.$n;?>" type="hidden"  value="<?php echo $row['sn'];?>" /></td>
-                        <td ><input style="border:thin;" name="<?php echo 'title'.$n;?>" type="text"  value="<?php echo $row['title'];?>" size="50" class="form-control"/>
-                        <input name="<?php echo 'titles'.$n;?>" type="hidden"  value="<?php echo $row['title'];?>" size="50"/></td>
-                        <td  style="width: 170px"><input style="border:thin;" name="<?php echo 'code'.$n;?>" type="text" value="<?php echo $row['code'];?>" size="6" class="form-control"/>
-                        <input name="<?php echo 'codes'.$n;?>" type="hidden" value="<?php echo $row['code'];?>" /></td>
-                        <td ><input style="border:thin;" name="<?php echo 'unit'.$n;?>" type="text" value="<?php echo $row['unit'];?>" size="4" class="form-control"/>
-                            <input name="<?php echo 'units'.$n;?>" type="hidden" value="<?php echo $row['unit'];?>" /></td>
                         <td>
-                                <input style="border:thin;" class="form-control" name="<?php echo 'ses'.$n;?>" type="text" value="<?php echo $row['sessions'];?>" size="4" />
-                                <input name="<?php echo 'sess'.$n;?>" type="hidden" value="<?php echo $row['sessions'];?>" /></td>
+                          <?php echo $n;?>
+                          <input name="<?php echo 'sn'.$n;?>" type="hidden"  value="<?php echo $row['sn'];?>" /></td>
                         <td>
-                                    <input style="border:thin;" class="form-control" name="<?php echo 'sems'.$n;?>" type="text" value="<?php echo $semester;?>" size="4" /></td>
+                          <input style="border:thin;" name="<?php echo 'title'.$n;?>" type="text"  value="<?php echo $row['title'];?>" size="50" class="form-control"/>
+                          <input name="<?php echo 'titles'.$n;?>" type="hidden"  value="<?php echo $row['title'];?>" size="50"/>
+                        </td>
+                        <td style="width: 170px">
+                          <input style="border:thin;" name="<?php echo 'code'.$n;?>" type="text" value="<?php echo $row['code'];?>" size="6" class="form-control"/>
+                          <input name="<?php echo 'codes'.$n;?>" type="hidden" value="<?php echo $row['code'];?>" />
+                          <span style="color:white"><?php echo $row['code'];?></span>
+                        </td>
+                        <td>
+                          <input style="border:thin;" name="<?php echo 'unit'.$n;?>" type="text" value="<?php echo $row['unit'];?>" size="4" class="form-control"/>
+                          <input name="<?php echo 'units'.$n;?>" type="hidden" value="<?php echo $row['unit'];?>" />
+                        </td>
+                        <td>
+                          <input style="border:thin;" class="form-control" name="<?php echo 'ses'.$n;?>" type="text" value="<?php echo $row['sessions'];?>" size="4" />
+                          <input name="<?php echo 'sess'.$n;?>" type="hidden" value="<?php echo $row['sessions'];?>" />
+                        </td>
+                        <td>
+                          <input style="border:thin;" class="form-control" name="<?php echo 'sems'.$n;?>" type="text" value="<?php echo $semester;?>" size="4" /></td>
                         <td>
         <!--  <a href="smanage.php?id=<?php echo $row['sn'].'&updtcourse';?>">&nbsp;&nbsp;&nbsp;<img src="images/del.jpg" width="16" height="14" alt="del" /></a>-->
 
