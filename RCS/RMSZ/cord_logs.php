@@ -1,6 +1,10 @@
 <?php
 // Coordinator user 
-		
+	
+if (!isset($_SESSION))
+{
+  session_start();
+}	
 		
 		
 		$_SESSION['username'] = $uname;
@@ -11,7 +15,11 @@
 
 		if (password_verify($password, $pwrd)) 
 		{
-			$page_dir = "coord.php";
+            $_SESSION['users_types'] = 0;
+            $_SESSION['page_name']= "NSPZ RMS-Coordinator";
+            $_SESSION['themenu'] = "newmenus.php";
+            $page_dir = "index.php";
+            //$page_dir = "coord.php";
             include("dchronicle.php");		
         }
         else 

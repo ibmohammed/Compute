@@ -1,4 +1,129 @@
 <?php
+//studentnm data 
+
+function the_menu_control($logs, $programme, $year)
+{
+  $query = "SELECT * FROM `studentsnm` 
+            WHERE prog_id = ? &&  year = ?  && Withdrwan ='0' 
+            ORDER BY length(matno),matno ASC";
+
+  $stmt = mysqli_prepare($logs,$query) or die(mysqli_error($logs). "menu control Error");
+
+  mysqli_stmt_bind_param($stmt, "ss", $programme, $year);
+  mysqli_stmt_execute($stmt);
+  $result = mysqli_stmt_get_result($stmt);
+
+  return $result;
+}
+
+
+// the chronocle 
+function the_chronicle($logs)
+{
+  $query = "SELECT * 
+            FROM `chronicle`";
+
+  $stmt = mysqli_prepare($logs,$query) or die(mysqli_error($logs). "the chronicle error");
+  //mysqli_stmt_bind_param($stmt, "s", $utid);
+  mysqli_stmt_execute($stmt);
+	$result = mysqli_stmt_get_result($stmt);
+  return $result;
+}
+
+// menu control 
+
+function the_menu_control($logs, $utid)
+{
+  $query = "SELECT `menu_id`, `menu_name`, `status` 
+            FROM `menu_control`  
+            WHERE  `user_type_id` = ?";
+  $stmt = mysqli_prepare($logs,$query) or die(mysqli_error($logs). "menu control Error");
+  mysqli_stmt_bind_param($stmt, "s", $utid);
+  mysqli_stmt_execute($stmt);
+	$result = mysqli_stmt_get_result($stmt);
+
+
+  return $result;
+
+
+}
+
+// submneu control 
+
+function the_sub_menu_control($logs, $menu_id)
+{
+  $query = "SELECT s_menu_id, s_menu_name, xtension, `status` 
+            FROM sub_menu_control 
+            WHERE menu_id = ?";
+  $stmt = mysqli_prepare($logs, $query) or die(mysqli_error($logs). "menu control Error");
+  mysqli_stmt_bind_param($stmt, "s", $menu_id);
+  mysqli_stmt_execute($stmt);
+	$result = mysqli_stmt_get_result($stmt);
+
+
+  return $result;
+
+}
+
+// menu control 
+
+function menu_control($logs, $utid)
+{
+  $query = "SELECT `menu_id`, `menu_name`, `status` 
+            FROM `menu_control`  
+            WHERE  `user_type_id` = ? && `status` != 0";
+  $stmt = mysqli_prepare($logs,$query) or die(mysqli_error($logs). "menu control Error");
+  mysqli_stmt_bind_param($stmt, "s", $utid);
+  mysqli_stmt_execute($stmt);
+	$result = mysqli_stmt_get_result($stmt);
+
+
+  return $result;
+
+
+}
+
+// submneu control 
+
+function sub_menu_control($logs, $menu_id)
+{
+  $query = "SELECT s_menu_id, s_menu_name, xtension, `status` 
+            FROM sub_menu_control 
+            WHERE menu_id = ?  && `status` != 0";
+  $stmt = mysqli_prepare($logs, $query) or die(mysqli_error($logs). "menu control Error");
+  mysqli_stmt_bind_param($stmt, "s", $menu_id);
+  mysqli_stmt_execute($stmt);
+	$result = mysqli_stmt_get_result($stmt);
+
+
+  return $result;
+
+}
+
+// menu update 
+
+function menu_update($logs, $menu_id, $mencheck)
+{
+   $sql = "UPDATE `menu_control` SET `status` = ? WHERE `menu_id` = ?";
+   $stmt = mysqli_prepare($logs, $sql);
+   mysqli_stmt_bind_param($stmt, "ii", $mencheck, $menu_id);
+   $stmts = mysqli_stmt_execute($stmt);
+   return $stmts;
+ 
+}
+
+// sub menu update 
+
+function submenu_update($logs, $s_menu_id, $s_mencheck)
+{
+
+  $sql = "UPDATE `sub_menu_control` SET `status` = ? WHERE `s_menu_id` = ?";
+  $stmt = mysqli_prepare($logs, $sql);
+  mysqli_stmt_bind_param($stmt, "ii", $s_mencheck, $s_menu_id);
+  $stmts = mysqli_stmt_execute($stmt);
+  return $stmts;
+}
+
 function students_login($username, $password, $lg) 
 {
   $query = "SELECT id, matric_no, password, status FROM students_log WHERE matric_no=?";

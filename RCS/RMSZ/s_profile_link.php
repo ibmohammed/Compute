@@ -1,11 +1,11 @@
 <?php 
 if(isset($_GET['setting']))
 {
-    header('location:s_profile.php?setting');
+    header('location:index.php?setting');
 }
 
 if(isset($_GET['csvrn']))
 {
-    header('location:s_profile.php?csvrn');
+    header('location:index.php?csvrn');
 }
 ?>

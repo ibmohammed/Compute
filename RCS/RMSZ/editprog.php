@@ -38,7 +38,7 @@ $sqlm = prog_function($logs);
 	<tr>
 		<td><?php echo $n;?></td>
 		<td><?php echo $rows['programme'];?></td>
-		<td><a href="smanage.php?id=<?php echo $rows['prog_id']."&edpr=0";?>">Delete</a></td>
-		<td><a href="smanage.php?id=<?php echo $rows['prog_id']."&edpr=1";?>">Edit</a></td>
+		<td><a href="index.php?id=<?php echo $rows['prog_id']."&edpr=0";?>">Delete</a></td>
+		<td><a href="index.php?id=<?php echo $rows['prog_id']."&edpr=1";?>">Edit</a></td>
 	</tr><?php }?>
 </table>

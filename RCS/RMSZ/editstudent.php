@@ -95,8 +95,8 @@ echo '<h5 style="font-style:italic; color:green" >Department of '.$_POST['dept']
 				  }?>
               </span></td>
               <td style="height: 16px" >
-<a href="smanage.php?edits= &id=<?php echo $row['sn']."&"."Edit="."edit"."&"."dept="."$dept"."&"."year="."$year"."&"."session="."$session";?>" class="style4">EDIT</a></td>
-              <td style="height: 16px" ><a href="smanage.php?id=<?php echo $row['sn']."&"."deletes="."del"."&"."matno=".$row['matno']."&"."dept="."$dept"."&"."year="."$year"."&"."session="."$session";?>" class="style4">DELETE</a></td>
+<a href="index.php?edits= &id=<?php echo $row['sn']."&"."Edit="."edit"."&"."dept="."$dept"."&"."year="."$year"."&"."session="."$session";?>" class="style4">EDIT</a></td>
+              <td style="height: 16px" ><a href="index.php?id=<?php echo $row['sn']."&"."deletes="."del"."&"."matno=".$row['matno']."&"."dept="."$dept"."&"."year="."$year"."&"."session="."$session";?>" class="style4">DELETE</a></td>
             </tr><?php  }?>
       </table>
 	  <br/>
@@ -184,7 +184,7 @@ $matno = $_GET['matno'];
 			  <select name="year" class="form-control" id="year">
                   <option selected="selected"><?php echo $row['year'];?></option>
                          <?php 
-                         for($i = 14; $i<=25; $i++){
+                         for($i = 10; $i<=25; $i++){
                          
                          echo "<option>".$i."</option>";
                          }
@@ -256,8 +256,8 @@ elseif (isset($_POST['Submit'])){
 					  echo "<font color='#FF0000'>In_Active</font>";
 				  }?>
               </span></td>
-              <td ><a href="smanage.php?edits= &id=<?php echo $row['sn']."&"."Edit="."edit"."&"."dept="."$dept"."&"."year="."$year"."&"."session="."$session";?>" class="style1">EDIT</a></td>
-              <td ><a href="smanage.php?id=<?php echo $row['sn']."&"."deletes="."del"."&"."matno=".$row['matno']."&"."dept="."$dept"."&"."year="."$year"."&"."session="."$session";?>" class="style1">DELETE</a></td>
+              <td ><a href="index.php?edits= &id=<?php echo $row['sn']."&"."Edit="."edit"."&"."dept="."$dept"."&"."year="."$year"."&"."session="."$session";?>" class="style1">EDIT</a></td>
+              <td ><a href="index.php?id=<?php echo $row['sn']."&"."deletes="."del"."&"."matno=".$row['matno']."&"."dept="."$dept"."&"."year="."$year"."&"."session="."$session";?>" class="style1">DELETE</a></td>
             </tr><?php  }?>
           </table>
             
@@ -299,18 +299,13 @@ elseif (isset($_POST['Submit'])){
               <td>
                 <select name="year" id="year" class="form-control">
                   <option selected="selected" value="">Year</option>
-				  <option>9</option>
-                  <option>10</option>
-                  <option>11</option>
-                  <option>12</option>
-                  <option>13</option>
-                  <option>14</option>
-                  <option>15</option>
-                  <option>16</option>
-                  <option>17</option>
-                  <option>18</option>
-                  <option>19</option>
-                  <option>20</option>
+				  
+                  <?php
+              for($i = 10; $i<=22; $i++)
+              {
+                echo "<option>".$i."</option>";
+              }
+              ?>
                 </select>
              </td>
             </tr>
@@ -334,6 +329,6 @@ elseif (isset($_POST['Submit'])){
                  <p>   <input type="submit" name="Submit" value="Submit" class="btn btn-gradient-primary mr-2" /></p>
                           </form>
                          <br> 
-                         <p> <a href="smanage.php?regs">Register Student</a></p>
+                         <p> <a href="index.php?regs">Register Student</a></p>
                          <br>
 <hr>

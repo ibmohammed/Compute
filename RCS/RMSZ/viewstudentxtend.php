@@ -25,18 +25,11 @@
         <td >
         <select name="year" id="year" class="form-control">
           <option selected="selected">Year</option>
-          <option>9</option>
-          <option>10</option>
-          <option>11</option>
-          <option>12</option>
-          <option>13</option>
-          <option>14</option>
-          <option>15</option>
-          <option>16</option>
-          <option>17</option>
-          <option>18</option>
-          <option>19</option>
-          <option>20</option>
+          <?php 
+            for($i = 10; $i<=22; $i++)
+            {
+              echo "<option>".$i."</option>";
+            }?>
         </select>
 
       </td>
@@ -116,22 +109,25 @@
 
             $n=0;
 			 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-			 $n=$n+1;
+       $n=$n+1;
+       
+				$status=$row['Withdrwan']; 
+			  if($status==0){
+           $active = "Active";
+           $rowcolor = "#000000";
+			  }elseif($status==1){
+          $rowcolor = "#FF0000";
+            $active = "In_Active";
+				  }
 			 ?>
-            <tr>
+            <tr style="color:<?php echo @$rowcolor;?>">
               <td ><span class="style1"><?php echo $n;?></span></td>
               <td ><span class="style1"><?php echo $row['names'];?></span></td>
               <td ><span class="style1"><?php echo $row['matno'];?></span></td>
               <td ><span class="style1"><?php echo $row['session'];?></span></td>
               <td  style="width: 32px"><span class="style1"><?php echo $row['year'];?></span></td>
               <td ><span class="style1">
-                <?php
-				$status=$row['Withdrwan']; 
-			  if($status==0){
-				  echo "Active";
-			  }elseif($status==1){
-					  echo "<font color='#FF0000'>In_Active</font>";
-				  }?>
+                <?php echo $active;?>
               </span></td>
             </tr><?php  }?>
           </table>

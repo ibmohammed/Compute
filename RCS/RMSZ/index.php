@@ -1,116 +1,38 @@
-<?php
-if (!isset($_SESSION)) {
-  session_start();
-  require_once('../../functions/queries.php');
-  require_once('../../connections/connection.php');
-}
-include("index_functions.php");
-$MM_authorizedUsers = "";
-$MM_donotCheckaccess = "true";
-
-// *** Restrict Access To Page: Grant or deny access to this page
-function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
-  // For security, start by assuming the visitor is NOT authorized. 
-  $isValid = False; 
-
-  // When a visitor has logged into this site, the Session variable MM_Username set equal to their username. 
-  // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
-  if (!empty($UserName)) { 
-    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login. 
-    // Parse the strings into arrays. 
-    $arrUsers = Explode(",", $strUsers); 
-    $arrGroups = Explode(",", $strGroups); 
-    if (in_array($UserName, $arrUsers)) { 
-      $isValid = true; 
-    } 
-    // Or, you may restrict access to only certain users based on their username. 
-    if (in_array($UserGroup, $arrGroups)) { 
-      $isValid = true; 
-    } 
-    if (($strUsers == "") && true) { 
-      $isValid = true; 
-    } 
-  } 
-  return $isValid; 
-}
-
-$MM_restrictGoTo = "logins.php";
-if (!((isset($_SESSION['username'])))) {   
-  $MM_qsChar = "?";
-  $MM_referrer = $_SERVER['PHP_SELF'];
-  if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
-  if (isset($QUERY_STRING) && strlen($QUERY_STRING) > 0) 
-  $MM_referrer .= "?" . $QUERY_STRING;
-  $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
-  header("Location: ". $MM_restrictGoTo); 
-  exit;
-}
-?>
-
 <?php 
+
+include("includes/thehead.php");//this is common to all
+include("index_functions.php");
+
+?>
+<body>
+<?php 
+
+
 if (!isset($_SESSION)) {
   session_start();
 }
 
 $departmentcode = $_SESSION['deptcode'];
+// coordinator
+
 $depts_ids = departments_code($departmentcode, $logs);
 $depts_ids= mysqli_fetch_array($depts_ids, MYSQLI_ASSOC);
-//$depts_ids = mysqli_fetch_assoc($depts_ids);
+//$depts_ids = mysqli_fetch_assoc($depts_ids); this was active for exams and record
 $_SESSION['depts_ids'] = $depts_ids["dept_id"];
-?>
-<!DOCTYPE html>
-<html lang="en">
+programmess_dept($_SESSION['depts_ids'], $logs); // this is from index page
 
-<head>
+// coordinator ends
 
 
-<style>
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  width: 100%;
-  border: 1px solid #ddd;
-}
 
-th, td {
-  text-align: left;
-  padding: 16px;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2
-}
-</style>
-
-
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>NSPZ RMS-Coordinator</title>
-  <!-- plugins:css -->
-  <link rel="stylesheet" href="../../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
-  <!-- endinject -->
-  <!-- plugin css for this page -->
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="../../css/style.css">
-  <!-- endinject 
-  <link rel="shortcut icon" href="../../imagess/favicon.png" />-->
-  <link rel="icon" href="../../images/img2A.jpg" type="image/x-jpg">
-</head>
-
-<body>
-<?php 
-programmess_dept($_SESSION['depts_ids'], $logs); 
 ?>
 
   <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="../../index.html"><img src="../../imagess/logo.svg" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="../../imagess/log-mini.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href=""><img src="../../imagess/logo.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href=""><img src="../../imagess/log-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-stretch">
         <div class="search-field d-none d-md-block">
@@ -131,19 +53,30 @@ programmess_dept($_SESSION['depts_ids'], $logs);
                 <span class="availability-status online"></span>             
               </div>
               <div class="nav-profile-text">
-              <p class="mb-1 text-black">
+                <p class="mb-1 text-black">
                   <?php
-if(@$_SESSION['MM_Usernames'] == True){
-  echo $_SESSION['MM_Usernames'];
-}
-?></p>
+                  if(@$_SESSION['MM_Usernames'] == True)
+                  {
+                    echo $_SESSION['MM_Usernames'];
+                  }
+                  ?>
+                </p>
               </div>
             </a>
             <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item" href="#">
+            <?php 
+            if($_SESSION["t_user"]==2)
+            {
+              ?>
+
+              <a class="dropdown-item" href="index_link.php?activity">
                 <i class="mdi mdi-cached mr-2 text-success"></i>
                 Activity Log
               </a>
+              <?php 
+            }
+              ?>
+
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="logout.php">
                 <i class="mdi mdi-logout mr-2 text-primary"></i>
@@ -177,15 +110,10 @@ if(@$_SESSION['MM_Usernames'] == True){
     <div class="container-fluid page-body-wrapper">
       <!-- partial:../../partials/_sidebar.html -->
 
-     <?php require_once('newmenus.php');?>
-
+     <?php require_once($_SESSION['themenu']);?>
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-
-
-
-
         <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -193,123 +121,27 @@ if(@$_SESSION['MM_Usernames'] == True){
                   <p class="card-description">
                   <!--  Add class <code>.table-bordered</code>-->
                   </p>
-
             <!-- page content -->
-            
-            <?php  
-            $forms_choose = 0;
-                include('menus.php');
-                include('grpedit.php');
 
-                if(isset($_GET['create'])){
-                   include('idexcreate.php');
-                }
-                ?>
-<!-- Enf of page content -->
-      
-  <?php  
-  if(isset($_GET['dashdept']))
-  {
-    ?>
-    <h2>Programme</h2>
-    <table  class="table table-bordered">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Programmes</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php $i = 0;  
-        //query from newmenu line 21
-        while($prgasc = mysqli_fetch_array($prgqry, MYSQLI_ASSOC))
-        { 
-          $i++; 
-          ?>
-          <tr>
-            <td><?php echo $i;?></td>
-            <td><?php echo $prgasc['programme'];?></td>
-          </tr>
-          <?php
-        }
-        ?>
-      <tbody>
-    </table>
-    <?php 
- }
-    ?>  
-     <!---dashboard -->
+            <?php
+            if ($_SESSION['users_types']==0)
+            {
+                include("coord.php");
+            }
+            elseif ($_SESSION['users_types']==1)
+            {
+               include("s_profile.php"); 
+            }elseif ($_SESSION['users_types']==2)
+            {
+               include("smanage.php");
+            }if ($_SESSION['users_types']==3)
+            {
+                include("exams_records.php");
+            }
 
-       <div class="page-header">
-            <h3 class="page-title">
-              <span class="page-title-icon bg-gradient-primary text-white mr-2">
-                <i class="mdi mdi-home"></i>                 
-              </span>
-              Dashboard
-            </h3>
-            <nav aria-label="breadcrumb">
-              <ul class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page">
-                  <span></span>Overview
-                  <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
-                </li>
-              </ul>
-            </nav>
-          </div>
-         
-          <div class="row">
+            ?>
 
-            <div class="col-md-4 stretch-card grid-margin">
-              <div class="card bg-gradient-danger card-img-holder text-white">
-                <div class="card-body">
-                  <img src="../../imagess/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
-                  <h4 class="font-weight-normal mb-3">College
-                    <i class="mdi mdi-chart-line mdi-24px float-right"></i>
-                  </h4>
-                  <h5 class="mb-5"><?php echo $col_dashb['college'];?></h5>
-                  <h6 class="card-text"></h6>
-                </div>
-              </div>
-            </div>
 
-            <div class="col-md-4 stretch-card grid-margin">
-              <div class="card bg-gradient-info card-img-holder text-white">
-                <div class="card-body">
-                  <img src="../../imagess/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                  
-                  <h4 class="font-weight-normal mb-3">School 
-                    <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
-                  </h4>
-                  <h5 class="mb-5"><?php echo $schl['school'];?></h5>
-                  <h6 class="card-text"></h6>
-                </div>
-              </div>
-            </div>
-            
-            <div class="col-md-4 stretch-card grid-margin">
-              
-              <div class="card bg-gradient-success card-img-holder text-white">
-                <div class="card-body">
-                <a href="index.php?dashdept">  <img src="../../imagess/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                                
-                  <h4 class="font-weight-normal mb-3">Department 
-                    <i class="mdi mdi-diamond mdi-24px float-right"></i>
-                  </h4>
-                  <h5 class="mb-5"><?php echo $depts['name'];?></h5>
-                  <h6 class="card-text"></h6>
-                  </a>  
-                </div>
-              </div>
-            </div>
-              
-          </div>
-          
-     <!-- - End of Dashboard -->          
-
-       </div>
-    </div>
-</div>
-
-        </div>
-        <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
@@ -338,4 +170,91 @@ if(@$_SESSION['MM_Usernames'] == True){
   <!-- End custom js for this page-->
 </body>
 
+
+  <!-- Searching script -->
+  <script>
+function myFunction() {
+  // Declare variables 
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    } 
+  }
+}
+</script>
+
+
+<!-- Sorting script -->
+
+
+
+<script>
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc"; 
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++;      
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+</script>
 </html>

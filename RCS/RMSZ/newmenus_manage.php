@@ -78,11 +78,22 @@ return $prgqry2;
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="smanage.php">
+            <a class="nav-link" href="index.php">
               <span class="menu-title">Dashboard</span>
               <i class="mdi mdi-home menu-icon"></i>
             </a>
           </li>
+
+
+
+          <?php 
+          $links_path = "smanage_link.php?";
+          $utid = $_SESSION["t_user"];
+          include("menus_database.php");
+          ?>
+
+
+          <!--
 
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
@@ -133,7 +144,7 @@ return $prgqry2;
                                     
                                     <li class="nav-item"> <a class="nav-link" href="smanage_link.php?importpro">Import new programme</a></li>
                                     <li class="nav-item"> <a class="nav-link" href="smanage_link.php?inputpro">Input new programme</a></li>                
-                                    <!--<li class="nav-item"> <a class="nav-link" href="smanage_link.php?group">Group programmes</a></li>-->
+                                    <li class="nav-item"> <a class="nav-link" href="smanage_link.php?group">Group programmes</a></li>
                                     <li class="nav-item"> <a class="nav-link" href="smanage_link.php?editgroup">Edit Deparments</a></li>                
                                     <li class="nav-item"> <a class="nav-link" href="smanage_link.php?editprog">Edit Programme</a></li>                
                                     </ul>
@@ -152,7 +163,7 @@ return $prgqry2;
                                             <ul class="nav flex-column sub-menu">
                                             <li class="nav-item"> <a class="nav-link" href="smanage_link.php?staff_user">Add new user/staff</a></li>
                                             <li class="nav-item"> <a class="nav-link" href="smanage_link.php?edituser_staff" >View/Edit user/staff</a></li>                
-                                          <!--  <li class="nav-item"> <a class="nav-link" href="smanage.php?alloc"  target="_new">Allocate courses</a></li>-->
+                                             <li class="nav-item"> <a class="nav-link" href="smanage.php?alloc"  target="_new">Allocate courses</a></li>
                                             </ul>
                                         </div>
                                         </li>
@@ -168,9 +179,10 @@ return $prgqry2;
                                             <ul class="nav flex-column sub-menu">
                                             <li class="nav-item"> <a class="nav-link" href="smanage_link.php?create">Create Backup</a></li>
                                             <li class="nav-item"> <a class="nav-link" href="smanage_link.php?upload" >Import Backup</a></li>                
-                                          <!--  <li class="nav-item"> <a class="nav-link" href="smanage.php?alloc"  target="_new">Allocate courses</a></li>-->
+                                   <li class="nav-item"> <a class="nav-link" href="smanage.php?alloc"  target="_new">Allocate courses</a></li>
                                             </ul>
                                         </div>
                                         </li>
+                                        */-->
         </ul>
       </nav>

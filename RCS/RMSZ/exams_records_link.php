@@ -1,22 +1,22 @@
 <?php 
 if(isset($_GET['vwstdrx']))
 {
-    header('location:exams_records.php?vwstdrx');
+    header('location:index.php?vwstdrx');
     
 }elseif(isset($_GET['addviewwditx']))
 {
-    header('location:exams_records.php?addviewwditx');
+    header('location:index.php?addviewwditx');
 
 }if(isset($_GET['viewabm']))
 {
-    header('location:exams_records.php?viewabm');
+    header('location:index.php?viewabm');
 
 }if(isset($_GET['setting']))
 {
-    header('location:exams_records.php?setting');
+    header('location:index.php?setting');
 }if(isset($_GET['result_analysis']))
 {
-    header('location:exams_records.php?result_analysis');
+    header('location:index.php?result_analysis');
 }
 
 

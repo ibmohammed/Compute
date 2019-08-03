@@ -146,7 +146,7 @@
 </form>
 <p></p>
 <br>
-<p><a href="smanage.php?edits">Edit Students Records</a></p>
+<p><a href="index.php?edits">Edit Students Records</a></p>
 <br>
 
 <p></p>

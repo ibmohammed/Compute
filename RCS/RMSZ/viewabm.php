@@ -83,37 +83,37 @@ tbody {
 </style>
 
 
-	<table id="t1" border="1" align="center" cellpadding="0" cellspacing="1" style=" width: 90%; border:thin; border-collapse:collapse">
+	<table  id="t1" border="1" align="center" cellpadding="0" cellspacing="1" style="border:thin; border-collapse:collapse" class="table table-bordered">
   <thead>
   <tr style="font-size:7pt;">
-    <td rowspan="2"><div align="center" style="font-weight: bold"><span><strong>S/N</strong></span></div></td>
-    <td rowspan="2" ><div align="center" style="font-weight: bold"><span><strong>Matric_No</strong></span></div></td>
-    <td rowspan="2"><div align="center">
-      <div><span><strong>Names&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span></div>
-    </div> </td>
+    <th rowspan="2">S/N</th>
+    <th rowspan="2" >Matric_No</th>
+    <th rowspan="2">Names</th>
     <?php while($row=mysqli_fetch_assoc($query)){  ?>  
-	  <td rowspan="2"><div align="center" style="font-weight: bold"><span><strong><?php echo $row['code']."<br>"."(".$row['unit'].")";?></strong></span></div></td>
+	  <th rowspan="2" style="text-align:center">
+		  <?php echo $row['code']."<br>"."(".$row['unit'].")";?>
+	  </th>
   <?php }?>
-	        <td colspan="3"><div align="center" style="font-weight: bold">Current_Semester </div></td>
-        <td colspan="3"><div align="center" style="font-weight: bold">Previous_Semester </div></td>
-        <td colspan="3"><div align="center" style="font-weight: bold">Current_Cumulative </div></td>
-        <td colspan="5"><div align="center" style="font-weight: bold">REMARKS</div></td>
+	        <th colspan="3">Current_Semester </th>
+        <th colspan="3">Previous_Semester </th>
+        <th colspan="3">Current_Cumulative </th>
+        <th colspan="5">Rmarks</th>
   </tr>
   <tr style="font-size:7pt;">
-	        <td style="height: 21px" ><div align="center" style="font-weight: bold">cr</div></td>
-        <td style="height: 21px" ><div align="center" style="font-weight: bold">gp</div></td>
-        <td style="height: 21px" ><div align="center" style="font-weight: bold">gpa</div></td>
-        <td style="height: 21px" ><div align="center" style="font-weight: bold">cr</div></td>
-        <td style="height: 21px" ><div align="center" style="font-weight: bold">gp</div></td>
-        <td style="height: 21px" ><div align="center" style="font-weight: bold">gpa</div></td>
-        <td style="height: 21px" ><div align="center" style="font-weight: bold">cr</div></td>
-        <td style="height: 21px" ><div align="center" style="font-weight: bold">gp</div></td>
-        <td style="height: 21px" ><div align="center" style="font-weight: bold">gpa</div></td>
-        <td style="height: 21px" ><div align="center" style="font-weight: bold">co</div></td>
-        <td style="height: 21px" ><div align="center" style="font-weight: bold">EM</div></td>
-        <td style="height: 21px" ><div align="center" style="font-weight: bold">Sit</div></td>
-        <td style="height: 21px" ><div align="center" style="font-weight: bold">Pend</div></td>
-        <td style="height: 21px" ><div align="center"></div></td>
+	<th >cr</th>
+	<th >gp</th>
+	<th >gpa</th>
+	<th >cr</th>
+	<th >gp</th>
+	<th >gpa</th>
+	<th >cr</th>
+	<th >gp</th>
+	<th >gpa</th>
+	<th >co</th>
+	<th >EM</th>
+	<th >Sit</th>
+	<th >Pend</th>
+	<th></th>
   </tr>
   </thead>
 <?php $n = $start; 
@@ -129,7 +129,7 @@ while ($col=mysqli_fetch_assoc($msql)){
     $n++;
  ?>
  <tbody>
-      <tr style="font-size:7pt">
+      <tr style="font-size:4pt">
 	    <td><?php echo $n;?></td>
         <td><?php echo $col['matno'];?> &nbsp;</td>
         <td >&nbsp;<?php echo $col['names'];?></td>

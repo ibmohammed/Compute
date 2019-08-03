@@ -58,11 +58,11 @@ $t_user = $_POST['t_user'];
 		//echo "User Added Successfuly";
 
 		echo '<script type="text/javascript">
-		location.replace("smanage.php?Success=Staff Added Successfuly");
+		location.replace("index.php?Success=Staff Added Successfuly");
 		</script>';
 
 
-		//header("location:smanage.php?Success=Staff Added Successfuly");
+		//header("location:index.php?Success=Staff Added Successfuly");
 		// header("location:index.php?Invalid=Inorrect Username and Password");
 		}
 		else
@@ -199,7 +199,7 @@ if(@$_GET['Success']==True)
 			//echo "User Added Successfuly";
 			//header("location:adduser.php?Success=User Added Successfuly");
 			echo '<script type="text/javascript">
-                location.replace("smanage.php?Success=User Added Successfuly");
+                location.replace("index.php?Success=User Added Successfuly");
                 </script>';
 		}
 		else

@@ -8,7 +8,7 @@
         exit();
       }
       */
-$return_result = staff_data(@$_SESSION['staffcomfirmed'], $logs);
+$return_result = staff_data(@$_SESSION['username'], $logs);
 $data = mysqli_fetch_assoc($return_result);
 
 $return_dept = departmentss(@$data['dept_id'], $logs);
@@ -88,11 +88,20 @@ $_SESSION['id_staff'] = $data['id'];
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="s_profile.php">
+      <a class="nav-link" href="index.php">
         <span class="menu-title">Dashboard</span>
         <i class="mdi mdi-home menu-icon"></i>
       </a>
     </li>
+
+
+
+          <?php 
+          $links_path = "s_profile_link.php?";
+          $utid = $_SESSION["t_user"];
+          include("menus_database.php");
+          ?>
+<!--
 
     <li class="nav-item">
       <a class="nav-link" href="s_profile_link.php?csvrn">
@@ -100,12 +109,7 @@ $_SESSION['id_staff'] = $data['id'];
         <i class="mdi mdi-marker menu-icon"></i>
       </a>
     </li>
+-->
 
-    <li class="nav-item">
-      <a class="nav-link" href="s_profile_link.php?setting">
-        <span class="menu-title">Settings</span>
-        <i class="mdi mdi-settings menu-icon"></i>
-      </a>
-    </li>
   </ul>
 </nav>

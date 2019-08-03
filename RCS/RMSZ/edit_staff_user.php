@@ -42,7 +42,7 @@ while($utypes = mysqli_fetch_assoc($ut)){
     ?>
 <tr>
 <td><?php echo $ii;?></td>
-<td><a href="smanage.php?tusers=<?php echo $utype;?>&utid=<?php echo $utypes['status'];?>"><?php echo $utypes['type'];?></a></td>
+<td><a href="index.php?tusers=<?php echo $utype;?>&utid=<?php echo $utypes['status'];?>"><?php echo $utypes['type'];?></a></td>
 </tr>
 <?php
 

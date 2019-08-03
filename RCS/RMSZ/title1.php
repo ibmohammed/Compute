@@ -10,7 +10,7 @@ $fet = mysqli_fetch_assoc($csns);
 */
 ?>
 
-<table style="width: 100%; font-size:8pt; text-transform:uppercase" align="right">
+<table style="font-size:8pt; text-transform:uppercase" align="right">
 <tr>
 <td style="width: 35%"><div >
 <strong>College</strong>:&nbsp;<?php echo $clg['college']; //$fet['college'];?> 
@@ -36,9 +36,6 @@ $fet = mysqli_fetch_assoc($csns);
 </td>
 	</tr>
 </table>
-
-		
-
 	
 	<div >
 	&nbsp;</div>

@@ -305,5 +305,9 @@ include('piecharts_for_all.php');
 }elseif(isset($_GET['samplechart'])){
 	echo '<h3>Result Analysis</h3>';
 	include('samplechart.php');
+	
+}elseif(isset($_GET['activity'])){
+	echo '<h3> Activity Log</h3>';
+	include('activity.php');
 }
 ?>

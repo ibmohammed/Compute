@@ -94,7 +94,7 @@ $msqls = mysqli_query($logs, $msql);
 			<th>Code</th>
 			<th>Title</th>
 			<th>Unit</th>
-			<th>Semester<?php echo $_SESSION['deptid'];?></th>
+			<th>Semester<?php //echo $_SESSION['deptid'];?></th>
 		</tr>
 <?php 
 $pgram =  programmess_dept($_SESSION['deptid'], $logs);

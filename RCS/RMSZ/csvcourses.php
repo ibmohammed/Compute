@@ -26,49 +26,60 @@ if(isset($_POST['Submit']))
 			$title = preg_replace("/[^a-zA-Z0-9\s]/", "", $title);
 			$unit = $data[2];
 			$unit = preg_replace("/[^0-9]/", "", $unit);
+			
+			if (preg_match('/^\d{1}$/', $unit)) {
+						
 
-			$snm = mysqli_query($conn,"SELECT * FROM `course`
-					WHERE 
-					`prog_id` =	'".addslashes($prgrm)."'&&
-					`unit` =    '".addslashes($unit)."'&&
-					`semester` =   '".addslashes($semst)."'&&
-					`code` =    '".addslashes($code)."'&&
-					`sessions` =	'".addslashes($sesn)."'
-					") or die(mysqli_error($conn));
+				$snm = mysqli_query($conn,"SELECT * FROM `course`
+						WHERE 
+						`prog_id` =	'".addslashes($prgrm)."'&&
+						`unit` =    '".addslashes($unit)."'&&
+						`semester` =   '".addslashes($semst)."'&&
+						`code` =    '".addslashes($code)."'&&
+						`sessions` =	'".addslashes($sesn)."'
+						") or die(mysqli_error($conn));
 
-					if(mysqli_num_rows($snm)==0)
-					{
-						$staffs_id = 0;
-						$snms = mysqli_query($conn,"INSERT INTO `course` 
-						(`prog_id`,`unit`,`semester`,`code`,`title`,`sessions`, `staff_id`) 
-								VALUES(
-								'".addslashes($prgrm)."',
-								'".addslashes($unit)."',
-								'".addslashes($semst)."',
-								'".addslashes($code)."',
-								'".addslashes($title)."',
-								'".addslashes($sesn)."',
-								'".addslashes($staffs_id)."'
-								)
-							") or die(mysqli_error($conn)); 
-					}
-					else
-					{
-						$snm = mysqli_query($conn,"UPDATE `course` SET
-							`prog_id` =	'".addslashes($prgrm)."',
-								`unit` = '".addslashes($unit)."',
-								`semester` = '".addslashes($semst)."',
-								`code` =  '".addslashes($code)."',
-								`title` =  '".addslashes($title)."',
-								`sessions` = '".addslashes($sesn)."'
-							WHERE 
-							`prog_id` =	'".addslashes($prgrm)."'&&
-								`unit` =  '".addslashes($unit)."'&&
-								`semester` = '".addslashes($semst)."'&&
-								`code` = '".addslashes($code)."'&&
-								`sessions` = '".addslashes($sesn)."'
-							") or die(mysqli_error($conn));
-					}
+						if(mysqli_num_rows($snm)==0)
+						{
+							$staffs_id = 0;
+							$snms = mysqli_query($conn,"INSERT INTO `course` 
+							(`prog_id`,`unit`,`semester`,`code`,`title`,`sessions`, `staff_id`) 
+									VALUES(
+									'".addslashes($prgrm)."',
+									'".addslashes($unit)."',
+									'".addslashes($semst)."',
+									'".addslashes($code)."',
+									'".addslashes($title)."',
+									'".addslashes($sesn)."',
+									'".addslashes($staffs_id)."'
+									)
+								") or die(mysqli_error($conn)); 
+						}
+						else
+						{
+							$snm = mysqli_query($conn,"UPDATE `course` SET
+								`prog_id` =	'".addslashes($prgrm)."',
+									`unit` = '".addslashes($unit)."',
+									`semester` = '".addslashes($semst)."',
+									`code` =  '".addslashes($code)."',
+									`title` =  '".addslashes($title)."',
+									`sessions` = '".addslashes($sesn)."'
+								WHERE 
+								`prog_id` =	'".addslashes($prgrm)."'&&
+									`unit` =  '".addslashes($unit)."'&&
+									`semester` = '".addslashes($semst)."'&&
+									`code` = '".addslashes($code)."'&&
+									`sessions` = '".addslashes($sesn)."'
+								") or die(mysqli_error($conn));
+						}			
+				}
+				else 
+				{
+					echo '<script type="text/javascript">
+					alert("Please check the records you are uploading");
+					location.replace("index.php?csvc");
+					</script>';
+				}
 		}
 			fclose($handle);
 			echo "Successfully imported";
@@ -77,8 +88,8 @@ if(isset($_POST['Submit']))
 	{
 		echo "Invalid file";
 	}?>
-	<table class="table table-bordered" >
-        <tr >
+	<table class="table table-bordered">
+        <tr>
           <td style="height: 25px"><span style="font-weight: bold;">S/n</span></td>
           <td style="height: 25px"><span style="font-weight: bold;">Title</span></td>
           <td style="height: 25px"><span style="font-weight: bold;">Code</span></td>
@@ -114,7 +125,6 @@ if(isset($_POST['Submit']))
 
 <form id="form1" action="" enctype="multipart/form-data" method="post" name="form1">
 
-
     <table class="table table-bordered" >
 		<tr>
           <td><span style="font-weight: bold; color: #000000">PROGRAMME:</span></td>
@@ -122,7 +132,7 @@ if(isset($_POST['Submit']))
 		  <select name="programme" id="programme" class="form-control">
 		  <option selected="selected" value="">Select Programme</option>
          			
-         			 <?php include('dptcode.php') ;
+         			 <?php include('dptcode.php');
             
             $queri = prog_function($logs);
            // $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error($conn));

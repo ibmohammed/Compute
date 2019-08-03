@@ -28,8 +28,12 @@
 					$MM_redirectLoginSuccess = $_SESSION['PrevUrl'];	
 				}
 
+				//echo '<script type="text/javascript">
+				//location.replace("smanage.php");
+				//</script>';
+
 				echo '<script type="text/javascript">
-				location.replace("smanage.php");
+				location.replace("index.php");
 				</script>';
 				}else{
 					die ("No log enetered");

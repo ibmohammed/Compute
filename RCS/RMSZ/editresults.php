@@ -307,15 +307,9 @@ elseif(isset($_POST['Submit']))
           -
           <select name="year" id="year2" class="form-control">
             <option selected="selected" value="">Select Year</option>
-            <option>10</option>
-            <option>11</option>
-            <option>12</option>
-            <option>13</option>
-            <option>14</option>
-            <option>15</option>
-            <option>16</option> 
+            
             <?php
-              for($i = 17; $i<=20; $i++)
+              for($i = 10; $i<=22; $i++)
               {
                 echo "<option>".$i."</option>";
               }

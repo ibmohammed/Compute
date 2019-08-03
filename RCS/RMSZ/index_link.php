@@ -50,6 +50,10 @@ if(isset($_GET['csv']))
 }if(isset($_GET['viewsco']))
 {
     header('location:index.php?viewsco');
+    
+}if(isset($_GET['activity']))
+{
+    header('location:index.php?activity');
 }
 
 ?>

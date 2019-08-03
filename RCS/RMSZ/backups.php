@@ -1,7 +1,7 @@
 <?php include('includes/header.php');?>
 <table align="center">
   <tr>
-    <td align="center"><a href="smanage.php">
+    <td align="center"><a href="index.php">
       <input type="submit" name="button2" id="button2" value="Back" />
     </a></td>
   </tr>

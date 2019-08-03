@@ -73,6 +73,7 @@ if(isset($_POST['Submit']))
   //$loginFoundUser = mysqli_num_rows($result);
 $_SESSION['myaidi'] =  $id;
 $_SESSION['utyp'] =  "Staff";  
+$_SESSION["t_user"] = $t_user;
 
 //departments_code($prog, $conn);
 

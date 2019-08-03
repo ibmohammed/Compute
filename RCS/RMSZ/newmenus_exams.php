@@ -101,13 +101,19 @@ return $prgqry2;
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="exams_records.php">
+            <a class="nav-link" href="index.php">
               <span class="menu-title">Dashboard</span>
               <i class="mdi mdi-home menu-icon"></i>
             </a>
           </li>
 
 
+          <?php 
+          $links_path = "exams_records_link.php?";
+          $utid = $_SESSION["t_user"];
+          include("menus_database.php");
+          ?>
+<!--/*
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <span class="menu-title">Student data</span>
@@ -154,14 +160,7 @@ return $prgqry2;
                 </div>
                 </li>
                                     
-          
-          <li class="nav-item">
-            <a class="nav-link" href="exams_records_link.php?setting">
-              <span class="menu-title">Settings</span>
-              <i class="mdi mdi-settings menu-icon"></i>
-            </a>
-          </li>
-
+          */-->
           
         </ul>
       </nav>

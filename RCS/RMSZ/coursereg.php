@@ -7,7 +7,7 @@
 
 
 
-<p><a href="smanage.php?addviewwdit">Edit Courses</a>
+<p><a href="index.php?addviewwdit">Edit Courses</a>
 <br></p>
 <?php 
 

@@ -1,20 +1,5 @@
 <?php require('includes/header.php');    ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-
-<head>
-<meta content="en-us" http-equiv="Content-Language" />
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<title>Untitled 1</title>
-<style type="text/css">
-.auto-style1 {
-	text-align: center;
-}
-</style>
-</head>
-
-<body>
 
 <?php 
 
@@ -109,29 +94,18 @@ if($rem>=1){
 	if(($gpa<=1.49)&&($semester==1)&&($unit == 0) ){
 
 	echo "";
-
-	}elseif(($gpa<=1.49)&&($semester>=1)){
-
-	//echo "ATW";
 	
 	}elseif(($unit > $unn)){
 	echo "";	}
 	}elseif($rem<1){
-	if(($unit == $unn)&&($gpa>=3.5)){
-	//	echo "QR";
-		}else
-		if($gpa<=1.49 && ($unit < $unn)){
-	//	echo "ATW";
-		}elseif(($unit == $unn)&& ($gpa >=1.50)){
+	if(($unit == $unn)&& ($gpa >=1.50)){
 			//echo "PASS";
 			$pass++;
 		}
 	}
 	
 		}elseif($semester==6){
-	if(($rem>=1 )&&($reslt=="PEND")){
-		//		 echo "PENDING"; 
-		}elseif($rem>=1){
+	if($rem>=1){
 	echo "";
 	}elseif($rem<1){
 	include("includes/remks.php");
@@ -219,6 +193,3 @@ if (@$n!=0)
 <?php 
 
 ?>
-</body>
-
-</html>

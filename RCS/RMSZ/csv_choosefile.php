@@ -1,7 +1,7 @@
 <br>
 		<hr>
 		<br>
-        <i style ="color:red;">Select the course code and Choose file containing the scores to upload</i>
+        <i style ="color:red;">Select the course code and Choose file containing the scores to upload<?php //echo $_SESSION['id_staff'];?></i>
 		<form id="form1" action="" enctype="multipart/form-data" method="post" name="form1">
 						
 			<table class="table table-bordered">
@@ -11,7 +11,10 @@
 				<select name="ccodes" class="form-control" id="exampleSelectGender">
 				<option selected="selected" value="">Select Course</option>
 					<?php 
-					while($rows = mysqli_fetch_array($crss, MYSQLI_ASSOC))
+					//$thestif =  $_SESSION['id_staff'];
+					//$crsss = "SELECT * FROM `course` WHERE staff_id =  '$thestif'";	
+					//$crsss = mysqli_query($logs, $crsss);
+					while($rows = mysqli_fetch_array($result, MYSQLI_ASSOC))
 					{ 
 						if($semsesprog == 0)
 						{
@@ -19,15 +22,28 @@
 							$_SESSION['sessions']= @$rows['sessions'];
 							$_SESSION['prog_id'] = @$rows['prog_id'];
 
-							$stmtts = select_entered($conn, $rows['code'], $rows['unit'], $rows['prog_id'], $rows['semester'], $rows['sessions']);
-							$nrows = $crss = mysqli_stmt_get_result($stmtts);
-							mysqli_stmt_bind_result($stmtts, $sn, $code, $unit, $prog_id, $semester, $session);
-							mysqli_stmt_store_result($stmtts);
-							mysqli_stmt_fetch($stmtts);
+							
+
+							$stmt = mysqli_prepare($conn, "SELECT * FROM `entered` 
+							WHERE `code` = ? && `unit`=? && `prog_id`=? & `semester`=? && `session`=?") or die(mysqli_error($conn));
+
+							//$stmtts = select_entered($conn, $thecode, $theunit, $theprogid, $thesemester, $thesession);
+							$nrows = $crss = mysqli_stmt_get_result($stmt);
+							mysqli_stmt_bind_param($stmt, "sisss", $thecode, $theunit, $theprogid, $thesemester, $thesession);
+							$thecode = $rows['code'];
+							$theunit = $rows['unit'];
+							$theprogid = $rows['prog_id'];
+							$thesemester = $rows['semester'];
+							$thesession = $rows['sessions'];
+							
+						    mysqli_stmt_execute($stmt);
+							mysqli_stmt_bind_result($stmt, $sn, $code, $unit, $prog_id, $semester, $session);
+							mysqli_stmt_store_result($stmt);
+							mysqli_stmt_fetch($stmt);
 
 
 
-							if(mysqli_stmt_num_rows($stmtts) == 0)
+							if(mysqli_stmt_num_rows($stmt) == 0)
 						{
 							?>
 							<option value="<?php echo $rows['code'];?>">

@@ -37,20 +37,12 @@
           -
           <select name="year" id="year" class="form-control">
             <option selected="selected" value="">Select Year</option>
-			      <option>9</option>
-            <option>10</option>
-            <option>11</option>
-            <option>12</option>
-            <option>13</option>
-            <option>14</option>
-            <option>15</option>
-            <option>16</option>
-		      	<option>17</option>
-	         <?php 
-            for($i = 18; $i<=20; $i++)
+            <?php 
+            for($i = 10; $i<=22; $i++)
             {
               echo "<option>".$i."</option>";
             }?>
+	        
           </select>
           </td>
         </tr>

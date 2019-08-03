@@ -25,7 +25,7 @@ $fet = mysqli_fetch_assoc($csns);
         $clg = mysqli_fetch_assoc($return_college);
 		?>
 
-<table style="width: 100%; font-size:8pt; text-transform:uppercase" align="right">
+<table style="font-size:8pt; text-transform:uppercase" align="right">
 	<tr>
 		<td style="width: 35%"><div >
 		<strong>College</strong>:&nbsp;<?php echo $clg['college']; //$fet['college'];?> 

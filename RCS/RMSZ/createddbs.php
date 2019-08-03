@@ -234,6 +234,6 @@ $dbname = $database_logs;
 	}
 }elseif(isset($_GET['no']))
 {
-	header('location:smanage.php');
+	header('location:index.php');
 	
 }?>

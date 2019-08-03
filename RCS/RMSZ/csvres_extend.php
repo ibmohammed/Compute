@@ -49,6 +49,8 @@ if(isset($_POST['Submitm']))
 					// insert into result table
 					include("getname_getgrade_insertres.php");
 					// insert into result table
+					
+
 					$resultssn = insert_result($conn, $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn);
 					mysqli_stmt_execute($resultssn);
 

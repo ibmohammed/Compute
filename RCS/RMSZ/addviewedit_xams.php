@@ -4,7 +4,7 @@
     
 
 <p>
-<!--<a href="smanage.php?courser">Register Courses</a>-->
+<!--<a href="index.php?courser">Register Courses</a>-->
 <br></p>
 <?php 
 $form = 0;

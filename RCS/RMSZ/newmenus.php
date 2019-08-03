@@ -60,6 +60,14 @@ $prgqry = mysqli_prepare($logs,
 
 
 
+          <?php 
+           $links_path = "index_link.php?";
+          $utid = $_SESSION["t_user"];
+          include("menus_database.php");
+          ?>
+
+
+<!--
           <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic3">
                   <span class="menu-title">Manage Scorse</span>
@@ -94,7 +102,7 @@ $prgqry = mysqli_prepare($logs,
                   <li class="nav-item"> <a class="nav-link" href="index_link.php?views">Notice board result</a></li>
                     <li class="nav-item"> <a class="nav-link" href="index_link.php?viewabm">Acedemic board result</a></li>
                     <li class="nav-item"> <a class="nav-link" href="index_link.php?viewsco">Carry Over Result</a></li>
-                   <!--<li class="nav-item"> <a class="nav-link" href="index_link.php?result_analysis">Result Analysis</a></li>-->
+                   <li class="nav-item"> <a class="nav-link" href="index_link.php?result_analysis">Result Analysis</a></li>
 
                   </ul>
                 </div>
@@ -140,6 +148,6 @@ $prgqry = mysqli_prepare($logs,
               <i class="mdi mdi-settings menu-icon"></i>
             </a>
           </li>
-
+-->
       </ul>
       </nav>

@@ -1,6 +1,5 @@
 <?php require("includes/header.php");?>
 
-
 <div align="left">
   
           <?php 
@@ -16,7 +15,6 @@ $list=@$_POST['list'];
 		if ((!$programme)){
 	die("empty fields not allowed");
   }
-  
   
   
 	$query= mysqli_query($conn,"SELECT * FROM course 

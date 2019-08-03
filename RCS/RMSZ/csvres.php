@@ -19,7 +19,7 @@ if(isset($_POST['Submitf']))
 	$semester=$_POST['semester'];
 
 	mysqli_stmt_execute($crss);
-	$crss = mysqli_stmt_get_result($crss);
+	$result = mysqli_stmt_get_result($crss);
 
 	$semsesprog = 1;// to enable selection of variables in csv_choosefile.php
 	include("csv_choosefile.php");

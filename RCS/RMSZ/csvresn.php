@@ -69,17 +69,24 @@ else
 {
 	if (empty($_GET['csvrn'])) 
 	{ 
-		
-	//$crss = "SELECT * FROM `course` WHERE staff_id = '".$_SESSION['id_staff']."'";
-	$crss = "SELECT * FROM `course` WHERE staff_id = ?";	
-		$crss = mysqli_prepare($logs, $crss);
-
-		mysqli_stmt_bind_param($crss, "s", $id_staff);
-		//$msqls = mysqli_query($logs, $crss);
 		$id_staff = $_SESSION['id_staff'];
+
+	$crss = "SELECT `code`, `title`, `unit`, `prog_id`, `semester`, `sessions` FROM `course` WHERE `staff_id` = ?";
+	if($crss = mysqli_prepare($conn,$crss))
+	{
+		mysqli_stmt_bind_param($crss, "i", $id_staff);
 		// set parameter
-		mysqli_stmt_execute($crss);
-		$crss = mysqli_stmt_get_result($crss);
+		$id_staff = $_SESSION['id_staff'];
+	}
+	else
+	{
+		die(mysqli_error($conn));	
+	}
+	
+	mysqli_stmt_execute($crss);
+	$result = mysqli_stmt_get_result($crss);
+
+
 		echo '<h3>Upload Scores</h3>';
 		// comfirm if record entered 
 	//	include("csv_choosefile.php");

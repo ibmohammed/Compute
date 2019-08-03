@@ -1,6 +1,9 @@
 <?php
 
-
+if (!isset($_SESSION))
+{
+  session_start();
+}
 	//Exxams and records login  
 	
 		$_SESSION['username'] = $uname;
@@ -19,8 +22,11 @@
 		//if ($loginFoundUser) 
 		if (password_verify($password, $pwrd)) 
 		{
-		
-			$page_dir = "exams_records.php";
+			$_SESSION['users_types'] = 3;
+			$_SESSION['page_name']= "NSPZ RMS-Exams_Records";
+			$_SESSION['themenu'] = "newmenus_exams.php" ;
+			$page_dir = "index.php";
+			//$page_dir = "exams_records.php";
 			include("dchronicle.php");
 		}
 		else 

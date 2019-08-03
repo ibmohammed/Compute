@@ -53,13 +53,18 @@ $tuserss = preg_replace("/[^a-zA-Z]/", "", $tuserss);
 ?>
 <td><a href="javascript:void(0);" 
 NAME="My Window Name" title="Change Password" 
-onClick=window.open("useredit.php?id=<?php echo $usres['logid'].'&utyp='.$tuserss;?>","Ratting","width=550,height=170,0,status=0");>Edit</a></td>
+onClick=window.open("useredit.php?id=<?php echo $usres['logid'].'&utyp='.$tuserss;?>","Ratting","width=750,height=600,0,status=0");>Edit</a></td>
 <td>Delete</td>
 </tr>
 <?php }?>
 <tbody>
 </table>
-
-<a href="smanage_link.php?edituser_staff">Back to user type</a>
+<br>
+<hr>
+<a href="javascript:void(0);" 
+NAME="My Window Name" title="Menu Control" 
+onClick=window.open("menu_control.php?utid=<?php echo $_GET["utid"].'&utyp='.$tuserss;?>","Ratting","width=550,height=1000,0,status=0");>Menu_Control</a>
+<hr>
+<a href="smanage_link.php?edituser_staff">&lt;&lt; Back to user type</a>
 <br>
 <hr>

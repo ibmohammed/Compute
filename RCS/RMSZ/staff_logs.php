@@ -1,6 +1,11 @@
 <?php
 
-$_SESSION['staffcomfirmed'] = $uname;
+if (!isset($_SESSION))
+{
+  session_start();
+}
+
+$_SESSION['username'] = $uname;
 $_SESSION['password'] = $pwrd;
 $_SESSION['deptcode'] = $prog;
 $_SESSION['stid'] = $id;
@@ -13,7 +18,11 @@ mysqli_stmt_fetch($stff);
 		
 if (password_verify($password, $pwrd)) 
 {
-	$page_dir = "s_profile.php";
+	$_SESSION['users_types'] = 1;
+	$_SESSION['page_name'] = "NSPZ RMS-Teahing_Staff";
+	$_SESSION['themenu'] = "newmenus_staff.php";
+	//$page_dir = "s_profile.php";
+	$page_dir = "index.php";
 	include("dchronicle.php");	
 }
 else 

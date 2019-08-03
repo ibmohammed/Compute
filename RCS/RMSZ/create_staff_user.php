@@ -81,12 +81,12 @@
                 if (mysqli_query($logs, $logintbl) && mysqli_query($logs, $qry))
                 {
                     /*echo '<script type="text/javascript">
-                location.replace("smanage.php?Success=User Added Successfuly");
+                location.replace("index.php?Success=User Added Successfuly");
                 </script>';*/
 
 
                 echo '<script type="text/javascript">
-                alert("smanage.php?Success=User Added Successfuly'.$hash.'");
+                alert("index.php?Success=User Added Successfuly'.$hash.'");
                 </script>';
                 }
                 else

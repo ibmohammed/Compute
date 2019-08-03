@@ -3,7 +3,7 @@
 <?php require("includes/header.php");?>    
 
 
-<p><a href="smanage.php?courser">Register Courses</a>
+<p><a href="index.php?courser">Register Courses</a>
 <br></p>
 <?php 
 if (isset($_POST['Submit2'])){
@@ -117,7 +117,7 @@ die(mysqli_error($conn));
                   <input name="<?php echo 'codes'.$n;?>" type="hidden" value="<?php echo $row['code'];?>" /></td>
                   <td ><input style="border:thin;" name="<?php echo 'unit'.$n;?>" type="text" value="<?php echo $row['unit'];?>" size="2" />
                     <input name="<?php echo 'units'.$n;?>" type="hidden" value="<?php echo $row['unit'];?>" /></td>
-                  <td><a href="smanage.php?id=<?php echo $row['sn'].'&updtcourse';?>">&nbsp;&nbsp;&nbsp;<img src="images/del.jpg" width="10" height="8" alt="del" /></a>
+                  <td><a href="index.php?id=<?php echo $row['sn'].'&updtcourse';?>">&nbsp;&nbsp;&nbsp;<img src="images/del.jpg" width="10" height="8" alt="del" /></a>
                   <input name="<?php echo 'sn'.$n;?>" type="hidden" value="<?php echo $row['sn'];?>" /></td>
                 </tr>
                 <?php }?>
