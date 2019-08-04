@@ -1,5 +1,4 @@
 <?php 
-
 if(isset($_POST['Submitm']))
 {
 	
@@ -7,7 +6,27 @@ if(isset($_POST['Submitm']))
 	$semst = $_SESSION['semester'];
 	$sesn = $_SESSION['sessions'];
 	$prgrm = $_SESSION['prog_id'];
+
+	if($compute_co == 0)
+	{
+		$extn = "csvco";
+	
+	}
+	else
+	{
+		$extn = "csv";
+	}
    
+	if ($prgrm =="" || $code == "" || $sesn == "" || $semst == "") 
+	{
+		echo '<script type="text/javascript">
+		alert("Empty fields not allowed!!!");
+		location.replace("index.php?'.$extn.'");
+		</script>';
+		
+		//die("Empty fields not allowed!!!"."<a href='index.php?csv'><br>&lt;&lt;Back</a>");
+	}
+
     
 	$unitt ="SELECT unit FROM `course`  
 						 WHERE 

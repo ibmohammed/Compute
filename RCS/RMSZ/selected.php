@@ -9,7 +9,7 @@ $programme=$_POST['programme'];
 ?>
 
 
-<form action="viewexport.php" method="post" name="grade" id="grade11" target="_blank">
+<form action="<?php echo $the_act;?>" method="post" name="grade" id="grade11" target="_blank">
   <input type="hidden" name="programme" value="<?php echo $programme;?>">
  <input type="hidden" name="semester" value="<?php echo $semester;?>">
  <input type="hidden" name="session" value="<?php echo $session;?>">

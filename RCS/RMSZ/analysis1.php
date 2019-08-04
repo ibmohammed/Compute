@@ -23,7 +23,7 @@
 <body>
 
 
-<table style="width: 90%" align="center">
+<table style="width: 100%" align="center">
 
 <?php 
 
@@ -86,7 +86,7 @@ $session = $_POST['session'];
 ?>
 
 	<tr>
-		<td><?php 	include('title1.php');
+		<td><?php 	//include('title1.php');
 echo "Analyasis of Result";
 ?></td>
 		<td>&nbsp;</td>
@@ -100,7 +100,7 @@ echo "Analyasis of Result";
 </table>
 
 
-<table border="1" align="center" cellpadding="0" cellspacing="1" style="font-size:12px; width: 90%; border:thin; border-collapse:collapse">
+<table border="1" align="center" cellpadding="0" cellspacing="1" style="font-size:12px; width: auto%; border:thin; border-collapse:collapse">
 	<tr>
 		<td style="height: 23px" class="auto-style1"><strong>SN</strong></td>
 		<td style="height: 23px" class="auto-style1"><strong>COURSE</strong></td>
@@ -133,6 +133,7 @@ FROM `course` WHERE prog_id = '$programme' && semester = '$semester' && sessions
 $n = 0;
 $f = 0;
 while($row = mysqli_fetch_assoc($cc)){
+	
 $n++;
 	?>
 	<tr>

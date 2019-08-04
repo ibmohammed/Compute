@@ -181,7 +181,12 @@ if (isset($_POST['Submit']))
           
           if ($form == 1)
           {
+            if(mysqli_num_rows($sql)==0)
+            {
+              echo "<i style='color:red'> No records records found!!!</i>";
+            }
               while ($row=mysqli_fetch_assoc($sql)){
+               
               $n= $n+1;
               ?>
                       <tr>
@@ -222,6 +227,10 @@ if (isset($_POST['Submit']))
           }
           else
           {
+            if(mysqli_num_rows($sql)==0)
+            {
+              echo "<i style='color:red'> No records records found!!!</i>";
+            }
               while ($row=mysqli_fetch_assoc($sql)){
                   $n= $n+1;
                   ?>

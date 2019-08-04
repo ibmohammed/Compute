@@ -30,6 +30,17 @@ $semester = preg_replace("/[^0-9]/", "", $semester);
 $session = $_POST['session'];
 $session = preg_replace("/[^0-9\/]/", "", $session);
 
+
+if ($prog =="" || $title == "" || $session == "" || $semester == "" || $code == "" || $unit == "") 
+	{
+		echo '<script type="text/javascript">
+		alert("Empty fields not allowed!!!");
+		location.replace("index.php?courser");
+    </script>';
+		//die("Empty fields not allowed!!!"."<a href='index.php?views'><br>&lt;&lt;Back</a>");
+  }
+  
+
 $staffs_id = 0;
 
 // Check if records exist in the data base
@@ -44,13 +55,11 @@ if ($code ==$valid['code']){
 echo "<i><font color='red'>course cannot be registaerd twice</i></font>"; 
 }else{
 
-
 //insert records into the database
 
 $query=mysqli_query($conn,"INSERT INTO `course` (`prog_id`, `unit`, `semester`, `code`, `title`,`sessions`, `staff_id`) 
 VALUES ('$prog', '$unit', '$semester', '$code', '$title','$session', '$staffs_id')") or die(mysqli_error($conn));
 }
-
 
 ?>
       <table class="table table-bordered" >
@@ -82,8 +91,7 @@ VALUES ('$prog', '$unit', '$semester', '$code', '$title','$session', '$staffs_id
         <?php }?>
       </table>
       <?php ?>
-      
-
+    
 <!--
           <form action="" method="post" name="form2" id="form2" onSubmit="MM_validateForm('title','','R','code','','R','code','','R');return document.MM_returnValue" onfocus="MM_validateForm('0','','R','0','','R','1','','R','1','','R','0','','R','1','','R');return document.MM_returnValue">
               <table class="table table-bordered" >
@@ -136,6 +144,7 @@ VALUES ('$prog', '$unit', '$semester', '$code', '$title','$session', '$staffs_id
 -->
 <?php 
 //exit(); 
+
 }
 ?>
 <br>

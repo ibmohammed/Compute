@@ -12,6 +12,16 @@ if(isset($_POST['Submit']))
 	$semst = preg_replace("/[^0-9]/", "", $semst);
 	//	$year=$_POST['year'];
 	$fname = $_FILES['csv']['name'];
+
+	if ($prgrm =="" || $sesn == "" || $semst == "") 
+	{
+		echo '<script type="text/javascript">
+		alert("Empty fields not allowed!!!");
+		location.replace("index.php?csvc");
+    	</script>';
+		//die("Empty fields not allowed!!!"."<a href='index.php?views'><br>&lt;&lt;Back</a>");
+	}
+
 	echo 'upload file name: '. $fname. ' ';
 	$chk_ext = explode(".",$fname);
 	if(strtolower(end($chk_ext)) == "csv")

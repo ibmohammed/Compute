@@ -7,6 +7,15 @@
 include("csvres_extend.php");
 if(isset($_POST['Submitf']))
 {
+	if ($_POST['programme'] =="" || $_POST['session'] == "" || $_POST['semester'] == "") 
+	{
+		echo '<script type="text/javascript">
+		alert("Empty fields not allowed!!!");
+		location.replace("index.php?csv");
+		</script>';
+		//die("Empty fields not allowed!!!"."<a href='index.php?csv'><br>&lt;&lt;Back</a>");
+	}
+
 	$crss = mysqli_prepare($conn,"SELECT code, title FROM `course` WHERE 
 	`prog_id` = ? && `semester` = ? && `sessions` = ?") 
 	or die(mysqli_error($conn));

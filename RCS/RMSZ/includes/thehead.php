@@ -67,6 +67,8 @@ table {
 th, td {
   text-align: left;
   padding: 16px;
+  font-style:Times New Roman;
+  font:7px;
 }
 
 tr:nth-child(even) {

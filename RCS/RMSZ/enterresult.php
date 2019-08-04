@@ -209,6 +209,16 @@ if(isset($_POST['Submit']))
   $year=$_POST['year'];
   $session=$_POST['session'];
   $semester=$_POST['semester'];
+
+  if ($programme =="" || $year == "" || $session == "" || $semester == "") 
+	{
+		echo '<script type="text/javascript">
+		alert("Empty fields not allowed!!!");
+		location.replace("index.php?entres");
+    	</script>';
+		//die("Empty fields not allowed!!!"."<a href='index.php?views'><br>&lt;&lt;Back</a>");
+	}
+
   $query=mysqli_query($conn,"SELECT * FROM `course` 
   WHERE prog_id ='$programme' && semester = '$semester'  && sessions = '$session'") or die(mysqli_error($conn));
 

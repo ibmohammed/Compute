@@ -137,6 +137,16 @@ if(isset($_POST['button']))
   $session=$_POST['session'];
   $year=$_POST['year'];
   $semester=$_POST['semester'];
+
+  if ($programme =="" || $year == "" || $session == "" || $semester == "") 
+	{
+		echo '<script type="text/javascript">
+		alert("Empty fields not allowed!!!");
+		location.replace("index.php?editres");
+    	</script>';
+		//die("Empty fields not allowed!!!"."<a href='index.php?views'><br>&lt;&lt;Back</a>");
+  }
+    
   $programme = mysqli_escape_string($conn,$programme);
   //add session 
   $_SESSION['programme'] = $programme;

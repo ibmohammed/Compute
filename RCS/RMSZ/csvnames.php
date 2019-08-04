@@ -17,6 +17,15 @@ if(isset($_POST['Submit'])){
 
 
 				$fname = $_FILES['csv']['name'];
+
+				if ($prgrm =="" || $year == "" || $sesn == "") 
+				{
+					echo '<script type="text/javascript">
+					alert("Empty fields not allowed!!!");
+					location.replace("index.php?csvn");
+					</script>';
+					//die("Empty fields not allowed!!!"."<a href='index.php?views'><br>&lt;&lt;Back</a>");
+				}
 			
 				echo 'upload file name: '. $fname. ' ';
 				$chk_ext = explode(".",$fname);

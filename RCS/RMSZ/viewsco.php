@@ -12,9 +12,14 @@ $programme=$_POST['programme'];
 $start=@$_POST['start'];
 $list=@$_POST['list'];
 
-		if ((!$programme)){
-	die("empty fields not allowed");
-  }
+if ($programme =="" || $year == "" || $session == "" || $semester == "") 
+	{
+		echo '<script type="text/javascript">
+		alert("Empty fields not allowed!!!");
+		location.replace("index.php?viewsco");
+    </script>';
+    //die("Empty fields not allowed!!!"."<a href='index.php?viewsco'><br>&lt;&lt;Back</a>");
+	}
   
   
 	$query= mysqli_query($conn,"SELECT * FROM course 

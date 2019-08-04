@@ -26,7 +26,14 @@ $session=$_POST['session'];
 $year=$_POST['year'];
 $programme=$_POST['programme'];
 $score = $_POST['score'];
-
+if ($programme =="" || $year == "" || $session == "" || $semester == "" || $score == "") 
+	{
+		echo '<script type="text/javascript">
+		alert("Empty fields not allowed!!!");
+		location.replace("index.php?consider");
+    	</script>';
+		//die("Empty fields not allowed!!!"."<a href='index.php?views'><br>&lt;&lt;Back</a>");
+	}
 
 $ql = mysqli_query($conn,"SELECT * FROM  `results` WHERE  (score >= $score && score < 40) && prog_id = '$programme' &&
  semester = '$semester' && session = '$session' ") or die(mysqli_error($conn));?>

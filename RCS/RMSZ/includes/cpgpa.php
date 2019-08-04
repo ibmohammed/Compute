@@ -1,10 +1,10 @@
 <?php 
 if ($semester ==2){
-$ssql = "SELECT * FROM results WHERE programme='$programme' && semester='1'  && matric_no='$matno'";
-$sql1= mysqli_query($conn,$ssql) or die(mysqli_error());
+$ssql = "SELECT * FROM results WHERE prog_id='$programme' && semester='1'  && matric_no='$matno'";
+$sql1= mysqli_query($conn,$ssql) or die(mysqli_error($conn) );
 
-$ssql2 = "SELECT * FROM results WHERE programme='$programme' && semester='2'  && matric_no='$matno'";
-$sql2= mysqli_query($conn,$ssql2) or die(mysqli_error());
+$ssql2 = "SELECT * FROM results WHERE prog_id='$programme' && semester='2'  && matric_no='$matno'";
+$sql2= mysqli_query($conn,$ssql2) or die(mysqli_error($conn) );
 
 
 //first

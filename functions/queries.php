@@ -1,15 +1,80 @@
+
 <?php
+function the_total_unit($logs, $programme, $semester, $session)
+{
+  
+  $query = "SELECT SUM(unit) AS vaule_sum FROM course 
+            WHERE prog_id =? && semester =? && `sessions` =?";
+
+  $stmt = mysqli_prepare($logs, $query) or die(mysqli_error($logs). "the total_unit Error");
+
+  mysqli_stmt_bind_param($stmt, "iss", $programme, $semester, $session);
+  mysqli_stmt_execute($stmt);
+  $result = mysqli_stmt_get_result($stmt);
+
+  return $result;
+}
+// result view 
+function the_student_result($logs, $programme, $matno)
+{
+$query = "SELECT * FROM results 
+          WHERE prog_id = ? &&  
+          matric_no = ?";
+
+  $stmt = mysqli_prepare($logs,$query) or die(mysqli_error($logs). "the result Error");
+
+  mysqli_stmt_bind_param($stmt, "is", $programme, $matno);
+  mysqli_stmt_execute($stmt);
+  $result = mysqli_stmt_get_result($stmt);
+
+  return $result;
+}
+
+function the_semeter_result($logs, $programme, $semester, $matno)
+{
+  
+  $query = "SELECT * FROM results 
+            WHERE prog_id = ? && 
+            semester = ? && 
+            matric_no = ?";
+
+  $stmt = mysqli_prepare($logs,$query) or die(mysqli_error($logs). "the result Error");
+
+  mysqli_stmt_bind_param($stmt, "iss", $programme, $semester, $matno);
+  mysqli_stmt_execute($stmt);
+  $result = mysqli_stmt_get_result($stmt);
+
+  return $result;
+}
+
+// courses function on view page
+function the_courses($logs, $programme, $semester, $session)
+{
+  $query = "SELECT * FROM course 
+            WHERE prog_id = ? && 
+            `semester`	= ? && 
+            `sessions` = ?";
+
+  $stmt = mysqli_prepare($logs,$query) or die(mysqli_error($logs). "menu control Error");
+
+  mysqli_stmt_bind_param($stmt, "iss", $programme, $semester, $session);
+  mysqli_stmt_execute($stmt);
+  $result = mysqli_stmt_get_result($stmt);
+
+  return $result;
+}
+
 //studentnm data 
 
-function the_menu_control($logs, $programme, $year)
+function the_students($logs, $programme, $year)
 {
-  $query = "SELECT * FROM `studentsnm` 
-            WHERE prog_id = ? &&  year = ?  && Withdrwan ='0' 
+  $query = "SELECT matno, names FROM `studentsnm` 
+            WHERE prog_id = ? &&  `year` = ?  && Withdrwan ='0' 
             ORDER BY length(matno),matno ASC";
 
   $stmt = mysqli_prepare($logs,$query) or die(mysqli_error($logs). "menu control Error");
 
-  mysqli_stmt_bind_param($stmt, "ss", $programme, $year);
+  mysqli_stmt_bind_param($stmt, "is", $programme, $year);
   mysqli_stmt_execute($stmt);
   $result = mysqli_stmt_get_result($stmt);
 
