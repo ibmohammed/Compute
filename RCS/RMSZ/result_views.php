@@ -85,12 +85,12 @@ if(isset($_POST['Submit']))
 		}
 	</style>
 <?php
-if($academic_res == 1)
+if($academic_res == 1 || $academic_res == 3)
 {
     $th_names = '<th rowspan="2">Names</th>';
    
 }
-elseif($academic_res == 0)
+elseif($academic_res == 0 || $academic_res == 2)
 {
     $th_names = "";
     $td_names_s = "";
@@ -149,7 +149,7 @@ elseif($academic_res == 0)
 				<td><?php echo $n;?></td>
 				<td><?php echo $col['matno'];?> &nbsp;</td>
                 <?php 
-                if($academic_res == 1)
+                if($academic_res == 1 || $academic_res == 3)
                 {
                     echo "<td>".$col['names']."</td>";
                 }
@@ -315,7 +315,7 @@ elseif($academic_res == 0)
 		
 
 <?php 
-if($academic_res == 1)
+if($academic_res == 1 || $academic_res == 3)
 {?>
 
 		<div id="analysis"> 
@@ -329,20 +329,29 @@ if($academic_res == 1)
 		</div>
         <?php 
         $the_act = "viewexport.php";
+        $the_print = "viewabm_print.php";
 }
-else 
+elseif($academic_res == 0 || $academic_res == 2)
 {
     $the_act = "viewexport1.php";
+    $the_print = "views_print.php";
 }
 ?>
 
 		<!-- Exportto word -->
 	
 		
-	<?php 
-	///";
-	 include('selected.php');
-		exit; 
+    <?php 
+    if($academic_res == 2 || $academic_res == 3)
+    {
+
+    }
+    else{
+///";
+include('selected.php');
+
+    }
+			exit; 
 }
 ?>
     
