@@ -97,7 +97,7 @@ elseif($academic_res == 0 || $academic_res == 2)
     $td_names_e = "";
 }
 ?>
-	<table id="t1" border="1" align="center" cellpadding="0" cellspacing="1" style=" width:auto; border:thin; border-collapse:collapse"> 
+	<table id="t1" border="1" align="center" cellpadding="0" cellspacing="1" style=" width:auto; border:thin; border-collapse:collapse; overflow-x:auto;">
     
     <!--<table id="t1" class="table table-bordered">-->
 		<thead>

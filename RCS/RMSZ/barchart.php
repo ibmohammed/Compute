@@ -1,7 +1,3 @@
-
-
-
-
 <html>
   <head>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -97,6 +93,14 @@ function drawStuff() {
         chart.draw(data, options);
       };
     </script>
-  <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
-  <div id="chart_div"  style="width: 900px; height: 500px;"></div>
-  <?php //echo '<div id="top_x_div" style="width: 900px; height: 500px;"></div>';?>
+    </head>
+    <body>
+    <table>
+      <tr>
+        <td>
+          <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+          <div id="chart_div"  style="width: 900px; height: 500px;"></div>
+          <?php //echo '<div id="top_x_div" style="width: 900px; height: 500px;"></div>';?>
+        </td>
+      </tr>
+  </table>
