@@ -248,7 +248,7 @@ if(@$_SESSION['usercomfirmed'] == True){
              //$_SESSION['MM_Username'];
              $mat = $_SESSION['matricno'];
 
-          require_once('RCS/calculate_gp.php'); 
+          require_once('SEET/calculate_gp.php'); 
           ?>
 
 
@@ -293,45 +293,31 @@ if(@$_SESSION['usercomfirmed'] == True){
             <h6 class="w3-opacity"> <?php echo "Smester ". $_GET['Results']." <br>".$_SESSION['session']." "."Session"; ?></h6>
             <hr class="w3-clear">
             <?php
-              $course = $_SESSION['programme'];
-              $sem =  $_GET['Results'];
-              $sess = $_SESSION['session'];
-
-              //$_SESSION['MM_Username'];
-              $mat = $_SESSION['matricno'];
-              $semester =  $_GET['Results'];
-              require_once('RCS/indresult.php');
-
+            $course = $_SESSION['programme'];
+            $sem =  $_GET['Results'];
+            $sess = $_SESSION['session'];
+            //$_SESSION['MM_Username'];
+            $mat = $_SESSION['matricno'];
+            $semester =  $_GET['Results'];
+            require_once('SEET/indresult.php');
           } 
-          
-          
           ?>
-
-              <hr class="w3-clear">
-
+          <hr class="w3-clear">
           <?php
         }
-
         if(isset($_GET['setting'])){
-
           echo '<h3>Change password</h3>';
-          include('RCS/RMSZ/alluseredit.php');
-        
+          include('SEET/alluseredit.php');
         }
     
           ?>
-           
-       <!-- end of semester result-->
-
-
-      
-     <!---dashboard -->
-
+        <!-- end of semester result-->
+        <!---dashboard -->
        <div class="page-header">
-            <h3 class="page-title">
-              <span class="page-title-icon bg-gradient-primary text-white mr-2">
-                <i class="mdi mdi-home"></i>                 
-              </span>
+          <h3 class="page-title">
+          <span class="page-title-icon bg-gradient-primary text-white mr-2">
+          <i class="mdi mdi-home"></i>                 
+          </span>
               Dashboard
             </h3>
             <nav aria-label="breadcrumb">
@@ -400,7 +386,7 @@ if(@$_SESSION['usercomfirmed'] == True){
               //$_SESSION['MM_Username'];
               $mat = $_SESSION['matricno'];
             //  $semester =  $_GET['Results'];
-              require_once('RCS/courses.php');
+              require_once('SEET/courses.php');
 
               ?>
 
