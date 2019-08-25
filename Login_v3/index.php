@@ -53,7 +53,7 @@ if(isset($_POST['submit']))
   //if(mysqli_num_rows($return_result)!== 0)
   {
 
-    if($password == '000000')
+    if($password == "Eeasy0123")
     {
       $return_comfirm = login_comfirm($loginUsername, $password,$logs);
       mysqli_stmt_execute($return_comfirm);

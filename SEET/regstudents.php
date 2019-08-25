@@ -48,7 +48,7 @@
         $options = [
           'cost' => 11,
         ];
-        $pp = "Eeasy0123.";
+        $pp = "Eeasy0123";
       $stat = "Enable";
       $hash = password_hash($pp, PASSWORD_BCRYPT,  $options);
       	 

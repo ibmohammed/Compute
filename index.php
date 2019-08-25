@@ -94,6 +94,6 @@
   <script src="./index/bootstrap.min.js.download"></script>
 
 <?php
-header('location:login_v3/index.php');
+header('location:SEET/index.php');
 ?>
 </body></html>

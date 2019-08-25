@@ -14,12 +14,12 @@
 //$sess = $_POST['session'];
 //$sem = $_POST['semester'];
 $qry = "SELECT * FROM  `studentsnm`";
-$sqm=mysqli_query($conn,$qry) or die(mysqli_error());
+$sqm=mysqli_query($conn,$qry) or die(mysqli_error($conn));
 $img = mysqli_fetch_array($sqm);
 $equry = "SELECT * FROM results WHERE matric_no LIKE '$mat'  AND session LIKE '$sess' AND semester = '$sem'";
 $mtr = mysqli_query($conn,$equry);
 if (!$mtr){
- die("query failled".mysqli_error());
+ die("query failled".mysqli_error($conn));
 }
 $mn = mysqli_fetch_array($mtr);
 ?>
@@ -48,7 +48,7 @@ $ssql = "SELECT *  FROM course WHERE	 `prog_id` LIKE '$course' AND
         $msq = mysqli_query($conn,$ssql) or die(mysqli_error($conn));
 
 	  $rsql = "SELECT * FROM results WHERE matric_no LIKE '$mat'   AND semester = $sem";
-$msql = mysqli_query($conn,$rsql)  or die(mysql_error());;
+$msql = mysqli_query($conn,$rsql)  or die(mysqli_error($conn));;
 
 	  while (($row= mysqli_fetch_assoc($msq)) && ($col= mysqli_fetch_assoc($msql))){?>
           <tr>

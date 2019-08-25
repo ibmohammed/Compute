@@ -313,12 +313,12 @@ include('piecharts_for_all.php');
 }elseif(isset($_GET['creg_temp'])){
 	$templates = 1;
 	echo '<h3> Courses Template</h3>';
-	include('activity.php');
+	include('csv_result_temp.php');
 
 }elseif(isset($_GET['sreg_temp'])){
 	$templates = 2;
 	echo '<h3>Student Template</h3>';
-	include('activity.php');
+	include('csv_result_temp.php');
 
 }elseif(isset($_GET['score_temp'])){
 	$templates = 3;

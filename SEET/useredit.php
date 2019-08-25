@@ -1,6 +1,6 @@
 <?php 
     require_once('Connections/logs.php'); 
-    require_once('../../connections/connection.php');
+    require_once('../connections/connection.php');
     include("includes/thehead.php");//this is common to all
 ?>
 

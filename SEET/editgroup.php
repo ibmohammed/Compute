@@ -28,8 +28,8 @@ FROM `departments`") or die(mysql_error());
 	<tr>
 		<td>SN</td>
 		<td>Departments</td>
-		<td>Edit</td>
 		<td>Delete</td>
+		<td>Edit</td>
 	</tr>
 	<?php 
 	$n = 0;

@@ -28,7 +28,7 @@ echo "Successful!";
 $id = $_GET['id'];
 
 if($_GET['edpr'] == 1){
-echo "<p><h2>Edit Department</h2></p>";
+echo "<p><h2>Edit Programme</h2></p>";
 $sql = mysqli_query($conn,"SELECT * FROM `programmes` WHERE `prog_id` = '$id'") or die(mysqli_error($conn));
 $col = mysqli_fetch_assoc($sql);?>
 

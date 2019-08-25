@@ -71,7 +71,7 @@
 
 				echo '<script type="text/javascript">
 					
-					location.replace("'.$page_dir.'");
+				location.replace("'.$page_dir.'");
 				</script>';
 
 				}else{

@@ -20,16 +20,28 @@ if (isset($_GET['accesscheck']))
 if(isset($_POST['Submit']))
 {
 	$loginUsername = $_POST['username'];
-	$loginUsername =  preg_replace("/[^a-zA-Z0-9\s]/", "", $loginUsername);
+	//$loginUsername =  preg_replace("/[^a-zA-Z0-9\s]/", "", $loginUsername);
+	$loginUsername =  preg_replace("/[^a-zA-Z0-9\s\/]/", "", $loginUsername);
 	$password = $_POST['pasword'];
 	$password =  preg_replace("/[^a-zA-Z0-9\s]/", "", $password);
+
+	//check if the user is a student 
+
+	$return_result = students_login($loginUsername, $password, $logs);
+	mysqli_stmt_execute($return_result);
+	mysqli_stmt_bind_result($return_result, $id, $matric_no, $pwrd, $status);
+	mysqli_stmt_store_result($return_result);
+
 	$MM_fldUserAuthorization = "";
 	$MM_redirectLoginSuccess = "index.php";
 	$MM_redirectLoginSuccess2 = "s_profile.php";
 	$MM_redirectLoginSuccess3 = "smanage.php";
 	$MM_redirectLoginSuccess4 = "exams_record.php";
 	$MM_redirectLoginFailed = "logins.php";
-	$MM_redirecttoReferrer = true;
+  $MM_redirecttoReferrer = true;
+  
+  if(mysqli_stmt_num_rows($return_result) == 0)
+  {
 	$stmt = mysqli_prepare($conn, 
 	"SELECT id, username, password, progs,  t_user, status 
 	FROM  `logintbl` WHERE username =?");
@@ -45,7 +57,12 @@ if(isset($_POST['Submit']))
 	$_SESSION['utyp'] =  "Staff";  
 	$_SESSION["t_user"] = $t_user;
 
-	//departments_code($prog, $conn);
+  }
+  else 
+  {
+	$t_user = 4;
+  }
+  //departments_code($prog, $conn);
 	
 	if($t_user == 0)
 	//if($row['status']== 0)
@@ -66,44 +83,69 @@ if(isset($_POST['Submit']))
 	}
 	elseif($t_user == 4)
 	{
+		
+		//session_destroy();
 		require_once('s_logs.php');
 	}
 }
-//include("logintop.php");
+//include("../Login_v3/logintop.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Purple Admin</title>
-  <!-- plugins:css -->
-  <link rel="stylesheet" href="../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
-  <!-- endinject -->
-  <!-- plugin css for this page -->
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="../css/style.css">
-  <!-- endinject -->
-  <link rel="shortcut icon" href="../images/favicon.png" />
+	
+<!--===============================================================================================-->
+<title>NSPZ Student Profile</title>
+<meta charset="UTF-8">
+<link rel="icon" href="images/img2A.jpg" type="image/x-jpg">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../Login_v3/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../Login_v3/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../Login_v3/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../Login_v3/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../Login_v3/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../Login_v3/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../Login_v3/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../Login_v3/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../Login_v3/css/util.css">
+	<link rel="stylesheet" type="text/css" href="../Login_v3/css/main.css">
+<!--===============================================================================================-->
 </head>
 <body>
- <div class="container-scroller">
-    <div class="container-fluid page-body-wrapper full-page-wrapper">
-      <div class="content-wrapper d-flex align-items-center auth">
-        <div class="row w-100">
-          <div class="col-lg-4 mx-auto">
-            <div class="auth-form-light text-left p-5">
-              <div class="brand-logo">
-                <img src="../images/logo.svg">
-              </div>
-			  <h4>Hello! let's get started</h4>
-			  
-              <h6 class="font-weight-light">Sign in to continue.</h6>
 
+<div class="limiter">
+	<div class="container-login100" style="background-image: url('../Login_v3/images/bg-001.jpg');">
+		<div class="wrap-login100 p-t-30 p-b-50">
+			<span class="login100-form-title p-b-41">
+				Account Login
+			</span>
+
+			<form class="login100-form validate-form p-b-33 p-t-5" name="form1" action="" method="post">
+
+				<div class="wrap-input100 validate-input" data-validate = "Enter username">
+					<input class="input100" type="text" name="username" placeholder="User name">
+					<span class="focus-input100" data-placeholder="&#xe82a;"></span>
+				</div>
+
+				<div class="wrap-input100 validate-input" data-validate="Enter password">
+					<input class="input100" type="password" name="pasword" placeholder="Password">
+					<span class="focus-input100" data-placeholder="&#xe80f;"></span>
+				</div>
+
+				<div class="container-login100-form-btn m-t-32">
+					<button class="login100-form-btn" name="Submit">
+						Login
+					</button>
+
+				</div>
 				<?php
 				if(@$_GET['Invalid']==True)
 				{
@@ -114,56 +156,34 @@ if(isset($_POST['Submit']))
 					<?php
 				}
 				?>
+			</form>
+		</div>
+	</div>
+</div>
 
-			 <form class="pt-3" name="loginform" action="" method="post">
-                <div class="form-group">
-                  <input type="username" name="username" class="form-control form-control-lg" id="exampleInputEmail100" placeholder="Username">
-                </div>
-                <div class="form-group">
-                  <input type="password" name="pasword" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
-                </div>
-                <div class="mt-3">
-                  <button name="Submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
-                </div>
-                <div class="my-2 d-flex justify-content-between align-items-center">
-                  <div class="form-check">
-                    <label class="form-check-label text-muted">
-                      <input type="checkbox" class="form-check-input">
-                      Keep me signed in
-                    </label>
-                  </div>
-                  <a href="#" class="auth-link text-black">Forgot password?</a>
-                </div>
-                <div class="mb-2">
-                  <button type="button" class="btn btn-block btn-facebook auth-form-btn">
-                    <i class="mdi mdi-facebook mr-2"></i>Connect using facebook
-                  </button>
-                </div>
-                <div class="text-center mt-4 font-weight-light">
-                  Don't have an account? <a href="register.html" class="text-primary">Create</a>
-                </div>
-			  </form>
-			  
-			
-		
-			
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- content-wrapper ends -->
-    </div>
-    <!-- page-body-wrapper ends -->
-  </div>
-  <!-- container-scroller -->
-  <!-- plugins:js -->
-  <script src="../vendors/js/vendor.bundle.base.js"></script>
-  <script src="../vendors/js/vendor.bundle.addons.js"></script>
-  <!-- endinject -->
-  <!-- inject:js -->
-  <script src="../js/off-canvas.js"></script>
-  <script src="../js/misc.js"></script>
-  <!-- endinject -->
+
+<?php
+//include("../Login_v3/loginbotom.php");
+?>
+
+<div id="dropDownSelect1"></div>
+
+<!--===============================================================================================-->
+<script src="../Login_v3/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="../Login_v3/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+<script src="../Login_v3/vendor/bootstrap/js/popper.js"></script>
+<script src="../Login_v3/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="../Login_v3/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="../Login_v3/vendor/daterangepicker/moment.min.js"></script>
+<script src="../Login_v3/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+<script src="../Login_v3/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+<script src="../Login_v3/js/main.js"></script>
+
 </body>
-
 </html>

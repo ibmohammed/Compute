@@ -8,11 +8,7 @@ if (!isset($_SESSION)) {
 
 ?>
 
-
-
 <!-- query Execution -->
-
-
 
 <!-- Records table -->
 <?php
@@ -27,8 +23,8 @@ $sqlm = prog_function($logs);
 	<tr>
 		<td>SN</td>
 		<td>Departments</td>
-		<td>Edit</td>
 		<td>Delete</td>
+		<td>Edit</td>
 	</tr>
 	<?php 
 	$n = 0;

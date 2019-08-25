@@ -33,6 +33,7 @@ if(isset($_POST['Submit']))
 
       $eid = $fid['sn'];
 
+
       // Query to dalete Records Selected
 
       $delqry = mysqli_query($conn, "DELETE FROM `entered` WHERE `sn` = '$eid' ") or die('delqry'.mysqli_error($conn));
@@ -43,12 +44,12 @@ if(isset($_POST['Submit']))
 
     // Update Student Status 
     $query = mysqli_query($conn, "UPDATE  `studentsnm` SET status = '$nsemester' 
-                                  WHERE matno='$matno'") 
+                                   WHERE `prog_id` = '$programme' && `year` = '$year'") 
                                   or die(mysqli_error($conn));
 
     if ($query)
     {
-      echo $matno." Data Updated Successfully<br/>";
+      echo "Data Updated Successfully<br/>";
       echo "</div>";
     }
 
@@ -63,9 +64,9 @@ if(isset($_POST['Submit']))
 } 
 
 ?>
-
-
-
+<hr>
+<br>
+<em style="color:green">Select Semeter, Programme, Session and Year(class) of records to delete</em>
 
 <form action="" method="post" name="grade" id="grade">
       
@@ -128,9 +129,12 @@ if(isset($_POST['Submit']))
           <input type="hidden" name="list" value="20" /></td>
         </tr>
         <tr>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
+          <td colspan=2>&nbsp; <input name="Submit" value="Delete" type="submit" class="btn btn-gradient-primary mr-2"/></td>
+         
         </tr>
           </table>
-      <input name="Submit" value="Submit" type="submit" class="btn btn-gradient-primary mr-2"/>
+
+     
   </form>
+<hr>
+  <br>

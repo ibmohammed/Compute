@@ -22,9 +22,9 @@ if (!((isset($_SESSION['usercomfirmed']))))
   }
 
 
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -85,7 +85,7 @@ if(@$_SESSION['usercomfirmed'] == True){
                 Activity Log
               </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="Login_v3/logout.php?logout">
+              <a class="dropdown-item" href="SEET/logout.php?logout">
                 <i class="mdi mdi-logout mr-2 text-primary"></i>
                
                 Signout
@@ -93,7 +93,7 @@ if(@$_SESSION['usercomfirmed'] == True){
             </div>
           </li>
           <li class="nav-item nav-logout d-none d-lg-block">
-            <a class="nav-link" href="Login_v3/logout.php?logout">
+            <a class="nav-link" href="SEET/logout.php?logout">
               <i class="mdi mdi-power"></i>
             </a>
           </li>
