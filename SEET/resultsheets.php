@@ -1,7 +1,7 @@
 
 <?php error_reporting(-1); ?>
 <?php ini_set('display_errors', true); ?>
-<?php include("header.php");?>        
+<?php //include("header.php");?>        
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -10,30 +10,6 @@
 <link rel="icon" href="RMSZ/images/nipoly2 (1).GIF" type="image/x-jpg"/>
 
 <title>Untitled Document</title>
-<style type="text/css">
-<!--
-a:link {
-	color: #0033FF;
-}
-a:hover {
-	color: #0066FF;
-}
-.style3 {color: #000000}
--->
-</style>
-</head>
-
-<body>
-  <table  align="center">
-<style type="text/css">
-<!--
-.style1 {color: #FF0000}
-.style2 {color: #000066}
-.style7 {font-size: 18px}
-.style8 {font-size: 16px}
-.style9 {font-size: 16px; font-weight: bold; }
--->
-</style>
 
          <tr>
     <td align="center" valign="top">
@@ -44,7 +20,7 @@ a:hover {
   //$pict =$_POST['pics'];
   $sess = $_POST['session'];
 
-//   $sel = mysqli_query($conn,"SELECT *  FROM course WHERE programme LIKE '$course' && sessions = '$sess' && semester = $sem",$db) or die(mysql_error());
+//   $sel = mysqli_query($logs,"SELECT *  FROM course WHERE programme LIKE '$course' && sessions = '$sess' && semester = $sem",$db) or die(mysql_error());
 ?>
 
      <?php
@@ -52,11 +28,11 @@ $mat = $_POST['matricno'];
 //$sess = $_POST['session'];
 $sem = $_POST['semester'];
 $qry = "SELECT * FROM  `studentsnm`";
-$sqm=mysqli_query($conn,$qry) or die(mysqli_error());
+$sqm=mysqli_query($logs,$qry) or die(mysqli_error());
 $img = mysqli_fetch_array($sqm);
   
   $equry = "SELECT * FROM results WHERE matric_no LIKE '$mat'  AND session LIKE '$sess' AND semester = '$sem'";
-  $mtr = mysqli_query($conn,$equry);
+  $mtr = mysqli_query($logs,$equry);
   
 if (!$mtr){
  die("query failled".mysqli_error());
@@ -139,10 +115,10 @@ $mn = mysqli_fetch_array($mtr);
 //	 $msq = mysql_query("SELECT *  FROM course WHERE programme LIKE '$course' AND semester = $sem",$db);
 $ssql = "SELECT *  FROM course WHERE	 `programme` LIKE '$course' AND 
 							 `semester` = $sem && `sessions` LIKE '$sess'";
-        $msq = mysqli_query($conn,$ssql) or die(mysql_error());
+        $msq = mysqli_query($logs,$ssql) or die(mysql_error());
 
 	  $rsql = "SELECT * FROM results WHERE matric_no LIKE '$mat'   AND semester = $sem";
-$msql = mysqli_query($conn,$rsql)  or die(mysql_error());;
+$msql = mysqli_query($logs,$rsql)  or die(mysql_error());;
 
 	  while (($row= mysqli_fetch_assoc($msq)) && ($col= mysqli_fetch_assoc($msql))){?>
           <tr>
@@ -170,7 +146,7 @@ $msql = mysqli_query($conn,$rsql)  or die(mysql_error());;
 		$matno = $mat;
 		
 		$gqry = "SELECT * FROM results WHERE programme='$course' && semester='$sem' && matric_no='$mat'";
-		$sql= mysqli_query($conn,$gqry) or die (mysqli_error());
+		$sql= mysqli_query($logs,$gqry) or die (mysqli_error());
 	
 		$unit=0;
 		$gp=0;

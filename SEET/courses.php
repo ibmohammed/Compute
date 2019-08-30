@@ -1,15 +1,15 @@
 
 <?php error_reporting(-1); ?>
 <?php ini_set('display_errors', true); ?>
-<?php include("header.php");?>
+<?php// include("header.php");?>
 
 	
 			<?php
 			$qry = "SELECT * FROM  `studentsnm`";
-			$sqm=mysqli_query($conn,$qry) or die(mysqli_error());
+			$sqm=mysqli_query($logs,$qry) or die(mysqli_error());
 			$img = mysqli_fetch_array($sqm);
 			$equry = "SELECT * FROM results WHERE matric_no = '$mat'  AND session = '$sess'";
-			$mtr = mysqli_query($conn,$equry);
+			$mtr = mysqli_query($logs,$equry);
 			if (!$mtr){
 				die("query failled".mysqli_error());
 			}
@@ -72,11 +72,11 @@
 
 			$ssql = "SELECT *  FROM course WHERE `prog_id` LIKE '$course'";
 
-			$msq = mysqli_query($conn, $ssql) or die(mysqli_error($logs));
+			$msq = mysqli_query($logs, $ssql) or die(mysqli_error($logs));
 
 			//$rsql = "SELECT * FROM results WHERE matric_no LIKE '$mat' AND semester = $sem";
 			$rsql = "SELECT * FROM results WHERE matric_no LIKE '$mat'";
-			$msql = mysqli_query($conn,$rsql)  or die(mysqli_error());;
+			$msql = mysqli_query($logs,$rsql)  or die(mysqli_error());;
 			$snn = 0;
 			while (($row= mysqli_fetch_assoc($msq)) && ($col= mysqli_fetch_assoc($msql)))
 			{

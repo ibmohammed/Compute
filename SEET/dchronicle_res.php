@@ -3,9 +3,9 @@
 
             $the_user = $_SESSION['MM_Usernames'];
 
-             $stmt = select_logintbl($conn, $the_user);
+             $stmt = select_logintbl($logs, $the_user);
              mysqli_stmt_bind_param($stmt, "s", $the_user);
-  //$stmt = mysqli_prepare($conn, "SELECT `status` FROM `logintbl` WHERE `username` = ?");
+  //$stmt = mysqli_prepare($logs, "SELECT `status` FROM `logintbl` WHERE `username` = ?");
   //mysqli_stmt_bind_param($stmt, "s", $username);
               mysqli_stmt_execute($stmt);
               mysqli_stmt_bind_result($stmt, $status);

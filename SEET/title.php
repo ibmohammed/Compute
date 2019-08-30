@@ -4,24 +4,24 @@
 <?PHP 
   require_once('../functions/queries.php');
   /*
-$csns= mysqli_query($conn,"SELECT college, school
+$csns= mysqli_query($logs,"SELECT college, school
 FROM `dept` 
 WHERE dep = '$programme' ") 
-or die (mysqli_error($conn));
+or die (mysqli_error($logs));
 
 $fet = mysqli_fetch_assoc($csns); 
 */
-		$return_dept = programmes(@$programme, $conn);
+		$return_dept = programmes(@$programme, $logs);
         $dptid = mysqli_fetch_assoc($return_dept);
         //$schlid = $result1->fetch_array();
-        $return_dept = departmentss(@$dptid['dept_id'], $conn);
+        $return_dept = departmentss(@$dptid['dept_id'], $logs);
         $schlid = mysqli_fetch_assoc($return_dept);
         //$schlid = $result1->fetch_array();
 
-        $return_schl = schoolss(@$schlid['schl_id'], $conn);
+        $return_schl = schoolss(@$schlid['schl_id'], $logs);
         $clgid = mysqli_fetch_assoc($return_schl);
         //$clgid = $result2->fetch_array();
-        $return_college = collegess(@$clgid['college_id'], $conn);
+        $return_college = collegess(@$clgid['college_id'], $logs);
         $clg = mysqli_fetch_assoc($return_college);
 		?>
 

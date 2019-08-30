@@ -1,19 +1,19 @@
 <?php
-$conn =$logs;
+$logs =$logs;
 if(isset($_POST['Submitf'])){
 
 $programme=$_POST['programme'];
 
-$programme = mysqli_escape_string($conn, $programme);
+$programme = mysqli_escape_string($logs, $programme);
 
 
 $year=$_POST['year'];
 	$session=$_POST['session'];
 	$semester=$_POST['semester'];
 
-$crss = mysqli_query($conn, "SELECT * FROM `course` WHERE 
+$crss = mysqli_query($logs, "SELECT * FROM `course` WHERE 
 `prog_id` = '$programme' && `semester` = '$semester' && `sessions` = '$session' ") 
-or die(mysqli_error($conn));
+or die(mysqli_error($logs));
 ?>
 
 
@@ -56,7 +56,7 @@ $semester=$_POST['semester'];
 $session=$_POST['session'];
 $year=$_POST['year'];
 $programme=$_POST['programme'];
-$programme = mysqli_escape_string($conn, $programme);
+$programme = mysqli_escape_string($logs, $programme);
 
 $nsemester = ($semester - 1);
 
@@ -100,52 +100,52 @@ exit();
   $year=$_POST['year'];
   $programme=$_POST['programme'];
 
-  $programme = mysqli_escape_string($conn, $programme);
+  $programme = mysqli_escape_string($logs, $programme);
 
   $nsemester = ($semester - 1);
   $ccode = $_POST['code'];
-  $msql=mysqli_query($conn, "SELECT * FROM `studentsnm` WHERE 	
+  $msql=mysqli_query($logs, "SELECT * FROM `studentsnm` WHERE 	
                     prog_id ='$programme' && year='$year'") 
-                    or die(mysqli_error($conn));
+                    or die(mysqli_error($logs));
 
 
   while ($col=mysqli_fetch_assoc($msql))
   {
     $matno = $col['matno'];
 
-    $sqlsn= mysqli_query($conn, "SELECT sn  FROM `results` WHERE `matric_no` = '$matno'  && `code` ='$ccode' ") 
-    or die ('Err'.mysqli_error($conn));
+    $sqlsn= mysqli_query($logs, "SELECT sn  FROM `results` WHERE `matric_no` = '$matno'  && `code` ='$ccode' ") 
+    or die ('Err'.mysqli_error($logs));
     
     $sqlsn = mysqli_fetch_assoc($sqlsn);
     $lastsn = $sqlsn['sn'];
 
-    $sql= mysqli_query($conn, "DELETE FROM `results` WHERE `matric_no` = '$matno'  && `code` ='$ccode' ") 
-    or die ('Err'.mysqli_error($conn));
+    $sql= mysqli_query($logs, "DELETE FROM `results` WHERE `matric_no` = '$matno'  && `code` ='$ccode' ") 
+    or die ('Err'.mysqli_error($logs));
 
-    $sqls = mysqli_affected_rows($conn);
+    $sqls = mysqli_affected_rows($logs);
     
     if($sqls !== 0)
     {
       // Select Records entered to enable Delete 
 
-      $qry = mysqli_query($conn, "SELECT * FROM `entered` WHERE 
+      $qry = mysqli_query($logs, "SELECT * FROM `entered` WHERE 
                                   `code` = '$ccode' && `session` = '$session' && `semester` = '$semester'") 
-                                  or die('selqry'.mysqli_error($conn));
+                                  or die('selqry'.mysqli_error($logs));
       $fid = mysqli_fetch_assoc($qry);
 
       $eid = $fid['sn'];
 
       // Query to dalete Records Selected
 
-      $delqry = mysqli_query($conn, "DELETE FROM `entered` WHERE `sn` = '$eid' LIMIT 1") or die('delqry'.mysqli_error($conn));
+      $delqry = mysqli_query($logs, "DELETE FROM `entered` WHERE `sn` = '$eid' LIMIT 1") or die('delqry'.mysqli_error($logs));
 
       echo "<div style='color:green; font-style:italic;'>";
       echo $matno." Scores Deleted Successfully<br/>";
 
       // Update Student Status 
-      $query = mysqli_query($conn, "UPDATE  `studentsnm` SET status = '$nsemester' 
+      $query = mysqli_query($logs, "UPDATE  `studentsnm` SET status = '$nsemester' 
       WHERE matno='$matno'") 
-      or die(mysqli_error($conn));
+      or die(mysqli_error($logs));
 
       if ($query)
       {
@@ -183,9 +183,9 @@ exit();
               <option selected="selected" value="">Select Programme</option>
               <?php include('dptcode.php') ;
               //$queri = mysql_query("SELECT * FROM `dept` WHERE 
-              //prog = '$departmentcode'  && `dep` LIKE '%National Diploma%'") or die(mysqli_error($conn));
+              //prog = '$departmentcode'  && `dep` LIKE '%National Diploma%'") or die(mysqli_error($logs));
               $queri = 	programmess_dept($_SESSION['depts_ids'], $logs); 
-              //	$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
+              //	$queri = mysqli_query($logs,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
               while($pcd = mysqli_fetch_assoc($queri)){
               ?>
               <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>

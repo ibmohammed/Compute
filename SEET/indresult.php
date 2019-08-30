@@ -1,7 +1,7 @@
 
 <?php error_reporting(-1); ?>
 <?php ini_set('display_errors', true); ?>
-<?php include("header.php");?>
+<?php// include("header.php");?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -14,12 +14,12 @@
 //$sess = $_POST['session'];
 //$sem = $_POST['semester'];
 $qry = "SELECT * FROM  `studentsnm`";
-$sqm=mysqli_query($conn,$qry) or die(mysqli_error($conn));
+$sqm=mysqli_query($logs,$qry) or die(mysqli_error($logs));
 $img = mysqli_fetch_array($sqm);
 $equry = "SELECT * FROM results WHERE matric_no LIKE '$mat'  AND session LIKE '$sess' AND semester = '$sem'";
-$mtr = mysqli_query($conn,$equry);
+$mtr = mysqli_query($logs,$equry);
 if (!$mtr){
- die("query failled".mysqli_error($conn));
+ die("query failled".mysqli_error($logs));
 }
 $mn = mysqli_fetch_array($mtr);
 ?>
@@ -45,10 +45,10 @@ $mn = mysqli_fetch_array($mtr);
 //	 $msq = mysql_query("SELECT * FROM course WHERE dept_id LIKE '$course' AND semester = $sem",$db);
 $ssql = "SELECT *  FROM course WHERE	 `prog_id` LIKE '$course' AND
 							 `semester` = $sem && `sessions` LIKE '$sess'";
-        $msq = mysqli_query($conn,$ssql) or die(mysqli_error($conn));
+        $msq = mysqli_query($logs,$ssql) or die(mysqli_error($logs));
 
 	  $rsql = "SELECT * FROM results WHERE matric_no LIKE '$mat'   AND semester = $sem";
-$msql = mysqli_query($conn,$rsql)  or die(mysqli_error($conn));;
+$msql = mysqli_query($logs,$rsql)  or die(mysqli_error($logs));;
 
 	  while (($row= mysqli_fetch_assoc($msq)) && ($col= mysqli_fetch_assoc($msql))){?>
           <tr>
@@ -79,8 +79,8 @@ $msql = mysqli_query($conn,$rsql)  or die(mysqli_error($conn));;
           $semester = $sem;
           $programme = $course;
           $matno = $mat;
-          $gqry_result = calculate_gp($conn, $course, $sem, $mat);
-          //$sql= mysqli_query($conn,$gqry) or die (mysqli_error());
+          $gqry_result = calculate_gp($logs, $course, $sem, $mat);
+          //$sql= mysqli_query($logs,$gqry) or die (mysqli_error());
           $unit=0;
           $gp=0;
           while ($res=mysqli_fetch_assoc($gqry_result)){

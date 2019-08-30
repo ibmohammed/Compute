@@ -16,14 +16,14 @@ if(isset($_POST['Submitf']))
 		//die("Empty fields not allowed!!!"."<a href='index.php?csv'><br>&lt;&lt;Back</a>");
 	}
 
-	$crss = mysqli_prepare($conn,"SELECT code, title FROM `course` WHERE 
+	$crss = mysqli_prepare($logs,"SELECT code, title FROM `course` WHERE 
 	`prog_id` = ? && `semester` = ? && `sessions` = ?") 
-	or die(mysqli_error($conn));
+	or die(mysqli_error($logs));
 	mysqli_stmt_bind_param($crss, "sss", $programme,$semester,$session);
 
 	// set parameter
 	$programme = $_POST['programme'];
-	//$programme = mysqli_escape_string($conn,$programme);
+	//$programme = mysqli_escape_string($logs,$programme);
 	$session=$_POST['session'];
 	$semester=$_POST['semester'];
 

@@ -28,7 +28,7 @@ $programme=$_POST['programme'];
  <input type="hidden" name="year" value="<?php echo $year;?>">
  <input name="start"  type="hidden" id="start" value="0" />
       <input name="list" type="hidden" id="list" value="20" />
- <input name="Submit" type="submit" id="Submit" value="Print Result" />
+ <input name="Submit" type="submit" id="Submit" value="Preview Result" />
   </form>
 
 <hr>

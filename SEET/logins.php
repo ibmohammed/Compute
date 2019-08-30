@@ -42,7 +42,7 @@ if(isset($_POST['Submit']))
   
   if(mysqli_stmt_num_rows($return_result) == 0)
   {
-	$stmt = mysqli_prepare($conn, 
+	$stmt = mysqli_prepare($logs, 
 	"SELECT id, username, password, progs,  t_user, status 
 	FROM  `logintbl` WHERE username =?");
 	/* bind parameters for markers */
@@ -62,7 +62,7 @@ if(isset($_POST['Submit']))
   {
 	$t_user = 4;
   }
-  //departments_code($prog, $conn);
+  //departments_code($prog, $logs);
 	
 	if($t_user == 0)
 	//if($row['status']== 0)

@@ -5,7 +5,7 @@ if (!isset($_SESSION)) {
 ?>
 <?php error_reporting(-1); ?>
 <?php ini_set('display_errors', true); ?>
-<?php include("includes/header.php"); ?>    
+<?php //include("includes/header.php"); ?>    
 
 <?php
 if (isset($_POST['Submit'])){
@@ -22,7 +22,7 @@ password = '$pwd2', progs = '$pgs'  WHERE logintbl.password = '$pwd' AND logintb
 //$logintbl="INSERT INTO logintbl ( username, password
 //)VALUES ('$uname','$pwd')";
   
-    if (mysqli_query($conn,$logintbl)){
+    if (mysqli_query($logs,$logintbl)){
 echo "<script language = 'javascript'>alert('Succesful!')</script>";        }else{
         echo"request failed .";
         echo mysqli_error();

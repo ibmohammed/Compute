@@ -1,6 +1,6 @@
 <?php error_reporting(-1); ?>
 <?php ini_set('display_errors', true); ?>
-<?php include("includes/header.php"); 
+<?php //include("includes/header.php"); 
 
 if (!isset($_SESSION)) {
   session_start();
@@ -19,7 +19,7 @@ if (!isset($_SESSION)) {
 $departmentcode = $_SESSION['deptcode'];
 $deptcd = $departmentcode;
 
-$sqlm = mysqli_query($conn,"SELECT * 
+$sqlm = mysqli_query($logs,"SELECT * 
 FROM `departments`") or die(mysql_error());
 
  ?>

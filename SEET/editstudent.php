@@ -1,6 +1,6 @@
 <?php error_reporting(-1); ?>
 <?php ini_set('display_errors', true); ?>
-<?php include("includes/header.php"); ?>    
+<?php //include("includes/header.php"); ?>    
 
 
 <?php 
@@ -28,19 +28,19 @@ if(isset($_POST['Submit2']))
   $progr2 =  preg_replace("/[^a-zA-Z\s]/", "", $progr2);
 
 
-  $sql=mysqli_query($conn,"UPDATE `studentsnm` SET `names` = '$name',`matno` = '$matno',
+  $sql=mysqli_query($logs,"UPDATE `studentsnm` SET `names` = '$name',`matno` = '$matno',
   `Withdrwan`='$atw',`sex`='$sex', `session` = '$session', `year` = '$year' 
   WHERE `studentsnm`.`sn` ='$id' ") or die (mysqli_error());
 
   if($atw==0)
   {
-    $msql=mysqli_query($conn,"UPDATE `results` SET `name` = '$name',
+    $msql=mysqli_query($logs,"UPDATE `results` SET `name` = '$name',
     `matric_no` = '$matno'  
     WHERE `results`.`matric_no` ='$matno2'") or die (mysqli_error());
   }
   else
   {
-    $msql=mysqli_query($conn,"UPDATE `results` SET `name` = '$name',
+    $msql=mysqli_query($logs,"UPDATE `results` SET `name` = '$name',
     `matric_no` = '$matno', stat = '$atw' 
     WHERE `results`.`matric_no` ='$matno2'") or die (mysqli_error());
   }
@@ -65,9 +65,9 @@ if(isset($_POST['Submit2']))
   $dept = $_POST['dept'];
   $year=$_POST['year'];
   $session=$_POST['session'];
-  //	$sql=mysqli_query($conn,"SELECT * FROM `studentsnm` WHERE prog_id = '$dept' && year ='$year' ORDER BY `matno` ASC");
+  //	$sql=mysqli_query($logs,"SELECT * FROM `studentsnm` WHERE prog_id = '$dept' && year ='$year' ORDER BY `matno` ASC");
   $n=0;
-  $edit_student = edit_students($conn, $dept, $year);
+  $edit_student = edit_students($logs, $dept, $year);
   while($row = mysqli_fetch_array($edit_student, MYSQLI_ASSOC))
   {
     // while ($row=mysqli_fetch_assoc($sql)){
@@ -109,9 +109,9 @@ elseif(isset($_GET['deletes']))
   $id = $_GET['id'];
   $matno = $_GET['matno'];
 
-  $query=mysqli_query($conn,"DELETE FROM `studentsnm` WHERE sn = '$id'") or die (mysqli_error());
+  $query=mysqli_query($logs,"DELETE FROM `studentsnm` WHERE sn = '$id'") or die (mysqli_error());
 
-  $query=mysqli_query($conn,"DELETE FROM `results` WHERE matric_no = '$matno'") or die (mysqli_error());
+  $query=mysqli_query($logs,"DELETE FROM `results` WHERE matric_no = '$matno'") or die (mysqli_error());
 
   echo "<font color = 'red'><i>"."Deleted"."</i></font>";
 }
@@ -119,7 +119,7 @@ elseif (isset($_GET['Edit']))
 {
   $id = $_GET['id'];
   $id =  preg_replace("/[^a-zA-Z0-9\s]/", "", $id);
-  $query=mysqli_query($conn,"SELECT * FROM `studentsnm` WHERE sn = '$id'") or die (mysqli_error());
+  $query=mysqli_query($logs,"SELECT * FROM `studentsnm` WHERE sn = '$id'") or die (mysqli_error());
   $row=mysqli_fetch_assoc($query);
 
   $pg = proggpid_function($logs, $row['prog_id']);
@@ -135,7 +135,7 @@ elseif (isset($_GET['Edit']))
         <select name="prg" id="prg" class="form-control">
         <?php include('dptcode.php') ;
         $queri = proggpid_function($logs, $row['prog_id']);
-        // $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE dep = '$departmentcode'") or die(mysqli_error());
+        // $queri = mysqli_query($logs,"SELECT * FROM `dept` WHERE dep = '$departmentcode'") or die(mysqli_error());
         while($pcd = mysqli_fetch_assoc($queri))
         {
           ?>
@@ -228,9 +228,9 @@ elseif (isset($_POST['Submit']))
         location.replace("index.php?edits");
         </script>';
       }
-      //  $sql=mysqli_query($conn,"SELECT *FROM `studentsnm` WHERE prog_id = '$dept' && year ='$year'  ORDER BY `matno` ASC");
+      //  $sql=mysqli_query($logs,"SELECT *FROM `studentsnm` WHERE prog_id = '$dept' && year ='$year'  ORDER BY `matno` ASC");
       $n=0;
-      $edit_student = edit_students($conn, $dept, $year);
+      $edit_student = edit_students($logs, $dept, $year);
       while($row = mysqli_fetch_array($edit_student, MYSQLI_ASSOC))
       {
         $n=$n+1;
@@ -280,7 +280,7 @@ elseif (isset($_POST['Submit']))
         <select name="dept" id="dept" class="form-control">
         <option selected="selected" value="">Select Programme</option>
         <?php include('dptcode.php') ;
-        //$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
+        //$queri = mysqli_query($logs,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
         //while($prgasc = mysqli_fetch_assoc($prgqry))
         $prgqry = prog_function($logs);
         while($pcd = mysqli_fetch_assoc($prgqry))

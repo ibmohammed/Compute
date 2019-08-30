@@ -1,6 +1,6 @@
 
 <?php 
-$conn = $logs;
+//$logs = $logs;
 if(isset($_POST['Submit']))
 { 
 
@@ -9,23 +9,23 @@ if(isset($_POST['Submit']))
   $session=$_POST['session'];
   $year=$_POST['year'];
   $programme=$_POST['programme'];
-  $programme = mysqli_escape_string($conn, $programme);
+  $programme = mysqli_escape_string($logs, $programme);
   $nsemester = ($semester - 1);
 
-  $sql= mysqli_query($conn, "DELETE FROM `results` 
+  $sql= mysqli_query($logs, "DELETE FROM `results` 
                               WHERE `prog_id` = '$programme'  && `semester` ='$semester' && `session`= '$session' ") 
-                              or die ('Err'.mysqli_error($conn));
+                              or die ('Err'.mysqli_error($logs));
 
-  $sqls = mysqli_affected_rows($conn);
+  $sqls = mysqli_affected_rows($logs);
 
   if($sqls !== 0)
   {
 
     // Select Records entered to enable Delete 
 
-    $qry = mysqli_query($conn, "SELECT * FROM `entered` WHERE 
+    $qry = mysqli_query($logs, "SELECT * FROM `entered` WHERE 
                                 `prog_id` = '$programme' && `session` = '$session' && `semester` = '$semester'") 
-                                or die('selqry'.mysqli_error($conn));
+                                or die('selqry'.mysqli_error($logs));
 
 
     while($fid = mysqli_fetch_assoc($qry))
@@ -36,16 +36,16 @@ if(isset($_POST['Submit']))
 
       // Query to dalete Records Selected
 
-      $delqry = mysqli_query($conn, "DELETE FROM `entered` WHERE `sn` = '$eid' ") or die('delqry'.mysqli_error($conn));
+      $delqry = mysqli_query($logs, "DELETE FROM `entered` WHERE `sn` = '$eid' ") or die('delqry'.mysqli_error($logs));
 
     }
     echo "<div style='color:green; font-style:italic;'>";
     echo $semester." Records Deleted Successfully<br/>";
 
     // Update Student Status 
-    $query = mysqli_query($conn, "UPDATE  `studentsnm` SET status = '$nsemester' 
+    $query = mysqli_query($logs, "UPDATE  `studentsnm` SET status = '$nsemester' 
                                    WHERE `prog_id` = '$programme' && `year` = '$year'") 
-                                  or die(mysqli_error($conn));
+                                  or die(mysqli_error($logs));
 
     if ($query)
     {
@@ -78,7 +78,7 @@ if(isset($_POST['Submit']))
             <option selected="selected" value="">Select Programme</option>
             <?php include('dptcode.php') ;
            $queri = 	programmess_dept($_SESSION['depts_ids'], $logs); 
-           //	$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
+           //	$queri = mysqli_query($logs,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
            while($pcd = mysqli_fetch_assoc($queri)){
            ?>
            <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>

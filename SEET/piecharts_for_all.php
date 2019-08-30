@@ -7,7 +7,6 @@ if (!isset($_SESSION))
   require_once('../../connections/connection.php');
 }
 
-
 if(isset($_POST["Submit1"]))
 {
     //$course_code = $_POST[""];
@@ -15,154 +14,20 @@ if(isset($_POST["Submit1"]))
     $session = $_POST["session"];
     $programme = $_POST["programme"];
 
-    $ccccc = mysqli_query($logs,"SELECT * FROM course 
-                            WHERE 
-                            `prog_id` = '$programme' &&   
-                            `semester` = '$semester' && 
-                            `sessions` = '$session'
-                            ") or die(mysqli_error($conn));
-        $n=0;
-        while($course_code = mysqli_fetch_assoc($ccccc))
-        {
-            $n++;
-            $functn = "drawChart".$n;
-            $hrfunctn = "hrcahrts".$n;
-            $piechart = "piechart".$n;
-            $hrchart = "hrchart".$n;
-            echo "<script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>";    
-            echo "<script type='text/javascript'>
-            google.charts.load('current', {'packages':['corechart']});
-            google.charts.setOnLoadCallback($functn );
-            google.charts.setOnLoadCallback($hrfunctn);
+    $the_prog = programmes($programme, $logs);
+    $prog_name = mysqli_fetch_assoc($the_prog);
 
-
-            function $functn() {
-
-                var data = google.visualization.arrayToDataTable([
-                ['Grade', 'Number of Students'],";
-            
-                $grade_array = ["A","AB","B","BC","C","CD","D","E","F","EM","AE","AW","PI","MS","NR"];
-                foreach($grade_array as $grd)
-                {
-                    $c_cod = $course_code['code'];
-
-                    $a = mysqli_query($logs,"SELECT * FROM `results` 
-                            WHERE grade = '$grd' && 
-                            `code` = '$c_cod' &&  
-                            `prog_id` = '$programme' &&   
-                            `semester` = '$semester' && 
-                            `session` = '$session' && 
-                            `stat` = '0'
-                            ")or die(mysqli_error($logs));
-                    $nrows = mysqli_num_rows($a);
-
-                    echo "['$grd',     $nrows],"; 
-                }
-            
-                echo "
-                ]);
-
-                var options = {
-                title: '$c_cod'
-                };
-
-                var chart = new google.visualization.PieChart(document.getElementById('$piechart'));
-
-                chart.draw(data, options);
-            }
-            
-   function $hrfunctn() 
-   {
-     var data = google.visualization.arrayToDataTable([
-       ['Grade', 'Number of Student', { role: 'style' } ],";
-
-       $grade_array = ["A","AB","B","BC","C","CD","D","E","F","EM","AE","AW","PI","MS","NR"];
-       
-       foreach($grade_array as $grd)
-       {
-         //$m = $m+1;
-           $c_cod = $course_code['code'];
-
-           $a = mysqli_query($logs,"SELECT * FROM `results` 
-                   WHERE grade = '$grd' && 
-                   `code` = '$c_cod' &&  
-                   `prog_id` = '$programme' &&   
-                   `semester` = '$semester' && 
-                   `session` = '$session' && 
-                   `stat` = '0'
-                   ")or die(mysqli_error($logs));
-           $nrows = mysqli_num_rows($a);
-          
-      if($grd == "A"){
-        $clrg == "#ffb900";
-      }elseif($grd == "AB"){
-        $clrg = "#6aff00";
-      }elseif($grd == "B"){
-        $clrg = "#ff4000";
-      }elseif($grd == "BC"){
-        $clrg = "#0044ff";
-      }elseif($grd ==  "C"){ 
-        $clrg ="#131c33";
-      }elseif($grd == "CD"){ 
-        $clrg ="#9cc435";
-      }elseif($grd == "D"){ 
-        $clrg ="#c035c4";
-      }elseif($grd == "E"){ 
-        $clrg ="#35c0c4";
-    }elseif($grd == "F"){ 
-      $clrg ="#263f40";
-    }elseif($grd == "EM"){
-       $clrg ="#357a30";
-    }elseif($grd == "AE"){ 
-      $clrg ="#f2edc2";
-    }elseif($grd == "AW"){ 
-      $clrg ="#f2c2d8";
-    }elseif($grd == "PI"){ 
-      $clrg ="#c2c2f2";
-    }elseif($grd == "MS"){ 
-      $clrg ="#a1ad9e";
-    }
-
-  //   $clrg = $arr_col["$grd"];
-//
-           echo "['$grd',     $nrows, '$clrg'],"; 
-         }
-     
-         echo "
-         ]);
-
-    
-
-        var view = new google.visualization.DataView(data);
-        view.setColumns([0, 1,
-                          { calc: 'stringify',
-                            sourceColumn: 1,
-                            type: 'string',
-                            role: 'annotation' },
-                          2]);
-
-        var options = {
-          title: '$c_cod',
-          width: 375,
-          height: 300,
-          bar: {groupWidth: 'auto'},
-          legend: { position: 'none' },
-        };
-        var chart = new google.visualization.BarChart(document.getElementById('$hrchart'));
-        chart.draw(view, options);
-    }
-            </script>";
-    $all_charts =1;
-    ?>
-
- <?php 
-  include("../chart_layout.php");
-        }
-
+    echo $prog_name['programme']. " Result Analysis of Semester ".$semester.", ".$session." Academic Session";
+    //$show_chart = 0;
+    include('reanalyz.php');	
+    echo "<hr><br><hr>";
+    include("barchart.php"); 
   }
 
-    ?>
-
+?>
+<hr>
+<em style="color:green">Select programme, session, semester, year to view result Result Analysis</em>
+<hr>
 <form action="" method="post" name="grades" id="grade">
 <table class="table table-bordered">  
   <tr>
@@ -210,6 +75,33 @@ if(isset($_POST["Submit1"]))
        
        </td>
     </tr>
+
+
+
+     <tr>
+      <td><span style="font-weight: bold">Year:</span></td>
+      <td >
+      <select name="year" class="form-control">
+            <option selected="selected" value="">Select Year</option> 
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+            <option>13</option>
+            <option>14</option>
+            <option>15</option>
+            <option>16</option>
+            <option>17</option>
+            <option>18</option>
+            <option>19</option>
+            <option>20</option>
+            <option>21</option>
+            <option>22</option>
+      </select>
+       
+       </td>
+    </tr>
+
+
     <tr>
       <td colspan="2">
         <input name="Submit1" type="submit" id="Submit" value="Submit"  class="btn btn-gradient-primary mr-2"/>

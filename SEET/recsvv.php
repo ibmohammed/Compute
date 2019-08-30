@@ -1,4 +1,4 @@
-<?php require('includes/header.php');    ?>
+<?php// require('includes/header.php');    ?>
 
 
 
@@ -186,8 +186,8 @@ mysql_query("DELETE FROM `results`  WHERE
 
 
 //connect to the database 
-$connect = mysql_connect("localhost","root","");
-mysql_select_db("consultdbsnw",$connect); //select the table 
+$logsect = mysql_connect("localhost","root","");
+mysql_select_db("consultdbsnw",$logsect); //select the table 
 // 
 
 

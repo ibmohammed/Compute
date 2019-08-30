@@ -16,6 +16,7 @@
 <body>
 <?php 
 $academic_res = 1;
+$inc_form = 0;
 include("result_views.php");
 ?>
   </body>    

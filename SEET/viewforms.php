@@ -10,15 +10,15 @@
               <?php include('dptcode.php');
 
             if($forms_choose == 1){
-                $queri = 	mysqli_query($conn,"SELECT * FROM `programmes`") or die(mysqli_error($conn));
+                $queri = 	mysqli_query($logs,"SELECT * FROM `programmes`") or die(mysqli_error($logs));
                 //  $queri = 	programmess_dept($_SESSION['depts_ids'], $logs); 
             }elseif($forms_choose == 0){
-                $sq = mysqli_query($conn,"SELECT * FROM `departments` WHERE code = '$departmentcode'") or die(mysqli_error($conn));
+                $sq = mysqli_query($logs,"SELECT * FROM `departments` WHERE code = '$departmentcode'") or die(mysqli_error($logs));
                 $did = mysqli_fetch_assoc($sq);
-                $queri = mysqli_query($conn,"SELECT * FROM `programmes` WHERE dept_id LIKE '".$did['dept_id']."'") or die(mysqli_error($conn));
+                $queri = mysqli_query($logs,"SELECT * FROM `programmes` WHERE dept_id LIKE '".$did['dept_id']."'") or die(mysqli_error($logs));
             }
 
-              //	$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error($conn));
+              //	$queri = mysqli_query($logs,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error($logs));
               while($pcd = mysqli_fetch_assoc($queri)){
               ?>
               <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>

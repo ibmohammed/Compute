@@ -1,6 +1,6 @@
 <?php error_reporting(-1); ?>
 <?php ini_set('display_errors', true); ?>
-<?php include("includes/header.php"); ?>    
+<?php //include("includes/header.php"); ?>    
 <?php  
 if(isset($_POST['Submit']))
 {
@@ -40,19 +40,19 @@ if(isset($_POST['Submit']))
 			if (preg_match('/^\d{1}$/', $unit)) {
 						
 
-				$snm = mysqli_query($conn,"SELECT * FROM `course`
+				$snm = mysqli_query($logs,"SELECT * FROM `course`
 						WHERE 
 						`prog_id` =	'".addslashes($prgrm)."'&&
 						`unit` =    '".addslashes($unit)."'&&
 						`semester` =   '".addslashes($semst)."'&&
 						`code` =    '".addslashes($code)."'&&
 						`sessions` =	'".addslashes($sesn)."'
-						") or die(mysqli_error($conn));
+						") or die(mysqli_error($logs));
 
 						if(mysqli_num_rows($snm)==0)
 						{
 							$staffs_id = 0;
-							$snms = mysqli_query($conn,"INSERT INTO `course` 
+							$snms = mysqli_query($logs,"INSERT INTO `course` 
 							(`prog_id`,`unit`,`semester`,`code`,`title`,`sessions`, `staff_id`) 
 									VALUES(
 									'".addslashes($prgrm)."',
@@ -63,11 +63,11 @@ if(isset($_POST['Submit']))
 									'".addslashes($sesn)."',
 									'".addslashes($staffs_id)."'
 									)
-								") or die(mysqli_error($conn)); 
+								") or die(mysqli_error($logs)); 
 						}
 						else
 						{
-							$snm = mysqli_query($conn,"UPDATE `course` SET
+							$snm = mysqli_query($logs,"UPDATE `course` SET
 								`prog_id` =	'".addslashes($prgrm)."',
 									`unit` = '".addslashes($unit)."',
 									`semester` = '".addslashes($semst)."',
@@ -80,7 +80,7 @@ if(isset($_POST['Submit']))
 									`semester` = '".addslashes($semst)."'&&
 									`code` = '".addslashes($code)."'&&
 									`sessions` = '".addslashes($sesn)."'
-								") or die(mysqli_error($conn));
+								") or die(mysqli_error($logs));
 						}			
 				}
 				else 
@@ -106,10 +106,10 @@ if(isset($_POST['Submit']))
           <td style="height: 25px"><span style="font-weight: bold;">Unit</span></td>
         </tr>
         <?php 
-        $sql=mysqli_query($conn,"SELECT * FROM `course` 
+        $sql=mysqli_query($logs,"SELECT * FROM `course` 
             WHERE prog_id ='$prgrm' && 
             semester='$semst' && 
-            sessions = '$sesn'") or die(mysqli_error($conn));
+            sessions = '$sesn'") or die(mysqli_error($logs));
             $n= 0 ;
             while($row=mysqli_fetch_assoc($sql)){
             $n = $n+1;
@@ -145,7 +145,7 @@ if(isset($_POST['Submit']))
          			 <?php include('dptcode.php');
             
             $queri = prog_function($logs);
-           // $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error($conn));
+           // $queri = mysqli_query($logs,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error($logs));
             //while($prgasc = mysqli_fetch_assoc($prgqry))
             while($pcd = mysqli_fetch_assoc($queri)){
             ?>

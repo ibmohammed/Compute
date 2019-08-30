@@ -1,6 +1,6 @@
 <?php error_reporting(-1); ?>
 <?php ini_set('display_errors', true); ?>
-<?php require("includes/header.php");?>    
+<?php //require("includes/header.php");?>    
 
 
 <p><a href="index.php?courser">Register Courses</a>
@@ -32,10 +32,10 @@ $titles=$_POST[$t];
 $codes=$_POST[$c];
 
 // Update result Table
-//$updtres =mysqli_query($conn,"UPDATE `results` SET `unit` = '$unit', `code`='$code' WHERE `results`.`code` ='$codes'");
+//$updtres =mysqli_query($logs,"UPDATE `results` SET `unit` = '$unit', `code`='$code' WHERE `results`.`code` ='$codes'");
 // Update Course Table
-$query= mysqli_query($conn,"UPDATE  `course` SET  `code` =  '$code',`title` =  '$title',`unit`='$unit' WHERE  `course`.`sn` ='$sn'")
-or die(mysqli_error($conn));
+$query= mysqli_query($logs,"UPDATE  `course` SET  `code` =  '$code',`title` =  '$title',`unit`='$unit' WHERE  `course`.`sn` ='$sn'")
+or die(mysqli_error($logs));
 
 // update result table heere
 
@@ -58,7 +58,7 @@ if (!isset($_SESSION)) {
 //$_SESSION['session'];
 
 
-$qry = mysqli_query($conn,"DELETE FROM course WHERE `sn` = '$ids'") or die(mysqli_error($conn));	
+$qry = mysqli_query($logs,"DELETE FROM course WHERE `sn` = '$ids'") or die(mysqli_error($logs));	
 	echo "<font color = 'red'>"."<i>"."Update Successful"."</i>"."</font>";
 
 echo '<div> <form action="" method="post"><input type = "hidden" name = "programe" value = "'.$_SESSION['prog'].'" >
@@ -86,9 +86,9 @@ $_SESSION['semester'] = $semester;
 $_SESSION['session'] = $session;
 
 
-$sql = mysqli_query($conn,"SELECT * FROM  `course` WHERE prog_id='$prog' && semester ='$semester' && sessions = '$session'");
+$sql = mysqli_query($logs,"SELECT * FROM  `course` WHERE prog_id='$prog' && semester ='$semester' && sessions = '$session'");
 if(!$sql){
-die(mysqli_error($conn));
+die(mysqli_error($logs));
 }?>
 <hr>
 &nbsp;
@@ -146,9 +146,9 @@ die(mysqli_error($conn));
              <?php include('dptcode.php') ;
             
             
-            //$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
+            //$queri = mysqli_query($logs,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
             
-            //$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
+            //$queri = mysqli_query($logs,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
             //while($prgasc = mysqli_fetch_assoc($prgqry))
             $queri = prog_function($logs);
             while($pcd = mysqli_fetch_assoc($queri)){

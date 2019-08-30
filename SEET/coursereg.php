@@ -1,7 +1,7 @@
 <?php error_reporting(-1); ?>
 <?php ini_set('display_errors', true); ?>
 
-<?php include("includes/header.php"); ?>    
+<?php //include("includes/header.php"); ?>    
 
 
 
@@ -45,10 +45,10 @@ $staffs_id = 0;
 
 // Check if records exist in the data base
 
-$msql=mysqli_query($conn,"SELECT * FROM `course` 
+$msql=mysqli_query($logs,"SELECT * FROM `course` 
 WHERE prog_id ='$prog' && 
 semester='$semester' && 
-code = '$code' && sessions = '$session'") or die(mysqli_error($conn));
+code = '$code' && sessions = '$session'") or die(mysqli_error($logs));
 
 $valid = mysqli_fetch_assoc($msql);
 if ($code ==$valid['code']){
@@ -57,8 +57,8 @@ echo "<i><font color='red'>course cannot be registaerd twice</i></font>";
 
 //insert records into the database
 
-$query=mysqli_query($conn,"INSERT INTO `course` (`prog_id`, `unit`, `semester`, `code`, `title`,`sessions`, `staff_id`) 
-VALUES ('$prog', '$unit', '$semester', '$code', '$title','$session', '$staffs_id')") or die(mysqli_error($conn));
+$query=mysqli_query($logs,"INSERT INTO `course` (`prog_id`, `unit`, `semester`, `code`, `title`,`sessions`, `staff_id`) 
+VALUES ('$prog', '$unit', '$semester', '$code', '$title','$session', '$staffs_id')") or die(mysqli_error($logs));
 }
 
 ?>
@@ -71,10 +71,10 @@ VALUES ('$prog', '$unit', '$semester', '$code', '$title','$session', '$staffs_id
         </tr>
         <?php 
         
-        $sql=mysqli_query($conn,"SELECT * FROM `course` 
+        $sql=mysqli_query($logs,"SELECT * FROM `course` 
             WHERE prog_id ='$prog' && 
             semester='$semester' && 
-            sessions = '$session'") or die(mysqli_error($conn));
+            sessions = '$session'") or die(mysqli_error($logs));
 
                   
             $n= 0 ;
@@ -163,7 +163,7 @@ VALUES ('$prog', '$unit', '$semester', '$code', '$title','$session', '$staffs_id
                       <?php include('dptcode.php') ;
                 
             
-                      // $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
+                      // $queri = mysqli_query($logs,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
                        //while($prgasc = mysqli_fetch_assoc($prgqry))
                        $queri = prog_function($logs);
                       while($pcd = mysqli_fetch_assoc($queri)){

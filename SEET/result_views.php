@@ -1,7 +1,7 @@
 
 <?php 
 if(isset($_POST['Submit']))
-{ 
+{
 	?>
 	<?php 
 	$semester=$_POST['semester'];
@@ -19,9 +19,7 @@ if(isset($_POST['Submit']))
     	</script>';
 		//die("Empty fields not allowed!!!"."<a href='index.php?views'><br>&lt;&lt;Back</a>");
 	}
-
 		//	elect courses 
-
 	$the_course_result = the_courses($logs, $programme, $semester, $session);
 
 	switch ($semester) 
@@ -96,8 +94,16 @@ elseif($academic_res == 0 || $academic_res == 2)
     $td_names_s = "";
     $td_names_e = "";
 }
+if($academic_res == 3)
+{
+	$table="table table-bordered";
+}
+else
+{
+	$table="";
+}
 ?>
-	<table id="t1" border="1" cellpadding="0" cellspacing="1" style=" border:thin; border-collapse:collapse; overflow-x:auto;" class="table table-hover">
+	<table id="t1" border="1" cellpadding="0" cellspacing="1" style=" border:thin; border-collapse:collapse; overflow-x:auto; width:100%" class ="<?php echo $table;?>">
     
     <!--<table id="t1" class="table table-bordered">-->
 		<thead>
@@ -136,9 +142,9 @@ elseif($academic_res == 0 || $academic_res == 2)
 	<?php $n = $start; 
 
 	// delete the $start and $last variable to make all result appear
-	//$msql=mysqli_query($conn,"SELECT * FROM `studentsnm` WHERE prog_id ='$programme'&&  year='$year'  && Withdrwan ='0' ORDER BY  `matno` ASC LIMIT $start,$list");
+	//$msql=mysqli_query($logs,"SELECT * FROM `studentsnm` WHERE prog_id ='$programme'&&  year='$year'  && Withdrwan ='0' ORDER BY  `matno` ASC LIMIT $start,$list");
 
-	$the_student = the_students($conn, $programme, $year);
+	$the_student = the_students($logs, $programme, $year);
 
 	while($col = mysqli_fetch_array($the_student, MYSQLI_ASSOC))
 	{
@@ -157,10 +163,10 @@ elseif($academic_res == 0 || $academic_res == 2)
 				<?php 
 				$matno = $col['matno'];
 
-				//$sql= mysqli_query($conn,"SELECT * FROM results WHERE 
+				//$sql= mysqli_query($logs,"SELECT * FROM results WHERE 
 				//prog_id='$programme' && semester='$semester' && matric_no='$matno'") 
-				//or die (mysqli_error($conn));
-				$the_semeter_result = the_semeter_result($conn, $programme, $semester, $matno);
+				//or die (mysqli_error($logs));
+				$the_semeter_result = the_semeter_result($logs, $programme, $semester, $matno);
 
 				$unit=0;
 				$gp=0;
@@ -188,14 +194,23 @@ elseif($academic_res == 0 || $academic_res == 2)
 					</div></td>
 					<?php 
 					// do not count the unit of unknown grades
-					if (($res['grade']=="SICK")||($res['grade']=="ABSE")||($res['grade']=="PEND")||($res['grade']=="---")||($res['grade']=="EM")||($res['grade']=="AE")||($res['grade']=="PI"))
-					{
-						$res['unit']=0; 
-					} 
-
-					$unit=$unit+$res['unit'];
-					$p=$res['unit']*$res['points'];
-					$gp=$gp+$p;
+					$cal_qry = "SELECT 
+					name, matric_no, sum(unit) as totalUnit, sum(unit*points) as gp, (sum(unit*points)/sum(unit)) as gpa  
+					FROM `results` 
+					WHERE 
+					matric_no = '$matno' 
+					AND 
+					(
+					`grade` Not LIKE'AE' OR'SICK' OR 'PEND' OR 'PI' OR 'EM' OR 'ABSE' OR '---' OR 'MS'
+					)
+					AND 
+					semester = '$semester'"; 
+					
+					$cal_qry = mysqli_query($logs, $cal_qry) or die (mysqli_error($logs));
+					$cal_qry = mysqli_fetch_assoc($cal_qry);
+					$unit = $cal_qry["totalUnit"];
+					$gp = $cal_qry["gp"];
+					$gpa = $cal_qry["gpa"];
 				}
 
 				if ($unit==0)
@@ -218,7 +233,7 @@ elseif($academic_res == 0 || $academic_res == 2)
 				<td><div align="center"><?php echo $ccu;?></div></td>
 				<td><div align="center"><?php echo $ccgp;?></div></td>
 				<td>
-					<div align="center"><?php echo $ccgpa;?></span></div>
+					<div align="center"><?php echo $ccgpa;?></div>
 				</td>
 				<td>
 					<div align="center">
@@ -290,18 +305,18 @@ if($academic_res == 1 || $academic_res == 3)
 		</div>
         <?php 
         $the_act = "viewexport.php";
-        $the_print = "viewabm_print.php";
+		$the_print = "viewabm_print.php";
+		$_SESSION["the_print"] = "viewabm_print.php";
 }
 elseif($academic_res == 0 || $academic_res == 2)
 {
     $the_act = "viewexport1.php";
-    $the_print = "views_print.php";
+	$the_print = "views_print.php";
+	$_SESSION["the_print"] = "views_print.php";
+	//exit;
 }
 ?>
-
 		<!-- Exportto word -->
-	
-		
     <?php 
     if($academic_res == 2 || $academic_res == 3)
     {
@@ -321,8 +336,15 @@ include('selected.php');
    
     
   <p>&nbsp;</p>
-<em style="color:green">Select programme, session, semester, year to view broad sheet result	</em>
+
 
 <?php
- include("viewforms.php");
+if ($inc_form == 1)
+{
+
+}else{
+	echo '<em style="color:green">Select programme, session, semester, year to view broad sheet result	</em>';
+	include("viewforms.php");
+}
+ 
  ?>

@@ -1,13 +1,13 @@
 
 <?php 
-$conn = $logs;
+$logs = $logs;
 if(isset($_POST['Submit1'])){
 
 foreach($_POST['sn'] as $selected){
 //$sn = $_POST['sn']; 
 
-$sql = mysqli_query($conn,"UPDATE `results` SET  `score` =  '40', `grade` = 'E', `points` = '2' WHERE  
-`results`.`sn` ='$selected'") or die(mysqli_error($conn));
+$sql = mysqli_query($logs,"UPDATE `results` SET  `score` =  '40', `grade` = 'E', `points` = '2' WHERE  
+`results`.`sn` ='$selected'") or die(mysqli_error($logs));
 
 echo "Consideration done.";
 
@@ -35,8 +35,8 @@ if ($programme =="" || $year == "" || $session == "" || $semester == "" || $scor
 		//die("Empty fields not allowed!!!"."<a href='index.php?views'><br>&lt;&lt;Back</a>");
 	}
 
-$ql = mysqli_query($conn,"SELECT * FROM  `results` WHERE  (score >= $score && score < 40) && prog_id = '$programme' &&
- semester = '$semester' && session = '$session' ") or die(mysqli_error($conn));?>
+$ql = mysqli_query($logs,"SELECT * FROM  `results` WHERE  (score >= $score && score < 40) && prog_id = '$programme' &&
+ semester = '$semester' && session = '$session' ") or die(mysqli_error($logs));?>
  
  <form method="post">
 

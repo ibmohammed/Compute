@@ -35,23 +35,7 @@
       </td>
 
     </tr>
-<!--
-    <tr>
-      <td ><strong>SESSION:</strong></td>
-      <td>
-      <select name="session" id="session" class="form-control">
-        <option selected="selected">Session</option>
-        <option>2010/2011</option>
-        <option>2012/2013</option>
-        <option>2013/2014</option>
-        <option>2014/2015</option>
-        <option>2015/2016</option>
-        <option>2016/2017</option>                  
-        <option>2017/2018</option>
-      </select>
-    </td>
-  </tr>
-  -->
+
 </table>
 <br>
 <input type="submit" name="Submit" value="Submit" class="btn btn-gradient-primary mr-2"/>
@@ -68,9 +52,12 @@
 	
 
 	if (isset($_POST['Submit'])){
-	//echo '<h3>'..'</h3>';
+  //echo '<h3>'..'</h3>';
+  $the_prog = programmes($_POST['dept'], $logs);
+    $prog_name = mysqli_fetch_assoc($the_prog);
+
 	?>
-  <i style="color:green;">Class of <?php echo  $_POST['year']." students records for: ".$_POST['dept'];?></i>
+  <i style="color:green;">Class of <?php echo  $_POST['year']." students records for: ".$prog_name['programme'];?></i>
 
 
 
@@ -94,7 +81,7 @@
           //  $session=$_POST['session'];
             
             $sql = mysqli_prepare(
-                                    $conn, "SELECT * FROM `studentsnm` 
+                                    $logs, "SELECT * FROM `studentsnm` 
                                             WHERE 
                                             prog_id = ? && 
                                             year =?  
@@ -102,7 +89,7 @@
                                             `matno` 
                                             ASC"
                                 )
-                                        or die(mysqli_error($conn));
+                                        or die(mysqli_error($logs));
             mysqli_stmt_bind_param($sql, "ss", $dept, $year);
             mysqli_stmt_execute($sql);
             $result = mysqli_stmt_get_result($sql);

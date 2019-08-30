@@ -22,15 +22,15 @@ $username_logs = "nigerpol_root";
 $password_logs = "number012345@";
 
 
-$conn = mysqli_connect($hostname_logs, $username_logs, $password_logs, $database_logs);
+$logs = mysqli_connect($hostname_logs, $username_logs, $password_logs, $database_logs);
 // Check connection
-if (!$conn) {
+if (!$logs) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
 //SELECT id, username, password , progs FROM  `logintbl` 
 $sql = "SELECT id, username, password , progs FROM  `logintbl`";
-$result = mysqli_query($conn, $sql);
+$result = mysqli_query($logs, $sql);
 
 if (mysqli_num_rows($result) > 0) {
     // output data of each row
@@ -41,7 +41,7 @@ if (mysqli_num_rows($result) > 0) {
     echo "0 results";
 }
 
-mysqli_close($conn);
+mysqli_close($logs);
 ?> 
 
 

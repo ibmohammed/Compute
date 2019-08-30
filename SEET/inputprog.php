@@ -1,6 +1,6 @@
 <?php error_reporting(-1); ?>
 <?php ini_set('display_errors', true); ?>
-<?php require('includes/header.php');    ?>
+<?php //require('includes/header.php');    ?>
 
 	<?php 
 	if(isset($_POST['Submit'])){
@@ -8,7 +8,7 @@
   $dpt = $_POST['dpt'];
   //$deptcode = $_POST['deptcode'];
 	
-	$sql = mysqli_query($conn,"INSERT INTO `programmes` (`programme`, `dept_id`)
+	$sql = mysqli_query($logs,"INSERT INTO `programmes` (`programme`, `dept_id`)
 		VALUES('$programme','$dpt')") or die(mysqli_error());
 	
 	

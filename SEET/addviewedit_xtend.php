@@ -36,11 +36,11 @@ if (isset($_POST['Submit2']))
     $sess = $_POST[$ss];
 
     // Update result Table
-    //$updtres =mysqli_query($conn,"UPDATE `results` SET `unit` = '$unit', `code`='$code' WHERE `results`.`code` ='$codes'");
+    //$updtres =mysqli_query($logs,"UPDATE `results` SET `unit` = '$unit', `code`='$code' WHERE `results`.`code` ='$codes'");
     // Update Course Table;
 
-    $query= mysqli_query($conn,"UPDATE  `course` SET  `code` =  '$code',`title` =  '$title',`unit`='$unit',`sessions`='$sessions' 
-    WHERE  `course`.`sn` ='$sn'") or die(mysqli_error($conn));
+    $query= mysqli_query($logs,"UPDATE  `course` SET  `code` =  '$code',`title` =  '$title',`unit`='$unit',`sessions`='$sessions' 
+    WHERE  `course`.`sn` ='$sn'") or die(mysqli_error($logs));
     //echo $sn;
   }
   echo "<font color = 'red'>"."<i>"."Update Successful"."</i>"."</font>";
@@ -89,11 +89,11 @@ elseif (isset($_POST['Submit3']))
     $codes=$_POST[$c];
     $sess = $_POST[$ss];
     // Insert into Table course
-    $updtres =mysqli_query($conn,"INSERT INTO `course` (`prog_id`, `unit`, `semester`, `code`, `title`, `sessions`) 
+    $updtres =mysqli_query($logs,"INSERT INTO `course` (`prog_id`, `unit`, `semester`, `code`, `title`, `sessions`) 
     VALUES ('$prog', '$unit', '$semesters', '$code', '$title', '$sessions');");
 
     // Update Course Table
-    //$query= mysqli_query($conn,"UPDATE  `course` SET  `code` =  '$code',`title` =  '$title',`unit`='$unit',`sessions`='$sessions'
+    //$query= mysqli_query($logs,"UPDATE  `course` SET  `code` =  '$code',`title` =  '$title',`unit`='$unit',`sessions`='$sessions'
     //WHERE  `course`.`sn` ='$sn'") or die(mysqli_error());
   }
   echo "<font color = 'red'>"."<i>"."Successful"."</i>"."</font>";
@@ -113,7 +113,7 @@ elseif(isset($_GET['id']))
   //$_SESSION['session'];
 
 
-  $qry = mysqli_query($conn,"DELETE FROM course WHERE `sn` = '$ids'") or die(mysqli_error());	
+  $qry = mysqli_query($logs,"DELETE FROM course WHERE `sn` = '$ids'") or die(mysqli_error());	
     echo "<font color = 'red'>"."<i>"."Update Successful"."</i>"."</font>";
 
   echo '<div> <form action="" method="post"><input type = "hidden" name = "programe" value = "'.$_SESSION['prog'].'" >
@@ -144,7 +144,7 @@ if (isset($_POST['Submit']))
   $_SESSION['session'] = $session;
 
 
-  $sql = mysqli_query($conn,"SELECT * FROM  `course` WHERE prog_id='$prog' && semester ='$semester' && sessions = '$session'");
+  $sql = mysqli_query($logs,"SELECT * FROM  `course` WHERE prog_id='$prog' && semester ='$semester' && sessions = '$session'");
   if(!$sql)
   {
     die(mysqli_error());
@@ -154,7 +154,10 @@ if (isset($_POST['Submit']))
   <br>
   <hr>
   <i style="color:green">
-  <?php echo $session. " Semester: ".$semester." for ".$prog; ?>
+  <?php 
+  $the_prog = programmes($prog, $logs);
+  $prog_name = mysqli_fetch_assoc($the_prog);
+  echo $session. " Semester: ".$semester." for ".$prog_name['programme']; ?>
   </i>
   <hr>
  
@@ -273,7 +276,7 @@ if (isset($_POST['Submit']))
 &nbsp;
 <hr>
 <br>
-<i style="color:green">Select Programme, Semester, and session to view courses</i>
+<em style="color:green">Select Programme, Semester, and session to view courses</em>
 <hr>
       <form id="form1" name="form1" method="post" action="">
               <table  class="table table-bordered" >
@@ -285,7 +288,7 @@ if (isset($_POST['Submit']))
                     <?php include('dptcode.php') ;
             
             
-                    //$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
+                    //$queri = mysqli_query($logs,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
                       //while($prgasc = mysqli_fetch_assoc($prgqry))
                       $queri = prog_function($logs);
                       while($pcd = mysqli_fetch_assoc($queri)){

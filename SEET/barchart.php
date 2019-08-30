@@ -1,7 +1,43 @@
 <html>
   <head>
+  <?php 
+
+$dataPoints = array( 
+	array("y" => $pass, "label" => "PASS" ),
+	array("y" => $co, "label" => "CARRYOVER" ),
+	array("y" => $abs, "label" => "ABSENT" ),
+	array("y" => $atw, "label" => "ATW" )
+);
+// enf of canvas js 
+?>
+  <script>
+window.onload = function() {
+ 
+ var chart = new CanvasJS.Chart("chartContainer", {
+   animationEnabled: true,
+   theme: "light2",
+   title:{
+     text: "Result Summary in Bar Chart"
+   },
+   axisY: {
+     title: "Number of Students"
+   },
+   axisX: {
+     title: "Remarks"
+   },
+   data: [{
+     type: "column",
+     yValueFormatString: "#,##0.## students",
+     dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+   }]
+ });
+ chart.render();
+  
+ }
+</script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
    <script type="text/javascript">
+   
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
 
@@ -10,7 +46,6 @@
 
        google.charts.load('current', {'packages':['bar']});
        google.charts.setOnLoadCallback(drawStuff);
-
 
 // 3D Pie chart 
       function drawChart() 
@@ -34,73 +69,20 @@
         chart.draw(data, options);
       }
 
-// Horizintal Barchart
-      function drawBasic() 
-      {
-        var data = google.visualization.arrayToDataTable([
-        <?php 
-        echo "['Remarks', 'No of Students', { role: 'style' } ],
-        ['PASS', $pass, 'color: #76A7FA'],
-        ['CARRY OVER', $co, 'opacity: 0.2'],
-        ['ABSENT', $abs, 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
-        ['ATW', $atw, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']";
-        ?>
-        ]);
-        var options = {
-        title: 'Result Summary in Bar Chart',
-        chartArea: {width: '50%'},
-        hAxis: {
-            title: 'Number of Student',
-            minValue: 0
-        },
-        vAxis: {
-            title: 'Remarks'
-        }
-        };
-
-        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-
-// bar chart 
-
-function drawStuff() {
-        var data = new google.visualization.arrayToDataTable([
-         <?php 
-          echo "['Remarks', 'No of students'],
-          ['PASS', $pass],
-          ['Carry Over', $co],
-          ['Absent', $abs],
-          ['ATW', $atw]        
-        ]);";
-         ?>
-        var options = {
-          title: 'Chess opening moves',
-          width: 900,
-          legend: { position: 'none' },
-          chart: { title: '',
-                   subtitle: '' },
-          bars: 'horizontal', // Required for Material Bar Charts.
-          axes: {
-            x: {
-              0: { side: 'top', label: 'Number of Students'} // Top x-axis.
-            }
-          },
-          bar: { groupWidth: "90%" }
-        };
-
-        var chart = new google.charts.Bar(document.getElementById('top_x_div'));
-        chart.draw(data, options);
-      };
     </script>
     </head>
     <body>
-    <table>
-      <tr>
-        <td>
-          <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
-          <div id="chart_div"  style="width: 900px; height: 500px;"></div>
-          <?php //echo '<div id="top_x_div" style="width: 900px; height: 500px;"></div>';?>
-        </td>
-      </tr>
-  </table>
+<table  class="table table-bordered">
+  <tr>
+  <td>
+    <?php if (@$show_chart !==0){?>
+    <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+    <?php //   <div id="chart_div"  style="width: 900px; height: 500px;"></div>; ?>
+    <?php //echo '<div id="top_x_div" style="width: 900px; height: 500px;"></div>';
+    }
+    ?>
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  </td>
+  </tr>
+</table>

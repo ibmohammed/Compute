@@ -1,6 +1,6 @@
 <?php error_reporting(-1); ?>
 <?php ini_set('display_errors', true); ?>
-<?php require('includes/header.php');    ?>
+<?php //require('includes/header.php');    ?>
     
 
 
@@ -10,11 +10,11 @@
 
       $image = $_FILES["file"]["name"];
       $sname = $_POST['sname'];
-      $sname = mysqli_escape_string($conn,$sname);
+      $sname = mysqli_escape_string($logs,$sname);
       $sex = $_POST['sex'];
       $cid = $_POST['programme'];
       $hpro = $_POST['hpro'];
-      $cid = mysqli_escape_string($conn,$cid);
+      $cid = mysqli_escape_string($logs,$cid);
       $mat = $_POST['mat'];
       $ric = $_POST['ric'];
       $no = $_POST['no'];
@@ -34,16 +34,16 @@
   ?>
   <?php
       // check if record exist
-      $sql=mysqli_query($conn,"SELECT *FROM `studentsnm`WHERE `matno` = '$matricno'AND `prog_id` = '$cid'");
+      $sql=mysqli_query($logs,"SELECT *FROM `studentsnm`WHERE `matno` = '$matricno'AND `prog_id` = '$cid'");
       if(!$sql){
-       die(mysqli_error($conn));
+       die(mysqli_error($logs));
       }
       $col =mysqli_fetch_assoc($sql);
       if (($matricno==$col['matno'])&&($cid==$col['prog_id'])){
           echo "<script language = 'javascript'>"."alert('record already Exist')"."</script>";
       }else{
-        $stdnm=mysqli_query($conn,"INSERT INTO studentsnm (names, matno, prog_id, year, images, session, status, stat, Withdrwan, sex) 
-        VALUES ('$sname', '$matricno', '$cid', '$ric','$image','$sess','0','0','0','$sex')") or die(mysqli_error($conn));
+        $stdnm=mysqli_query($logs,"INSERT INTO studentsnm (names, matno, prog_id, year, images, session, status, stat, Withdrwan, sex) 
+        VALUES ('$sname', '$matricno', '$cid', '$ric','$image','$sess','0','0','0','$sex')") or die(mysqli_error($logs));
         
         $options = [
           'cost' => 11,
@@ -52,9 +52,9 @@
       $stat = "Enable";
       $hash = password_hash($pp, PASSWORD_BCRYPT,  $options);
       	 
-          mysqli_query($conn, 	"INSERT INTO `students_log` 
+          mysqli_query($logs, 	"INSERT INTO `students_log` 
 					(`matric_no`,`password`,`status`) 
-					VALUES( '".addslashes($matricno)."', '".addslashes($pp)."', '".addslashes($stat)."')") or die(mysqli_error($conn));
+					VALUES( '".addslashes($matricno)."', '".addslashes($pp)."', '".addslashes($stat)."')") or die(mysqli_error($logs));
 
         echo "<script language = 'javascript'>"."alert('Successful')"."</script>";
         echo "<h5 style = 'color:red'>Record added Successfully <h5>";

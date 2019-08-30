@@ -18,104 +18,68 @@ if(isset($_POST["Submit"]))
     $session = $_POST["session"];
     $programme = $_POST["programme"];
 
+
+//canvas js
+
+
+$dataPoints = array();
+
+    $grade_array = ["A","AB","B","BC","C","CD","D","E","F","EM","AE","AW","PI","MS","NR"];
+                
+    foreach($grade_array as $gd)
+    {
+        $a = mysqli_query($logs,"SELECT * FROM `results` 
+                        WHERE grade = '$gd' && 
+                        code = '$course_code' &&  
+                        `prog_id` ='$programme' && 
+                        semester = '$semester' && 
+                        `session` = '$session' && 
+                        `stat` = '0'") 
+                        or die(mysqli_error($logs));
+
+        $nrows = mysqli_num_rows($a);
+
+        array_push($dataPoints, array("label"=> $gd, "y"=> $nrows));
+    }
+// enf of canvas js 
 ?>
-    <script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
-      <script type='text/javascript'>
-        google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
-        google.charts.setOnLoadCallback(drawCharts);
 
-        function drawChart() 
-        {
-            var data = google.visualization.arrayToDataTable([
-            ['Grade', 'Number of Students'],
-        
-            <?php 
-            $grade_array = ["A","AB","B","BC","C","CD","D","E","F","EM","AE","AW","PI","MS","NR"];
-                
-            foreach($grade_array as $gd)
-            {
-                $a = mysqli_query($logs,"SELECT * FROM `results` 
-                                WHERE grade = '$gd' && 
-                                code = '$course_code' &&  
-                                `prog_id` ='$programme' && 
-                                semester = '$semester' && 
-                                `session` = '$session' && 
-                                `stat` = '0'") 
-                                or die(mysqli_error($logs));
-
-                $nrows = mysqli_num_rows($a);
-                echo "['$gd',     $nrows],";
-            }
-            
-            echo "
-            ]);
-
-            var options = {
-            title: '$course_code'
-            };";
-
-            ?>
-
-            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-            chart.draw(data, options);
-        }
+<script>
+window.onload = function () {
+ 
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	exportEnabled: true,
+	theme: "light1", // "light1", "light2", "dark1", "dark2"
+	title:{
+		text: "<?php echo $course_code;?>"
+	},
+   axisY: {
+     title: "Number of Students"
+   },
+   axisX: {
+     title: "Grades"
+   },
+	data: [{
+		type: "column", //change type to bar, line, area, pie, etc  
+		dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+	}]
+});
+chart.render();
+ 
+}
+</script>
 
 
-
-        function drawCharts() {
-      var data = google.visualization.arrayToDataTable([
-        ["grade", "Number of Student", { role: "style" } ],
-        <?php 
-            $grade_array = ["A","AB","B","BC","C","CD","D","E","F","EM","AE","AW","PI","MS","NR"];
-                
-            foreach($grade_array as $gd)
-            {
-                $a = mysqli_query($logs,"SELECT * FROM `results` 
-                                WHERE grade = '$gd' && 
-                                code = '$course_code' &&  
-                                `prog_id` ='$programme' && 
-                                semester = '$semester' && 
-                                `session` = '$session' && 
-                                `stat` = '0'") 
-                                or die(mysqli_error($logs));
-
-                $nrows = mysqli_num_rows($a);
-
-                echo "['$gd',     $nrows, '#0000'],";
-            }
-            
-            echo "
-      ]);
-
-      var view = new google.visualization.DataView(data);
-      view.setColumns([0, 1,
-                       { calc: 'stringify',
-                         sourceColumn: 1,
-                         type: 'string',
-                         role: 'annotation' },
-                       2]);
-
-      var options = {
-        title: '$course_code',";?>
-        width: 375,
-        height: 200,
-        bar: {groupWidth: "auto"},
-        legend: { position: "none" },
-      };
-      var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
-      chart.draw(view, options);
-  }
+<?php
+$all_charts = 0;?>
 
 
-    </script>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
 <?php 
-$all_charts = 0;
-// call the charts
-  include("../chart_layout.php");
-// end of callcharts
-
 }
 elseif(isset($_POST["Submit1"]))
 {
@@ -134,6 +98,8 @@ elseif(isset($_POST["Submit1"]))
 <hr>
 <br>
 <hr>
+
+<em style="color:green">Select course, view course Analysis</em>
 <form action="" method="post" name="grades" id="grade">
 <table class="table table-bordered">  
   <tr>
@@ -170,6 +136,7 @@ elseif(isset($_POST["Submit1"]))
 <hr>
 <br>
 <hr>
+<em style="color:green">Select Programme, Semester, and session to Select Courses</em>
 <form action="" method="post" name="grades" id="grade">
 <table class="table table-bordered">  
   <tr>
@@ -179,7 +146,7 @@ elseif(isset($_POST["Submit1"]))
         <option selected="selected" value="">Select Programme</option>
         <?php //include('dptcode.php') ;
         $queri = 	programmess_dept($_SESSION['depts_ids'], $logs); 
-        //	$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error($conn));
+        //	$queri = mysqli_query($logs,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error($logs));
         while($pcd = mysqli_fetch_assoc($queri)){
             ?>
         <option value = "<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>

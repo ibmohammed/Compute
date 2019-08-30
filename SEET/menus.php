@@ -312,17 +312,15 @@ include('piecharts_for_all.php');
 	
 }elseif(isset($_GET['creg_temp'])){
 	$templates = 1;
-	echo '<h3> Courses Template</h3>';
-	include('csv_result_temp.php');
-
+	echo '<h3>Generate Course Data Template</h3>';
+	include('csv_course_temp.php');
 }elseif(isset($_GET['sreg_temp'])){
-	$templates = 2;
-	echo '<h3>Student Template</h3>';
-	include('csv_result_temp.php');
-
+	$templates = 1;
+	echo '<h3>Generate Student Data Template</h3>';
+	include('csv_student_temp.php');
 }elseif(isset($_GET['score_temp'])){
-	$templates = 3;
-	echo '<h3> Score Template</h3>';
+	$templates = 2;
+	echo '<h3>Generate Score Data emplate</h3>';
 	include('csv_result_temp.php');
 }
 ?>

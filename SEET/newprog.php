@@ -6,7 +6,7 @@ if(isset($_POST['Submit'])){
  error_reporting(-1);
  ini_set('display_errors', true); 
 //connect to the database 
-require('includes/header.php');  
+//require('includes/header.php');  
 // 
 
 				$fname = $_FILES['csv']['name'];
@@ -30,7 +30,7 @@ require('includes/header.php');
 				
 		
 				
-				mysqli_query($conn,"INSERT INTO `departments` (`name`, `code`, `schl_id`)
+				mysqli_query($logs,"INSERT INTO `departments` (`name`, `code`, `schl_id`)
 				VALUES( 
                     '".addslashes($data[0])."',
 					'".addslashes($data[1])."',

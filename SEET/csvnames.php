@@ -45,20 +45,17 @@ if(isset($_POST['Submit'])){
 
 							$matno = $data[1];
 							$matno = preg_replace("/[^a-zA-Z0-9\s\/]/", "", $matno);
-
 							//Check if data1 and data2 has the required contents 
 							$is_this_a_matno = $matno;
 							$is_this_thenames = $names;
 							if (strpos( $is_this_a_matno, "/") !== false)
 							{
-
 								//$names = mysql_escape_string($names);
 								$images = "";
 								$status = 0;
 								$stat = 0;
 								$Withdrwan = 0;
 								$sex = "";
-
 
 								$imports = "INSERT INTO`studentsnm`  
 										(`names`, `matno`, `prog_id`, `year`, `images`, `session`, `status`, `stat`, `Withdrwan`, `sex`) 
@@ -80,11 +77,8 @@ if(isset($_POST['Submit'])){
 											`prog_id` = '".addslashes($prgrm)."', 
 											`year` = '".addslashes($year)."', 
 											`session` = '".addslashes($sesn)."'
-											
 									";
 									mysqli_query($conn,$imports) or die(mysqli_error($conn)); 
-								
-									
 									$options = [
 										'cost' => 11,
 									];
@@ -97,7 +91,6 @@ if(isset($_POST['Submit'])){
 								VALUES('".addslashes($matno)."', '".addslashes($hash)."', '".addslashes($stat)."')";
 
 								mysqli_query($conn, $students_log) or die(mysqli_error($conn)); 
-
 							}
 							else 
 							{
@@ -106,50 +99,30 @@ if(isset($_POST['Submit'])){
 								location.replace("index.php?csvn");
 								</script>';
 							}
-
-		
 						}
-
 					fclose($handle);
 					echo "Successfully imported";
-
-							
 			}
-
 		else
 		{
 			echo "Invalid file";
 		}
 }
 ?>
-
-
 <form id="form1" action="" enctype="multipart/form-data" method="post" name="form1">
-
-
     <table class="table table-bordered" >
 		<tr>
           <td style="height: 30px" ><span style="font-weight: bold; color: #000000">PROGRAMME:</span></td>
 		  <td style="height: 30px" >
 		  <select name="programme" id="programme" class="form-control">
-         			<option selected="selected" value="">Select Programmes</option>
-         			
-         			 <?php include('dptcode.php') ;
-            
-            
-			//$qqry = "SELECT * FROM `dept` WHERE prog = '$departmentcode'";
+   			<option selected="selected" value="">Select Programmes</option>
+  			 <?php include('dptcode.php');
 			$queri = prog_function($logs);
-			//$queri = mysqli_query($conn,$qqry) or die(mysqli_error());
-            
             while($pcd = mysqli_fetch_assoc($queri)){
             ?>
-            
-            
               <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>
               
               <?php }?>
-              
-             
           </select> </td>
         </tr>
 		<tr>

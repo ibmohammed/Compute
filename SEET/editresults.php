@@ -1,6 +1,6 @@
 <?php error_reporting(-1); ?>
 <?php ini_set('display_errors', true); ?>
-<?php include("includes/header.php"); ?>    
+<?php //include("includes/header.php"); ?>    
 	<?php
 
 
@@ -17,9 +17,9 @@ if(isset($_POST['Submit2']))
   $matno= $_POST['matno'];
   $count = $_POST['count'];
 
-  $name = mysqli_escape_string($conn,$name);
+  $name = mysqli_escape_string($logs,$name);
 
-  $programme = mysqli_escape_string($conn,$programme);
+  $programme = mysqli_escape_string($logs,$programme);
 
   $count=$count-1;
   $m=0;
@@ -38,7 +38,7 @@ if(isset($_POST['Submit2']))
     $code = $_POST[$cod];
 
 
-    $query=mysqli_query($conn,"UPDATE `results` 
+    $query=mysqli_query($logs,"UPDATE `results` 
     SET  `code`='$code',`unit`='$unit',`score` =  '$score',`grade` =  '$grade1',`points`='$point' 
     WHERE  `results`.`sn` ='$sn'");
 
@@ -47,7 +47,7 @@ if(isset($_POST['Submit2']))
         if ($score>=0 and $score <=39)
         {
           $co_spill = "co";
-          $resultssn = update_prev_result($conn, $score,$grade1,$point,$co_spill,$matno,$code);
+          $resultssn = update_prev_result($logs, $score,$grade1,$point,$co_spill,$matno,$code);
           mysqli_stmt_execute($resultssn);
 				}
 
@@ -80,8 +80,8 @@ if(isset($_POST['Submit2']))
   //$year=$_POST['year'];
   //$session=$_POST['session'];
 
-  $dept = mysqli_escape_string($conn,$dept);
-  $sql=mysqli_query($conn,"SELECT *FROM `studentsnm` WHERE prog_id = '$dept' && year ='$year' && session='$session'  ORDER BY `matno` ASC");
+  $dept = mysqli_escape_string($logs,$dept);
+  $sql=mysqli_query($logs,"SELECT *FROM `studentsnm` WHERE prog_id = '$dept' && year ='$year' && session='$session'  ORDER BY `matno` ASC");
   $n=0;
   while ($row=mysqli_fetch_assoc($sql))
   {
@@ -147,7 +147,7 @@ if(isset($_POST['button']))
 		//die("Empty fields not allowed!!!"."<a href='index.php?views'><br>&lt;&lt;Back</a>");
   }
     
-  $programme = mysqli_escape_string($conn,$programme);
+  $programme = mysqli_escape_string($logs,$programme);
   //add session 
   $_SESSION['programme'] = $programme;
   $_SESSION['session'] = $session;
@@ -168,9 +168,9 @@ if(isset($_POST['button']))
       $year=$_POST['year'];
       $session=$_POST['session'];
       
-      $dept = mysqli_escape_string($conn,$dept);
+      $dept = mysqli_escape_string($logs,$dept);
       
-      $sql=mysqli_query($conn,"SELECT * FROM `studentsnm` WHERE prog_id = '$dept' && year ='$year' && session='$session'  ORDER BY `matno` ASC");
+      $sql=mysqli_query($logs,"SELECT * FROM `studentsnm` WHERE prog_id = '$dept' && year ='$year' && session='$session'  ORDER BY `matno` ASC");
       $n=0;
         while ($row=mysqli_fetch_assoc($sql))
         {
@@ -222,9 +222,9 @@ elseif(isset($_POST['Submit']))
 	$year=$_POST['year'];
 	$semester=$_POST['semester'];
 	$matno=$_POST['matno'];
-	$programme= mysqli_escape_string($conn,$programme);
-	$query=mysqli_query($conn,"SELECT * FROM `course` WHERE prog_id ='$programme' && semester = '$semester' && sessions = '$session'");
-	$sql=mysqli_query($conn,"SELECT * FROM `studentsnm` WHERE matno='$matno'");
+	$programme= mysqli_escape_string($logs,$programme);
+	$query=mysqli_query($logs,"SELECT * FROM `course` WHERE prog_id ='$programme' && semester = '$semester' && sessions = '$session'");
+	$sql=mysqli_query($logs,"SELECT * FROM `studentsnm` WHERE matno='$matno'");
 	$row=mysqli_fetch_assoc($sql);
 	?>
 	<form id="form1" name="form1" method="post" action="">
@@ -244,9 +244,9 @@ elseif(isset($_POST['Submit']))
         <table class="table table-bordered">
           <tr>
             <?php 
-            $msql=mysqli_query($conn,"SELECT * FROM  `results` WHERE matric_no='$matno' && semester='$semester'");
+            $msql=mysqli_query($logs,"SELECT * FROM  `results` WHERE matric_no='$matno' && semester='$semester'");
             if(!$msql){
-            die(mysqli_error($conn));}
+            die(mysqli_error($logs));}
       			$n=0; 
             while (($col= mysqli_fetch_assoc($query)) && ($rows = mysqli_fetch_assoc($msql)))
             {
@@ -294,7 +294,7 @@ elseif(isset($_POST['Submit']))
             <option selected="selected" value="">Select Programme</option>
             <?php include('dptcode.php') ;
             $queri = 	programmess_dept($_SESSION['depts_ids'], $logs); 
-        //	$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error($conn));
+        //	$queri = mysqli_query($logs,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error($logs));
             while($pcd = mysqli_fetch_assoc($queri))
             {
               ?>

@@ -1,11 +1,45 @@
-
 <?php 
 if (isset($_POST['Submit']))
 {
   //echo '<h3>'..'</h3>';
-  ?>
+  
+$dept = $_POST['dept'];
+$year=$_POST['year'];
+$result =  score_templates($logs, $dept, $year);
+
+$flag = false;
+$n=0;
+while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+{
+    if(!$flag) {
+      // display field/column names as first row
+      fputcsv($display, array_keys($row), ",", '"');
+      $flag = true;
+    }
+    fputcsv($display, array_values($row), ",", '"');
+  }
+ 
+fclose($display);
+  exit;
+}?>
+
+
+
+
+<?php error_reporting(-1); ?>
+<?php ini_set('display_errors', true); ?>
+<?php require("includes/header.php");
+    //include("includes/thehead.php");//this is common to all
+	//require("includes/header.php"); 
+   // $time = date("h:i:sa");
+    //$name = "Scores_template".$time.".xlsx";
+   // $filename = "sampledata".$time.".csv";
+  //  header("Content-Disposition: attachment; filename=\"$filename\"");
+  //  header("Content-Type: text/csv");
+  //  $display = fopen("php://output", 'w');
+?>
   <style>
-#thisTable {
+* {
     color: #2b2b2b;
     font-family: "Roboto Condensed";
 }
@@ -25,9 +59,7 @@ button {
 }
 </style>
 
-
-<script>
-
+<script language ="JavaScript">
 function download_csv(csv, filename) {
     var csvFile;
     var downloadLink;
@@ -54,7 +86,7 @@ function download_csv(csv, filename) {
     downloadLink.click();
 }
 
-function export_table_to_csv(filename) {
+function export_table_to_csv(html, filename) {
 	var csv = [];
 	var rows = document.querySelectorAll("table tr");
 	
@@ -71,42 +103,9 @@ function export_table_to_csv(filename) {
     download_csv(csv.join("\n"), filename);
 }
 
-</script>
+document.querySelector("button").addEventListener("click", function () {
+    var html = document.querySelector("table").outerHTML;
+	export_table_to_csv(html, "table.csv");
+});
 
-<?php 
-  
-$dept = $_POST['dept'];
-$year=$_POST['year'];
-$result =  score_templates($logs, $dept, $year);
-
-?>
-<hr>
-<em style="color:green">Click on "Generate Template" button below to download score template</em>
-<table class="table table-bordered" id ="thisTable">
-<tr><th>Number</th><th>Score</th>
-<?php
-while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
-{
-  ?>
-  <tr><td><?php echo $row['matno'];?></td>
-  <td></td>
-  </tr>
-  <?php   
-}
- ?>
-</table>
-<button onClick="export_table_to_csv('table.csv')" class="btn btn-gradient-primary mr-2">Download template</button>
-
- <?php 
- // exit;
- $templates = 0;
-}?>
-
-<br>
-<hr>
-<?php 
-if($templates == 2)
-{
-  require("template_foem.php");
-}
-?>
+</script>  

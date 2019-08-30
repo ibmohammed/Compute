@@ -1,10 +1,10 @@
 <?php  
- require('includes/header.php');  
+ //require('includes/header.php');  
 if(isset($_POST['Submit'])){
 
 error_reporting(-1); 
 ini_set('display_errors', true);
- require('includes/header.php');  
+ //require('includes/header.php');  
 
 
 
@@ -19,10 +19,10 @@ if ($_FILES['csv']['size'] > 0) {
 				$semst = $_POST['semester'];
 				$sesn = $_POST['session'];
 				$prgrm = $_POST['programme'];
-				$prgrm = mysqli_escape_string($conn,$prgrm);
+				$prgrm = mysqli_escape_string($logs,$prgrm);
 				
 //get the course code Unit
-			$unt = mysqli_query($conn,"SELECT unit FROM `course`  
+			$unt = mysqli_query($logs,"SELECT unit FROM `course`  
 			WHERE `code` = '$code' && `Programme`= '$prgrm' && `semester` = '$semst' && `sessions`= '$sesn'")or die(mysqli_error());
 				$unitss =mysqli_fetch_assoc($unt);
 				
@@ -30,7 +30,7 @@ if ($_FILES['csv']['size'] > 0) {
 				
 				
 	// check if recordsexist			
-	$qqry = mysqli_query($conn,"SELECT * FROM `entered` 
+	$qqry = mysqli_query($logs,"SELECT * FROM `entered` 
 	WHERE `code` = '$code' && `programme`= '$prgrm' && `semester` = '$semst' && `session`= '$sesn'") or die(mysqli_error());
     $nmrws = mysqli_num_rows($qqry);
 
@@ -51,18 +51,18 @@ if($nmrws == 0){
 				
 		// get students names from table 
 				
-				$snms = mysqli_query($conn,"SELECT `names` FROM `studentsnm` WHERE `matno` = '$smatno'");
+				$snms = mysqli_query($logs,"SELECT `names` FROM `studentsnm` WHERE `matno` = '$smatno'");
 				$stdnmr = mysqli_fetch_assoc($snms);
 				$snames = $stdnmr['names'];
 				
-				$snames = mysqli_escape_string($conn,$snames);
+				$snames = mysqli_escape_string($logs,$snames);
 				
 				include("includes/scoregrade.php");
 				
 				//include("includes/scoregrade1.php"); THIS SCORE GRADE IS FOR pgd
 
 				$point = $n[$grade1];
-				mysqli_query($conn,"INSERT IGNORE INTO `results`  
+				mysqli_query($logs,"INSERT IGNORE INTO `results`  
 				(`name`, `matric_no`, `code`, `unit`, `score`, `grade`, `points`,`programme`, `semester`, `session`) 
 				VALUES( 
                     '".addslashes($snames)."',
@@ -98,7 +98,7 @@ if($nmrws == 0){
         
     } while ($data = fgetcsv($handle,1000,",","'"));
     
-    $qry = mysqli_query($conn,"INSERT INTO `entered` (`code`, `unit`, `programme`, `semester`, `session`)
+    $qry = mysqli_query($logs,"INSERT INTO `entered` (`code`, `unit`, `programme`, `semester`, `session`)
         VALUES ('$code', '$cunits', '$prgrm', '$semst', '$sesn')") or die(mysqli_error());
     // 
   //echo $data[3];
@@ -113,14 +113,14 @@ if($nmrws == 0){
 
 // Delete from table entered  and results to enable records overwrite
 
-mysqli_query($conn,"DELETE FROM `entered` WHERE
+mysqli_query($logs,"DELETE FROM `entered` WHERE
      `code`= '$code' && 
      `unit` = '$cunits' && 
      `programme` = '$prgrm' && 
      `semester` = '$semst' && 
      `session` = '$sesn' ") or die(mysqli_error().'hhn');
 
-mysqli_query($conn,"DELETE FROM `results`  WHERE 
+mysqli_query($logs,"DELETE FROM `results`  WHERE 
 `code`= '$code' && 
 `unit` = '$cunits' &&
 `programme` = '$prgrm' &&
@@ -141,18 +141,18 @@ mysqli_query($conn,"DELETE FROM `results`  WHERE
 				
 		// get students names from table 
 				
-				$snms = mysqli_query($conn,"SELECT `names` FROM `studentsnm` WHERE `matno` = '$smatno'");
+				$snms = mysqli_query($logs,"SELECT `names` FROM `studentsnm` WHERE `matno` = '$smatno'");
 				$stdnmr = mysqli_fetch_assoc($snms);
 				$snames = $stdnmr['names'];
 				
-				$snames = mysqli_escape_string($conn,$snames);
+				$snames = mysqli_escape_string($logs,$snames);
 				
 				include("includes/scoregrade.php");
 				
 				//include("includes/scoregrade1.php"); THIS SCORE GRADE IS FOR pgd
 
 				$point = $n[$grade1];
-				mysqli_query($conn,"INSERT IGNORE INTO `results`  
+				mysqli_query($logs,"INSERT IGNORE INTO `results`  
 				(`name`, `matric_no`, `code`, `unit`, `score`, `grade`, `points`,`programme`, `semester`, `session`) 
 				VALUES( 
                     '".addslashes($snames)."',
@@ -177,7 +177,7 @@ mysqli_query($conn,"DELETE FROM `results`  WHERE
         
     } while ($data = fgetcsv($handle,1000,",","'"));
     
-    $qry = mysqli_query($conn,"INSERT INTO `entered` (`code`, `unit`, `programme`, `semester`, `session`)
+    $qry = mysqli_query($logs,"INSERT INTO `entered` (`code`, `unit`, `programme`, `semester`, `session`)
         VALUES ('$code', '$cunits', '$prgrm', '$semst', '$sesn')") or die(mysqli_error());
     // 
   //echo $data[3];
@@ -208,13 +208,13 @@ mysqli_query($conn,"DELETE FROM `results`  WHERE
 if(isset($_POST['Submitf'])){
 
 $programme=$_POST['programme'];
-$programme= mysqli_escape_string($conn,$programme);
+$programme= mysqli_escape_string($logs,$programme);
 
 //	$year=$_POST['year'];
 	$session=$_POST['session'];
 	$semester=$_POST['semester'];
 
-$crss = mysqli_query($conn,"SELECT * FROM `course` WHERE 
+$crss = mysqli_query($logs,"SELECT * FROM `course` WHERE 
 `Programme` = '$programme' && `semester` = '$semester' && `sessions` = '$session' ") 
 or die(mysqli_error());
 ?>
@@ -268,7 +268,7 @@ if (empty($_GET['csv'])) {
 
                 <?php include('dptcode.php');
                 $queri = 	programmess_dept($_SESSION['depts_ids'], $logs); 
-                //	$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
+                //	$queri = mysqli_query($logs,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
                 while($pcd = mysqli_fetch_assoc($queri)){
                 ?>
                 <option><?php echo $pcd['programme'];?></option>
@@ -325,7 +325,7 @@ $code = $_GET['code'];
 $semst = $_GET['sem'];
 $prgrm = $_GET['prog'];
 
-$prgrm = mysqli_escape_string($conn,$prgrm);
+$prgrm = mysqli_escape_string($logs,$prgrm);
 
 $sesn = $_GET['sessn'];
 echo "<hr>";
@@ -333,7 +333,7 @@ echo "<p>Existing Records for ".$code." </p>";
 echo "<hr>";
 echo "<hr>";
 echo "<br>";
-$sql = mysqli_query($conn,"SELECT * FROM `results` 
+$sql = mysqli_query($logs,"SELECT * FROM `results` 
 WHERE `code` = '$code' && `programme`= '$prgrm' && `semester` = '$semst' && `session`= '$sesn' ") or die(mysqli_error());
 	
 	echo "<table style='width: 100%'>";

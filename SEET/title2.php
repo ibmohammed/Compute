@@ -1,7 +1,7 @@
 <div align="center" style="font-size:24pt;">NIGER STATE POLYTECHNIC, ZUNGERU</div>
 <div align="center" style="font-size:14pt;">CENTRE FOR CONTINUING EDUCATION AND TRAINING</div>
 <?PHP 
-$csns= mysqli_query($conn,"SELECT college, school
+$csns= mysqli_query($logs,"SELECT college, school
 FROM `dept` 
 WHERE dep = '$programme' ") 
 or die (mysql_error());

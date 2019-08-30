@@ -5,12 +5,12 @@ if (!isset($_SESSION))
 }?>
 
 <?php 
-include("includes/header.php"); 
+//include("includes/header.php"); 
 //include("logintop.php");
 ?>
 	<?php 
 
-$dcode =  dept_function($conn);             
+$dcode =  dept_function($logs);             
 
 
 //staff registration 
@@ -38,14 +38,14 @@ $t_user = $_POST['t_user'];
 		$logintbl = 	staff_reg($names,$number,$contact,$dptdcode);
 	}else{
 		$dptdcode = $_POST['dptdcode'];
-		$ccodes = mysqli_query($conn, "SELECT dept_id, name, schl_id FROM `departments` WHERE code= '".$dptdcode."' ") or die(mysqli_error($logs));
+		$ccodes = mysqli_query($logs, "SELECT dept_id, name, schl_id FROM `departments` WHERE code= '".$dptdcode."' ") or die(mysqli_error($logs));
 		$ccdes = mysqli_fetch_assoc($ccodes);
 		$logintbl = 	staff_reg($names,$number,$contact,$ccdes['dept_id']);
 		
 	}
 	
 	
-	if (mysqli_query($conn, $logintbl))
+	if (mysqli_query($logs, $logintbl))
 	{
 		//echo "User Added Successfuly";
 		//$uname = 
@@ -53,7 +53,7 @@ $t_user = $_POST['t_user'];
 		$qry="INSERT INTO logintbl (username, password, progs, t_user, status)
 		VALUES ('$number', '0000', '$dptdcode', '$t_user', '$t_user')";
 		
-		if (mysqli_query($conn, $qry))
+		if (mysqli_query($logs, $qry))
 		{
 		//echo "User Added Successfuly";
 
@@ -68,14 +68,14 @@ $t_user = $_POST['t_user'];
 		else
 		{
 			echo"request failed .";
-			echo mysqli_error($conn);
+			echo mysqli_error($logs);
 		}
 		
 	}
 	else
 	{
 		echo"request failed .";
-		echo mysqli_error($conn);
+		echo mysqli_error($logs);
 	}
 	
 	//end staff registration 
@@ -190,7 +190,7 @@ if(@$_GET['Success']==True)
 		VALUES ('$uname','$pwd','$dptdcode', '0', '0')";
 		
 		
-		if (mysqli_query($conn,$logintbl))
+		if (mysqli_query($logs,$logintbl))
 		{
 
 
@@ -205,7 +205,7 @@ if(@$_GET['Success']==True)
 		else
 		{
 			echo"request failed .";
-			echo mysqli_error($conn);
+			echo mysqli_error($logs);
 		}
 	
 	}
@@ -258,7 +258,7 @@ if(@$_GET['Success']==True)
 
 	<?php 
 
-	 $dcode =  dept_function($conn);             
+	 $dcode =  dept_function($logs);             
 	
 
 	 ?>

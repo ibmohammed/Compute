@@ -1,6 +1,6 @@
 <?php error_reporting(-1); ?>
 <?php ini_set('display_errors', true); ?>
-<?php include("includes/header.php"); ?>
+<?php //include("includes/header.php"); ?>
     
 
 <p>

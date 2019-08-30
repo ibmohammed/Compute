@@ -80,10 +80,10 @@ if(@$_SESSION['usercomfirmed'] == True){
               </div>
             </a>
             <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item" href="#">
+           <!--   <a class="dropdown-item" href="#">
                 <i class="mdi mdi-cached mr-2 text-success"></i>
                 Activity Log
-              </a>
+              </a>-->
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="SEET/logout.php?logout">
                 <i class="mdi mdi-logout mr-2 text-primary"></i>
@@ -315,10 +315,13 @@ if(@$_SESSION['usercomfirmed'] == True){
         <!---dashboard -->
        <div class="page-header">
           <h3 class="page-title">
+          <a href="stdprofile.php">
           <span class="page-title-icon bg-gradient-primary text-white mr-2">
-          <i class="mdi mdi-home"></i>                 
+          <i class="mdi mdi-home"></i>          
+          </a>       
           </span>
               Dashboard
+              
             </h3>
             <nav aria-label="breadcrumb">
               <ul class="breadcrumb">

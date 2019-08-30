@@ -1,6 +1,6 @@
 <?php error_reporting(-1); ?>
 <?php ini_set('display_errors', true); ?>
-<?php include("header.php");?>
+<?php //include("header.php");?>
 
 <style type="text/css">
 <!--
@@ -30,8 +30,8 @@ $semester = $sem;
 $programme = $course;
 $matno = $mat;
 
-$gqry_result = calculate_gp_all($conn, $course, $mat);
-//$sql= mysqli_query($conn,$gqry) or die (mysqli_error());
+$gqry_result = calculate_gp_all($logs, $course, $mat);
+//$sql= mysqli_query($logs,$gqry) or die (mysqli_error());
 
 $unit=0;
 $gp=0;

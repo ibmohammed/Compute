@@ -1,4 +1,4 @@
-<?php include('includes/header.php');?>
+<?php //include('includes/header.php');?>
 <table align="center">
   <tr>
     <td align="center"><a href="index.php">
@@ -36,7 +36,7 @@ if (isset($_POST['button']))
         if(substr(trim($line),-1, 1) == ';') // if it has a semi colunm at the end, its the end of the query
         {
           //include('includes/header.php');
-          mysqli_query($conn, $templine) or die(mysqli_error($conn)); ////perfom the query
+          mysqli_query($logs, $templine) or die(mysqli_error($logs)); ////perfom the query
           $templine = ''; // reset temp variable to empty
         }
       }

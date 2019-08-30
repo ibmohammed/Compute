@@ -22,16 +22,14 @@
 	}
 
 	//$ccgpa
-	if ($semester <=5)
+	if ($semester<=5)
 	{
 		if($rem>=1)
 		{
 
 			if(($gpa<=1.49)&&($semester==1)&&($unit == 0) )
 			{
-
 				echo "";
-
 			}
 			elseif(($gpa<=1.49)&&($semester>=1))
 			{
@@ -39,8 +37,7 @@
 			}elseif(($unit > $unn))
 			{
 				echo "";
-				//}elseif(($gpa<=1.49)&&($semester>=1)&&($unit == 0)){
-				//echo "";
+				
 			}
 		}
 		elseif($rem<1)
@@ -52,10 +49,11 @@
 			elseif($gpa<=1.49 && ($unit < $unn))
 			{
 				echo "ATW";
-			}elseif(($unit == $unn)&& ($gpa >=1.50))
+			}elseif(($unit == $unn)&& ($gpa>=1.50))
 			{
 				echo "PASS";
 			}
+
 		}
 
 	}

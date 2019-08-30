@@ -98,6 +98,23 @@ function edit_students($logs, $programme, $year)
   return $result;
 }
 
+
+function score_templates($logs, $programme, $year)
+{
+  $query = "SELECT `matno` FROM `studentsnm` 
+            WHERE prog_id = ? &&  `year` = ? 
+            ORDER BY length(matno),matno ASC";
+
+  $stmt = mysqli_prepare($logs,$query) or die(mysqli_error($logs). "menu control Error");
+
+  mysqli_stmt_bind_param($stmt, "is", $programme, $year);
+  mysqli_stmt_execute($stmt);
+  $result = mysqli_stmt_get_result($stmt);
+
+  return $result;
+}
+
+
 // the chronocle 
 function the_chronicle($logs)
 {

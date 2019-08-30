@@ -1,4 +1,4 @@
-<?php include("includes/header.php"); ?>
+<?php // include("includes/header.php"); ?>
 
 <div align="left">
  
@@ -20,7 +20,7 @@ $list=$_POST['list'];
 		if ((!$programme)){
 	die("empty fields not allowed");
 	}
-		$query= mysqli_query($conn,"SELECT * FROM course WHERE programme='$programme' && semester	='$semester'");
+		$query= mysqli_query($logs,"SELECT * FROM course WHERE programme='$programme' && semester	='$semester'");
 	if(!$query){
 	die (mysqli_error());
 	}
@@ -76,7 +76,7 @@ $list=$_POST['list'];
       <br />RESULT ANALYSIS  
 	      <?php $n = $start; 
   
-$msql=mysqli_query($conn,"SELECT * FROM `studentsnm` WHERE dept ='$programme' && year='$year' && Withdrwan ='0' ORDER BY  `matno` ASC");
+$msql=mysqli_query($logs,"SELECT * FROM `studentsnm` WHERE dept ='$programme' && year='$year' && Withdrwan ='0' ORDER BY  `matno` ASC");
 if(!$msql){
 die(mysqli_error());
 }
@@ -86,7 +86,7 @@ $n= $n+1;
  ?>
 	                  <?php 
 		$matno = $col['matno'];
-		$sql= mysqli_query($conn,"SELECT * FROM results WHERE programme='$programme' && semester='$semester'  && matric_no='$matno'");
+		$sql= mysqli_query($logs,"SELECT * FROM results WHERE programme='$programme' && semester='$semester'  && matric_no='$matno'");
 			if(!$sql){
 	die (mysqli_error());
 	}
@@ -135,7 +135,7 @@ include("includes/sick.php");
 ?>
               <?php 
 		$matno = $col['matno'];
-		$mysql= mysqli_query($conn,"SELECT * FROM results WHERE programme='$programme' &&  matric_no='$matno'");
+		$mysql= mysqli_query($logs,"SELECT * FROM results WHERE programme='$programme' &&  matric_no='$matno'");
 		
 	if(!$mysql){
 	die (mysqli_error());
@@ -220,7 +220,7 @@ if(($rem>=1 )&&($reslt=="AE") or ($reslt=="ABS")){
 $session=$_POST['session'];
 $year=$_POST['year'];
 $programme=$_POST['programme'];
-		$qry = mysqli_query($conn,"SELECT * FROM course WHERE programme='$programme' && semester	='$semester' && sessions = '$session'") or die (mysqli_error());
+		$qry = mysqli_query($logs,"SELECT * FROM course WHERE programme='$programme' && semester	='$semester' && sessions = '$session'") or die (mysqli_error());
 				?>
           <table border="1"  style="font-size:12px; width: 600px; border:thin; border-collapse:collapse">
             <tr>
@@ -300,7 +300,7 @@ $programme=$_POST['programme'];
              <?php include('dptcode.php') ;
             
             
-            $queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
+            $queri = mysqli_query($logs,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error());
             
             while($pcd = mysqli_fetch_assoc($queri)){
             ?>

@@ -2,7 +2,7 @@
 <?php ini_set('display_errors', true); ?>
 
 <?php 
-include("includes/header.php"); 
+//include("includes/header.php"); 
 
 if (!isset($_SESSION)) {
   session_start();
@@ -16,9 +16,9 @@ $odept = $_POST['odept'];
 
 $id = $_POST['prog_id'];
 
-$sqls = mysqli_query($conn,"UPDATE `programmes` SET 
+$sqls = mysqli_query($logs,"UPDATE `programmes` SET 
 `programme` = '$ndept'
- WHERE `prog_id` ='$id'") or die(mysqli_error($conn));
+ WHERE `prog_id` ='$id'") or die(mysqli_error($logs));
 
 
 echo "Successful!";
@@ -29,7 +29,7 @@ $id = $_GET['id'];
 
 if($_GET['edpr'] == 1){
 echo "<p><h2>Edit Programme</h2></p>";
-$sql = mysqli_query($conn,"SELECT * FROM `programmes` WHERE `prog_id` = '$id'") or die(mysqli_error($conn));
+$sql = mysqli_query($logs,"SELECT * FROM `programmes` WHERE `prog_id` = '$id'") or die(mysqli_error($logs));
 $col = mysqli_fetch_assoc($sql);?>
 
 
@@ -56,7 +56,7 @@ $col = mysqli_fetch_assoc($sql);?>
 <?php }else{
 echo "Delete Records";
 
-$sql = mysqli_query($conn,"DELETE FROM `dept` WHERE `dept`.`id` = '$id'") or die(mysqli_error());
+$sql = mysqli_query($logs,"DELETE FROM `dept` WHERE `dept`.`id` = '$id'") or die(mysqli_error());
 }
 }
  ?>

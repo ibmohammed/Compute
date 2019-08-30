@@ -178,7 +178,7 @@ echo "<font color = 'red'><i>"."Carry over computed"."</i></font>";
               </select>
           -          
           <select name="year" id="year">
-            <option selected="selected"></option>
+            <option selected="selected" value=""></option>
 			<option>10</option>
             <option>11</option>
             <option>12</option>

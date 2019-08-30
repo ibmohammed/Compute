@@ -8,9 +8,9 @@ $username_logs = "nigerpol_root";
 $password_logs = "number012345@";
 
 
-$conn = mysqli_connect($hostname_logs, $username_logs, $password_logs, $database_logs);
+$logs = mysqli_connect($hostname_logs, $username_logs, $password_logs, $database_logs);
 // Check connection
-if (!$conn) {
+if (!$logs) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
@@ -102,21 +102,21 @@ $sql6="LOAD DATA  INFILE '$backup_file7' INTO TABLE $table_name6  SET sn = ''";
 LOAD DATA INFILE '' INTO TABLE $table_name SET sn = '';
 */
 
-mysqli_select_db($conn,'nigerpol_consultdbsnw');
-$retval = mysqli_query($conn,$sql) or die('Could not take data backup: ' . mysqli_error($conn));
-$retval1 = mysqli_query($conn,$sql1) or die('Could not take data backup:1 ' . mysqli_error($conn));
-$retval2= mysqli_query($conn,$sql2) or die('Could not take data backup:2' . mysqli_error($conn));
-$retval3 = mysqli_query($conn,$sql3) or die('Could not take data backup:3 ' . mysqli_error($conn));
-$retval4 = mysqli_query($conn,$sql4) or die('Could not take data backup:4 ' . mysqli_error($conn));
-$retval5 = mysqli_query($conn,$sql5) or die('Could not take data backup:5 ' . mysqli_error($conn));
-$retval6 = mysqli_query($conn,$sql6) or die('Could not take data backup:6 ' . mysqli_error($conn));
+mysqli_select_db($logs,'nigerpol_consultdbsnw');
+$retval = mysqli_query($logs,$sql) or die('Could not take data backup: ' . mysqli_error($logs));
+$retval1 = mysqli_query($logs,$sql1) or die('Could not take data backup:1 ' . mysqli_error($logs));
+$retval2= mysqli_query($logs,$sql2) or die('Could not take data backup:2' . mysqli_error($logs));
+$retval3 = mysqli_query($logs,$sql3) or die('Could not take data backup:3 ' . mysqli_error($logs));
+$retval4 = mysqli_query($logs,$sql4) or die('Could not take data backup:4 ' . mysqli_error($logs));
+$retval5 = mysqli_query($logs,$sql5) or die('Could not take data backup:5 ' . mysqli_error($logs));
+$retval6 = mysqli_query($logs,$sql6) or die('Could not take data backup:6 ' . mysqli_error($logs));
 
 /*if(! $retval ||! $retval1 || ! $retval2 || ! $retval3 || ! $retval4)
 {
  vgf */ 
 
 echo "data Uploaded successfully\n";
-mysqli_close($conn);
+mysqli_close($logs);
 }?>
 
 <br /><br />

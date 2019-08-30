@@ -15,6 +15,8 @@ require("includes/header.php");
 <body>
 <?php 
 $academic_res = 2;
+$inc_form = 1;
 include("result_views.php");
+//exit;
 ?>
   </body>    

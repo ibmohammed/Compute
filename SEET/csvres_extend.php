@@ -34,7 +34,7 @@ if(isset($_POST['Submitm']))
 					 `prog_id` =  '$prgrm' && 
 					 `semester` = '$semst' && 
 					 `sessions` = '$sesn'";
-   $unt = mysqli_query($conn,$unitt) or die(mysqli_error($conn));
+   $unt = mysqli_query($logs,$unitt) or die(mysqli_error($logs));
 			$unitss = mysqli_fetch_assoc($unt);
 			$cunits = $unitss["unit"];
 	// check if recordsexist			
@@ -44,7 +44,7 @@ if(isset($_POST['Submitm']))
 					 `prog_id` =  '$prgrm' && 
 					 `semester` = '$semst' && 
 					 `session` = '$sesn'";
-	if($qqry = mysqli_query($conn,$sqry))
+	if($qqry = mysqli_query($logs,$sqry))
 	{
 		$nmrws = mysqli_num_rows($qqry);
 	}
@@ -70,19 +70,19 @@ if(isset($_POST['Submitm']))
 					// insert into result table
 					
 
-					$resultssn = insert_result($conn, $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn);
+					$resultssn = insert_result($logs, $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn);
 					mysqli_stmt_execute($resultssn);
 
 					// save Carry Over scores
 					
 					if ($score>=0 and $score <=39){
 						$co_spill = "co";
-						$resultssn = insert_prev_result($conn, $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn,$co_spill);
+						$resultssn = insert_prev_result($logs, $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn,$co_spill);
 					mysqli_stmt_execute($resultssn);
 					}
 
 					// chronicle 
-					$lids = mysqli_insert_id($conn);
+					$lids = mysqli_insert_id($logs);
 					$action = "INSERTED";
 					include("dchronicle_res.php");
 					// End of chronicles 
@@ -91,7 +91,7 @@ if(isset($_POST['Submitm']))
 				fclose($handle);
 				echo "Successfully imported";
 				// add to table entered courses
-				insert_entered($conn, $code, $cunits, $prgrm, $semst, $sesn);
+				insert_entered($logs, $code, $cunits, $prgrm, $semst, $sesn);
 				
 			}
 			else
@@ -102,19 +102,19 @@ if(isset($_POST['Submitm']))
 		else
 		{
 			// Delete from table entered  and results to enable records overwrite
-			mysqli_query($conn,"DELETE FROM `entered` WHERE
+			mysqli_query($logs,"DELETE FROM `entered` WHERE
 			`code`= '$code' && 
 			`unit` = '$cunits' && 
 			`prog_id` =  '$prgrm' && 
 			`semester` = '$semst' && 
-			`session` = '$sesn' ") or die(mysqli_error($conn).'hhn');
+			`session` = '$sesn' ") or die(mysqli_error($logs).'hhn');
 			// Delete from result table
-			mysqli_query($conn,"DELETE FROM `results`  WHERE 
+			mysqli_query($logs,"DELETE FROM `results`  WHERE 
 			`code`= '$code' && 
 			`unit` = '$cunits' && 
 			`prog_id` =  '$prgrm' && 
 			`semester` = '$semst' && 
-			`session` = '$sesn'") or die (mysqli_error($conn).'hh');
+			`session` = '$sesn'") or die (mysqli_error($logs).'hh');
 
 			$fname = $_FILES['csv']['name'];
 
@@ -135,7 +135,7 @@ if(isset($_POST['Submitm']))
 					include("getname_getgrade_insertres.php");
 					// insert into result table
 
-					$resultssn = insert_result($conn, $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn);
+					$resultssn = insert_result($logs, $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn);
 					mysqli_stmt_execute($resultssn);
 
 						// save Carry Over scores
@@ -143,7 +143,7 @@ if(isset($_POST['Submitm']))
 					if ($score>=0 and $score <=39){
 						$co_spill = "co";
 						//insert_prev_result($con, $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn,$co_spill);
-						$resultssn = update_prev_result($conn,$score,$grade1,$point,$co_spill,$smatno,$code);
+						$resultssn = update_prev_result($logs,$score,$grade1,$point,$co_spill,$smatno,$code);
 						mysqli_stmt_execute($resultssn);
 					}
 
@@ -158,7 +158,7 @@ if(isset($_POST['Submitm']))
 				fclose($handle);
 				echo "Successfully importednn";
 				// add to table entered courses
-				insert_entered($conn, $code, $cunits, $prgrm, $semst, $sesn);
+				insert_entered($logs, $code, $cunits, $prgrm, $semst, $sesn);
 	
 			}
 			else
@@ -195,7 +195,7 @@ if(isset($_POST['Submitm']))
 					$succeed = "SPO Result";
 				}
 
-				$resultssn = update_result($conn, $score,$grade1,$point,$curent_sess,$co_spill,$smatno,$code);
+				$resultssn = update_result($logs, $score,$grade1,$point,$curent_sess,$co_spill,$smatno,$code);
 				mysqli_stmt_execute($resultssn);
 
 				// save Spill Over scores

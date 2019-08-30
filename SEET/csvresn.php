@@ -8,14 +8,14 @@ if(isset($_POST['Submitff']))
 {
 	$programme=$_POST['dept_id'];
 	$ncode=$_POST['code'];
-	$programme = mysqli_escape_string($conn, $programme);
+	$programme = mysqli_escape_string($logs, $programme);
 
 
 	$myqry = "SELECT * FROM entered 
 	WHERE 
 	code='".$_POST['code']."' && prog_id ='".$_POST['dept_id']."' 
 	&& semester='".$_POST['semester']."' && session='".$_POST['session']."'";
-	$chh = mysqli_query($conn, $myqry) or die(mysqli_error($conn).'999');
+	$chh = mysqli_query($logs, $myqry) or die(mysqli_error($logs).'999');
 	//mysqli_num_rows()
 
 
@@ -24,7 +24,7 @@ if(isset($_POST['Submitff']))
 		// view result 
 		$rec = "SELECT * FROM `results` WHERE code='".$_POST['code']."'
 		&& prog_id='".$_POST['dept_id']."' && semester='".$_POST['semester']."' && session='".$_POST['session']."'";
-		$clue = mysqli_query($conn, $rec) or die(mysqli_error($conn));
+		$clue = mysqli_query($logs, $rec) or die(mysqli_error($logs));
 		echo '<h3>Uploaded Scores for '.$_POST['code'].' </h3>';
 		?>
 		<!-- -->
@@ -72,7 +72,7 @@ else
 		$id_staff = $_SESSION['id_staff'];
 
 	$crss = "SELECT `code`, `title`, `unit`, `prog_id`, `semester`, `sessions` FROM `course` WHERE `staff_id` = ?";
-	if($crss = mysqli_prepare($conn,$crss))
+	if($crss = mysqli_prepare($logs,$crss))
 	{
 		mysqli_stmt_bind_param($crss, "i", $id_staff);
 		// set parameter
@@ -80,7 +80,7 @@ else
 	}
 	else
 	{
-		die(mysqli_error($conn));	
+		die(mysqli_error($logs));	
 	}
 	
 	mysqli_stmt_execute($crss);

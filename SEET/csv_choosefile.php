@@ -24,10 +24,10 @@
 
 							
 
-							$stmt = mysqli_prepare($conn, "SELECT * FROM `entered` 
-							WHERE `code` = ? && `unit`=? && `prog_id`=? & `semester`=? && `session`=?") or die(mysqli_error($conn));
+							$stmt = mysqli_prepare($logs, "SELECT * FROM `entered` 
+							WHERE `code` = ? && `unit`=? && `prog_id`=? & `semester`=? && `session`=?") or die(mysqli_error($logs));
 
-							//$stmtts = select_entered($conn, $thecode, $theunit, $theprogid, $thesemester, $thesession);
+							//$stmtts = select_entered($logs, $thecode, $theunit, $theprogid, $thesemester, $thesession);
 							$nrows = $crss = mysqli_stmt_get_result($stmt);
 							mysqli_stmt_bind_param($stmt, "sisss", $thecode, $theunit, $theprogid, $thesemester, $thesession);
 							$thecode = $rows['code'];

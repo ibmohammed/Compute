@@ -23,20 +23,20 @@ if (isset($_GET['upload']))
 elseif(isset($_GET['yes']))
 {
 	?>
-	<?php include("includes/header.php");
+	<?php //include("includes/header.php");
 $dbname = $database_logs;
 	// create db 
-	$createdb = mysqli_query($conn,"CREATE DATABASE `$dbname` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci");
-	if ($conn)
+	$createdb = mysqli_query($logs,"CREATE DATABASE `$dbname` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci");
+	if ($logs)
 	{
 		// drop database
-		$drop = mysqli_query($conn,"DROP DATABASE $dbname"); 
-		$createdb = mysqli_query($conn,"CREATE DATABASE `$dbname` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci");
+		$drop = mysqli_query($logs,"DROP DATABASE $dbname"); 
+		$createdb = mysqli_query($logs,"CREATE DATABASE `$dbname` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci");
 
 		//  Table structure for table `colleges`
 
-		$colleges = mysqli_query($conn,"DROP TABLE IF EXISTS `colleges`");
-		$colleges1 = mysqli_query($conn,"CREATE TABLE IF NOT EXISTS `colleges` (
+		$colleges = mysqli_query($logs,"DROP TABLE IF EXISTS `colleges`");
+		$colleges1 = mysqli_query($logs,"CREATE TABLE IF NOT EXISTS `colleges` (
 		`college_id` int(11) NOT NULL AUTO_INCREMENT,
 		`college` text NOT NULL,
 		`collegecode` varchar(10) NOT NULL,
@@ -45,8 +45,8 @@ $dbname = $database_logs;
 
 		// -- Table structure for table `coresult`
 
-		$coresult= mysqli_query($conn,"DROP TABLE IF EXISTS `coresult`");
-		$coresult1= mysqli_query($conn,"CREATE TABLE IF NOT EXISTS `coresult` (
+		$coresult= mysqli_query($logs,"DROP TABLE IF EXISTS `coresult`");
+		$coresult1= mysqli_query($logs,"CREATE TABLE IF NOT EXISTS `coresult` (
 		`sn` int(11) NOT NULL AUTO_INCREMENT,
 		`name` varchar(60) NOT NULL,
 		`matric_no` char(255) NOT NULL,
@@ -66,8 +66,8 @@ $dbname = $database_logs;
 
 		//Table structure for table `course`
 
-		$course= mysqli_query($conn,"DROP TABLE IF EXISTS `course`");
-		$course1= mysqli_query($conn,"CREATE TABLE IF NOT EXISTS `course` (
+		$course= mysqli_query($logs,"DROP TABLE IF EXISTS `course`");
+		$course1= mysqli_query($logs,"CREATE TABLE IF NOT EXISTS `course` (
 		`sn` int(11) NOT NULL AUTO_INCREMENT,
 		`prog_id` varchar(255) NOT NULL,
 		`unit` int(2) NOT NULL,
@@ -82,8 +82,8 @@ $dbname = $database_logs;
 
 		//Table structure for table `departments`
 
-		$departments= mysqli_query($conn,"DROP TABLE IF EXISTS `departments`");
-		$departments1= mysqli_query($conn,"CREATE TABLE IF NOT EXISTS `departments` (
+		$departments= mysqli_query($logs,"DROP TABLE IF EXISTS `departments`");
+		$departments1= mysqli_query($logs,"CREATE TABLE IF NOT EXISTS `departments` (
 		`dept_id` int(11) NOT NULL AUTO_INCREMENT,
 		`name` varchar(255) NOT NULL,
 		`code` varchar(20) NOT NULL,
@@ -94,8 +94,8 @@ $dbname = $database_logs;
 
 		//Table structure for table `entered`
 
-		$entered = mysqli_query($conn,"DROP TABLE IF EXISTS `entered`");
-		$entered1 = mysqli_query($conn,"CREATE TABLE IF NOT EXISTS `entered` (
+		$entered = mysqli_query($logs,"DROP TABLE IF EXISTS `entered`");
+		$entered1 = mysqli_query($logs,"CREATE TABLE IF NOT EXISTS `entered` (
 		`sn` int(11) NOT NULL AUTO_INCREMENT,
 		`code` varchar(10) NOT NULL,
 		`unit` int(11) NOT NULL,
@@ -107,8 +107,8 @@ $dbname = $database_logs;
 
 		//Table structure for table `logintbl`
 
-		$logintbl = mysqli_query($conn,"DROP TABLE IF EXISTS `logintbl`");
-		$logintbl1 = mysqli_query($conn,"CREATE TABLE IF NOT EXISTS `logintbl` (
+		$logintbl = mysqli_query($logs,"DROP TABLE IF EXISTS `logintbl`");
+		$logintbl1 = mysqli_query($logs,"CREATE TABLE IF NOT EXISTS `logintbl` (
 		`id` int(11) NOT NULL AUTO_INCREMENT,
 		`username` varchar(255) NOT NULL,
 		`password` varchar(2810) NOT NULL,
@@ -121,8 +121,8 @@ $dbname = $database_logs;
 
 		//Table structure for table `programmes`
 
-		$programmes = mysqli_query($conn,"DROP TABLE IF EXISTS `programmes`");
-		$programmes1 = mysqli_query($conn,"CREATE TABLE IF NOT EXISTS `programmes` (
+		$programmes = mysqli_query($logs,"DROP TABLE IF EXISTS `programmes`");
+		$programmes1 = mysqli_query($logs,"CREATE TABLE IF NOT EXISTS `programmes` (
 		`prog_id` int(11) NOT NULL AUTO_INCREMENT,
 		`programme` varchar(255) NOT NULL,
 		`dept_id` int(11) NOT NULL,
@@ -132,8 +132,8 @@ $dbname = $database_logs;
 
 		// Table structure for table `results`
 
-		$results = mysqli_query($conn,"DROP TABLE IF EXISTS `results`");
-		$results1 = mysqli_query($conn,"CREATE TABLE IF NOT EXISTS `results` (
+		$results = mysqli_query($logs,"DROP TABLE IF EXISTS `results`");
+		$results1 = mysqli_query($logs,"CREATE TABLE IF NOT EXISTS `results` (
 		`sn` int(11) NOT NULL AUTO_INCREMENT,
 		`name` varchar(60) NOT NULL,
 		`matric_no` char(255) NOT NULL,
@@ -152,8 +152,8 @@ $dbname = $database_logs;
 
 		//Table structure for table `schools`
 
-		$schools = mysqli_query($conn,"DROP TABLE IF EXISTS `schools`");
-		$schools1 = mysqli_query($conn,"CREATE TABLE IF NOT EXISTS `schools` (
+		$schools = mysqli_query($logs,"DROP TABLE IF EXISTS `schools`");
+		$schools1 = mysqli_query($logs,"CREATE TABLE IF NOT EXISTS `schools` (
 		`schl_id` int(11) NOT NULL AUTO_INCREMENT,
 		`school` text NOT NULL,
 		`schoolcode` varchar(10) NOT NULL,
@@ -163,8 +163,8 @@ $dbname = $database_logs;
 
 		//Table structure for table `session`
 
-		$session = mysqli_query($conn,"DROP TABLE IF EXISTS `session`");
-		$session1 = mysqli_query($conn,"CREATE TABLE IF NOT EXISTS `session` (
+		$session = mysqli_query($logs,"DROP TABLE IF EXISTS `session`");
+		$session1 = mysqli_query($logs,"CREATE TABLE IF NOT EXISTS `session` (
 		`id` int(11) NOT NULL AUTO_INCREMENT,
 		`session` varchar(100) NOT NULL,
 		`semester` varchar(100) NOT NULL,
@@ -174,8 +174,8 @@ $dbname = $database_logs;
 
 		//Table structure for table `staff`
 
-		$staff = mysqli_query($conn,"DROP TABLE IF EXISTS `staff`");
-		$staff1 = mysqli_query($conn,"CREATE TABLE IF NOT EXISTS `staff` (
+		$staff = mysqli_query($logs,"DROP TABLE IF EXISTS `staff`");
+		$staff1 = mysqli_query($logs,"CREATE TABLE IF NOT EXISTS `staff` (
 		`id` int(11) NOT NULL AUTO_INCREMENT,
 		`names` varchar(100) NOT NULL,
 		`number` varchar(50) NOT NULL,
@@ -187,8 +187,8 @@ $dbname = $database_logs;
 
 		//Table structure for table `studentsnm`
 
-		$studentsnm = mysqli_query($conn,"DROP TABLE IF EXISTS `studentsnm`");
-		$studentsnm1 = mysqli_query($conn,"CREATE TABLE IF NOT EXISTS `studentsnm` (
+		$studentsnm = mysqli_query($logs,"DROP TABLE IF EXISTS `studentsnm`");
+		$studentsnm1 = mysqli_query($logs,"CREATE TABLE IF NOT EXISTS `studentsnm` (
 		`sn` int(11) NOT NULL AUTO_INCREMENT,
 		`names` varchar(255) NOT NULL,
 		`matno` varchar(255) NOT NULL,
@@ -207,8 +207,8 @@ $dbname = $database_logs;
 
 		//Table structure for table `students_log`
 
-		$students_log = mysqli_query($conn,"DROP TABLE IF EXISTS `students_log`");
-		$students_log1 = mysqli_query($conn,"CREATE TABLE IF NOT EXISTS `students_log` (
+		$students_log = mysqli_query($logs,"DROP TABLE IF EXISTS `students_log`");
+		$students_log1 = mysqli_query($logs,"CREATE TABLE IF NOT EXISTS `students_log` (
 		`id` int(11) NOT NULL AUTO_INCREMENT,
 		`matric_no` varchar(100) NOT NULL,
 		`password` varchar(20000) NOT NULL,
@@ -220,8 +220,8 @@ $dbname = $database_logs;
 
 		//Table structure for table `usertype`
 
-		$usertype = mysqli_query($conn,"DROP TABLE IF EXISTS `usertype`");
-		$usertype1 = mysqli_query($conn,"CREATE TABLE IF NOT EXISTS `usertype` (
+		$usertype = mysqli_query($logs,"DROP TABLE IF EXISTS `usertype`");
+		$usertype1 = mysqli_query($logs,"CREATE TABLE IF NOT EXISTS `usertype` (
 		`id` int(11) NOT NULL AUTO_INCREMENT,
 		`type` varchar(100) NOT NULL,
 		`status` varchar(50) NOT NULL,

@@ -1,4 +1,4 @@
-<?php include("includes/header.php"); ?>
+<?php //include("includes/header.php"); ?>
     
 	<?php // include('title1.php');?>
 <div align="left">
@@ -17,7 +17,7 @@
     die("empty fields not allowed");
     }
     
-    $query= mysqli_query($conn,"SELECT * FROM course WHERE prog_id='$programme' && semester	='$semester'");
+    $query= mysqli_query($logs,"SELECT * FROM course WHERE prog_id='$programme' && semester	='$semester'");
     if(!$query){
     die (mysqli_error());
     }
@@ -36,7 +36,7 @@
   $session=$_POST['session'];
   $year=$_POST['year'];
   $programme=$_POST['programme'];
-      $qry = mysqli_query($conn,"SELECT * FROM course WHERE prog_id='$programme' && semester	='$semester' && sessions = '$session'") or die (mysqli_error());
+      $qry = mysqli_query($logs,"SELECT * FROM course WHERE prog_id='$programme' && semester	='$semester' && sessions = '$session'") or die (mysqli_error());
           ?>
           
         <!--
@@ -75,21 +75,24 @@
     
   // include this for 6 or 3 semester programme
 
-    if (($semester == 6) or ($semester == 3)){
-    echo "No of Students with Distinction: ".$dst."<br> ";
-    echo "No of Students with Uper Credit: ".$uc."<br> ";
-    echo "No of Students with Lower credit: ".$lc."<br> ";
-    echo "No of Students with Pass: ".$pss."<br> ";
-    
-    }
+    //if (($semester == 6) or ($semester == 3)){
+      if (($semester == 6))
+      {
+        echo "No of Students with Distinction: ".$dst."<br> ";
+        echo "No of Students with Uper Credit: ".$uc."<br> ";
+        echo "No of Students with Lower credit: ".$lc."<br> ";
+        echo "No of Students with Pass: ".$pss."<br> ";
+      }
     // in %
-    include('reanalyz.php');	
-    include("barchart.php"); 
     ?></td>
         </tr>
     </table>
 
-  <?php // exit;}?>
+  <?php
+  
+  include('reanalyz.php');	
+  include("barchart.php"); 
+  // exit;}?>
   </div>
   <!--
   -->

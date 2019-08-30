@@ -29,7 +29,7 @@ if (!$dt){
   error_reporting(-1);
   ini_set('display_errors', true);
   
-  require("includes/header.php");
+  //require("includes/header.php");
 
 $table_name = "coresult";
 $table_name1 = "course";
@@ -56,19 +56,19 @@ $sql5="LOAD DATA INFILE '$backup_file6' INTO TABLE $table_name5";
 $sql6="LOAD DATA INFILE '$backup_file7' INTO TABLE $table_name6";
 
 mysql_select_db('consultdbsnw');
-$retval = mysqli_query($conn, $sql);
-$retval1 = mysqli_query($conn, $sql1);
-$retval2= mysqli_query($conn, $sql2);
-$retval3 = mysqli_query($conn, $sql3);
-$retval4 = mysqli_query($conn, $sql4);
-$retval4 = mysqli_query($conn, $sql5);
-$retval4 = mysqli_query($conn, $sql6);
+$retval = mysqli_query($logs, $sql);
+$retval1 = mysqli_query($logs, $sql1);
+$retval2= mysqli_query($logs, $sql2);
+$retval3 = mysqli_query($logs, $sql3);
+$retval4 = mysqli_query($logs, $sql4);
+$retval4 = mysqli_query($logs, $sql5);
+$retval4 = mysqli_query($logs, $sql6);
 if(! $retval ||! $retval1 || ! $retval3 || ! $retval4)
 {
   die('Could not take data backup: ' . mysql_error());
 }
 echo "data Uploaded successfully\n";
-mysql_close($conn);
+mysql_close($logs);
 }?>
 
 <br /><br />

@@ -33,7 +33,7 @@ function MM_validateForm() { //v4.0
 </head>
 <?php error_reporting(-1); ?>
 <?php ini_set('display_errors', true); ?>
-<?php include("includes/header.php"); ?>        
+<?php //include("includes/header.php"); ?>        
 
 
 
@@ -41,12 +41,12 @@ function MM_validateForm() { //v4.0
 if(isset($_POST['Submit2']))
 {
   $programme=$_POST['programme'];
-  $programme = mysqli_escape_string($conn, $programme);
+  $programme = mysqli_escape_string($logs, $programme);
   $year=$_POST['year'];
   $session=$_POST['session'];
   $semester=$_POST['semester'];
   $name= $_POST['name'];
-  $name = mysqli_escape_string($conn, $name);
+  $name = mysqli_escape_string($logs, $name);
   $matno= $_POST['matno'];
   $count = $_POST['count'];
   $session = $_POST['session'];
@@ -57,10 +57,10 @@ if(isset($_POST['Submit2']))
   $matricno=$_POST['matno'];
 
 
-  $sql1=mysqli_query($conn,"SELECT * FROM `results`
+  $sql1=mysqli_query($logs,"SELECT * FROM `results`
   WHERE `matric_no` = '$matricno'AND 
   `prog_id` = '$programme' AND 
-  `semester`='$semester'") or die (mysqli_error($conn));
+  `semester`='$semester'") or die (mysqli_error($logs));
     
   if (!$name && !$matno)
   {
@@ -82,7 +82,7 @@ if(isset($_POST['Submit2']))
             include("includes/scoregrade.php");
             $point = $n[$grade1];
             // insert results
-            $query=mysqli_query($conn,"INSERT IGNORE INTO `results` 
+            $query=mysqli_query($logs,"INSERT IGNORE INTO `results` 
             (`sn`, `name`, `matric_no`, `code`,`unit`,`score`, `grade`,`points`,
             `prog_id`, `semester`, `session`) VALUES (NULL, '$name', '$matno',
             '$code','$unit', '$score', '$grade1','$point', '$programme', '$semester',
@@ -94,26 +94,20 @@ if(isset($_POST['Submit2']))
 				include("dchronicle_res.php");
 				// End of chronicles  
 
-
-
-
           } 
         }
       }
     }
 
 
-
-
-
     // update status
-    $updt = mysqli_query($conn,"UPDATE `studentsnm` 
+    $updt = mysqli_query($logs,"UPDATE `studentsnm` 
     SET `status` = '$semester' WHERE `studentsnm`.`matno` ='$matno'");
 
-    $query = mysqli_query($conn,"SELECT * FROM `course` 
+    $query = mysqli_query($logs,"SELECT * FROM `course` 
     WHERE prog_id ='$programme' && semester = '$semester' && sessions = '$session'");
 
-    $sql = mysqli_query($conn,"SELECT * FROM `studentsnm` 
+    $sql = mysqli_query($logs,"SELECT * FROM `studentsnm` 
     WHERE prog_id='$programme' && year = '$year' && status < '$semester' ORDER BY `studentsnm`.`matno` ASC");
     $row = mysqli_fetch_assoc($sql);
     
@@ -162,9 +156,9 @@ if(isset($_POST['Submit2']))
 
               //echo "<input type='text' value='".$matno."'>";
 
-              $sqry = mysqli_query($conn,"SELECT * FROM `results` 
+              $sqry = mysqli_query($logs,"SELECT * FROM `results` 
               WHERE  matric_no = '$smatno' && code = '$cscode' && unit = '$csunit'"
-              )or die('sqry'.mysqli_error($conn));			
+              )or die('sqry'.mysqli_error($logs));			
               $nmrws = mysqli_num_rows($sqry);
               if($nmrws ==0)
               {
@@ -204,7 +198,7 @@ if(isset($_POST['Submit']))
 {
   $programme=$_POST['programme'];
 
-  $programme = mysqli_escape_string($conn,$programme);
+  $programme = mysqli_escape_string($logs,$programme);
 
   $year=$_POST['year'];
   $session=$_POST['session'];
@@ -219,18 +213,18 @@ if(isset($_POST['Submit']))
 		//die("Empty fields not allowed!!!"."<a href='index.php?views'><br>&lt;&lt;Back</a>");
 	}
 
-  $query=mysqli_query($conn,"SELECT * FROM `course` 
-  WHERE prog_id ='$programme' && semester = '$semester'  && sessions = '$session'") or die(mysqli_error($conn));
+  $query=mysqli_query($logs,"SELECT * FROM `course` 
+  WHERE prog_id ='$programme' && semester = '$semester'  && sessions = '$session'") or die(mysqli_error($logs));
 
-  $sql=mysqli_query($conn,"SELECT * FROM `studentsnm` 
+  $sql=mysqli_query($logs,"SELECT * FROM `studentsnm` 
   WHERE prog_id='$programme'  && year = '$year' && 
-  status <'$semester' && Withdrwan ='0' ORDER BY `studentsnm`.`matno` ASC") or die(mysqli_error($conn));
+  status <'$semester' && Withdrwan ='0' ORDER BY `studentsnm`.`matno` ASC") or die(mysqli_error($logs));
   $row=mysqli_fetch_assoc($sql);
 
   $matricno=$row['matno'];
 
-  $sql1=mysqli_query($conn,"SELECT *FROM `results`
-  WHERE `matric_no` LIKE '$matricno'AND `prog_id` = '$programme'") or die (mysqli_error($conn));
+  $sql1=mysqli_query($logs,"SELECT *FROM `results`
+  WHERE `matric_no` LIKE '$matricno'AND `prog_id` = '$programme'") or die (mysqli_error($logs));
   $col =mysqli_fetch_assoc($sql1);
 
   if (($matricno==$col['matric_no'])&&($programme==$col['code'])&&($programme==$col['semester']))
@@ -281,8 +275,8 @@ if(isset($_POST['Submit']))
 
             //echo "<input type='text' value='".$matno."'>";
 
-            $sqry = mysqli_query($conn,"SELECT * FROM `results` 
-            WHERE  matric_no = '$smatno' && code = '$cscode' && unit = '$csunit'")or die('sqry'.mysqli_error($conn));			
+            $sqry = mysqli_query($logs,"SELECT * FROM `results` 
+            WHERE  matric_no = '$smatno' && code = '$cscode' && unit = '$csunit'")or die('sqry'.mysqli_error($logs));			
             $nmrws = mysqli_num_rows($sqry);
             if($nmrws ==0)
             {
@@ -329,7 +323,7 @@ if(isset($_POST['Submit']))
             <option selected="selected" value="">Select Programme</option>
               <?php include('dptcode.php');
               $queri = 	programmess_dept($_SESSION['depts_ids'], $logs); 
-              //	$queri = mysqli_query($conn,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error($conn));
+              //	$queri = mysqli_query($logs,"SELECT * FROM `dept` WHERE prog = '$departmentcode'") or die(mysqli_error($logs));
               while($pcd = mysqli_fetch_assoc($queri)){
               ?>
               <option value="<?php echo $pcd['prog_id'];?>"><?php echo $pcd['programme'];?></option>

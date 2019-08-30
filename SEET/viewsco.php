@@ -1,4 +1,4 @@
-<?php require("includes/header.php");?>
+<?php //require("includes/header.php");?>
 
 <div align="left">
   
@@ -22,7 +22,7 @@ if ($programme =="" || $year == "" || $session == "" || $semester == "")
 	}
   
   
-	$query= mysqli_query($conn,"SELECT * FROM course 
+	$query= mysqli_query($logs,"SELECT * FROM course 
 	WHERE prog_id='$programme' && semester	='$semester' && sessions = '$session'") 
   or die (mysqli_error());
   	
@@ -64,7 +64,7 @@ if ($programme =="" || $year == "" || $session == "" || $semester == "")
 	echo"<br>CARRY OVER RESULTS";
 	?>
         </div>
-	    <table border="1" align="center" cellpadding="0" cellspacing="1" style="font-size:11px; width: auto; border:thin; border-collapse:collapse">
+        <table id="t1" border="1" cellpadding="0" cellspacing="1" style=" border:thin; border-collapse:collapse; overflow-x:auto;" class="table table-hover">
 	      <tr>
 	        <td rowspan="2" ><div align="center" class="style2" style="font-weight: bold">S/N</div></td>
         <td rowspan="2" ><div align="center" class="style2" style="font-weight: bold">Matric_No</div></td>
@@ -94,7 +94,7 @@ if ($programme =="" || $year == "" || $session == "" || $semester == "")
       </tr>
         <?php $n = $start; 
         
-$msql=mysqli_query($conn,"SELECT * FROM `studentsnm` WHERE 
+$msql=mysqli_query($logs,"SELECT * FROM `studentsnm` WHERE 
 prog_id ='$programme'&&  year='$year' && `stat`='2' && Withdrwan ='0'
 ORDER BY length(matno),matno ASC") or die(mysqli_error());
 
@@ -106,9 +106,9 @@ $n= $n+1;
             <td><?php echo $col['matno'];?></td>
     <?php 
 		$matno = $col['matno'];
-    $sql= mysqli_query($conn,"SELECT * FROM results WHERE 
+    $sql= mysqli_query($logs,"SELECT * FROM results WHERE 
 		prog_id='$programme' && semester='$semester' && matric_no='$matno'") 
-		or die (mysqli_error($conn));
+		or die (mysqli_error($logs));
 		
 		$unit=0;
 		$gp=0;
@@ -117,12 +117,12 @@ $n= $n+1;
 	        <td>
 	        <div align="center">
 	        <?php
-	    $ssql= mysqli_query($conn, "SELECT * FROM prev_results 
-      WHERE prog_id='$programme' && semester='$semester'  && matric_no='$matno'") or die(mysqli_error($conn));    
+	    $ssql= mysqli_query($logs, "SELECT * FROM prev_results 
+      WHERE prog_id='$programme' && semester='$semester'  && matric_no='$matno'") or die(mysqli_error($logs));    
 	    $wr = mysqli_fetch_assoc($ssql);
 	    
 			if ($res['code']==$wr['code']){
-			echo " <u style=''>".$res['grade']."</u>";
+			echo " <u style='color:red; font-weight:bold'>".$res['grade']."</u>";
 			//echo ;
 			}else{ 
 			echo $res['grade'];
@@ -156,77 +156,8 @@ $n= $n+1;
             <td><div align="center"><?php echo $ccu;?></div></td>
             <td><div align="center"><?php echo $ccgp;?></div></td>
             <td><div align="center"><?php echo $ccgpa;?></div></td>
-            <td><div align="center" class="style1">
-            <?php include("includes/rmk.php"); ?>
-            </div></td>
-            <td><div align="center">
-              <?php 
-		$matno = $col['matno'];
-		    
-    $mysql= mysqli_query($conn,"SELECT * FROM results 
-    WHERE prog_id='$programme' &&  matric_no='$matno'") 
-    or die (mysqli_error($conn));
-
-
-      
-		$qq= mysqli_query($conn,"SELECT SUM(unit) AS vaule_sum FROM course 
-		WHERE prog_id='$programme' && semester ='$semester' && sessions = '$session'");
-		$uu = mysqli_fetch_assoc($qq);
-    $unn = $uu['vaule_sum'];
-    
-
-		//$unit=0;
-		//$gp=0;
-		$rem = 0;
-		while ($result=mysqli_fetch_assoc($mysql)){ 
-		if (($result['grade'] =="F")||($result['grade'] =="PEND")||($result['grade'] =="ABS")||($result['grade'] =="SICK")||($result['grade'] =="ABSE")||($result['grade'] =="EM")||($res['grade']=="AE")){
-    $rem = $rem +1;
-    $reslt =$result['grade'];
-		}
-    }
-    // $ccgpa
-		if ($semester <=5){
-		if($rem>=1){
-
-      if(($gpa<=1.49)&&($semester==1)&&($unit == 0) ){
-
-        echo "";
-      
-        }elseif(($gpa<=1.49)&&($semester>=1)){
-      
-        echo "ATW";
-        }elseif(($unit > $unn)){
-        echo "";
-        //}elseif(($gpa<=1.49)&&($semester>=1)&&($unit == 0)){
-        //echo "";
-        }
-        }elseif($rem<1){
-        if(($unit == $unn)&&($gpa>=3.5)){
-          echo "QR";
-          }else
-          if($gpa<=1.49 && ($unit < $unn)){
-          echo "ATW";
-          }elseif(($unit == $unn)&& ($gpa >=1.50)){
-            echo "PASS";
-          }
-        }
-	
-	}elseif($semester==6){
-	
-    if(($rem>=1 )&&($reslt=="EM")){
-      echo "EM"; 
- }elseif($rem>=1){
-echo "";
-
-}elseif($rem<1){
-include("includes/remks.php");
-echo $remarks;
-}
-
-} 
-
-?>
-            </div></td>
+            <td colspan=4></td>
+            <td><div align="center"> <?php include("includes/rmk.php"); ?>  </div></td>
           </tr><?php }?>
         </table>     
 
