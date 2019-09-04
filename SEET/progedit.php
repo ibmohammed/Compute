@@ -44,7 +44,6 @@ $col = mysqli_fetch_assoc($sql);?>
 				<input name="odept" type="hidden" value="<?php echo $col['programme'];?>" placeholder = "<?php echo $col['programme'];?>" class="form-control"/>
 			</tr>
 			
-			
 		</table>
 		<br>
 		<input name="prog_id" type="hidden"  value="<?php echo $col['prog_id'];?>" class="form-control"/>
@@ -53,7 +52,7 @@ $col = mysqli_fetch_assoc($sql);?>
 </form>
 
 <hr>
-<?php }else{
+<?php }elseif($_GET['edpr'] == 0){
 echo "Delete Records";
 
 $sql = mysqli_query($logs,"DELETE FROM `dept` WHERE `dept`.`id` = '$id'") or die(mysqli_error());

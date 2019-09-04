@@ -24,10 +24,8 @@
       // keep title here
     
   //	include('title.php');
-    
 
     ?>
-        
 
     <table>
         <tr>

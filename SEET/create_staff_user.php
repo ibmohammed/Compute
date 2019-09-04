@@ -20,11 +20,6 @@
             return $qry;
         }  
 
-                
-    
-
-               
-
 
 
 
@@ -41,12 +36,10 @@
 		$ccdes = mysqli_fetch_assoc($ccodes);
             
             if ($t_user !== "2"){
-                $password = "Simply012345@"; 
+                $password = "Simply012345"; 
             
             }else{
                 $password = $_POST['password'];
-
-
             }
 
             $passwordlength= strlen($password);

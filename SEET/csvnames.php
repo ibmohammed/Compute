@@ -82,7 +82,7 @@ if(isset($_POST['Submit'])){
 									$options = [
 										'cost' => 11,
 									];
-									$pp = "Eeasy0123.";
+									$pp = "Easy0123";
 								$stat = "Enable";
 								$hash = password_hash($pp, PASSWORD_BCRYPT,  $options);
 								

@@ -28,7 +28,7 @@ if (password_verify($password, $pwrd))
 else 
 {
 	echo '<script type="text/javascript">
-	alert("incorrect login detailsjjj");
+	alert("incorrect login details");
 	location.replace("logins.php");
 	</script>';
 }

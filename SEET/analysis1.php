@@ -82,11 +82,11 @@ $session = $_POST['session'];
 
 	<hr>
 	<?php 	//include('title1.php');
-	echo "Analyasis of Result";
+	echo "<h2>Analyasis of Result</h2>";
 	?>
 <hr>
 
-<table border="1"  cellpadding="0" cellspacing="1" style="font-size:12px; border:thin; border-collapse:collapse" class="table table-hover">
+<table border="1"  cellpadding="0" cellspacing="1" style="font-size:14px; border:thin; border-collapse:collapse; width:100%" class ="<?php echo $table;?>">
 	<tr>
 		<td style="height: 23px" class="auto-style1"><strong>SN</strong></td>
 		<td style="height: 23px" class="auto-style1"><strong>COURSE</strong></td>

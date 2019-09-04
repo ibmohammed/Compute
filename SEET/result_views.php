@@ -325,21 +325,15 @@ elseif($academic_res == 0 || $academic_res == 2)
     else{
 ///";
 include('selected.php');
-
     }
 			//exit; 
 }
 ?>
     
-    
-
-   
-    
   <p>&nbsp;</p>
 
-
 <?php
-if ($inc_form == 1)
+if (@$inc_form == 1)
 {
 
 }else{

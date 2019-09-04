@@ -32,7 +32,7 @@ if (!isset($_SESSION))
 		else 
 		{
 			echo '<script type="text/javascript">
-            alert("incorrect login");
+            alert("incorrect login Detail");
             location.replace("logins.php");
             </script>';
 			

@@ -77,7 +77,10 @@ if(isset($_POST['Submitm']))
 					
 					if ($score>=0 and $score <=39){
 						$co_spill = "co";
-						$resultssn = insert_prev_result($logs, $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn,$co_spill);
+						$curent_sess  = (date("Y") - 1)."/".date("Y");
+
+						$resultssn = insert_prev_result($logs, $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn,$curent_sess,$co_spill);
+								 	// insert_prev_result($logs, $snames,$smatno,$code,$cunits,$score,$grade1,$point,$prgrm,$semst,$sesn,$curent_sess,$co_spill)
 					mysqli_stmt_execute($resultssn);
 					}
 

@@ -1,4 +1,3 @@
-
 <br>
 <hr>
 <?php
@@ -11,36 +10,33 @@ if (!isset($_SESSION))
 }
 
 if(isset($_POST["Submit"]))
-{
-        
+{    
     $course_code = $_POST["c_code"];
     $semester = $_POST["semester"];
     $session = $_POST["session"];
     $programme = $_POST["programme"];
 
-
 //canvas js
-
 
 $dataPoints = array();
 
-    $grade_array = ["A","AB","B","BC","C","CD","D","E","F","EM","AE","AW","PI","MS","NR"];
+  $grade_array = ["A","AB","B","BC","C","CD","D","E","F","EM","AE","AW","PI","MS","NR"];
                 
-    foreach($grade_array as $gd)
-    {
-        $a = mysqli_query($logs,"SELECT * FROM `results` 
-                        WHERE grade = '$gd' && 
-                        code = '$course_code' &&  
-                        `prog_id` ='$programme' && 
-                        semester = '$semester' && 
-                        `session` = '$session' && 
-                        `stat` = '0'") 
-                        or die(mysqli_error($logs));
+  foreach($grade_array as $gd)
+  {
+      $a = mysqli_query($logs,"SELECT * FROM `results` 
+                      WHERE grade = '$gd' && 
+                      code = '$course_code' &&  
+                      `prog_id` ='$programme' && 
+                      semester = '$semester' && 
+                      `session` = '$session' && 
+                      `stat` = '0'") 
+                      or die(mysqli_error($logs));
 
-        $nrows = mysqli_num_rows($a);
+      $nrows = mysqli_num_rows($a);
 
-        array_push($dataPoints, array("label"=> $gd, "y"=> $nrows));
-    }
+      array_push($dataPoints, array("label"=> $gd, "y"=> $nrows));
+  }
 // enf of canvas js 
 ?>
 
@@ -70,14 +66,11 @@ chart.render();
 }
 </script>
 
-
 <?php
 $all_charts = 0;?>
 
-
 <div id="chartContainer" style="height: 370px; width: 100%;"></div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
 
 <?php 
 }

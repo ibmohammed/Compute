@@ -529,4 +529,29 @@ function select_entered($conn, $code, $unit, $prog_id, $semester, $session)
   return $stmt;
 }
 
+
+// 
+function the_delete_std($logs, $id)
+{
+
+  $sql = "DELETE FROM `studentsnm` WHERE `sn` = ?";
+  $stmt = mysqli_prepare($logs, $sql);
+
+  mysqli_stmt_bind_param($stmt, "i", $id);
+  $stmts = mysqli_stmt_execute($stmt);
+
+  return $stmts;
+}
+
+function delete_std_result($logs, $id, $matno)
+{
+
+  $sqls = "DELETE FROM `results` WHERE matric_no = ?";
+  $stmts = mysqli_prepare($logs, $sqls);
+  
+  mysqli_stmt_bind_param($stmts, "s", $matno);
+  $stmtss = mysqli_stmt_execute($stmts);
+
+  return $stmtss;
+}
   ?>

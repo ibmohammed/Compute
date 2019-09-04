@@ -3,7 +3,6 @@
 
 <?php 
 
-
 $semester=$_POST['semester'];
 $session=$_POST['session'];
 $year=$_POST['year'];

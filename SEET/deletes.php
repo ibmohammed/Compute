@@ -8,26 +8,22 @@
 </head>
 
 <body>
-	<?php if (isset($_GET['deletes'])){
-	$id = $_GET['id'];
-$matno = $_GET['matno'];
+	<?php if (isset($_GET['deletes']))
+	{
+		$id = $_GET['id'];
+		$matno = $_GET['matno'];
 
-	$query=mysql_query("DELETE FROM `studentsnm` WHERE sn = '$id'");
-	if (!$query){
-	die (mysql_error());
-	}
-	$query=mysql_query("DELETE FROM `results` WHERE matric_no = '$matno'");
-	if (!$query){
-	die (mysql_error());
-	}
-	
-	echo "<font color = 'red'><i>"."Deleted"."</i></font>";
+		//$query = mysqli_query($logs, "DELETE FROM `studentsnm` WHERE sn = '$id'");
+
+		the_delete_std($logs, $id);
+
+		//$query = mysql_query($logs, "DELETE FROM `results` WHERE matric_no = '$matno'");
+		delete_std_result($logs, $id, $matno);
+
+
+		echo "<font color = 'red'><i>"."Deleted"."</i></font>";
 	}
 	?>	
-	
-
-
-
 		<table border="0">
       <tr>
         <td>
@@ -46,7 +42,7 @@ $matno = $_GET['matno'];
 			
 $depts = $_GET['dept'];
 
-$depts = mysql_escape_string($depts);
+$depts = mysqli_escape_string($logs, $depts);
 
 $yearr = $_GET['year'];
 $sessionn = $_GET['session'];
@@ -57,9 +53,9 @@ $sessionn = $_GET['session'];
 			$session=$_POST['session'];
 			*/
 			
-			$sql=mysql_query("SELECT *FROM `studentsnm` WHERE dept = '$depts' && year ='$yearr' && session='$sessionn'  ORDER BY `matno` ASC");
+			$sql=mysqli_query($logs, "SELECT *FROM `studentsnm` WHERE prog_id = '$depts' && year ='$yearr' && session='$sessionn'  ORDER BY `matno` ASC") or die (mysqli_error($logs));
 			$n=0;
-			 while ($row=mysql_fetch_array($sql)){
+			 while ($row=mysqli_fetch_assoc($sql)){
 			 $n=$n+1;
 			 ?>
             <tr>
@@ -77,7 +73,9 @@ $sessionn = $_GET['session'];
 					  echo "<font color='#FF0000'>In_Active</font>";
 				  }?>
               </span></td>
-              <td ><a href="index.php?edits= &id=<?php echo $row['sn']."&"."Edit="."edit"."&"."dept="."$dept"."&"."year="."$year"."&"."session="."$session";?>" class="style1">EDIT</a></td>
+              <td >
+							
+							<a href="index.php?edits= &id=<?php echo $row['sn']."&"."Edit="."edit"."&"."dept="."$dept"."&"."year="."$year"."&"."session="."$session";?>" class="style1">EDIT</a></td>
               <td ><a href="index.php?id=<?php echo $row['sn']."&"."deletes="."del"."&"."matno=".$row['matno']."&"."dept="."$dept"."&"."year="."$year"."&"."session="."$session";?>" class="style1">DELETE</a></td>
             </tr><?php  }?>
           </table>

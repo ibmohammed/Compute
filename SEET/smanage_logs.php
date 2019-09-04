@@ -22,7 +22,7 @@ if (!isset($_SESSION))
 		else 
 		{
 			echo '<script type="text/javascript">
-			alert("incorrect login details'.$uname.$pwrd.'");
+			alert("incorrect login details");
 			location.replace("logins.php");
 			</script>';
 			

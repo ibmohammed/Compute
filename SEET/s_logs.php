@@ -28,7 +28,7 @@ $_SESSION['utyp'] =  "Student";
 if (password_verify($password, $test_p)) 
 {
 
-  if($password == "Eeasy0123")
+  if($password == "Easy0123")
   {
     $return_comfirm = login_comfirm($loginUsername, $password, $logs);
     mysqli_stmt_execute($return_comfirm);
@@ -118,7 +118,7 @@ if (password_verify($password, $test_p))
 else 
 {
 	echo '<script type="text/javascript">
-	alert("incorrect login");
+	alert("incorrect loginss");
 	location.replace("logins.php");
 	</script>';
 }

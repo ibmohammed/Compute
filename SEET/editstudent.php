@@ -92,6 +92,7 @@ if(isset($_POST['Submit2']))
         }?>
         </span></td>
         <td style="height: 16px" >
+        
           <a href="index.php?edits= &id=<?php echo $row['sn']."&"."Edit="."edit"."&"."dept="."$dept"."&"."year="."$year"."&"."session="."$session";?>" class="style4">EDIT</a>
         </td>
         <td style="height: 16px" >
@@ -199,7 +200,10 @@ elseif (isset($_GET['Edit']))
 }
 elseif (isset($_POST['Submit']))
 {
-  echo '<h5 style="font-style:italic; color:green" >Department of '.$_POST['dept'].', class of '.$_POST['year'].' records</h5>';
+  
+  $the_prog = programmes($_POST['dept'], $logs);
+  $prog_name = mysqli_fetch_assoc($the_prog);
+  echo '<h5 style="font-style:italic; color:green" > '.$prog_name['programme'].', class of '.$_POST['year'].' records</h5>';
   ?>
   <table class="table table-bordered">
     <tr>
